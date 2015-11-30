@@ -14,18 +14,37 @@
 
 using namespace v8;
 
-void SetOptions(pReaderOptions pOption, int option_iMaxBarcodesNumPerPage, int option_llBarcodeFormat){
+// Barcode format
+const char * GetFormatStr(__int64 format)
+{
+	if (format == CODE_39)
+		return "CODE_39";
+	if (format == CODE_128)
+		return "CODE_128";
+	if (format == CODE_93)
+		return "CODE_93";
+	if (format == CODABAR)
+		return "CODABAR";
+	if (format == ITF)
+		return "ITF";
+	if (format == UPC_A)
+		return "UPC_A";
+	if (format == UPC_E)
+		return "UPC_E";
+	if (format == EAN_13)
+		return "EAN_13";
+	if (format == EAN_8)
+		return "EAN_8";
+	if (format == INDUSTRIAL_25)
+		return "INDUSTRIAL_25";
+	if (format == QR_CODE)
+		return "QR_CODE";
+	if (format == PDF417)
+		return "PDF417";
+	if (format == DATAMATRIX)
+		return "DATAMATRIX";
 
-	if (option_llBarcodeFormat > 0)
-		pOption->llBarcodeFormat = option_llBarcodeFormat;
-	else
-		pOption->llBarcodeFormat = OneD;
-
-	if (option_iMaxBarcodesNumPerPage > 0)
-		pOption->iMaxBarcodesNumPerPage = option_iMaxBarcodesNumPerPage;
-	else
-		pOption->iMaxBarcodesNumPerPage = INT_MAX;
-
+	return "UNKNOWN";
 }
 
 void DecodeFile(const FunctionCallbackInfo<Value>& args) {
@@ -37,19 +56,22 @@ void DecodeFile(const FunctionCallbackInfo<Value>& args) {
 	String::Utf8Value utfStr(args[0]->ToString());
 	char *pFileName = *utfStr;
 
-	int option_iMaxBarcodesNumPerPage = -1;
-	int option_llBarcodeFormat = -1;
-
+	// Dynamsoft Barcode Reader: init
+	__int64 llFormat = (OneD | QR_CODE | PDF417 | DATAMATRIX);
+	int iMaxCount = 0x7FFFFFFF;
+	int iIndex = 0;
+	ReaderOptions ro = { 0 };
 	pBarcodeResultArray pResults = NULL;
-	ReaderOptions option;
-	SetOptions(&option, option_iMaxBarcodesNumPerPage, option_llBarcodeFormat);
+	int iRet = -1;
+	char * pszTemp = NULL;
 
-	// decode barcode image file
-	int ret = DBR_DecodeFile(
-		pFileName,
-		&option,
-		&pResults
-		);
+	// Initialize license
+	DBR_InitLicense("38B9B94D8B0E2B41DB1CC80A58946567");
+	ro.llBarcodeFormat = llFormat;
+	ro.iMaxBarcodesNumPerPage = iMaxCount;
+
+	// Decode barcode image
+	int ret = DBR_DecodeFile(pFileName, &ro, &pResults);
 
 	if (ret == DBR_OK){
 		int count = pResults->iBarcodeCount;
