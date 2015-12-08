@@ -21,26 +21,21 @@ namespace BarcodeWeb
                     string strReturnValue = "";
 
                     string strImgID = Ajaxfunctions.DecodeValueInXml(this.Request.Form["FileName"]);
+                    //translate strTemp image to normal image
+                    strImgID = BarcodeAccess.GetNormalImageName(strImgID);
+
                     string strFormat = Ajaxfunctions.DecodeValueInXml(this.Request.Form["BarcodeFormat"]);
+                    string strMaxNumbers = Ajaxfunctions.DecodeValueInXml(this.Request.Form["MaxNumbers"]);
+
+                    
                     string strSessionID = Ajaxfunctions.DecodeValueInXml(this.Request.Form["SessionID"]);
                     Int64 iFormat = Convert.ToInt64(strFormat);
-                    strReturnValue = this.DoBarcodeInner(strImgID, iFormat, strSessionID);
+                    int iMaxNumbers = Convert.ToInt32(strMaxNumbers);
+                    strReturnValue = this.DoBarcodeInner(strImgID, iFormat, iMaxNumbers, strSessionID);
                     Response.Write(strReturnValue);
                 }
-                else if (strMethod == "GetImageSize")
+                else if (strMethod == "Interval")
                 {
-                    string strReturnValue = "";
-
-                    string strFileName = Ajaxfunctions.DecodeValueInXml(this.Request.Form["FileName"]);
-
-                    strReturnValue = this.GetImageSize(strFileName);
-                    Response.Write(strReturnValue);
-                }
-                else if (strMethod == "EndSession")
-                {
-                    string sessionID = Ajaxfunctions.DecodeValueInXml(this.Request.Form["SessionID"]);
-                    EndSession(sessionID);
-                    Response.Write("Done");
                 }
             }
             else
@@ -49,19 +44,13 @@ namespace BarcodeWeb
             }
         }
 
-        private void EndSession(string sessionID)
-        {
-            if (Session.SessionID.Equals(sessionID))
-                Session.Abandon();
-        }
-
-        private string DoBarcodeInner(string strImgID, Int64 iFormat, string strSessionID)
+        private string DoBarcodeInner(string strImgID, Int64 iFormat, int iMaxNumbers, string strSessionID)
         {
             string strReturnValue = "";
             string strResult = "";
             try
             {
-                string strBarcodeInfo = BarcodeMode.Barcode(strImgID, iFormat, strSessionID, ref strResult);
+                string strBarcodeInfo = BarcodeMode.Barcode(strImgID, iFormat, iMaxNumbers, strSessionID, ref strResult);
                 strReturnValue = "OK;" + strBarcodeInfo + ";" + strResult;
             }
 
@@ -75,37 +64,6 @@ namespace BarcodeWeb
             }
             return strReturnValue;
         }
-
-
-        private string GetImageSize(string strFileName)
-        {
-            string strReturnValue = "";
-            int iWidth = 0;
-            int iHeight = 0;
-            Bitmap objImage = null;
-            try
-            {
-                string strPath = AppDomain.CurrentDomain.BaseDirectory + strFileName;
-                strPath = strPath.Replace("\\", "/");
-                objImage = new Bitmap(strPath);
-                iWidth = objImage.Width;
-                iHeight = objImage.Height;
-                strReturnValue = "OK;" + iWidth + ";" + iHeight; 
-            }
-            catch (Exception exp)
-            {
-                strReturnValue = "EXP;" + exp.Message.ToString();
-            }
-            finally
-            {
-                if (objImage != null)
-                {
-                    objImage.Dispose();
-                }  
-            }
-            return strReturnValue;
-        }
-
 
         public static string DecodeValueInXml(string sourceString)
         {

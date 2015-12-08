@@ -6,6 +6,7 @@ using System.Web;
 using System.Net;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.Runtime.InteropServices;
 
 namespace BarcodeDLL
 {
@@ -18,6 +19,7 @@ namespace BarcodeDLL
                                "tif","tiff",
                                "gif",
                                "png",
+                               //"pdf",
                                
                                                     };
         public static readonly string[] FileExtMimeType = { 
@@ -40,22 +42,72 @@ namespace BarcodeDLL
                                "gif","image/gif",
                                "png","image/png",
                                "png","application/x-png",
-                              // "pdf","application/pdf",
+                               "pdf","application/pdf",
                                };
         private static char cSep=System.IO.Path.DirectorySeparatorChar;
         private static string StrPath = AppDomain.CurrentDomain.BaseDirectory+"Images";
 
-        private static string UploadFolder = StrPath + cSep + "Upload";
+        public static string UploadFolder = StrPath + cSep + "Upload";
         private static string DemoFolder = StrPath + cSep + "Demo";
+        private static string CollectFolder = StrPath + cSep + "Collect";
+        private string m_strSessionID;
+        private string m_strFileNameTemp;
+        private string m_strFileName;
+        private string m_strAryFileName;
 
         public static string GetUploadFolder()
         {
             return UploadFolder;
         }
 
+        public BarcodeAccess(string strSessionID)
+        {
+            m_strSessionID = strSessionID;
+        }
+
+        /// <summary>
+        /// only return the name of normal image
+        /// </summary>
+        /// <param name="imagePath">(....)/xxxx/name</param>
+        /// <returns></returns>
+        public static string GetNormalImageName(string imagePath)
+        {
+            string strNormal = imagePath;
+            if (imagePath != null)
+            {
+                int start = imagePath.LastIndexOf("/");
+                if (start >= 0)
+                    strNormal = imagePath.Substring(start + 1);
+            }
+            return strNormal;
+        }
+
+        /// <summary>
+        /// return whole path of temp image
+        /// </summary>
+        /// <param name="imagePath"></param>
+        /// <returns></returns>
+        public static string GetTempImagePath(string imagePath)
+        {
+            string strTemp = imagePath;
+            if (imagePath != null)
+            {
+                int start = imagePath.LastIndexOf("/");
+                    string strFileName = imagePath.Substring(start + 1);
+                    int dotPos = strFileName.LastIndexOf('.');
+                    if (dotPos != -1)
+                    {
+                        string strName = strFileName.Substring(0, dotPos);
+                        string strExt = strFileName.Substring(dotPos + 1);
+                        strTemp = imagePath.Substring(0, start) + "/" + strName + "_" + strExt + ".jpeg";
+                    }
+            }
+            return strTemp;
+        }
+
         public static string GetNextFileIndex(string strFileExt, string strSessionID)
         {
-            if (strFileExt.ToLower() == "tif" || strFileExt.ToLower() == "tiff")
+            if (strFileExt.ToLower() == "tif" || strFileExt.ToLower() == "tiff" || strFileExt.ToLower() == "pdf")
             {
                 strFileExt = "jpg";
             }
@@ -67,58 +119,82 @@ namespace BarcodeDLL
                 strFile = now.ToString("yyyyMMdd_HHmmss_") + now.Millisecond +"_"+ (new Random().Next() % 1000).ToString();
                 strFileName = strFile + "." + strFileExt.ToLower();
             }
-            File.Create(UploadFolder + System.IO.Path.DirectorySeparatorChar + strSessionID + System.IO.Path.DirectorySeparatorChar  + strFileName).Close();
             return strFileName;
         }
 
-        internal static string SaveUploadFile(string strFileExt, byte[] data, string strSessionID)
+        internal string SaveUploadFile(string strFileExt, byte[] data)
         {
-            string strFileName = GetNextFileIndex(strFileExt, strSessionID);
-            if (strFileExt.ToLower() == "tif" || strFileExt.ToLower() == "tiff")
+            //bool isPdf = strFileExt.ToLower() == "pdf";
+            //if (isPdf)
+            //{
+            //    return SaveUploadPDFFile(strFileExt, data);
+            //}
+
+            string strFileName = GetNextFileIndex(strFileExt, m_strSessionID);
+            bool isTif = strFileExt.ToLower() == "tif" || strFileExt.ToLower() == "tiff";
+            bool isGif = strFileExt.ToLower() == "gif";
+
+            string strOriginalFileName = strFileName;
+            if (isTif)
+                strOriginalFileName = strOriginalFileName.Substring(0, strOriginalFileName.LastIndexOf('.')) + ".tiff";
+
+            using (MemoryStream memdata = new MemoryStream(data))
             {
-                using (MemoryStream memdata = new MemoryStream(data))
+                using (Bitmap map = new Bitmap(memdata))
                 {
-                    string strAryFileName = "";
-                    using (Bitmap map = new Bitmap(memdata))
-                    { 
+                    if (isTif || isGif)
+                    {
+                        string strAryFileName = "";
                         string strFileNameTemp = strFileName;
-                        int pages = map.GetFrameCount(FrameDimension.Page);
-                        for(int i= 0; i< pages; i++)
+                        int pages = 0;
+                        if (isTif)
+                            pages = map.GetFrameCount(FrameDimension.Page);
+                        else
+                            pages = 1;
+                        for (int i = 0; i < pages; i++)
                         {
+                            map.SelectActiveFrame(FrameDimension.Page, i);
+                            int dotPos = strFileNameTemp.LastIndexOf(".");
+                            if (dotPos > 0)
+                                strFileNameTemp = strFileNameTemp.Substring(0, dotPos) + "_" + map.Width + "_" + map.Height + strFileNameTemp.Substring(dotPos);
                             if (strAryFileName.Length == 0)
                                 strAryFileName = strAryFileName + strFileNameTemp;
                             else
                                 strAryFileName = strAryFileName + ":" + strFileNameTemp;
-                            map.SelectActiveFrame(FrameDimension.Page, i);
                             Bitmap bitmap = new Bitmap(map);
-                            bitmap.Save(UploadFolder + System.IO.Path.DirectorySeparatorChar + strSessionID + System.IO.Path.DirectorySeparatorChar + strFileNameTemp, System.Drawing.Imaging.ImageFormat.Png);
+                            bitmap.Save(UploadFolder + System.IO.Path.DirectorySeparatorChar + m_strSessionID + System.IO.Path.DirectorySeparatorChar + strFileNameTemp, System.Drawing.Imaging.ImageFormat.Png);
                             if (bitmap != null)
                                 bitmap.Dispose();
                             strFileNameTemp = (i + 1).ToString() + strFileName;
                         }
+                        strFileName = strAryFileName;
                     }
-                    strFileName = strAryFileName;
+                    else
+                    {
+                        int dotPos = strFileName.LastIndexOf(".");
+                        if (dotPos > 0)
+                            strFileName = strFileName.Substring(0, dotPos) + "_" + map.Width + "_" + map.Height + strFileName.Substring(dotPos);
+                        map.Save(UploadFolder + System.IO.Path.DirectorySeparatorChar + m_strSessionID + System.IO.Path.DirectorySeparatorChar + strFileName);
+                    }
                 }
             }
-            else
-                using (FileStream fs = File.Open(UploadFolder + System.IO.Path.DirectorySeparatorChar + strSessionID + System.IO.Path.DirectorySeparatorChar + strFileName,
-                      FileMode.Truncate, FileAccess.Write))
-                {
-                    fs.Write(data, 0, data.Length);
-                }
+            
             return strFileName;
         }
 
-        internal static string SaveLoadeFile(string strFileExt, Bitmap map, string strSessionID)
+        internal string SaveLoadeFile(string strFileExt, Bitmap map)
         {
-            string strFileName = GetNextFileIndex(strFileExt, strSessionID);
+            string strFileName = GetNextFileIndex(strFileExt, m_strSessionID);
+            int dotPos = strFileName.LastIndexOf(".");
+            if (dotPos > 0)
+                strFileName = strFileName.Substring(0, dotPos) + "_" + map.Width + "_" + map.Height + strFileName.Substring(dotPos);
 
-            map.Save(UploadFolder + System.IO.Path.DirectorySeparatorChar + strSessionID + System.IO.Path.DirectorySeparatorChar + strFileName, System.Drawing.Imaging.ImageFormat.Png);
-          
+            map.Save(UploadFolder + System.IO.Path.DirectorySeparatorChar + m_strSessionID + System.IO.Path.DirectorySeparatorChar + strFileName, System.Drawing.Imaging.ImageFormat.Png);
+
             return strFileName;
         }
 
-        internal static string FetchImageFromURL(string strImgURL, string strSessionID)
+        internal string FetchImageFromURL(string strImgURL)
         {
            HttpWebRequest req = (HttpWebRequest)HttpWebRequest.Create(strImgURL);
            string strFileName = "";
@@ -149,12 +225,8 @@ namespace BarcodeDLL
                    }
                    if (strExt == "")
                        throw new BarcodeException("URL is invalid image.");
-                   strFileName = GetNextFileIndex(strExt, strSessionID);
-                   using (FileStream fs = File.Open(UploadFolder + System.IO.Path.DirectorySeparatorChar + strSessionID + System.IO.Path.DirectorySeparatorChar + strFileName,
-                         FileMode.Truncate, FileAccess.Write))
-                   {
-                       fs.Write(data, 0,(int) response.ContentLength);
-                   }
+
+                   return SaveUploadFile(strExt, data);
                }
            }
            return strFileName;
@@ -215,7 +287,9 @@ namespace BarcodeDLL
         {
             string strDir = BarcodeAccess.GetUploadFolder() + System.IO.Path.DirectorySeparatorChar + strSessionID;
             if (!Directory.Exists(strDir))
-                 Directory.CreateDirectory(strDir);
+            {
+                Directory.CreateDirectory(strDir);
+            }
         }
     }
 }

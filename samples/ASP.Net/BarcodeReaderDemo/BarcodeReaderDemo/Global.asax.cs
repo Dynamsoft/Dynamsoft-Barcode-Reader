@@ -12,15 +12,23 @@ namespace BarcodeWeb
 
         protected void Application_Start(object sender, EventArgs e)
         {
+            System.Reflection.PropertyInfo p = typeof(System.Web.HttpRuntime).GetProperty("FileChangesMonitor", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Static);
+            object o = p.GetValue(null, null);
+            System.Reflection.FieldInfo f = o.GetType().GetField("_dirMonSubdirs", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.IgnoreCase);
+            object monitor = f.GetValue(o);
+            System.Reflection.MethodInfo m = monitor.GetType().GetMethod("StopMonitoring", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
+            m.Invoke(monitor, new object[] { }); 
         }
+
+        public const int TIME_OUT = 20;
 
         protected void Session_Start(object sender, EventArgs e)
         {
             Session["SessionID"] = System.Web.HttpContext.Current.Session.SessionID.ToString();
             try
             {
-                BarcodeMode.DeleteFolder(Session["SessionID"].ToString());
-                Session.Timeout = 20;
+                //BarcodeMode.DeleteFolder(Session["SessionID"].ToString());
+                Session.Timeout = TIME_OUT;
             }
             catch { }
             BarcodeMode.CreateFolder(Session["SessionID"].ToString());

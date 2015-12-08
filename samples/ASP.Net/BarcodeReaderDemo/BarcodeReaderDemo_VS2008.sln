@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BarcodeReaderDemo_VS2008", "BarcodeReaderDemo\BarcodeReaderDemo_VS2008.csproj", "{918626A3-B668-4D46-9A69-9422BCAED26A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{918626A3-B668-4D46-9A69-9422BCAED26A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{918626A3-B668-4D46-9A69-9422BCAED26A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{918626A3-B668-4D46-9A69-9422BCAED26A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{918626A3-B668-4D46-9A69-9422BCAED26A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

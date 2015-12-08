@@ -45,6 +45,8 @@
             this.picboxLast = new System.Windows.Forms.PictureBox();
             this.picboxFirst = new System.Windows.Forms.PictureBox();
             this.gbBarcodeType = new System.Windows.Forms.GroupBox();
+            this.chkDatamatrix = new System.Windows.Forms.CheckBox();
+            this.chkPDF417 = new System.Windows.Forms.CheckBox();
             this.chkQRCode = new System.Windows.Forms.CheckBox();
             this.chkIndustrial25 = new System.Windows.Forms.CheckBox();
             this.btnSelectAll = new System.Windows.Forms.Button();
@@ -68,11 +70,12 @@
             // 
             // btnOpenImage
             // 
+            this.btnOpenImage.AutoSize = true;
             this.btnOpenImage.Location = new System.Drawing.Point(468, 20);
             this.btnOpenImage.Name = "btnOpenImage";
-            this.btnOpenImage.Size = new System.Drawing.Size(75, 23);
+            this.btnOpenImage.Size = new System.Drawing.Size(84, 23);
             this.btnOpenImage.TabIndex = 0;
-            this.btnOpenImage.Text = "Open Image";
+            this.btnOpenImage.Text = "Open Image...";
             this.btnOpenImage.UseVisualStyleBackColor = true;
             this.btnOpenImage.Click += new System.EventHandler(this.btnOpenImage_Click);
             // 
@@ -113,15 +116,17 @@
             this.tbResults.ReadOnly = true;
             this.tbResults.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.tbResults.Size = new System.Drawing.Size(312, 313);
-            this.tbResults.TabIndex = 6;
+            this.tbResults.TabIndex = 7;
+            this.tbResults.TabStop = false;
             // 
             // btnRead
             // 
+            this.btnRead.AutoSize = true;
             this.btnRead.Enabled = false;
             this.btnRead.Location = new System.Drawing.Point(468, 253);
             this.btnRead.Name = "btnRead";
             this.btnRead.Size = new System.Drawing.Size(94, 23);
-            this.btnRead.TabIndex = 7;
+            this.btnRead.TabIndex = 6;
             this.btnRead.Text = "Read Barcodes";
             this.btnRead.UseVisualStyleBackColor = true;
             this.btnRead.Click += new System.EventHandler(this.btnRead_Click);
@@ -144,7 +149,7 @@
             this.tbxCurrentImageIndex.ReadOnly = true;
             this.tbxCurrentImageIndex.Size = new System.Drawing.Size(61, 20);
             this.tbxCurrentImageIndex.TabIndex = 83;
-            this.tbxCurrentImageIndex.Text = "-1";
+            this.tbxCurrentImageIndex.Text = "0";
             this.tbxCurrentImageIndex.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // lbDiv
@@ -242,6 +247,8 @@
             // 
             // gbBarcodeType
             // 
+            this.gbBarcodeType.Controls.Add(this.chkDatamatrix);
+            this.gbBarcodeType.Controls.Add(this.chkPDF417);
             this.gbBarcodeType.Controls.Add(this.chkQRCode);
             this.gbBarcodeType.Controls.Add(this.chkIndustrial25);
             this.gbBarcodeType.Controls.Add(this.btnSelectAll);
@@ -261,15 +268,41 @@
             this.gbBarcodeType.TabStop = false;
             this.gbBarcodeType.Text = "Barcode Type";
             // 
+            // chkDatamatrix
+            // 
+            this.chkDatamatrix.AutoSize = true;
+            this.chkDatamatrix.Checked = true;
+            this.chkDatamatrix.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkDatamatrix.Location = new System.Drawing.Point(228, 76);
+            this.chkDatamatrix.Name = "chkDatamatrix";
+            this.chkDatamatrix.Size = new System.Drawing.Size(76, 17);
+            this.chkDatamatrix.TabIndex = 12;
+            this.chkDatamatrix.Text = "Datamatrix";
+            this.chkDatamatrix.UseVisualStyleBackColor = true;
+            this.chkDatamatrix.CheckedChanged += new System.EventHandler(this.chkFormat_CheckedChanged);
+            // 
+            // chkPDF417
+            // 
+            this.chkPDF417.AutoSize = true;
+            this.chkPDF417.Checked = true;
+            this.chkPDF417.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkPDF417.Location = new System.Drawing.Point(228, 50);
+            this.chkPDF417.Name = "chkPDF417";
+            this.chkPDF417.Size = new System.Drawing.Size(65, 17);
+            this.chkPDF417.TabIndex = 11;
+            this.chkPDF417.Text = "PDF417";
+            this.chkPDF417.UseVisualStyleBackColor = true;
+            this.chkPDF417.CheckedChanged += new System.EventHandler(this.chkFormat_CheckedChanged);
+            // 
             // chkQRCode
             // 
             this.chkQRCode.AutoSize = true;
             this.chkQRCode.Checked = true;
             this.chkQRCode.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkQRCode.Location = new System.Drawing.Point(185, 89);
+            this.chkQRCode.Location = new System.Drawing.Point(228, 24);
             this.chkQRCode.Name = "chkQRCode";
             this.chkQRCode.Size = new System.Drawing.Size(67, 17);
-            this.chkQRCode.TabIndex = 11;
+            this.chkQRCode.TabIndex = 10;
             this.chkQRCode.Text = "QRCode";
             this.chkQRCode.UseVisualStyleBackColor = true;
             this.chkQRCode.CheckedChanged += new System.EventHandler(this.chkFormat_CheckedChanged);
@@ -279,20 +312,21 @@
             this.chkIndustrial25.AutoSize = true;
             this.chkIndustrial25.Checked = true;
             this.chkIndustrial25.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkIndustrial25.Location = new System.Drawing.Point(185, 60);
+            this.chkIndustrial25.Location = new System.Drawing.Point(9, 129);
             this.chkIndustrial25.Name = "chkIndustrial25";
             this.chkIndustrial25.Size = new System.Drawing.Size(98, 17);
-            this.chkIndustrial25.TabIndex = 10;
+            this.chkIndustrial25.TabIndex = 4;
             this.chkIndustrial25.Text = "Industrial 2 of 5";
             this.chkIndustrial25.UseVisualStyleBackColor = true;
             this.chkIndustrial25.CheckedChanged += new System.EventHandler(this.chkFormat_CheckedChanged);
             // 
             // btnSelectAll
             // 
-            this.btnSelectAll.Location = new System.Drawing.Point(185, 118);
+            this.btnSelectAll.AutoSize = true;
+            this.btnSelectAll.Location = new System.Drawing.Point(228, 102);
             this.btnSelectAll.Name = "btnSelectAll";
             this.btnSelectAll.Size = new System.Drawing.Size(75, 23);
-            this.btnSelectAll.TabIndex = 9;
+            this.btnSelectAll.TabIndex = 15;
             this.btnSelectAll.Text = "Unselect All";
             this.btnSelectAll.UseVisualStyleBackColor = true;
             this.btnSelectAll.Click += new System.EventHandler(this.btnSelectAll_Click);
@@ -302,10 +336,10 @@
             this.chkEAN8.AutoSize = true;
             this.chkEAN8.Checked = true;
             this.chkEAN8.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkEAN8.Location = new System.Drawing.Point(111, 89);
+            this.chkEAN8.Location = new System.Drawing.Point(122, 76);
             this.chkEAN8.Name = "chkEAN8";
             this.chkEAN8.Size = new System.Drawing.Size(57, 17);
-            this.chkEAN8.TabIndex = 8;
+            this.chkEAN8.TabIndex = 7;
             this.chkEAN8.Text = "EAN-8";
             this.chkEAN8.UseVisualStyleBackColor = true;
             this.chkEAN8.CheckedChanged += new System.EventHandler(this.chkFormat_CheckedChanged);
@@ -315,10 +349,10 @@
             this.chkEAN13.AutoSize = true;
             this.chkEAN13.Checked = true;
             this.chkEAN13.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkEAN13.Location = new System.Drawing.Point(111, 118);
+            this.chkEAN13.Location = new System.Drawing.Point(122, 102);
             this.chkEAN13.Name = "chkEAN13";
             this.chkEAN13.Size = new System.Drawing.Size(63, 17);
-            this.chkEAN13.TabIndex = 7;
+            this.chkEAN13.TabIndex = 8;
             this.chkEAN13.Text = "EAN-13";
             this.chkEAN13.UseVisualStyleBackColor = true;
             this.chkEAN13.CheckedChanged += new System.EventHandler(this.chkFormat_CheckedChanged);
@@ -328,7 +362,7 @@
             this.chkUPCE.AutoSize = true;
             this.chkUPCE.Checked = true;
             this.chkUPCE.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkUPCE.Location = new System.Drawing.Point(111, 60);
+            this.chkUPCE.Location = new System.Drawing.Point(122, 50);
             this.chkUPCE.Name = "chkUPCE";
             this.chkUPCE.Size = new System.Drawing.Size(58, 17);
             this.chkUPCE.TabIndex = 6;
@@ -341,7 +375,7 @@
             this.chkUPCA.AutoSize = true;
             this.chkUPCA.Checked = true;
             this.chkUPCA.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkUPCA.Location = new System.Drawing.Point(111, 31);
+            this.chkUPCA.Location = new System.Drawing.Point(121, 24);
             this.chkUPCA.Name = "chkUPCA";
             this.chkUPCA.Size = new System.Drawing.Size(58, 17);
             this.chkUPCA.TabIndex = 5;
@@ -354,10 +388,10 @@
             this.chkITF.AutoSize = true;
             this.chkITF.Checked = true;
             this.chkITF.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkITF.Location = new System.Drawing.Point(185, 31);
+            this.chkITF.Location = new System.Drawing.Point(122, 129);
             this.chkITF.Name = "chkITF";
             this.chkITF.Size = new System.Drawing.Size(109, 17);
-            this.chkITF.TabIndex = 4;
+            this.chkITF.TabIndex = 9;
             this.chkITF.Text = "Interleaved 2 of 5";
             this.chkITF.UseVisualStyleBackColor = true;
             this.chkITF.CheckedChanged += new System.EventHandler(this.chkFormat_CheckedChanged);
@@ -367,7 +401,7 @@
             this.chkCodabar.AutoSize = true;
             this.chkCodabar.Checked = true;
             this.chkCodabar.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkCodabar.Location = new System.Drawing.Point(22, 118);
+            this.chkCodabar.Location = new System.Drawing.Point(9, 102);
             this.chkCodabar.Name = "chkCodabar";
             this.chkCodabar.Size = new System.Drawing.Size(66, 17);
             this.chkCodabar.TabIndex = 3;
@@ -380,7 +414,7 @@
             this.chkCode93.AutoSize = true;
             this.chkCode93.Checked = true;
             this.chkCode93.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkCode93.Location = new System.Drawing.Point(24, 89);
+            this.chkCode93.Location = new System.Drawing.Point(9, 76);
             this.chkCode93.Name = "chkCode93";
             this.chkCode93.Size = new System.Drawing.Size(66, 17);
             this.chkCode93.TabIndex = 2;
@@ -393,7 +427,7 @@
             this.chkCode128.AutoSize = true;
             this.chkCode128.Checked = true;
             this.chkCode128.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkCode128.Location = new System.Drawing.Point(24, 60);
+            this.chkCode128.Location = new System.Drawing.Point(9, 50);
             this.chkCode128.Name = "chkCode128";
             this.chkCode128.Size = new System.Drawing.Size(72, 17);
             this.chkCode128.TabIndex = 1;
@@ -406,7 +440,7 @@
             this.chkCode39.AutoSize = true;
             this.chkCode39.Checked = true;
             this.chkCode39.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkCode39.Location = new System.Drawing.Point(24, 31);
+            this.chkCode39.Location = new System.Drawing.Point(9, 24);
             this.chkCode39.Name = "chkCode39";
             this.chkCode39.Size = new System.Drawing.Size(66, 17);
             this.chkCode39.TabIndex = 0;
@@ -483,6 +517,8 @@
         private System.Windows.Forms.CheckBox chkCode93;
         private System.Windows.Forms.CheckBox chkCode128;
         private System.Windows.Forms.CheckBox chkCode39;
+        private System.Windows.Forms.CheckBox chkDatamatrix;
+        private System.Windows.Forms.CheckBox chkPDF417;
     }
 }
 

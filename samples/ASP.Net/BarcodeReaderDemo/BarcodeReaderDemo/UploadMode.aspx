@@ -5,13 +5,19 @@
 <html xmlns="http://www.w3.org/1999/xhtml" >
      <head runat="server">
      <title></title>
-     <link rel="stylesheet" href="Css/basis.css?ver=2.0"/>
+     <link rel="stylesheet" href="Css/basis-bs.css"/>
      <link type="text/css" rel="Stylesheet" href="Css/style.css" />
+     <link rel="stylesheet" type="text/css" href="Css/bootstrap.css"/>
      
      <script type="text/javascript" language="javascript" src="Scripts/kissy-min.js"></script>
      <script type="text/javascript" language="javascript" src="Scripts/OnlineDemoAjax.js"></script>
      <script type="text/javascript" language="javascript" src="Scripts/DemoCommon.js"></script>
      <script type="text/javascript" language="javascript" src="Scripts/jquery-1.11.2.js"></script>
+     <script type="text/javascript" language="javascript" src="Scripts/bootstrap.min.js"></script>
+     <!--[if lt IE 9]>
+      <script type="text/javascript" src="Scripts/html5shiv.js"></script>
+      <script type="text/javascript" src="Scripts/respond.js"></script>
+     <![endif]-->
      <script type="text/javascript">
      function CheckLocalPath() {
             var objImgURL = document.getElementById("<%=upLoadFile.ClientID%>");
@@ -23,10 +29,9 @@
             return CheckFileExistInner(objImgURL);
         }
 
-        function ClickUploadImage() {
+         function ClickUploadImage() {
             var objHide = document.getElementById("<%=hide_State.ClientID %>");
             if (CheckLocalPath()) {
-            
                 parent.ClickUploadFile();
                 objHide.value = "1";
                 return true;
@@ -35,6 +40,7 @@
                 ClearUpLoadFile();
                 return false;
             }
+			
         }
         function ClickCopyFromURL() {
             var objHide = document.getElementById("<%=hide_State.ClientID %>");
@@ -90,61 +96,56 @@
 
          window.onload = function() {
              Init();
-             DoNotShowWaitDDialog();
              ShowImages();
-             SetState("0");
+             //DoNotShowWaitDDialog();
+             SetState("0");    
              ClearImgURL();
              ClearUpLoadFile();
+			 parent.imgPageNum();
          }
      </script>
      </head>
-     <body oncontextmenu=self.event.returnValue=false>
-     <ul id="image-menu">
+     <body class="uploadmode" >
+    <%-- <ul id="image-menu">
        <li class="clickon local-img">Local Images</li>
        <li class="download-img">Download Images</li>
-     </ul>
-     <form id="form1" runat="server">
+     </ul>--%>
+     <form id="form1" runat="server" enctype="multipart/form-data">
        <div id="local-image">
-         <div class="img-title"> File Path: </div>
-         <div>
+         <div class="img-title"><span class="num">1</span>Upload from local: </div>
+         <div class="con-fileupload">
            <asp:FileUpload CssClass="ImgLocalPath"  ID="upLoadFile"  size="115%" 
-                        style="width:645px;  filter:alpha(opacity=0);-moz-opacity:0;opacity:0;" runat="server"/>
+                        style="width:305px; height:40px; filter:alpha(opacity=0);-moz-opacity:0;opacity:0; font-size:23px;" runat="server" onchange="javascript:document.getElementById('AddImage').click();"/>
+            <asp:TextBox ID="txtUploadFileName" CssClass="ImgURL" ReadOnly="true" runat="server" ></asp:TextBox><input type="button" id="btnUploadFile" value="" />
+         
+         <input style="display:none;" type="button" id="Img1" value="" onclick="javascript:document.getElementById('AddImage').click();" />
+         <a class="bluelink" href="javascript:void(0);">or, Specify an URL</a>
          </div>
-         <asp:TextBox ID="txtUploadFileName" CssClass="ImgURL" ReadOnly=true runat="server"></asp:TextBox>
-         
-         <input type="button" id="btnUploadFile" value=""/>
-         
-         <input type="button" id="Img1" value="" onclick="javascript:document.getElementById('AddImage').click();" />
          <div style="display:none;">
-           <input id="AddImage" type="submit" onclick="return ClickUploadImage();" style="display:none;height:22px; width:1px;margin-left:0px; float:left;" value="Open Image" name="AddImage">
+           <input id="AddImage" type="submit" onclick="return ClickUploadImage();" style="display:none;height:22px; width:1px;margin-left:0px; float:left;" value="Open Image" name="AddImage"/>
          </div>
        </div>
        
        <div id="download-image" class="hidden">
-         <div class="img-title">Remote Image URL: </div>
+         <div class="img-title"><span class="num">1</span>Specify an URL: </div>
          <asp:TextBox ID="txtImgURL" CssClass="ImgURL" runat="server"></asp:TextBox>
-         <input type="button" value="" id="GetFileFromURL" onclick="javascript:document.getElementById('btnGetFileFromURL').click();" />
+         <input type="button" id="GetFileFromURL" onclick="javascript:document.getElementById('btnGetFileFromURL').click();" onkeyup=" if(event.keyCode==13) { javascript:document.getElementById('btnGetFileFromURL').click(); }" value="" />
+         <a class="bluelink" href="javascript:void(0);">or, Upload from local</a>
          <div style="display:none;">
-           <input id="btnGetFileFromURL" type="submit" onclick="return ClickCopyFromURL();" style="display:none;height:22px; width:1px; margin-left:0px;"  value="Open Image From URL" name="btnUploadFile">
+           <input id="btnGetFileFromURL" type="submit" onclick="return ClickCopyFromURL();" style="display:none;height:22px; width:1px; margin-left:0px;"  value="Open Image From URL" name="btnUploadFile"/>
          </div>
        </div>
        <asp:HiddenField ID="hide_State" Value= "0" runat="server" />
      </form>
 <script type="text/javascript">
- $("#image-menu li").click(function(){
-	 var liIndex=$(this).index();
-	 $(this).addClass("clickon");
-     $(this).siblings().removeClass("clickon");
-	 if(liIndex==0){
-		     $("#local-image").removeClass("hidden");
-		     $("#download-image").addClass("hidden");
-			 } else {
-		         $("#local-image").addClass("hidden");
-		         $("#download-image").removeClass("hidden");
-				 }
-	 
+ $("#download-image .bluelink").click(function(){
+	 $("#local-image").removeClass('hidden');
+	 $("#download-image").addClass('hidden');
 	 });
-      
+ $("#local-image .bluelink").click(function(){
+	 $("#download-image").removeClass('hidden');
+	 $("#local-image").addClass('hidden');
+	 });
 </script>
 
 </body>

@@ -15,5 +15,7 @@ public interface EnumBarCode {
 	public long INDUSTRIAL_25 = 0x200L;
 	
 	public long QR_CODE = 0x4000000L;
+	public long PDF417 = 0x2000000L;
+	public long DATAMATRIX = 0x8000000L;
 
 }

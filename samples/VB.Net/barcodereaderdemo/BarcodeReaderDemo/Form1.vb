@@ -15,7 +15,7 @@ Public Class Form1
     Private m_index As Integer = -1
     Private filePath As String = Nothing
     Private lastOpenedDirectory As String = Application.ExecutablePath
-    Private Const iFormatCount As Integer = 11
+    Private Const iFormatCount As Integer = 13
     Private iCheckedFormatCount As Integer = 0
 
     Public Property FitWindow() As Boolean
@@ -211,7 +211,7 @@ Public Class Form1
                                 If (fsize < 12) Then
                                     fsize = 12
                                 End If
-                                Dim lineWidth As Single = fsize / 12
+                                Dim lineWidth As Single = fsize / 6
                                 If lineWidth < 1 Then
                                     lineWidth = 1
                                 End If
@@ -327,9 +327,23 @@ Public Class Form1
                 formats = formats Or BarcodeFormat.QR_CODE
             End If
         End If
+        If (chkPDF417.Checked) Then
+            If (Not formats.HasValue) Then
+                formats = BarcodeFormat.PDF417
+            Else
+                formats = formats Or BarcodeFormat.PDF417
+            End If
+        End If
+        If (chkDatamatrix.Checked) Then
+            If (Not formats.HasValue) Then
+                formats = BarcodeFormat.DATAMATRIX
+            Else
+                formats = formats Or BarcodeFormat.DATAMATRIX
+            End If
+        End If
 
         If Not formats.HasValue Then
-            Return BarcodeFormat.OneD Or BarcodeFormat.QR_CODE
+            Return BarcodeFormat.OneD Or BarcodeFormat.QR_CODE Or BarcodeFormat.PDF417 Or BarcodeFormat.DATAMATRIX
         Else
             Return formats.Value
         End If
@@ -340,7 +354,7 @@ Public Class Form1
             'Rectangle rect = new Rectangle();
             Dim reader As BarcodeReader = New Dynamsoft.Barcode.BarcodeReader()
             Try
-                reader.LicenseKeys = "<Input your license key here>"
+                reader.LicenseKeys = "38B9B94D8B0E2B41DB1CC80A58946567"
                 Dim ro As ReaderOptions = New ReaderOptions()
                 ro.BarcodeFormats = GetFormats()
                 ro.MaxBarcodesToReadPerPage = Integer.Parse(tbMaximumNum.Text)
@@ -348,24 +362,24 @@ Public Class Form1
                 Dim beforeRead As DateTime = DateTime.Now
                 Dim barcodes As BarcodeResult() = reader.DecodeFile(filePath)
                 Dim afterRead As DateTime = DateTime.Now
-                Dim timeElapsed As Integer = (afterRead - beforeRead).Milliseconds
+                Dim timeElapsed As Double = (afterRead - beforeRead).TotalMilliseconds
                 ShowBarcodeResults(barcodes, timeElapsed)
             Catch exp As Exception
                 MessageBox.Show(exp.Message, "Barcode Reader Demo", MessageBoxButtons.OK)
             Finally
-                reader.Dispose()
+                'reader.Dispose()
             End Try
         End If
     End Sub
 
-    Private Sub ShowBarcodeResults(ByVal barcodeResults As BarcodeResult(), ByVal timeElapsed As Single)
+    Private Sub ShowBarcodeResults(ByVal barcodeResults As BarcodeResult(), ByVal timeElapsed As Double)
         tbResults.Clear()
         m_results.Clear()
         m_barcodes = barcodeResults
 
         If (Not barcodeResults Is Nothing) Then
             If barcodeResults.Length > 0 Then
-                tbResults.AppendText(String.Format("Total barcode(s) found: {0}. Total cost time: {1} seconds{2}{3}", barcodeResults.Length, (timeElapsed / 1000), vbCrLf, vbCrLf))
+                tbResults.AppendText(String.Format("Total barcode(s) found: {0}. Total cost time: {1} seconds{2}{3}", barcodeResults.Length, CType(Math.Floor(timeElapsed), Integer) / 1000.0F, vbCrLf, vbCrLf))
                 Dim i As Integer
                 For i = 0 To barcodeResults.Length - 1
                     tbResults.AppendText(String.Format("  Barcode: {0}{1}", (i + 1).ToString(), vbCrLf))
@@ -555,7 +569,7 @@ Public Class Form1
 
 #End Region
 
-    Private Sub chkFormat_CheckedChanged(ByVal sender As Object, ByVal e As EventArgs) Handles chkCodabar.CheckedChanged, chkCode128.CheckedChanged, chkCode39.CheckedChanged, chkCode93.CheckedChanged, chkEAN13.CheckedChanged, chkEAN8.CheckedChanged, chkITF.CheckedChanged, chkUPCA.CheckedChanged, chkUPCE.CheckedChanged, chkQRCode.CheckedChanged, chkIndustrial25.CheckedChanged
+    Private Sub chkFormat_CheckedChanged(ByVal sender As Object, ByVal e As EventArgs) Handles chkCodabar.CheckedChanged, chkCode128.CheckedChanged, chkCode39.CheckedChanged, chkCode93.CheckedChanged, chkEAN13.CheckedChanged, chkEAN8.CheckedChanged, chkITF.CheckedChanged, chkUPCA.CheckedChanged, chkUPCE.CheckedChanged, chkQRCode.CheckedChanged, chkIndustrial25.CheckedChanged, chkPDF417.CheckedChanged, chkDatamatrix.CheckedChanged
         Dim chkbox As CheckBox = DirectCast(sender, CheckBox)
         If (chkbox.Checked) Then
             iCheckedFormatCount = iCheckedFormatCount + 1

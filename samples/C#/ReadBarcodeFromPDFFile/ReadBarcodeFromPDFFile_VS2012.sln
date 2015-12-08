@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReadBarcodeFromPDFFile", "ReadBarcodeFromPDFFile\ReadBarcodeFromPDFFile_VS2012.csproj", "{7993F22F-1CF9-4D2B-A05B-4590A52E4E9C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7993F22F-1CF9-4D2B-A05B-4590A52E4E9C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7993F22F-1CF9-4D2B-A05B-4590A52E4E9C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7993F22F-1CF9-4D2B-A05B-4590A52E4E9C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7993F22F-1CF9-4D2B-A05B-4590A52E4E9C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

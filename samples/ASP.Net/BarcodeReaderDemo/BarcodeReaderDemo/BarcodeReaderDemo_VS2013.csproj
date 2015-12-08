@@ -1,0 +1,222 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{A3AA0E2E-40ED-45A2-95A5-2FFA66A4C59F}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>BarcodeWeb</RootNamespace>
+    <AssemblyName>BarcodeWeb</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Dynamsoft.BarcodeReader">
+      <HintPath>..\..\..\..\Redist\DotNet\4.0\Dynamsoft.BarcodeReader.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Ajaxfunctions.aspx" />
+    <Content Include="BarcodeReaderDemo.aspx" />
+    <Content Include="Css\basis-bs.css" />
+    <Content Include="Css\bootstrap.css" />
+    <Content Include="Css\style.css" />
+    <Content Include="Default.aspx" />
+    <Content Include="Global.asax" />
+    <Content Include="Images\1to1.png" />
+    <Content Include="Images\bg-browse-80x40.png" />
+    <Content Include="Images\bg-download-105x37.png" />
+    <Content Include="Images\bg-recognize-125x37.png" />
+    <Content Include="Images\bg-updownlload-126x37.png" />
+    <Content Include="Images\favicon.ico" />
+    <Content Include="Images\FitWindow.png" />
+    <Content Include="Images\footer-link.png" />
+    <Content Include="Images\icn-lgBtn42-freeTrial.png" />
+    <Content Include="Images\icn-menu-30X30.png" />
+    <Content Include="Images\icn-next.png" />
+    <Content Include="Images\icn-phone-24X24.png" />
+    <Content Include="Images\icn-pre.png" />
+    <Content Include="Images\icn-question-16x16.png" />
+    <Content Include="Images\icn-sign-24X24.png" />
+    <Content Include="Images\icn-toTop-45X45.png" />
+    <Content Include="Images\icn-turn-into-16X16.png" />
+    <Content Include="Images\loading.gif" />
+    <Content Include="Images\logo-dynamsoft-159X39.png" />
+    <Content Include="Images\logo-footerIntroduce.png" />
+    <Content Include="Images\logo-to-home.png" />
+    <Content Include="Images\next.png" />
+    <Content Include="Images\previous.png" />
+    <Content Include="Images\switcher-icn-34x34.png" />
+    <Content Include="Images\tool-bar-icn-30x30.png" />
+    <Content Include="Images\Upload\b1jfxx5jryvydvh53yfc5zy2\20151014_151022_727_691_2550_3300.jpg" />
+    <Content Include="Images\Upload\b1jfxx5jryvydvh53yfc5zy2\20151014_151022_884_192_960_1280.jpg" />
+    <Content Include="Images\Upload\b1jfxx5jryvydvh53yfc5zy2\20151014_151023_155_222_2410_1328.jpg" />
+    <Content Include="Images\Upload\b1jfxx5jryvydvh53yfc5zy2\20151014_151023_285_542_2480_3509.jpg" />
+    <Content Include="Images\Upload\b1jfxx5jryvydvh53yfc5zy2\20151014_151023_396_934_1877_949.png" />
+    <Content Include="Images\Upload\b1jfxx5jryvydvh53yfc5zy2\20151014_151023_560_572_1232_1790.jpg" />
+    <Content Include="Images\Upload\b1jfxx5jryvydvh53yfc5zy2\20151014_151023_734_38_1275_1650.jpg" />
+    <Content Include="Images\Upload\b1jfxx5jryvydvh53yfc5zy2\20151014_151023_843_249_2592_1394.jpg" />
+    <Content Include="Images\Upload\b1jfxx5jryvydvh53yfc5zy2\20151014_151024_201_462_600_600.jpg" />
+    <Content Include="Images\Upload\b1jfxx5jryvydvh53yfc5zy2\20151014_151024_275_817_123_436.gif" />
+    <Content Include="Images\Upload\b1jfxx5jryvydvh53yfc5zy2\20151014_151024_341_63_2549_1267.jpg" />
+    <Content Include="Images\Upload\b1jfxx5jryvydvh53yfc5zy2\20151014_151024_731_485_2481_3509.jpg" />
+    <Content Include="Images\Upload\b1jfxx5jryvydvh53yfc5zy2\20151014_151025_156_944_1276_1754.jpg" />
+    <Content Include="Images\Upload\b1jfxx5jryvydvh53yfc5zy2\20151014_151025_15_515_1609_1025.png" />
+    <Content Include="Images\Upload\b1jfxx5jryvydvh53yfc5zy2\20151014_151025_302_373_1276_1754.jpg" />
+    <Content Include="Images\Upload\b1jfxx5jryvydvh53yfc5zy2\20151014_151025_384_656_1024_768.jpg" />
+    <Content Include="Images\Upload\b1jfxx5jryvydvh53yfc5zy2\20151014_151025_484_939_459_341.jpg" />
+    <Content Include="Images\Upload\gv3yw0ve3mm3rxk4hjzqqb2b\20151014_150206_797_545_2550_3300.jpg" />
+    <Content Include="Images\Upload\gv3yw0ve3mm3rxk4hjzqqb2b\20151014_150206_922_937_960_1280.jpg" />
+    <Content Include="Images\Upload\gv3yw0ve3mm3rxk4hjzqqb2b\20151014_150207_155_649_2410_1328.jpg" />
+    <Content Include="Images\Upload\gv3yw0ve3mm3rxk4hjzqqb2b\20151014_150207_285_78_2480_3509.jpg" />
+    <Content Include="Images\Upload\gv3yw0ve3mm3rxk4hjzqqb2b\20151014_150207_406_642_1877_949.png" />
+    <Content Include="Images\Upload\gv3yw0ve3mm3rxk4hjzqqb2b\20151014_150207_565_999_1232_1790.jpg" />
+    <Content Include="Images\Upload\gv3yw0ve3mm3rxk4hjzqqb2b\20151014_150207_709_709_1275_1650.jpg" />
+    <Content Include="Images\Upload\gv3yw0ve3mm3rxk4hjzqqb2b\20151014_150207_800_820_2592_1394.jpg" />
+    <Content Include="Images\Upload\gv3yw0ve3mm3rxk4hjzqqb2b\20151014_150208_421_845_123_436.gif" />
+    <Content Include="Images\Upload\gv3yw0ve3mm3rxk4hjzqqb2b\20151014_150208_467_991_2549_1267.jpg" />
+    <Content Include="Images\Upload\gv3yw0ve3mm3rxk4hjzqqb2b\20151014_150208_809_267_2481_3509.jpg" />
+    <Content Include="Images\Upload\gv3yw0ve3mm3rxk4hjzqqb2b\20151014_150208_85_850_600_600.jpg" />
+    <Content Include="Images\Upload\gv3yw0ve3mm3rxk4hjzqqb2b\20151014_150209_186_408_1276_1754.jpg" />
+    <Content Include="Images\Upload\gv3yw0ve3mm3rxk4hjzqqb2b\20151014_150209_307_81_1276_1754.jpg" />
+    <Content Include="Images\Upload\gv3yw0ve3mm3rxk4hjzqqb2b\20151014_150209_388_83_1024_768.jpg" />
+    <Content Include="Images\Upload\gv3yw0ve3mm3rxk4hjzqqb2b\20151014_150209_478_547_459_341.jpg" />
+    <Content Include="Images\Upload\gv3yw0ve3mm3rxk4hjzqqb2b\20151014_150209_68_16_1609_1025.png" />
+    <Content Include="Images\Upload\xstgarpznw3s5jpy1tud0e4p\20151014_145310_553_510_2550_3300.jpg" />
+    <Content Include="Images\Upload\xstgarpznw3s5jpy1tud0e4p\20151014_145310_674_830_960_1280.jpg" />
+    <Content Include="Images\Upload\xstgarpznw3s5jpy1tud0e4p\20151014_145310_961_860_2410_1328.jpg" />
+    <Content Include="Images\Upload\xstgarpznw3s5jpy1tud0e4p\20151014_145311_197_572_1877_949.png" />
+    <Content Include="Images\Upload\xstgarpznw3s5jpy1tud0e4p\20151014_145311_342_354_1232_1790.jpg" />
+    <Content Include="Images\Upload\xstgarpznw3s5jpy1tud0e4p\20151014_145311_480_602_1275_1650.jpg" />
+    <Content Include="Images\Upload\xstgarpznw3s5jpy1tud0e4p\20151014_145311_569_66_2592_1394.jpg" />
+    <Content Include="Images\Upload\xstgarpznw3s5jpy1tud0e4p\20151014_145311_864_24_600_600.jpg" />
+    <Content Include="Images\Upload\xstgarpznw3s5jpy1tud0e4p\20151014_145311_90_533_2480_3509.jpg" />
+    <Content Include="Images\Upload\xstgarpznw3s5jpy1tud0e4p\20151014_145311_916_342_123_436.gif" />
+    <Content Include="Images\Upload\xstgarpznw3s5jpy1tud0e4p\20151014_145311_972_416_2549_1267.jpg" />
+    <Content Include="Images\Upload\xstgarpznw3s5jpy1tud0e4p\20151014_145312_332_448_2481_3509.jpg" />
+    <Content Include="Images\Upload\xstgarpznw3s5jpy1tud0e4p\20151014_145312_591_622_1609_1025.png" />
+    <Content Include="Images\Upload\xstgarpznw3s5jpy1tud0e4p\20151014_145312_707_942_1276_1754.jpg" />
+    <Content Include="Images\Upload\xstgarpznw3s5jpy1tud0e4p\20151014_145312_830_262_1276_1754.jpg" />
+    <Content Include="Images\Upload\xstgarpznw3s5jpy1tud0e4p\20151014_145312_909_617_1024_768.jpg" />
+    <Content Include="Images\Upload\xstgarpznw3s5jpy1tud0e4p\20151014_145313_22_9_459_341.jpg" />
+    <Content Include="meta.aspx" />
+    <Content Include="nav-dbr-demo.aspx" />
+    <Content Include="overall-footer-bs.aspx" />
+    <Content Include="overall-header-bs.aspx" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\DemoCommon.js" />
+    <Content Include="Scripts\ds-jquery-bs.js" />
+    <Content Include="Scripts\html5shiv.js" />
+    <Content Include="Scripts\jquery-1.11.2.js" />
+    <Content Include="Scripts\kissy-min.js" />
+    <Content Include="Scripts\OnlineDemoAjax.js" />
+    <Content Include="Scripts\respond.js" />
+    <Content Include="Scripts\rollover.js" />
+    <Content Include="UploadMode.aspx" />
+    <Content Include="Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Ajaxfunctions.aspx.cs">
+      <DependentUpon>Ajaxfunctions.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Ajaxfunctions.aspx.designer.cs">
+      <DependentUpon>Ajaxfunctions.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="BarcodeReaderDemo.aspx.cs">
+      <DependentUpon>BarcodeReaderDemo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BarcodeReaderDemo.aspx.designer.cs">
+      <DependentUpon>BarcodeReaderDemo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="BarcodeReaderDll\BarcodeAccess.cs" />
+    <Compile Include="BarcodeReaderDll\BarcodeException.cs" />
+    <Compile Include="BarcodeReaderDll\BarcodeMode.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UploadMode.aspx.cs">
+      <DependentUpon>UploadMode.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UploadMode.aspx.designer.cs">
+      <DependentUpon>UploadMode.aspx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="font-face\" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>53909</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:53909/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

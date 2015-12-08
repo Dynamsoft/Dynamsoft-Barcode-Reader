@@ -32,35 +32,39 @@ namespace BarcodeWeb
         {
             string strFilesPath = "";
             string strSelectPath = "";
-            string strFilePath = Server.MapPath(".");
-            int index = strFilePath.LastIndexOf("Samples");
-            if (index != -1)
-                strFilePath = strFilePath.Substring(0, index) + "Images\\";
-            else
-                strFilePath = strFilePath + "\\Images\\DemoImages\\";
-            string[] files = Directory.GetFiles(strFilePath);
-            if (files != null && files.Length > 0)
+            string strFilePath = Server.MapPath(".") + "\\Images\\DemoImages\\";
+            if (!Directory.Exists(strFilePath))
             {
-                bool isFirst = true;
-                for (int i = 0; i < files.Length; i++)
+                int indexSample = Server.MapPath(".").LastIndexOf("Samples");
+                if (indexSample > 0)
+                    strFilePath = Server.MapPath(".").Substring(0, indexSample-1) + "\\Images\\";
+            }
+            if (Directory.Exists(strFilePath))
+            {
+                string[] files = Directory.GetFiles(strFilePath);
+                if (files != null && files.Length > 0)
                 {
-                    string strFileExt = files[i].Substring(files[i].LastIndexOf('.') + 1).ToLower();
-                    if (!BarcodeMode.IfFileExt(strFileExt))
-                        continue;
-                    if (isFirst)
+                    bool isFirst = true;
+                    for (int i = 0; i < files.Length; i++)
                     {
-                        SetFilesPath(files[i], true, ref strFilesPath);
-                        strSelectPath = strFilesPath;
-                        isFirst = false;
+                        string strFileExt = files[i].Substring(files[i].LastIndexOf('.') + 1).ToLower();
+                        if (!BarcodeMode.IfFileExt(strFileExt))
+                            continue;
+                        if (isFirst)
+                        {
+                            SetFilesPath(files[i], true, ref strFilesPath);
+                            strSelectPath = strFilesPath;
+                            isFirst = false;
+                        }
+                        else
+                            SetFilesPath(files[i], false, ref strFilesPath);
                     }
-                    else
-                        SetFilesPath(files[i], false, ref strFilesPath);
                 }
             }
 
             hide_allImgURL.Value = strFilesPath;
             hide_ImgFileName.Value = strSelectPath;
-            Image1.ImageUrl = strSelectPath;
+            hide_index.Value = "0";
         }
 
         public bool SetFilesPath(string strFilePath, bool bFirst, ref string strFilesPath)
@@ -72,11 +76,13 @@ namespace BarcodeWeb
                 strPath = strPath.Replace("\\", "/");
                 if (bFirst)
                 {
-                    strFilesPath = "Images/Upload/" + SessionID + "/" + strReturnPath;
+                    //return Temp images
+                    strFilesPath = BarcodeAccess.GetTempImagePath("Images/Upload/" + SessionID + "/" + strReturnPath);
                 }
                 else
                 {
-                    strFilesPath = strFilesPath + ":Images/Upload/" + SessionID + "/" + strReturnPath;
+                    //return Temp images
+                    strFilesPath = strFilesPath + BarcodeAccess.GetTempImagePath(":Images/Upload/" + SessionID + "/" + strReturnPath);
                 }
                 return true;
             }

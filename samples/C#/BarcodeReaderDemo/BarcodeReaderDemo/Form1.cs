@@ -22,7 +22,7 @@ namespace BarcodeReaderDemo_CSharp
         private int m_index = -1;
         private string filePath = null;
         private String lastOpenedDirectory = Application.ExecutablePath;
-        private const int iFormatCount = 11;
+        private const int iFormatCount = 13;
         private int iCheckedFormatCount = iFormatCount;
 
         public bool FitWindow
@@ -245,7 +245,7 @@ namespace BarcodeReaderDemo_CSharp
                                 float fsize = bmp.Width / 64f;
                                 if (fsize < 12)
                                     fsize = 12;
-                                Pen pen = new Pen(Color.Red, 1 > fsize / 12 ? 1 : fsize / 12);
+                                Pen pen = new Pen(Color.Red, 1 > fsize / 6 ? 1 : fsize / 6);
                                 Brush textBrush = new SolidBrush(Color.Blue);
                                 Font textFont = new Font("Times New Roman", fsize, FontStyle.Bold);
                                 for (int i = barcodeResults.Length - 1; i >= 0; i--)
@@ -331,7 +331,17 @@ namespace BarcodeReaderDemo_CSharp
                     formats = BarcodeFormat.QR_CODE;
                 else
                     formats = formats | BarcodeFormat.QR_CODE;
-            return !formats.HasValue ? BarcodeFormat.OneD | BarcodeFormat.QR_CODE : formats.Value;
+            if (chkPDF417.Checked)
+                if (!formats.HasValue)
+                    formats = BarcodeFormat.PDF417;
+                else
+                    formats = formats | BarcodeFormat.PDF417;
+            if (chkDatamatrix.Checked)
+                if (!formats.HasValue)
+                    formats = BarcodeFormat.DATAMATRIX;
+                else
+                    formats = formats | BarcodeFormat.DATAMATRIX;
+            return !formats.HasValue ? BarcodeFormat.OneD | BarcodeFormat.QR_CODE | BarcodeFormat.PDF417 | BarcodeFormat.DATAMATRIX : formats.Value;
         }
 
         private void btnRead_Click(object sender, EventArgs e)
@@ -346,11 +356,11 @@ namespace BarcodeReaderDemo_CSharp
                     ro.BarcodeFormats = GetFormats();
                     ro.MaxBarcodesToReadPerPage = int.Parse(tbMaximumNum.Text);
                     reader.ReaderOptions = ro;
-                    reader.LicenseKeys = "<Input your license key here>";
+                    reader.LicenseKeys = "38B9B94D8B0E2B41DB1CC80A58946567";
                     DateTime beforeRead = DateTime.Now;
                     BarcodeResult[] barcodes = reader.DecodeFile(filePath);           
                     DateTime afterRead = DateTime.Now;
-                    int timeElapsed = (afterRead - beforeRead).Milliseconds;
+                    double timeElapsed = (afterRead - beforeRead).TotalMilliseconds;
                     ShowBarcodeResults(barcodes, timeElapsed);
                 }
                 catch (Exception exp)
@@ -359,12 +369,12 @@ namespace BarcodeReaderDemo_CSharp
                 }
                 finally
                 {
-                    reader.Dispose();
+                    //reader.Dispose();
                 }
             }
         }
 
-        private void ShowBarcodeResults(BarcodeResult[] barcodeResults, float timeElapsed)
+        private void ShowBarcodeResults(BarcodeResult[] barcodeResults, double timeElapsed)
         {
             tbResults.Clear();
             m_results.Clear();
@@ -372,7 +382,7 @@ namespace BarcodeReaderDemo_CSharp
 
             if (barcodeResults != null && barcodeResults.Length > 0)
             {
-                tbResults.AppendText(String.Format("Total barcode(s) found: {0}. Total time spent: {1} seconds\r\n\r\n", barcodeResults.Length, (timeElapsed / 1000)));
+                tbResults.AppendText(String.Format("Total barcode(s) found: {0}. Total time spent: {1} seconds\r\n\r\n", barcodeResults.Length, ((int)timeElapsed) / 1000.0f));
                 for (int i = 0; i < barcodeResults.Length; i++)
                 {
                     tbResults.AppendText(String.Format("  Barcode {0}:\r\n", i + 1));

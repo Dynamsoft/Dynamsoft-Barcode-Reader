@@ -2,11 +2,12 @@
 var dlgDoBarcode;
 var varCurrentImageWidth = 0;
 var varCurrentImageHeight = 0;
+var run;
 
 function showWaitDialog(waitDialogType) {
     var varInformation = "";
     if (waitDialogType == "Barcode Recognize") {
-        varInformation = "Recognition in progress...";
+        varInformation = "Recognition...";
     }
     else if (waitDialogType == "Upload Image") {
         varInformation = "Uploading Image...";
@@ -19,8 +20,8 @@ function showWaitDialog(waitDialogType) {
     }
 
     var ObjString = "<div class=\"D-dailog-body-Recognition\">";
-    ObjString += "<p style='font-size:15px;' >" + varInformation + "</p>";
-    ObjString += "<img src='Images/loading.gif'  style='width:160px; height:160px; margin-left:17px; margin-top:20px;' /></div>";
+    ObjString += "<p>" + varInformation + "</p>";
+    ObjString += "<img src='Images/loading.gif' style='width:160px; height:160px; margin-left:17px; margin-top:20px;' /></div>";
     document.getElementById("strBody").innerHTML = ObjString;
 
     ShowWaitDialog(237, 262); 
@@ -46,6 +47,7 @@ function ShowWaitDialog(varWidth, varHeight) {
             }
         });
         dlgDoBarcode.show();
+		run=1;
     });
 }
         
@@ -63,37 +65,65 @@ function Init() {
     }
 }
 
-function InitialPreviewIMGInner(allImgListObj, objImgage) {
-    var allImgList = allImgListObj.value.split(":");
-    nLen = allImgList.length;
-    var centerDiv = document.getElementById("imgCenterDiv");
-    var children = centerDiv.childNodes;
-    var childrenLength = children.length;
-    for (i = childrenLength-1; i >= 0; i--) {
-        centerDiv.removeChild(children[i]);
-    }
-    
-    for (var index = 0; index < nLen; ++index) {
-        var aObj = document.createElement("a");
-        aObj.id = "a_id_" + (index);
-        aObj.href = "javascript:ShowImg('a_id_" + (index) + "','" + allImgList[index] + "');";
-        var ImgObj = document.createElement("img");
-        ImgObj.alt = "preview image";
-        ImgObj.src = allImgList[index];
-        ImgObj.id = "img_id_" + (index);
-        aObj.appendChild(ImgObj);
-        centerDiv.appendChild(aObj);
-    }
-    
+function InitialPreviewIMGInner(ImgSrc, objImgage, objHide, bAleady) {
+    ShowImgWithURL(ImgSrc, objImgage, objHide, bAleady)   
     var tmpLoad = document.createElement("img");
     tmpLoad.src = "Images/loading.gif";
-    
-    var _divMessageContainer = document.getElementById("DWTemessage");
-    _divMessageContainer.ondblclick = function() {
-        this.innerHTML = "";
-        _strTempStr = "";
-    }
 }
+
+function getURL(ImgSrc)
+{
+    var retString = ImgSrc;
+    var index = ImgSrc.lastIndexOf("/");
+    var normalImgSrc = ImgSrc;
+    if (index > 0) {
+        var dotPos = ImgSrc.lastIndexOf(".");
+        if (dotPos > 0) {
+            var dir = ImgSrc.substring(0, index + 1);
+            var file = ImgSrc.substring(index + 1, dotPos);
+            var extPos = file.lastIndexOf("_");
+            if (extPos > 0) {
+                var name = file.substring(0, extPos);
+                var ext = file.substring(extPos + 1);
+                normalImgSrc = dir + name + "." + ext;
+                try {
+                    var hPos = name.lastIndexOf("_");
+                    var nameWidth = name.substring(0, hPos);
+                    varCurrentImageWidth = parseInt(nameWidth.substring(nameWidth.lastIndexOf("_") + 1));
+                    varCurrentImageHeight = parseInt(name.substring(hPos + 1));
+                } catch (e) {
+
+                }
+
+                retString = normalImgSrc;
+            }
+        }
+    }
+    return retString;
+}
+
+
+function ShowImgWithURL(ImgSrc, objImgage, objHide, bAleady) {
+    var normalImgSrc = getURL(ImgSrc);
+    if (bAleady) {
+        objImgage.src = normalImgSrc;
+        objHide.value = normalImgSrc;
+    }
+    else {
+        ShowImgInner(normalImgSrc, objImgage, objHide);
+    }
+    if (normalImgSrc == ImgSrc) {
+        ShowImgSize(objHide.value);
+    }
+    else {
+        ShowImgSizeInner();
+    }
+  
+    ClearResult();
+}
+
+
+
 
 function ShowImgSizeInner() {
     var objShowType = document.getElementById("hide_ShowType");
@@ -112,62 +142,21 @@ function ShowImgSizeInner() {
     }
 } 
 
-function ShowImgInner(a_Id, ImgSrc, objImgage, objHide) {
-    objImgage.src = ImgSrc;
-    tmpIMG.src = ImgSrc;
-    objHide.value = ImgSrc;
+function ShowImgInner(ImgSrc, objImgage, objHide) {
 
-    for (var i = 0; ; ++i) {
-        var idd = "a_id_" + i;
-        var ss = document.getElementById(idd);
-        if (ss) {
-            if (idd == a_Id)
-                ss.className = "CurrentSelected";
-            else {
-                ss.className = "Normal";
-            }
-        }
-        else
-            break;
+    var objBarcodeResults = document.getElementById("BarcodeResults");
+    objBarcodeResults.innerHTML = "downloading images...please wait."
+    objImgage.src = "";
+
+    var img = new Image();
+    img.onload = function () {
+        objImgage.src = ImgSrc;
+        objHide.value = ImgSrc;
+        objBarcodeResults.innerHTML = "";
+        img = null;
     }
-
-    
+    img.src = ImgSrc;
 }
-
-function SetCurrentSelectInner(objHide) {
-    var ImgSrc = objHide.value;
-    for (var i = 0; ; ++i) {
-        var idd = "img_id_" + i;
-        var ss = document.getElementById(idd);
-        if (ss) {
-            if (ss.src.indexOf(ImgSrc) > 0) {
-                var aa = document.getElementById("a_id_" + i);
-                aa.className = "CurrentSelected";
-                try {
-                    var objScroll = document.getElementById("imgCenterDiv");
-                    objScroll.scrollTop = objScroll.scrollHeight * (i / nLen);
-                }
-                catch (e) { ; }
-                break;
-            }
-        }
-        else
-            break;
-    }
-}
-
-function GetFileName(strURL) {
-    var index = strURL.lastIndexOf('/');
-    if (index < 0) index = -1;
-    return strURL.substring(index + 1);
-}
-
-var tmpIMG = document.createElement("img");
-tmpIMG.onload = function() {
-    var strIMGSRC = GetFileName(this.src);
-    var objImgage = document.getElementById("<%=Image1.ClientID%>");
-}
-
 
 function CheckLocalPathInner(objImgURL) {
     var strValue = objImgURL.value;
@@ -177,7 +166,7 @@ function CheckLocalPathInner(objImgURL) {
     }
     var a = strValue.split(".");
     if (a.length < 1) {
-        alert("Only 'bmp','dib','jpg','jpeg','jpe','jfif','tif','tiff','gif','png' supported.");
+        alert("Only 'bmp','dib','jpg','jpeg','jpe','jfif','tif','tiff','gif','png', supported.");
         return false;
     }
     var ext = a[a.length - 1];
@@ -190,7 +179,7 @@ function CheckLocalPathInner(objImgURL) {
             break;
     }
     if (i == len) {
-        alert("Only 'bmp','dib','jpg','jpeg','jpe','jfif','tif','tiff','gif','png' supported.");
+        alert("Only 'bmp','dib','jpg','jpeg','jpe','jfif','tif','tiff','gif','png', supported.");
         return false;
     }
     return true;
@@ -218,6 +207,7 @@ function CheckFileExistInner(objImgURL) {
 
 function ShowImgSize(ImgSrc) {
     var img = new Image();
+
     img.onload = function () {
         varCurrentImageWidth = img.width;
         varCurrentImageHeight = img.height;
@@ -245,18 +235,22 @@ function FixSizeInner(objImgage) {
         height = MaxHeight;
         width = MaxWidth;
     }
+    var scaleRate = width / parseFloat(objImgage.style.width);
 
     objImgage.style.width = width + "px";
     objImgage.style.height = height + "px";
+
+    ResizeResult(objImgage, scaleRate);
 }
 function OriginSizeInner(objImgage) {
     var height = varCurrentImageHeight; 
     var width = varCurrentImageWidth; 
     if (width != 0 && height != 0) {
+        var scaleRate = width / parseFloat(objImgage.style.width);
         objImgage.style.height = height + "px"; 
         objImgage.style.width = width + "px";
+        ResizeResult(objImgage, scaleRate);
     }
-
 }
 function FullSizeInner(objImgage) {
     objImgage.style.width = MaxWidth + "px";
@@ -277,47 +271,8 @@ function appendMessage(strMessage) {
     var _divMessageContainer = document.getElementById("DWTemessage");
     if (_divMessageContainer) {
         _divMessageContainer.innerHTML = _strTempStr;
-        _divMessageContainer.scrollTop = _divMessageContainer.scrollHeight;
+        //_divMessageContainer.scrollTop = _divMessageContainer.scrollHeight;
     }
-}
-
-var bSelectAll;
-function ClickSelectAndUnSelectedAll() {
-    if (bSelectAll == true) {
-        ClickUnSelectAll();
-    }
-    else {
-        ClickSelectAll();
-    }
-}
-
-function ClickSelectAll() {
-    bSelectAll = true;    
-    var   barcodeType   =   document.getElementsByName("BarcodeType");  
-    for(i=0;i<barcodeType.length;i++){  
-        barcodeType[i].checked   =   true;
-    }
-
-    SetSelectButtonImage(false);
-}
-
-function ClickUnSelectAll() {
-    bSelectAll = false;
-    var barcodeType = document.getElementsByName("BarcodeType");
-    for (i = 0; i < barcodeType.length; i++) {
-        barcodeType[i].checked = false;
-    }
-
-    SetSelectButtonImage(true);
-}
-
-function SetSelectButtonImage(bSelectAll)
-{
-    var imageSelect = document.getElementById("ImgSelectAll");
-    if(bSelectAll == true)
-        imageSelect.innerHTML = "Select All";
-    else
-        imageSelect.innerHTML = "UnSelect All";
 }
 
 function ClickCheckBox(obj) {
@@ -329,26 +284,13 @@ function ClickCheckBox(obj) {
             if (barcodeType[i].checked == false)
                 break;
         }
-        if (i >= barcodeType.length) {
-            bSelectAll = true;
-            SetSelectButtonImage(false);
-        }
     }
     else {
         for (i = 0; i < barcodeType.length; i++) {
             if (barcodeType[i].checked == true)
                 break;
         }
-        if (i >= barcodeType.length) {
-            bSelectAll = false;
-            SetSelectButtonImage(true);
-        }
     }
-}
-function liclick(){
-         document.getElementById("local-image").getElementsByTagName("li").onclick = function (){
-	     alert(33);
-	     };	
 }
 	
 

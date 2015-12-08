@@ -10,19 +10,21 @@ Begin VB.Form frmMain
    ScaleHeight     =   8910
    ScaleWidth      =   8205
    StartUpPosition =   3  'Windows Default
+   Begin VB.TextBox lbResults 
+      Height          =   3615
+      Left            =   360
+      MultiLine       =   -1  'True
+      ScrollBars      =   2  'Vertical
+      TabIndex        =   21
+      Top             =   4680
+      Width           =   7575
+   End
    Begin MSComDlg.CommonDialog cdOpenFileDlg 
       Left            =   0
       Top             =   8400
       _ExtentX        =   847
       _ExtentY        =   847
       _Version        =   393216
-   End
-   Begin VB.ListBox lbResults 
-      Height          =   3570
-      Left            =   360
-      TabIndex        =   15
-      Top             =   4680
-      Width           =   7575
    End
    Begin VB.CommandButton btnReadBarcode 
       Caption         =   "Read Barcodes"
@@ -71,11 +73,29 @@ Begin VB.Form frmMain
       TabIndex        =   3
       Top             =   960
       Width           =   7695
+      Begin VB.CheckBox cbDataMatrix 
+         Caption         =   "DataMatrix"
+         Height          =   255
+         Left            =   3240
+         TabIndex        =   20
+         Top             =   1440
+         Value           =   1  'Checked
+         Width           =   1095
+      End
+      Begin VB.CheckBox cbPDF417 
+         Caption         =   "PDF417"
+         Height          =   255
+         Left            =   1800
+         TabIndex        =   19
+         Top             =   1440
+         Value           =   1  'Checked
+         Width           =   975
+      End
       Begin VB.CheckBox cbQRCode 
          Caption         =   "QRCode"
          Height          =   255
          Left            =   480
-         TabIndex        =   19
+         TabIndex        =   18
          Top             =   1440
          Value           =   1  'Checked
          Width           =   1215
@@ -84,7 +104,7 @@ Begin VB.Form frmMain
          Caption         =   "Industrial 2 of 5"
          Height          =   375
          Left            =   3240
-         TabIndex        =   18
+         TabIndex        =   17
          Top             =   840
          Value           =   1  'Checked
          Width           =   1455
@@ -93,7 +113,7 @@ Begin VB.Form frmMain
          Caption         =   "Codabar"
          Height          =   375
          Left            =   1800
-         TabIndex        =   17
+         TabIndex        =   16
          Top             =   840
          Value           =   1  'Checked
          Width           =   975
@@ -102,7 +122,7 @@ Begin VB.Form frmMain
          Caption         =   "EAN13"
          Height          =   375
          Left            =   5040
-         TabIndex        =   16
+         TabIndex        =   15
          Top             =   840
          Value           =   1  'Checked
          Width           =   855
@@ -208,8 +228,8 @@ Private Sub btnBrowse_Click()
     On Error GoTo ErrLabel
     
     cdOpenFileDlg.CancelError = True
-    cdOpenFileDlg.Filter = "BMP(*.bmp)|*.bmp|JPEG(*.jpg;*.jpeg)|*.jpg;*.jpeg|PNG(*.png)|*.png|TIFF(*.tif;*.tiff)|*.tif;*.tiff|GIF(*.gif)|*.gif|All Files|*.*"
-    cdOpenFileDlg.FilterIndex = 6
+    cdOpenFileDlg.Filter = "BMP(*.bmp)|*.bmp|JPEG(*.jpg;*.jpeg)|*.jpg;*.jpeg|PNG(*.png)|*.png|TIFF(*.tif;*.tiff)|*.tif;*.tiff|GIF(*.gif)|*.gif|PDF(*.pdf)|*.pdf|All Files|*.*"
+    cdOpenFileDlg.FilterIndex = 7
     cdOpenFileDlg.ShowOpen
     
     tbFileName.Text = cdOpenFileDlg.FileName
@@ -270,16 +290,24 @@ Private Function GetSelectedBarcodeTypes() As Variant
         vFormat = vFormat Or oFormat.QR_CODE
     End If
     
+    If cbPDF417.Value = Checked Then
+        vFormat = vFormat Or oFormat.PDF417
+    End If
+    
+    If cbDataMatrix.Value = Checked Then
+        vFormat = vFormat Or oFormat.DATAMATRIX
+    End If
+    
     GetSelectedBarcodeTypes = vFormat
     
 End Function
 Private Sub btnReadBarcode_Click()
     On Error GoTo ErrLabel
     
-    lbResults.Clear
+    lbResults = ""
         
     Dim oBarcodeReader As New BarcodeReader
-    oBarcodeReader.InitLicense "<Put your license key here>"
+    oBarcodeReader.InitLicense "38B9B94D8B0E2B41DB1CC80A58946567"
     
     Dim oOptions As New ReaderOptions
     oOptions.MaxBarcodesNumPerPage = tbMaxNum.Text
@@ -305,33 +333,24 @@ Private Sub btnReadBarcode_Click()
     End If
     
     oTempStr = oTempStr & " Total time spent: " & Format(dtEnd - dtBeg, "0.000") & " seconds."
-    lbResults.AddItem oTempStr
-    lbResults.AddItem ""
-    
+    oTempStr = oTempStr & vbCrLf & vbCrLf
+        
     Dim iIndex As Long
     Dim oBarcode As IBarcodeResult
     For iIndex = 0 To oBarcodeArray.Count - 1
         Set oBarcode = oBarcodeArray.Item(iIndex)
         
-        oTempStr = "    Barcode " & iIndex + 1 & ":"
-        lbResults.AddItem oTempStr
-        
-        oTempStr = "        Page: " & oBarcode.PageNum
-        lbResults.AddItem oTempStr
-        
-        oTempStr = "        Type: " & oBarcode.BarcodeFormat.TypeString
-        lbResults.AddItem oTempStr
-        
-        oTempStr = "        Value: " & oBarcode.BarcodeText
-        lbResults.AddItem oTempStr
-        
-        oTempStr = "        Region: {Left: " & oBarcode.Left & _
+        oTempStr = oTempStr & "    Barcode " & iIndex + 1 & ":" & vbCrLf
+        oTempStr = oTempStr & "        Page: " & oBarcode.PageNum & vbCrLf
+        oTempStr = oTempStr & "        Type: " & oBarcode.BarcodeFormat.TypeString & vbCrLf
+        oTempStr = oTempStr & "        Value: " & oBarcode.BarcodeText & vbCrLf
+        oTempStr = oTempStr & "        Region: {Left: " & oBarcode.Left & _
                                 ", Top: " & oBarcode.Top & _
                                 ", Width: " & oBarcode.Width & _
-                                ", Height: " & oBarcode.Height & "}"
-        lbResults.AddItem oTempStr
-        lbResults.AddItem ""
+                                ", Height: " & oBarcode.Height & "}" & vbCrLf & vbCrLf
     Next
+    
+    lbResults = oTempStr
     
     Set oBarcodeArray = Nothing
     Set oOption = Nothing
@@ -339,7 +358,8 @@ Private Sub btnReadBarcode_Click()
     
     Exit Sub
 ErrLabel:
-    MsgBox Err.Description, vbCritical
+    'MsgBox Err.Description, vbCritical
+    lbResults.Text = Err.Description
 End Sub
 
 Private Sub btnSelect_Click()
@@ -357,6 +377,8 @@ Private Sub btnSelect_Click()
         cbUPCE.Value = Checked
         cbIND.Value = Checked
         cbQRCode.Value = Checked
+        cbPDF417.Value = Checked
+        cbDataMatrix.Value = Checked
     Else
         btnSelect.Caption = "Select All"
         bUnselectFlag = False
@@ -371,6 +393,8 @@ Private Sub btnSelect_Click()
         cbUPCE.Value = Unchecked
         cbIND.Value = Unchecked
         cbQRCode.Value = Unchecked
+        cbPDF417.Value = Unchecked
+        cbDataMatrix.Value = Unchecked
     End If
     
     DisableOrEnableReadButton
@@ -400,6 +424,10 @@ Private Sub cbCode93_Click()
     DisableOrEnableReadButton
 End Sub
 
+Private Sub cbDataMatrix_Click()
+    DisableOrEnableReadButton
+End Sub
+
 Private Sub cbEAN13_Click()
     DisableOrEnableReadButton
 End Sub
@@ -413,6 +441,10 @@ Private Sub cbIND_Click()
 End Sub
 
 Private Sub cbITF_Click()
+    DisableOrEnableReadButton
+End Sub
+
+Private Sub cbPDF417_Click()
     DisableOrEnableReadButton
 End Sub
 

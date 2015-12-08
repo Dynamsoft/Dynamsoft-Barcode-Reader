@@ -20,8 +20,10 @@ namespace BarcodeWeb
             {
                 SessionID = Session["SessionID"].ToString();
 
-                if(hide_State.Value == "1")
+                if (hide_State.Value == "1")
+                {
                     strReturnPath = BarcodeMode.UpLoadImage(upLoadFile, SessionID);
+                }
                 else if (hide_State.Value == "2")
                     strReturnPath = BarcodeMode.FetchImageFromURL(txtImgURL.Text.Trim(), SessionID);
 
@@ -41,9 +43,9 @@ namespace BarcodeWeb
                         foreach (string strTemp in strAryPath)
                         {
                             if (strRestult.Length == 0)
-                                strRestult = strRestult + "Images/Upload/" + SessionID + "/" + strTemp;
+                                strRestult = strRestult + BarcodeAccess.GetTempImagePath("Images/Upload/" + SessionID + "/" + strTemp);
                             else
-                                strRestult = strRestult + ":Images/Upload/" + SessionID + "/" + strTemp;
+                                strRestult = strRestult + BarcodeAccess.GetTempImagePath(":Images/Upload/" + SessionID + "/" + strTemp);
                         }
                     }
                     catch { }
@@ -60,14 +62,15 @@ namespace BarcodeWeb
             }
             catch (BarcodeException exp)
             {
-                Page.ClientScript.RegisterStartupScript(Page.GetType(), null, "alert('" + exp.Message + "');", true);
+                Page.ClientScript.RegisterStartupScript(Page.GetType(), null, "DoNotShowWaitDDialog(); alert('" + exp.Message + "');", true);
             }
-            catch 
+            catch (Exception exp)
             {
                 if (hide_State.Value == "1")
-                    Page.ClientScript.RegisterStartupScript(Page.GetType(), null, "alert('Error uploading image.');", true);
+                    Page.ClientScript.RegisterStartupScript(Page.GetType(), null, "DoNotShowWaitDDialog(); alert('Error uploading image:" + exp.Message + "');", true);
                 else if (hide_State.Value == "2")
-                     Page.ClientScript.RegisterStartupScript(Page.GetType(), null, "alert('Error loading image from remote URL.');", true);
+                    Page.ClientScript.RegisterStartupScript(Page.GetType(), null, "DoNotShowWaitDDialog(); alert('Error loading image from remote URL.');", true);
+
             }
             finally
             {
