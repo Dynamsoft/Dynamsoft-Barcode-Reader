@@ -66,7 +66,7 @@ void DecodeFile(const FunctionCallbackInfo<Value>& args) {
 	char * pszTemp = NULL;
 
 	// Initialize license
-	DBR_InitLicense("38B9B94D8B0E2B41DB1CC80A58946567");
+	DBR_InitLicense("B6CC2C3C009C895E5D0A11010149A2BE");
 	ro.llBarcodeFormat = llFormat;
 	ro.iMaxBarcodesNumPerPage = iMaxCount;
 

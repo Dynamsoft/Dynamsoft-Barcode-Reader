@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Dynamsoft Barcode RESTFul API Demo</title>
+  <script src="http://www.codepool.biz/wp-content/uploads/2015/12/jquery-1.11.3.min_.js"></script>
+  <script src="http://www.codepool.biz/wp-content/uploads/2015/12/tiff.min_.js"></script>
+</head>
+
+<body>
+  <h1>Dynamsoft Barcode RESTFul API Demo</h1>
+  <!-- <form action="dbr.php" method="post" enctype="multipart/form-data">
+    Select barcode image:
+    <input type="file" name="readBarcode" id="readBarcode" accept="image/*"><br>
+    <input type="submit" value="Read Barcode" name="submit">
+</form> -->
+  <input type="file" name="readBarcode" id="readBarcode" accept="image/*">
+  <br>
+  <div>Barcode result: <span id="dbr"></span></div>
+  <button id="restfuldbr">Read Barcode</button>
+  <div id="tiff"></div>
+  <div id='image'></div>
+  <script>
+    var buttonREST = document.getElementById('restfuldbr');
+    var dataURL = null;
+    buttonREST.onclick = function() {
+      var imgData = JSON.stringify(getBase64Image());
+      $.ajax({
+        url: '/dbr',
+        dataType: 'json',
+        data: imgData,
+        type: 'POST',
+        success: function(data) {
+          console.log(data);
+          var barcode_result = document.getElementById('dbr');
+          barcode_result.textContent = data;
+        }
+      });
+    }
+
+    function getBase64Image() {
+      // imgElem must be on the same server otherwise a cross-origin error will be thrown "SECURITY_ERR: DOM Exception 18"
+      // var img = document.querySelector("img");
+      // var canvas = document.createElement('canvas');
+      // var context = canvas.getContext('2d');
+      // context.drawImage(img, 0, 0, img.width, img.height);
+      // // var theData = context.getImageData(0, 0, image.width, image.height);
+      //
+      //
+      // var dataURL = canvas.toDataURL("image/png");
+      var data = dataURL.replace(/^data:image\/(png|jpeg|jpg);base64,/, "");
+      return data;
+      // return canvas.toDataURL("image/png");
+    }
+
+    function reset() {
+      $("#image").empty();
+      $("#tiff").empty();
+    }
+
+    var input = document.querySelector('input[type=file]');
+    input.onchange = function() {
+      reset();
+      var file = input.files[0];
+      var fileReader = new FileReader();
+      // get file extension
+      var extension = file.name.split('.').pop().toLowerCase();
+      var isTiff = false;
+
+      if (extension == "tif" || extension == "tiff") {
+        isTiff = true;
+      }
+
+      fileReader.onload = function(e) {
+        if (isTiff) {
+          console.debug("Parsing TIFF image...");
+          //initialize with 100MB for large files
+          Tiff.initialize({
+            TOTAL_MEMORY: 100000000
+          });
+          var tiff = new Tiff({
+            buffer: e.target.result
+          });
+          var tiffCanvas = tiff.toCanvas();
+          $(tiffCanvas).css({
+            "max-width": "800px",
+            "width": "100%",
+            "height": "auto",
+            "display": "block",
+            "padding-top": "10px"
+          }).addClass("TiffPreview");
+          $("#tiff").append(tiffCanvas);
+        } else {
+          dataURL = e.target.result,
+            img = new Image();
+          img.src = dataURL;
+          $("#image").append(img);
+        }
+      }
+
+      if (isTiff) {
+        fileReader.readAsArrayBuffer(file);
+      } else
+        fileReader.readAsDataURL(file);
+    }
+  </script>
+
+</body>
+
+</html>
