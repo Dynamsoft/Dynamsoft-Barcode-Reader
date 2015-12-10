@@ -10,6 +10,7 @@ server.use(restify.bodyParser());
 
 server.get(/.*/, restify.serveStatic({
   directory: __dirname,
+  // default: 'restful.htm'
   default: 'index.html'
 }));
 
@@ -31,13 +32,17 @@ server.post('/dbr', function create(req, res, next) {
   });
 
   var data = new Buffer(req.body, 'base64');
-  // var file = __dirname + '/' + new Date().getTime() + '.png';
-  var file = __dirname + '/' + 'test.png';
+  var file = __dirname + '/' + new Date().getTime() + '.png';
+  // var file = __dirname + '/' + 'test.png';
 
   fs.writeFile(file, data, function(err) {
     dbr.decodeFile(
       file,
       function(msg) {
+        fs.unlink(file, function(err) {
+          console.log('Removed cached: ' + file);
+        });
+
         var final_result = "";
         var hasResult = false;
         for (index in msg) {
@@ -53,9 +58,6 @@ server.post('/dbr', function create(req, res, next) {
           final_result = "No barcode detected";
         }
 
-        fs.unlink(file, function(err) {
-          console.log('Removed cached: ' + file);
-        });
         res.send(200, final_result);
         next();
       }
@@ -63,24 +65,24 @@ server.post('/dbr', function create(req, res, next) {
   });
 });
 
-server.get('/', function indexHTML(req, res, next) {
-
-  var fileName = __dirname + '/restful.htm';
-  console.log('get: ' + fileName);
-  fs.readFile(fileName, function(err, data) {
-    console.log("read file " + err);
-    if (err) {
-
-      next(err);
-      return;
-    }
-    console.log('successful');
-    res.setHeader('Content-Type', 'text/html');
-    res.writeHead(200);
-    res.end(data);
-    next();
-  });
-});
+// server.get('/', function indexHTML(req, res, next) {
+//
+//   var fileName = __dirname + '/restful.htm';
+//   console.log('get: ' + fileName);
+//   fs.readFile(fileName, function(err, data) {
+//     console.log("read file " + err);
+//     if (err) {
+//
+//       next(err);
+//       return;
+//     }
+//     console.log('successful');
+//     res.setHeader('Content-Type', 'text/html');
+//     res.writeHead(200);
+//     res.end(data);
+//     next();
+//   });
+// });
 
 
 io.sockets.on('connection', function(socket) {

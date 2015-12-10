@@ -159,20 +159,25 @@ function scanBarcode() {
     var data = null,
       newblob = null;
 
-    // if (isPC) {
-    //   ws.send("is pc");
-    //   ctx.drawImage(videoElement, 0, 0, videoWidth, videoHeight);
-    //   // convert canvas to base64
-    //   data = canvas.toDataURL('image/png', 1.0);
-    //   // convert base64 to binary
-    //   newblob = dataURItoBlob(data);
-    //   ws.send(newblob);
-    // } else
-    // {
-    // ws.send("is phone");
-    mobileCtx.drawImage(videoElement, 0, 0, mobileVideoWidth, mobileVideoHeight);
+    var context = null,
+      width = 0,
+      height = 0,
+      dbrCanvas = null;
+    if (isPC) {
+      context = ctx;
+      width = videoWidth;
+      height = videoHeight;
+      dbrCanvas = canvas;
+    } else {
+      context = mobileCtx;
+      width = mobileVideoWidth;
+      height = mobileVideoHeight;
+      dbrCanvas = mobileCanvas;
+    }
+
+    context.drawImage(videoElement, 0, 0, width, height);
     // convert canvas to base64
-    var base64 = mobileCanvas.toDataURL('image/png', 1.0);
+    var base64 = dbrCanvas.toDataURL('image/png', 1.0);
     var data = base64.replace(/^data:image\/(png|jpeg|jpg);base64,/, "");
     var imgData = JSON.stringify(data);
     $.ajax({
@@ -182,6 +187,9 @@ function scanBarcode() {
       type: 'POST',
       success: function(result) {
         console.log(result);
+        if (isPaused) {
+          return;
+        }
         var barcode_result = document.getElementById('dbr');
         barcode_result.textContent = result;
 
@@ -199,7 +207,7 @@ function scanBarcode() {
         }
       }
     });
-    // }
+
 
   }, 200);
   console.log("create id: " + intervalId);

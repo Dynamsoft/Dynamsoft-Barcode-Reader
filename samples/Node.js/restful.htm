@@ -24,11 +24,13 @@
     var buttonREST = document.getElementById('restfuldbr');
     var dataURL = null;
     buttonREST.onclick = function() {
-      var imgData = JSON.stringify(getBase64Image());
+      var imgData = JSON.stringify({a: getBase64Image()});
       $.ajax({
-        url: '/dbr',
-        dataType: 'json',
+        url: 'http://192.168.8.233/support/DBR.aspx',
+        dataType: 'jsonp',
+        contentType: 'application/json',
         data: imgData,
+        crossDomain:true,
         type: 'POST',
         success: function(data) {
           console.log(data);
