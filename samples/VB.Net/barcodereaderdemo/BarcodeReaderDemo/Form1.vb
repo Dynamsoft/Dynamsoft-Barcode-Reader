@@ -131,6 +131,12 @@ Public Class Form1
             dlg.Filter = "All Supported Images(*.BMP,*.PNG,*.JPEG,*.JPG,*.JPE,*.JFIF,*.TIF,*.TIFF,*.GIF)|*.BMP;*.PNG;*.JPEG;*.JPG;*.JPE;*.JFIF;*.TIF;*.TIFF;*.GIF|JPEG|*.JPG;*.JPEG;*.JPE;*.JFIF|BMP|*.BMP|PNG|*.PNG|TIFF|*.TIF;*.TIFF|GIF|*.GIF"
             dlg.InitialDirectory = lastOpenedDirectory
             If (dlg.ShowDialog() = DialogResult.OK) Then
+                If dlg.FileName.Length > 4 And dlg.FileName.Contains(".") Then
+                    If dlg.FileName.Substring(dlg.FileName.LastIndexOf(".")).ToLower().EndsWith(".pdf") Then
+                        MessageBox.Show("This sample doesn't support decoding PDF files.", "Barcode Reader Demo", MessageBoxButtons.OK)
+                        Return
+                    End If
+                End If
                 lastOpenedDirectory = System.IO.Directory.GetParent(dlg.FileName).FullName
                 If Not m_data Is Nothing Then
                     m_data.Dispose()
@@ -354,7 +360,7 @@ Public Class Form1
             'Rectangle rect = new Rectangle();
             Dim reader As BarcodeReader = New Dynamsoft.Barcode.BarcodeReader()
             Try
-                reader.LicenseKeys = "38B9B94D8B0E2B41DB1CC80A58946567"
+                reader.LicenseKeys = "38B9B94D8B0E2B41641A47AFC3809889"
                 Dim ro As ReaderOptions = New ReaderOptions()
                 ro.BarcodeFormats = GetFormats()
                 ro.MaxBarcodesToReadPerPage = Integer.Parse(tbMaximumNum.Text)

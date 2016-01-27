@@ -8,9 +8,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("BarcodeDocumentsProcessDemo")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Microsoft")]
+[assembly: AssemblyCompany("Dynamsoft")]
 [assembly: AssemblyProduct("BarcodeDocumentsProcessDemo")]
-[assembly: AssemblyCopyright("Copyright © Microsoft 2015")]
+[assembly: AssemblyCopyright("Copyright © Dynamsoft Corporation 2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

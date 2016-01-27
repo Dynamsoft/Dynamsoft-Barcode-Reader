@@ -3,11 +3,11 @@
 #include <windows.h>
 #include <stdio.h>
 #include <conio.h>
-#include "../../../Include/If_DBR.h"
+#include "../../../../Components/C_C++/Include/If_DBR.h"
 #ifdef _WIN64
-#pragma comment(lib, "../../../Lib/DBRx64.lib")
+#pragma comment(lib, "../../../../Components/C_C++/Lib/DBRx64.lib")
 #else
-#pragma comment(lib, "../../../Lib/DBRx86.lib")
+#pragma comment(lib, "../../../../Components/C_C++/Lib/DBRx86.lib")
 #endif
 
 __int64 GetFormat(int iIndex)
@@ -215,7 +215,7 @@ int main(int argc, const char* argv[])
 		printf("\r\nBarcode Results:\r\n----------------------------------------------------------\r\n");
 
 
-		DBR_InitLicense("38B9B94D8B0E2B41DB1CC80A58946567");
+		DBR_InitLicense("38B9B94D8B0E2B41641A47AFC3809889");
 
 		// Read barcode
 		ullTimeBegin = GetTickCount();
@@ -226,7 +226,7 @@ int main(int argc, const char* argv[])
 		
 		// Output barcode result
 		pszTemp = (char*)malloc(4096);
-		if (iRet != DBR_OK)
+		if (iRet != DBR_OK && iRet != DBRERR_LICENSE_EXPIRED)
 		{
 			sprintf(pszTemp, "Failed to read barcode: %s\r\n", DBR_GetErrorString(iRet));
 			printf(pszTemp);

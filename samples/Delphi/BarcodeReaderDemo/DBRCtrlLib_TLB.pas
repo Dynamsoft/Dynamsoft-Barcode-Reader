@@ -12,18 +12,21 @@ unit DBRCtrlLib_TLB;
 // ************************************************************************ //
 
 // PASTLWTR : 1.2
-// File generated on 8/26/2015 7:24:28 PM from Type Library described below.
+// File generated on 1/5/2016 10:21:39 PM from Type Library described below.
 
 // ************************************************************************  //
-// Type Lib: C:\DBR\Install\Redist\ActiveX\DynamsoftBarcodeReaderCtrlx86.dll (1)
+// Type Lib: C:\DBR\0106\Windows\Components\ActiveX\DynamsoftBarcodeReaderCtrlx86.dll (1)
 // LIBID: {FFE1D517-154B-4026-998B-66FFC1A3ACCA}
 // LCID: 0
 // Helpfile: 
-// HelpString: Dynamsoft Barcode Reader 4.0 Type Library
+// HelpString: Dynamsoft Barcode Reader 4.1 Type Library
 // DepndLst: 
 //   (1) v2.0 stdole, (C:\Windows\SysWOW64\stdole2.tlb)
 // Errors:
 //   Hint: Symbol 'Type' renamed to 'type_'
+//   Error creating palette bitmap of (TBarcodeReader) : Server C:\DBR\0106\Windows\Components\ActiveX\DynamsoftBarcodeReaderCtrlx86.dll contains no icons
+//   Error creating palette bitmap of (TBarcodeFormat) : Server C:\DBR\0106\Windows\Components\ActiveX\DynamsoftBarcodeReaderCtrlx86.dll contains no icons
+//   Error creating palette bitmap of (TReaderOptions) : Server C:\DBR\0106\Windows\Components\ActiveX\DynamsoftBarcodeReaderCtrlx86.dll contains no icons
 // ************************************************************************ //
 // *************************************************************************//
 // NOTE:                                                                      
@@ -53,8 +56,8 @@ uses Windows, ActiveX, Classes, Graphics, OleServer, StdVCL, Variants;
 // *********************************************************************//
 const
   // TypeLibrary Major and minor versions
-  DBRCtrlLibMajorVersion = 3;
-  DBRCtrlLibMinorVersion = 1;
+  DBRCtrlLibMajorVersion = 1;
+  DBRCtrlLibMinorVersion = 0;
 
   LIBID_DBRCtrlLib: TGUID = '{FFE1D517-154B-4026-998B-66FFC1A3ACCA}';
 
@@ -129,6 +132,12 @@ type
     procedure DecodeBuffer(DIBBuffer: OleVariant); safecall;
     procedure DecodeBufferRect(DIBBuffer: OleVariant; iRectLeft: Integer; iRectTop: Integer; 
                                iRectWidth: Integer; iRectHeight: Integer); safecall;
+    procedure DecodeStream(FileStream: OleVariant); safecall;
+    procedure DecodeStreamRect(FileStream: OleVariant; iRectLeft: Integer; iRectTop: Integer; 
+                               iRectWidth: Integer; iRectHeight: Integer); safecall;
+    procedure DecodeBase64String(const sFileStream: WideString); safecall;
+    procedure DecodeBase64StringRect(const sFileStream: WideString; iRectLeft: Integer; 
+                                     iRectTop: Integer; iRectWidth: Integer; iRectHeight: Integer); safecall;
     property ReaderOptions: IReaderOptions read Get_ReaderOptions write Set_ReaderOptions;
     property Barcodes: IBarcodeResultArray read Get_Barcodes;
     property BarcodesCount: Integer read Get_BarcodesCount;
@@ -158,6 +167,12 @@ type
     procedure DecodeBuffer(DIBBuffer: OleVariant); dispid 11;
     procedure DecodeBufferRect(DIBBuffer: OleVariant; iRectLeft: Integer; iRectTop: Integer; 
                                iRectWidth: Integer; iRectHeight: Integer); dispid 12;
+    procedure DecodeStream(FileStream: OleVariant); dispid 13;
+    procedure DecodeStreamRect(FileStream: OleVariant; iRectLeft: Integer; iRectTop: Integer; 
+                               iRectWidth: Integer; iRectHeight: Integer); dispid 14;
+    procedure DecodeBase64String(const sFileStream: WideString); dispid 15;
+    procedure DecodeBase64StringRect(const sFileStream: WideString; iRectLeft: Integer; 
+                                     iRectTop: Integer; iRectWidth: Integer; iRectHeight: Integer); dispid 16;
   end;
 
 // *********************************************************************//
@@ -399,6 +414,12 @@ type
     procedure DecodeBuffer(DIBBuffer: OleVariant);
     procedure DecodeBufferRect(DIBBuffer: OleVariant; iRectLeft: Integer; iRectTop: Integer; 
                                iRectWidth: Integer; iRectHeight: Integer);
+    procedure DecodeStream(FileStream: OleVariant);
+    procedure DecodeStreamRect(FileStream: OleVariant; iRectLeft: Integer; iRectTop: Integer; 
+                               iRectWidth: Integer; iRectHeight: Integer);
+    procedure DecodeBase64String(const sFileStream: WideString);
+    procedure DecodeBase64StringRect(const sFileStream: WideString; iRectLeft: Integer; 
+                                     iRectTop: Integer; iRectWidth: Integer; iRectHeight: Integer);
     property DefaultInterface: IBarcodeReader read GetDefaultInterface;
     property Barcodes: IBarcodeResultArray read Get_Barcodes;
     property BarcodesCount: Integer read Get_BarcodesCount;
@@ -823,6 +844,30 @@ procedure TBarcodeReader.DecodeBufferRect(DIBBuffer: OleVariant; iRectLeft: Inte
                                           iRectHeight: Integer);
 begin
   DefaultInterface.DecodeBufferRect(DIBBuffer, iRectLeft, iRectTop, iRectWidth, iRectHeight);
+end;
+
+procedure TBarcodeReader.DecodeStream(FileStream: OleVariant);
+begin
+  DefaultInterface.DecodeStream(FileStream);
+end;
+
+procedure TBarcodeReader.DecodeStreamRect(FileStream: OleVariant; iRectLeft: Integer; 
+                                          iRectTop: Integer; iRectWidth: Integer; 
+                                          iRectHeight: Integer);
+begin
+  DefaultInterface.DecodeStreamRect(FileStream, iRectLeft, iRectTop, iRectWidth, iRectHeight);
+end;
+
+procedure TBarcodeReader.DecodeBase64String(const sFileStream: WideString);
+begin
+  DefaultInterface.DecodeBase64String(sFileStream);
+end;
+
+procedure TBarcodeReader.DecodeBase64StringRect(const sFileStream: WideString; iRectLeft: Integer; 
+                                                iRectTop: Integer; iRectWidth: Integer; 
+                                                iRectHeight: Integer);
+begin
+  DefaultInterface.DecodeBase64StringRect(sFileStream, iRectLeft, iRectTop, iRectWidth, iRectHeight);
 end;
 
 {$IFDEF LIVE_SERVER_AT_DESIGN_TIME}

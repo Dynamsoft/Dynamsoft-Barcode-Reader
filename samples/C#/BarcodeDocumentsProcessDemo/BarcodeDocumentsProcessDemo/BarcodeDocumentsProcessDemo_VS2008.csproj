@@ -46,9 +46,9 @@
     <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Dynamsoft.BarcodeReader, Version=4.0.0.930, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Dynamsoft.BarcodeReader">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Redist\DotNet\2.0\Dynamsoft.BarcodeReader.dll</HintPath>
+      <HintPath>..\..\..\..\..\Components\DotNet\2.0\Dynamsoft.BarcodeReader.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -70,7 +70,7 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>

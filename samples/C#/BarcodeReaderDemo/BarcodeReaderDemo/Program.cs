@@ -1,8 +1,8 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 
-namespace BarcodeReaderDemo_CSharp
+namespace Barcode_Reader_Demo
 {
     static class Program
     {
@@ -14,7 +14,7 @@ namespace BarcodeReaderDemo_CSharp
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Application.Run(new BarcodeReaderDemo());
         }
     }
 }

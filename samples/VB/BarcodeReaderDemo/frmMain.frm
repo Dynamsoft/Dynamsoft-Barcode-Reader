@@ -30,7 +30,7 @@ Begin VB.Form frmMain
       Caption         =   "Read Barcodes"
       Height          =   495
       Left            =   360
-      TabIndex        =   14
+      TabIndex        =   20
       Top             =   3960
       Width           =   1455
    End
@@ -46,7 +46,7 @@ Begin VB.Form frmMain
       EndProperty
       Height          =   375
       Left            =   1920
-      TabIndex        =   13
+      TabIndex        =   19
       Text            =   "100"
       Top             =   3360
       Width           =   6015
@@ -70,14 +70,14 @@ Begin VB.Form frmMain
       Caption         =   "Barcode Types"
       Height          =   2055
       Left            =   240
-      TabIndex        =   3
+      TabIndex        =   17
       Top             =   960
       Width           =   7695
       Begin VB.CheckBox cbDataMatrix 
          Caption         =   "DataMatrix"
          Height          =   255
          Left            =   3240
-         TabIndex        =   20
+         TabIndex        =   15
          Top             =   1440
          Value           =   1  'Checked
          Width           =   1095
@@ -86,7 +86,7 @@ Begin VB.Form frmMain
          Caption         =   "PDF417"
          Height          =   255
          Left            =   1800
-         TabIndex        =   19
+         TabIndex        =   14
          Top             =   1440
          Value           =   1  'Checked
          Width           =   975
@@ -95,7 +95,7 @@ Begin VB.Form frmMain
          Caption         =   "QRCode"
          Height          =   255
          Left            =   480
-         TabIndex        =   18
+         TabIndex        =   13
          Top             =   1440
          Value           =   1  'Checked
          Width           =   1215
@@ -104,7 +104,7 @@ Begin VB.Form frmMain
          Caption         =   "Industrial 2 of 5"
          Height          =   375
          Left            =   3240
-         TabIndex        =   17
+         TabIndex        =   10
          Top             =   840
          Value           =   1  'Checked
          Width           =   1455
@@ -113,7 +113,7 @@ Begin VB.Form frmMain
          Caption         =   "Codabar"
          Height          =   375
          Left            =   1800
-         TabIndex        =   16
+         TabIndex        =   9
          Top             =   840
          Value           =   1  'Checked
          Width           =   975
@@ -122,7 +122,7 @@ Begin VB.Form frmMain
          Caption         =   "EAN13"
          Height          =   375
          Left            =   5040
-         TabIndex        =   15
+         TabIndex        =   11
          Top             =   840
          Value           =   1  'Checked
          Width           =   855
@@ -131,7 +131,7 @@ Begin VB.Form frmMain
          Caption         =   "Unselect All"
          Height          =   375
          Left            =   5880
-         TabIndex        =   11
+         TabIndex        =   16
          Top             =   1440
          Width           =   1335
       End
@@ -139,7 +139,7 @@ Begin VB.Form frmMain
          Caption         =   "Code 93"
          Height          =   375
          Left            =   1800
-         TabIndex        =   6
+         TabIndex        =   4
          Top             =   360
          Value           =   1  'Checked
          Width           =   975
@@ -148,7 +148,7 @@ Begin VB.Form frmMain
          Caption         =   "Code 39"
          Height          =   375
          Left            =   480
-         TabIndex        =   4
+         TabIndex        =   3
          Top             =   360
          Value           =   1  'Checked
          Width           =   975
@@ -157,7 +157,7 @@ Begin VB.Form frmMain
          Caption         =   "Interleaved 2 of 5"
          Height          =   375
          Left            =   3240
-         TabIndex        =   10
+         TabIndex        =   5
          Top             =   360
          Value           =   1  'Checked
          Width           =   1695
@@ -166,7 +166,7 @@ Begin VB.Form frmMain
          Caption         =   "EAN8"
          Height          =   375
          Left            =   5040
-         TabIndex        =   9
+         TabIndex        =   6
          Top             =   360
          Value           =   1  'Checked
          Width           =   855
@@ -175,7 +175,7 @@ Begin VB.Form frmMain
          Caption         =   "UPCA"
          Height          =   375
          Left            =   6360
-         TabIndex        =   8
+         TabIndex        =   12
          Top             =   840
          Value           =   1  'Checked
          Width           =   855
@@ -193,7 +193,7 @@ Begin VB.Form frmMain
          Caption         =   "Code 128"
          Height          =   375
          Left            =   480
-         TabIndex        =   5
+         TabIndex        =   8
          Top             =   840
          Value           =   1  'Checked
          Width           =   1095
@@ -203,7 +203,7 @@ Begin VB.Form frmMain
       Caption         =   "Maximum Number:"
       Height          =   375
       Left            =   360
-      TabIndex        =   12
+      TabIndex        =   18
       Top             =   3360
       Width           =   1455
    End
@@ -307,7 +307,7 @@ Private Sub btnReadBarcode_Click()
     lbResults = ""
         
     Dim oBarcodeReader As New BarcodeReader
-    oBarcodeReader.InitLicense "38B9B94D8B0E2B41DB1CC80A58946567"
+    oBarcodeReader.InitLicense "38B9B94D8B0E2B41641A47AFC3809889"
     
     Dim oOptions As New ReaderOptions
     oOptions.MaxBarcodesNumPerPage = tbMaxNum.Text

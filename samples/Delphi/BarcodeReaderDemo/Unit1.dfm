@@ -71,7 +71,7 @@ object Form1: TForm1
       Caption = 'Code 128'
       Checked = True
       State = cbChecked
-      TabOrder = 1
+      TabOrder = 5
     end
     object cbCode93: TCheckBox
       Left = 112
@@ -81,7 +81,7 @@ object Form1: TForm1
       Caption = 'Code 93'
       Checked = True
       State = cbChecked
-      TabOrder = 2
+      TabOrder = 1
     end
     object cbCodabar: TCheckBox
       Left = 112
@@ -91,7 +91,7 @@ object Form1: TForm1
       Caption = 'Codabar'
       Checked = True
       State = cbChecked
-      TabOrder = 3
+      TabOrder = 6
     end
     object cbITF: TCheckBox
       Left = 192
@@ -101,7 +101,7 @@ object Form1: TForm1
       Caption = 'Interleaved 2 of 5'
       Checked = True
       State = cbChecked
-      TabOrder = 4
+      TabOrder = 2
     end
     object cbIND: TCheckBox
       Left = 192
@@ -111,7 +111,7 @@ object Form1: TForm1
       Caption = 'Industrial 2 of 5'
       Checked = True
       State = cbChecked
-      TabOrder = 5
+      TabOrder = 7
     end
     object cbEAN8: TCheckBox
       Left = 320
@@ -121,7 +121,7 @@ object Form1: TForm1
       Caption = 'EAN-8'
       Checked = True
       State = cbChecked
-      TabOrder = 6
+      TabOrder = 3
     end
     object cbEAN13: TCheckBox
       Left = 320
@@ -131,7 +131,7 @@ object Form1: TForm1
       Caption = 'EAN-13'
       Checked = True
       State = cbChecked
-      TabOrder = 7
+      TabOrder = 8
     end
     object cbUPCE: TCheckBox
       Left = 400
@@ -141,7 +141,7 @@ object Form1: TForm1
       Caption = 'UPC-E'
       Checked = True
       State = cbChecked
-      TabOrder = 8
+      TabOrder = 4
     end
     object cbUPCA: TCheckBox
       Left = 400
@@ -169,7 +169,7 @@ object Form1: TForm1
       Width = 73
       Height = 25
       Caption = 'Unselect All'
-      TabOrder = 11
+      TabOrder = 13
       OnClick = btnSelectClick
     end
     object cbPDF417: TCheckBox
@@ -180,7 +180,7 @@ object Form1: TForm1
       Caption = 'PDF417'
       Checked = True
       State = cbChecked
-      TabOrder = 12
+      TabOrder = 11
     end
     object cbDataMatrix: TCheckBox
       Left = 192
@@ -190,7 +190,7 @@ object Form1: TForm1
       Caption = 'DataMatrix'
       Checked = True
       State = cbChecked
-      TabOrder = 13
+      TabOrder = 12
     end
   end
   object tbMaxNum: TEdit
@@ -209,7 +209,7 @@ object Form1: TForm1
     Lines.Strings = (
       '')
     ScrollBars = ssVertical
-    TabOrder = 4
+    TabOrder = 5
   end
   object btnReadBarcodes: TButton
     Left = 24
@@ -217,7 +217,7 @@ object Form1: TForm1
     Width = 97
     Height = 25
     Caption = 'Read Barcodes'
-    TabOrder = 5
+    TabOrder = 4
     OnClick = btnReadBarcodesClick
   end
 end

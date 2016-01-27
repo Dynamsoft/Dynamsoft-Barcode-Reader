@@ -8,10 +8,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace BarcodeReaderDemo_CSharp.Properties {
-    using System;
-    
-    
+namespace Barcode_Reader_Demo.Properties
+{
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
@@ -39,7 +37,7 @@ namespace BarcodeReaderDemo_CSharp.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("BarcodeReaderDemo_CSharp.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Barcode_Reader_Demo.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -57,6 +55,310 @@ namespace BarcodeReaderDemo_CSharp.Properties {
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        internal static System.Drawing.Bitmap big_arrow_down {
+            get {
+                object obj = ResourceManager.GetObject("big_arrow_down", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap big_arrow_up {
+            get {
+                object obj = ResourceManager.GetObject("big_arrow_up", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Icon dnt_demo_icon {
+            get {
+                object obj = ResourceManager.GetObject("dnt_demo_icon", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap main_bg {
+            get {
+                object obj = ResourceManager.GetObject("main_bg", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+
+        internal static System.Drawing.Bitmap main_bg_1 {
+            get
+            {
+                object obj = ResourceManager.GetObject("main_bg_1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+
+        internal static System.Drawing.Bitmap picboxAddBarcode_Disabled {
+            get {
+                object obj = ResourceManager.GetObject("picboxAddBarcode_Disabled", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+
+        internal static System.Drawing.Bitmap barcode_Result
+        {
+            get
+            {
+                object obj = ResourceManager.GetObject("barcode_Result", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxAddBarcode_Down {
+            get {
+                object obj = ResourceManager.GetObject("picboxAddBarcode_Down", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxAddBarcode_Enter {
+            get {
+                object obj = ResourceManager.GetObject("picboxAddBarcode_Enter", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxAddBarcode_Leave {
+            get {
+                object obj = ResourceManager.GetObject("picboxAddBarcode_Leave", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxAnnotationBar {
+            get {
+                object obj = ResourceManager.GetObject("picboxAnnotationBar", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxClose_Down {
+            get {
+                object obj = ResourceManager.GetObject("picboxClose_Down", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxClose_Enter {
+            get {
+                object obj = ResourceManager.GetObject("picboxClose_Enter", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxClose_Leave {
+            get {
+                object obj = ResourceManager.GetObject("picboxClose_Leave", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxCrop_Disabled {
+            get {
+                object obj = ResourceManager.GetObject("picboxCrop_Disabled", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxCrop_Down {
+            get {
+                object obj = ResourceManager.GetObject("picboxCrop_Down", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxCrop_Enter {
+            get {
+                object obj = ResourceManager.GetObject("picboxCrop_Enter", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxCrop_Leave {
+            get {
+                object obj = ResourceManager.GetObject("picboxCrop_Leave", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxCurrentImage_Leave {
+            get {
+                object obj = ResourceManager.GetObject("picboxCurrentImage_Leave", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxCut_Disabled {
+            get {
+                object obj = ResourceManager.GetObject("picboxCut_Disabled", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxCut_Down {
+            get {
+                object obj = ResourceManager.GetObject("picboxCut_Down", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxCut_Enter {
+            get {
+                object obj = ResourceManager.GetObject("picboxCut_Enter", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxCut_Leave {
+            get {
+                object obj = ResourceManager.GetObject("picboxCut_Leave", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxDelete_Disabled {
+            get {
+                object obj = ResourceManager.GetObject("picboxDelete_Disabled", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxDelete_Down {
+            get {
+                object obj = ResourceManager.GetObject("picboxDelete_Down", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxDelete_Enter {
+            get {
+                object obj = ResourceManager.GetObject("picboxDelete_Enter", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxDelete_Leave {
+            get {
+                object obj = ResourceManager.GetObject("picboxDelete_Leave", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxDeleteAll_Disabled {
+            get {
+                object obj = ResourceManager.GetObject("picboxDeleteAll_Disabled", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxDeleteAll_Down {
+            get {
+                object obj = ResourceManager.GetObject("picboxDeleteAll_Down", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxDeleteAll_Enter {
+            get {
+                object obj = ResourceManager.GetObject("picboxDeleteAll_Enter", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxDeleteAll_Leave {
+            get {
+                object obj = ResourceManager.GetObject("picboxDeleteAll_Leave", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxDeleteAnnotationA_Disabled {
+            get {
+                object obj = ResourceManager.GetObject("picboxDeleteAnnotationA_Disabled", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxDeleteAnnotationA_Down {
+            get {
+                object obj = ResourceManager.GetObject("picboxDeleteAnnotationA_Down", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxDeleteAnnotationA_Enter {
+            get {
+                object obj = ResourceManager.GetObject("picboxDeleteAnnotationA_Enter", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxDeleteAnnotationA_Leave {
+            get {
+                object obj = ResourceManager.GetObject("picboxDeleteAnnotationA_Leave", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxEllipse_Disabled {
+            get {
+                object obj = ResourceManager.GetObject("picboxEllipse_Disabled", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxEllipse_Down {
+            get {
+                object obj = ResourceManager.GetObject("picboxEllipse_Down", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxEllipse_Enter {
+            get {
+                object obj = ResourceManager.GetObject("picboxEllipse_Enter", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxEllipse_Leave {
+            get {
+                object obj = ResourceManager.GetObject("picboxEllipse_Leave", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxEllipseA_Disabled {
+            get {
+                object obj = ResourceManager.GetObject("picboxEllipseA_Disabled", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxEllipseA_Down {
+            get {
+                object obj = ResourceManager.GetObject("picboxEllipseA_Down", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxEllipseA_Enter {
+            get {
+                object obj = ResourceManager.GetObject("picboxEllipseA_Enter", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxEllipseA_Leave {
+            get {
+                object obj = ResourceManager.GetObject("picboxEllipseA_Leave", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -84,6 +386,118 @@ namespace BarcodeReaderDemo_CSharp.Properties {
         internal static System.Drawing.Bitmap picboxFirst_Leave {
             get {
                 object obj = ResourceManager.GetObject("picboxFirst_Leave", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxFit_Disabled {
+            get {
+                object obj = ResourceManager.GetObject("picboxFit_Disabled", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxFit_Down {
+            get {
+                object obj = ResourceManager.GetObject("picboxFit_Down", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxFit_Enter {
+            get {
+                object obj = ResourceManager.GetObject("picboxFit_Enter", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxFit_Leave {
+            get {
+                object obj = ResourceManager.GetObject("picboxFit_Leave", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxFlip_Disabled {
+            get {
+                object obj = ResourceManager.GetObject("picboxFlip_Disabled", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxFlip_Down {
+            get {
+                object obj = ResourceManager.GetObject("picboxFlip_Down", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxFlip_Enter {
+            get {
+                object obj = ResourceManager.GetObject("picboxFlip_Enter", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxFlip_Leave {
+            get {
+                object obj = ResourceManager.GetObject("picboxFlip_Leave", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxGrab_Disabled {
+            get {
+                object obj = ResourceManager.GetObject("picboxGrab_Disabled", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxGrab_Down {
+            get {
+                object obj = ResourceManager.GetObject("picboxGrab_Down", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxGrab_Enter {
+            get {
+                object obj = ResourceManager.GetObject("picboxGrab_Enter", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxGrab_Leave {
+            get {
+                object obj = ResourceManager.GetObject("picboxGrab_Leave", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxHand_Disabled {
+            get {
+                object obj = ResourceManager.GetObject("picboxHand_Disabled", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxHand_Down {
+            get {
+                object obj = ResourceManager.GetObject("picboxHand_Down", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxHand_Enter {
+            get {
+                object obj = ResourceManager.GetObject("picboxHand_Enter", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxHand_Leave {
+            get {
+                object obj = ResourceManager.GetObject("picboxHand_Leave", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -116,6 +530,160 @@ namespace BarcodeReaderDemo_CSharp.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap picboxLine_Disabled {
+            get {
+                object obj = ResourceManager.GetObject("picboxLine_Disabled", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxLine_Down {
+            get {
+                object obj = ResourceManager.GetObject("picboxLine_Down", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxLine_Enter {
+            get {
+                object obj = ResourceManager.GetObject("picboxLine_Enter", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxLine_Leave {
+            get {
+                object obj = ResourceManager.GetObject("picboxLine_Leave", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxLineA_Disabled {
+            get {
+                object obj = ResourceManager.GetObject("picboxLineA_Disabled", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxLineA_Down {
+            get {
+                object obj = ResourceManager.GetObject("picboxLineA_Down", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxLineA_Enter {
+            get {
+                object obj = ResourceManager.GetObject("picboxLineA_Enter", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxLineA_Leave {
+            get {
+                object obj = ResourceManager.GetObject("picboxLineA_Leave", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxLoadImage_Disabled {
+            get {
+                object obj = ResourceManager.GetObject("picboxLoadImage_Disabled", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxLoadImage_Down {
+            get {
+                object obj = ResourceManager.GetObject("picboxLoadImage_Down", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxLoadImage_Enter {
+            get {
+                object obj = ResourceManager.GetObject("picboxLoadImage_Enter", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxLoadImage_Leave {
+            get {
+                object obj = ResourceManager.GetObject("picboxLoadImage_Leave", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxMax_Down {
+            get {
+                object obj = ResourceManager.GetObject("picboxMax_Down", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxMax_Enter {
+            get {
+                object obj = ResourceManager.GetObject("picboxMax_Enter", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxMax_Leave {
+            get {
+                object obj = ResourceManager.GetObject("picboxMax_Leave", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxMin_Down {
+            get {
+                object obj = ResourceManager.GetObject("picboxMin_Down", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxMin_Enter {
+            get {
+                object obj = ResourceManager.GetObject("picboxMin_Enter", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxMin_Leave {
+            get {
+                object obj = ResourceManager.GetObject("picboxMin_Leave", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxMirror_Disabled {
+            get {
+                object obj = ResourceManager.GetObject("picboxMirror_Disabled", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxMirror_Down {
+            get {
+                object obj = ResourceManager.GetObject("picboxMirror_Down", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxMirror_Enter {
+            get {
+                object obj = ResourceManager.GetObject("picboxMirror_Enter", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxMirror_Leave {
+            get {
+                object obj = ResourceManager.GetObject("picboxMirror_Leave", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap picboxNext_Disabled {
             get {
                 object obj = ResourceManager.GetObject("picboxNext_Disabled", resourceCulture);
@@ -144,6 +712,90 @@ namespace BarcodeReaderDemo_CSharp.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap picboxOCR_Disabled {
+            get {
+                object obj = ResourceManager.GetObject("picboxOCR_Disabled", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxOCR_Down {
+            get {
+                object obj = ResourceManager.GetObject("picboxOCR_Down", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxOCR_Enter {
+            get {
+                object obj = ResourceManager.GetObject("picboxOCR_Enter", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxOCR_Leave {
+            get {
+                object obj = ResourceManager.GetObject("picboxOCR_Leave", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxOriginalSize_Disabled {
+            get {
+                object obj = ResourceManager.GetObject("picboxOriginalSize_Disabled", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxOriginalSize_Down {
+            get {
+                object obj = ResourceManager.GetObject("picboxOriginalSize_Down", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxOriginalSize_Enter {
+            get {
+                object obj = ResourceManager.GetObject("picboxOriginalSize_Enter", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxOriginalSize_Leave {
+            get {
+                object obj = ResourceManager.GetObject("picboxOriginalSize_Leave", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxPoint_Disabled {
+            get {
+                object obj = ResourceManager.GetObject("picboxPoint_Disabled", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxPoint_Down {
+            get {
+                object obj = ResourceManager.GetObject("picboxPoint_Down", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxPoint_Enter {
+            get {
+                object obj = ResourceManager.GetObject("picboxPoint_Enter", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxPoint_Leave {
+            get {
+                object obj = ResourceManager.GetObject("picboxPoint_Leave", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap picboxPrevious_Disabled {
             get {
                 object obj = ResourceManager.GetObject("picboxPrevious_Disabled", resourceCulture);
@@ -168,6 +820,391 @@ namespace BarcodeReaderDemo_CSharp.Properties {
         internal static System.Drawing.Bitmap picboxPrevious_Leave {
             get {
                 object obj = ResourceManager.GetObject("picboxPrevious_Leave", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxReadBarcode_Disabled {
+            get {
+                object obj = ResourceManager.GetObject("picboxReadBarcode_Disabled", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxReadBarcode_Down {
+            get {
+                object obj = ResourceManager.GetObject("picboxReadBarcode_Down", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxReadBarcode_Enter {
+            get {
+                object obj = ResourceManager.GetObject("picboxReadBarcode_Enter", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxReadBarcode_Leave {
+            get {
+                object obj = ResourceManager.GetObject("picboxReadBarcode_Leave", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxRectangle_Disabled {
+            get {
+                object obj = ResourceManager.GetObject("picboxRectangle_Disabled", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxRectangle_Down {
+            get {
+                object obj = ResourceManager.GetObject("picboxRectangle_Down", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxRectangle_Enter {
+            get {
+                object obj = ResourceManager.GetObject("picboxRectangle_Enter", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxRectangle_Leave {
+            get {
+                object obj = ResourceManager.GetObject("picboxRectangle_Leave", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxRectangleA_Disabled {
+            get {
+                object obj = ResourceManager.GetObject("picboxRectangleA_Disabled", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxRectangleA_Down {
+            get {
+                object obj = ResourceManager.GetObject("picboxRectangleA_Down", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxRectangleA_Enter {
+            get {
+                object obj = ResourceManager.GetObject("picboxRectangleA_Enter", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxRectangleA_Leave {
+            get {
+                object obj = ResourceManager.GetObject("picboxRectangleA_Leave", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxResample_Disabled {
+            get {
+                object obj = ResourceManager.GetObject("picboxResample_Disabled", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxResample_Down {
+            get {
+                object obj = ResourceManager.GetObject("picboxResample_Down", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxResample_Enter {
+            get {
+                object obj = ResourceManager.GetObject("picboxResample_Enter", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxResample_Leave {
+            get {
+                object obj = ResourceManager.GetObject("picboxResample_Leave", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxRotateLeft_Disabled {
+            get {
+                object obj = ResourceManager.GetObject("picboxRotateLeft_Disabled", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxRotateLeft_Down {
+            get {
+                object obj = ResourceManager.GetObject("picboxRotateLeft_Down", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxRotateLeft_Enter {
+            get {
+                object obj = ResourceManager.GetObject("picboxRotateLeft_Enter", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxRotateLeft_Leave {
+            get {
+                object obj = ResourceManager.GetObject("picboxRotateLeft_Leave", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxRotateRight_Disabled {
+            get {
+                object obj = ResourceManager.GetObject("picboxRotateRight_Disabled", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxRotateRight_Down {
+            get {
+                object obj = ResourceManager.GetObject("picboxRotateRight_Down", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxRotateRight_Enter {
+            get {
+                object obj = ResourceManager.GetObject("picboxRotateRight_Enter", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxRotateRight_Leave {
+            get {
+                object obj = ResourceManager.GetObject("picboxRotateRight_Leave", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxSave_Disabled {
+            get {
+                object obj = ResourceManager.GetObject("picboxSave_Disabled", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxSave_Down {
+            get {
+                object obj = ResourceManager.GetObject("picboxSave_Down", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxSave_Enter {
+            get {
+                object obj = ResourceManager.GetObject("picboxSave_Enter", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxSave_Leave {
+            get {
+                object obj = ResourceManager.GetObject("picboxSave_Leave", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxScan_Disabled {
+            get {
+                object obj = ResourceManager.GetObject("picboxScan_Disabled", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxScan_Down {
+            get {
+                object obj = ResourceManager.GetObject("picboxScan_Down", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxScan_Enter {
+            get {
+                object obj = ResourceManager.GetObject("picboxScan_Enter", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxScan_Leave {
+            get {
+                object obj = ResourceManager.GetObject("picboxScan_Leave", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxText_Disabled {
+            get {
+                object obj = ResourceManager.GetObject("picboxText_Disabled", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxText_Down {
+            get {
+                object obj = ResourceManager.GetObject("picboxText_Down", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxText_Enter {
+            get {
+                object obj = ResourceManager.GetObject("picboxText_Enter", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxText_Leave {
+            get {
+                object obj = ResourceManager.GetObject("picboxText_Leave", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxTextA_Disabled {
+            get {
+                object obj = ResourceManager.GetObject("picboxTextA_Disabled", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxTextA_Down {
+            get {
+                object obj = ResourceManager.GetObject("picboxTextA_Down", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxTextA_Enter {
+            get {
+                object obj = ResourceManager.GetObject("picboxTextA_Enter", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxTextA_Leave {
+            get {
+                object obj = ResourceManager.GetObject("picboxTextA_Leave", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxTotalImage_Leave {
+            get {
+                object obj = ResourceManager.GetObject("picboxTotalImage_Leave", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxZoom_Disabled {
+            get {
+                object obj = ResourceManager.GetObject("picboxZoom_Disabled", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxZoom_Down {
+            get {
+                object obj = ResourceManager.GetObject("picboxZoom_Down", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxZoom_Enter {
+            get {
+                object obj = ResourceManager.GetObject("picboxZoom_Enter", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxZoom_Leave {
+            get {
+                object obj = ResourceManager.GetObject("picboxZoom_Leave", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxZoomIn_Disabled {
+            get {
+                object obj = ResourceManager.GetObject("picboxZoomIn_Disabled", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxZoomIn_Down {
+            get {
+                object obj = ResourceManager.GetObject("picboxZoomIn_Down", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxZoomIn_Enter {
+            get {
+                object obj = ResourceManager.GetObject("picboxZoomIn_Enter", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxZoomIn_Leave {
+            get {
+                object obj = ResourceManager.GetObject("picboxZoomIn_Leave", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxZoomOut_Disabled {
+            get {
+                object obj = ResourceManager.GetObject("picboxZoomOut_Disabled", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxZoomOut_Down {
+            get {
+                object obj = ResourceManager.GetObject("picboxZoomOut_Down", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxZoomOut_Enter {
+            get {
+                object obj = ResourceManager.GetObject("picboxZoomOut_Enter", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap picboxZoomOut_Leave {
+            get {
+                object obj = ResourceManager.GetObject("picboxZoomOut_Leave", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap small_arrow_down {
+            get {
+                object obj = ResourceManager.GetObject("small_arrow_down", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap small_arrow_up {
+            get {
+                object obj = ResourceManager.GetObject("small_arrow_up", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

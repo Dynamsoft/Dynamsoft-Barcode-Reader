@@ -34,6 +34,7 @@ type
     procedure btnReadBarcodesClick(Sender: TObject);
     procedure btnBrowseClick(Sender: TObject);
     procedure btnSelectClick(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
     { Private declarations }
   public
@@ -48,22 +49,24 @@ var
   oList: BarcodeResultArray;
   oBarcode: BarcodeResult;
   strResults : String;
-  strImagePath: String;
   iCount: Integer;
   openDialog1: TOpenDialog;
   bSelectAll: Boolean;
-
+  Saved8087CW: Word;
   implementation
 
 {$R *.dfm}
 
 procedure TForm1.FormCreate(Sender: TObject);
 begin
+  Saved8087CW := Default8087CW;
+  Set8087CW($133f); { Disable all fpu exceptions }
+
   oBR := CoBarcodeReader.Create;
   oBF := CoBarcodeFormat.Create;
   oRO := CoReaderOptions.Create;
   bSelectAll := true;
-  oBR.InitLicense('38B9B94D8B0E2B41DB1CC80A58946567');
+  oBR.InitLicense('38B9B94D8B0E2B41641A47AFC3809889');
 end;
 
 procedure TForm1.btnReadBarcodesClick(Sender: TObject);
@@ -135,7 +138,7 @@ procedure TForm1.btnReadBarcodesClick(Sender: TObject);
   iBeg := GetTickCount();
 
   try
-    oBR.DecodeFile(strImagePath);
+    oBR.DecodeFile(tbFileName.Text);
   except
   on ex : Exception do
     begin
@@ -187,8 +190,7 @@ begin
     if OpenDialog1.Execute
     then
     begin
-          strImagePath := OpenDialog1.FileName;
-          tbFileName.Text := strImagePath;
+          tbFileName.Text := OpenDialog1.FileName;
     end;
     openDialog1.Free;
 end;
@@ -232,6 +234,11 @@ begin
     btnSelect.Caption := 'Unselect All';
     bSelectAll := True;
   end;
+end;
+
+procedure TForm1.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  Set8087CW(Saved8087CW);
 end;
 
 end.

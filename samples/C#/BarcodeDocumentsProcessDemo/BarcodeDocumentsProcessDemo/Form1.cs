@@ -43,7 +43,7 @@ namespace BarcodeDocumentsProcessDemo
         {
             InitializeComponent();
             InitialDefaultValue();
-            barcodeReader.LicenseKeys = "38B9B94D8B0E2B41DB1CC80A58946567";
+            barcodeReader.LicenseKeys = "38B9B94D8B0E2B41641A47AFC3809889";
         }
 
         private void InitialDefaultValue()
