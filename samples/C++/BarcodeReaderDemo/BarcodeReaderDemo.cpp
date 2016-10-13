@@ -139,7 +139,7 @@ int main(int argc, const char* argv[])
 		while(1)
 		{
 			printf("\r\n>> Step 1: Input your image file's full path:\r\n");
-			gets(pszBuffer);
+			gets_s(pszBuffer, 512);
 			iLen = strlen(pszBuffer);
 			if(iLen > 0)
 			{
@@ -155,8 +155,8 @@ int main(int argc, const char* argv[])
 				else
 					memcpy(pszImageFile, pszBuffer, iLen);
 
-				fp = fopen(pszImageFile, "rb");
-				if(fp != NULL)
+				errno_t err = fopen_s(&fp, pszImageFile, "rb");
+				if(err == 0)
 				{
 					fclose(fp);
 					break;
@@ -188,7 +188,7 @@ int main(int argc, const char* argv[])
 			printf("   14: PDF417\r\n");
 			printf("   15: DATAMATRIX\r\n");
 
-			gets(pszBuffer);	
+			gets_s(pszBuffer, 512);
 			iLen = strlen(pszBuffer);
 			if(iLen > 0)
 			{
@@ -205,7 +205,7 @@ int main(int argc, const char* argv[])
 		while(1)
 		{
 			printf("\r\n>> Step 3: Input the maximum number of barcodes to read per page: \r\n");
-			gets(pszBuffer);
+			gets_s(pszBuffer, 512);
 			iLen = strlen(pszBuffer);
 
 			if(iLen > 0)
@@ -222,7 +222,7 @@ int main(int argc, const char* argv[])
 
 		// Set license
 		CBarcodeReader reader;
-		reader.InitLicense("38B9B94D8B0E2B41641A47AFC3809889");
+		reader.InitLicense("38B9B94D8B0E2B41FDE1FB60861C28C0");
 
 		// Read barcode
 		ullTimeBegin = GetTickCount();
@@ -234,9 +234,10 @@ int main(int argc, const char* argv[])
 			
 		// Output barcode result
 		pszTemp = (char*)malloc(4096);
-		if (iRet != DBR_OK && iRet != DBRERR_LICENSE_EXPIRED)
+		if (iRet != DBR_OK && iRet != DBRERR_LICENSE_EXPIRED && iRet != DBRERR_QR_LICENSE_INVALID &&
+			iRet != DBRERR_1D_LICENSE_INVALID && iRet != DBRERR_PDF417_LICENSE_INVALID && iRet != DBRERR_DATAMATRIX_LICENSE_INVALID)
 		{
-			sprintf(pszTemp, "Failed to read barcode: %s\r\n", DBR_GetErrorString(iRet));
+			sprintf_s(pszTemp, 4096, "Failed to read barcode: %s\r\n", DBR_GetErrorString(iRet));
 			printf(pszTemp);
 			free(pszTemp);
 			continue;
@@ -247,7 +248,7 @@ int main(int argc, const char* argv[])
 		
 		if (paryResult->iBarcodeCount == 0)
 		{
-			sprintf(pszTemp, "No barcode found. Total time spent: %.3f seconds.\r\n", ((float)(ullTimeEnd - ullTimeBegin)/1000));
+			sprintf_s(pszTemp, 4096, "No barcode found. Total time spent: %.3f seconds.\r\n", ((float)(ullTimeEnd - ullTimeBegin)/1000));
 			printf(pszTemp);
 			free(pszTemp);
 			reader.FreeBarcodeResults(&paryResult);
@@ -255,23 +256,23 @@ int main(int argc, const char* argv[])
 			continue;
 		}
 		
-		sprintf(pszTemp, "Total barcode(s) found: %d. Total time spent: %.3f seconds\r\n\r\n", paryResult->iBarcodeCount, ((float)(ullTimeEnd - ullTimeBegin)/1000));
+		sprintf_s(pszTemp, 4096, "Total barcode(s) found: %d. Total time spent: %.3f seconds\r\n\r\n", paryResult->iBarcodeCount, ((float)(ullTimeEnd - ullTimeBegin)/1000));
 		printf(pszTemp);
 		for (iIndex = 0; iIndex < paryResult->iBarcodeCount; iIndex++)
 		{
-			sprintf(pszTemp, "Barcode %d:\r\n", iIndex + 1);
+			sprintf_s(pszTemp, 4096, "Barcode %d:\r\n", iIndex + 1);
 			printf(pszTemp);
-			sprintf(pszTemp, "    Page: %d\r\n", paryResult->ppBarcodes[iIndex]->iPageNum);
+			sprintf_s(pszTemp, 4096, "    Page: %d\r\n", paryResult->ppBarcodes[iIndex]->iPageNum);
 			printf(pszTemp);
-			sprintf(pszTemp, "    Type: %s\r\n", GetFormatStr(paryResult->ppBarcodes[iIndex]->llFormat));
+			sprintf_s(pszTemp, 4096, "    Type: %s\r\n", GetFormatStr(paryResult->ppBarcodes[iIndex]->llFormat));
 			printf(pszTemp);
 			pszTemp1 = (char*)malloc(paryResult->ppBarcodes[iIndex]->iBarcodeDataLength + 1);
 			memset(pszTemp1, 0, paryResult->ppBarcodes[iIndex]->iBarcodeDataLength + 1);
 			memcpy(pszTemp1, paryResult->ppBarcodes[iIndex]->pBarcodeData, paryResult->ppBarcodes[iIndex]->iBarcodeDataLength);
-			sprintf(pszTemp, "    Value: %s\r\n", pszTemp1);
+			sprintf_s(pszTemp, 4096, "    Value: %s\r\n", pszTemp1);
 			printf(pszTemp);
 			free(pszTemp1);
-			sprintf(pszTemp, "    Region: {Left: %d, Top: %d, Width: %d, Height: %d}\r\n\r\n", 
+			sprintf_s(pszTemp, 4096, "    Region: {Left: %d, Top: %d, Width: %d, Height: %d}\r\n\r\n",
 				paryResult->ppBarcodes[iIndex]->iLeft, paryResult->ppBarcodes[iIndex]->iTop, 
 				paryResult->ppBarcodes[iIndex]->iWidth, paryResult->ppBarcodes[iIndex]->iHeight);
 			printf(pszTemp);

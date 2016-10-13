@@ -43,7 +43,7 @@ namespace BarcodeDocumentsProcessDemo
         {
             InitializeComponent();
             InitialDefaultValue();
-            barcodeReader.LicenseKeys = "38B9B94D8B0E2B41641A47AFC3809889";
+            barcodeReader.LicenseKeys = "38B9B94D8B0E2B41FDE1FB60861C28C0";
         }
 
         private void InitialDefaultValue()
@@ -58,11 +58,11 @@ namespace BarcodeDocumentsProcessDemo
             lbSplitLastFormat = lbUnknown;
             lbClassifyLastFormat = lbUnknown;
             rdbSelectedFormat = lbUnknown;
-            int index = Application.ExecutablePath.IndexOf("Samples");
+            int index = Environment.CurrentDirectory.LastIndexOf("bin");
             if (index >= 0)
             {
-                string dir = Application.ExecutablePath.Substring(0, index);
-                dir += "Images" + Path.DirectorySeparatorChar + "Demo";
+                string dir = Environment.CurrentDirectory.Substring(0, index);
+                dir += "Demo";
                 if (Directory.Exists(dir))
                 {
                     strRenameDocumentFolder = dir + Path.DirectorySeparatorChar + "Rename";
@@ -493,6 +493,9 @@ namespace BarcodeDocumentsProcessDemo
                                     tbLog.AppendText("It's not a multi-page tiff file\r\n");
                                     continue;
                                 }
+
+                                bool bHaveExistFile = false;
+
                                 for (int i = 1; i <= separators.Count; i++)
                                 {
                                     int start = separators[i - 1]-1;
@@ -507,6 +510,13 @@ namespace BarcodeDocumentsProcessDemo
                                     
                                     string strOutputFileName = values[i - 1] + ".tiff";
                                     string strOutputFile = strOutputDir + strOutputFileName;
+
+                                    if (File.Exists(strOutputFile))
+                                    {
+                                        bHaveExistFile = true;
+                                        tbLog.AppendText(string.Format("{0} exists,skip splitting pages({1}-{2}) in {3}\r\n", strOutputFileName, start + 1, end, strFileName));
+                                        continue;
+                                    }
                                     
                                     ImageCodecInfo tiffCodeInfo = null;
                                     ImageCodecInfo[] codeinfos = ImageCodecInfo.GetImageDecoders();
@@ -520,7 +530,7 @@ namespace BarcodeDocumentsProcessDemo
                                     }
 
                                     System.Drawing.Imaging.EncoderParameters encoderParams = null;
-                                    if (!File.Exists(strOutputFile) && (end - start == 1))
+                                    if (end - start == 1)
                                     {
                                         encoderParams = new System.Drawing.Imaging.EncoderParameters(1);
                                         encoderParams.Param[0] = new System.Drawing.Imaging.EncoderParameter(System.Drawing.Imaging.Encoder.Compression, (long)System.Drawing.Imaging.EncoderValue.CompressionLZW);
@@ -532,30 +542,25 @@ namespace BarcodeDocumentsProcessDemo
                                         encoderParams.Param[1] = new System.Drawing.Imaging.EncoderParameter(System.Drawing.Imaging.Encoder.SaveFlag, (long)System.Drawing.Imaging.EncoderValue.MultiFrame);
                                     }
 
-                                    if (!File.Exists(strOutputFile))
+                                    img.SelectActiveFrame(dimension, start);
+                                    img.Save(strOutputFile, tiffCodeInfo, encoderParams);
+                                    start++;
+                                    if (start < end)
                                     {
-                                        img.SelectActiveFrame(dimension, start);
-                                        img.Save(strOutputFile, tiffCodeInfo, encoderParams);
-                                        start++;
-                                        if (start < end)
+                                        encoderParams.Param[1] = new System.Drawing.Imaging.EncoderParameter(System.Drawing.Imaging.Encoder.SaveFlag, (long)System.Drawing.Imaging.EncoderValue.FrameDimensionPage);
+                                        for (int k = start; k < end; k++)
                                         {
-                                            encoderParams.Param[1] = new System.Drawing.Imaging.EncoderParameter(System.Drawing.Imaging.Encoder.SaveFlag, (long)System.Drawing.Imaging.EncoderValue.FrameDimensionPage);
-                                            for (int k = start; k < end; k++)
-                                            {
-                                                img.SelectActiveFrame(dimension, k);
-                                                img.SaveAdd(img, encoderParams);
-                                            }
+                                            img.SelectActiveFrame(dimension, k);
+                                            img.SaveAdd(img, encoderParams);
                                         }
-                                        splittedFileNames.Add(strOutputFileName);
                                     }
-                                    else
-                                    {
-                                        tbLog.AppendText(string.Format("{0} exists,skip splitting pages({1}-{2}) in {3}\r\n", strOutputFileName, start + 1, end, strFileName));
-                                    }
+                                    splittedFileNames.Add(strOutputFileName);
                                 }
 
                                 img.Dispose();
-                                iSuccCount++;
+                                if (!bHaveExistFile)
+                                    iSuccCount++;
+
                                 string strFiles = null;
                                 if (splittedFileNames.Count > 0)
                                 {

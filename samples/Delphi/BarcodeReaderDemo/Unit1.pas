@@ -66,7 +66,7 @@ begin
   oBF := CoBarcodeFormat.Create;
   oRO := CoReaderOptions.Create;
   bSelectAll := true;
-  oBR.InitLicense('38B9B94D8B0E2B41641A47AFC3809889');
+  oBR.InitLicense('38B9B94D8B0E2B41FDE1FB60861C28C0');
 end;
 
 procedure TForm1.btnReadBarcodesClick(Sender: TObject);

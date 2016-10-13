@@ -42,6 +42,7 @@ namespace Barcode_Reader_Demo
         private string _strPreMaxBarcodeReads;
 
         private bool _webCamErrorOccur = false;
+        private bool _bWebcamMode = false; 
 
         #endregion
 
@@ -91,8 +92,8 @@ namespace Barcode_Reader_Demo
 
             Initialization();
             InitLastOpenedDirectoryStr();
-            _br = new BarcodeReader { LicenseKeys = "38B9B94D8B0E2B41641A47AFC3809889" };
-            dynamicDotNetTwain.LicenseKeys = "56872C1DD52B6B2E94F6A8246E0DACC5;56872C1DD52B6B2ED0C5015F15F911E7;56872C1DD52B6B2E3E268B598E20AFCF;56872C1DD52B6B2EDCA9D40F867AD10D;56872C1DD52B6B2E82DB73AA3403FE25";
+            _br = new BarcodeReader { LicenseKeys = "<Put your license key here>" };
+            dynamicDotNetTwain.LicenseKeys = "*******";
         }
 
         #region form relevant
@@ -264,7 +265,6 @@ namespace Barcode_Reader_Demo
         private void InitCbxWebCamRes()
         {
             cbxWebCamRes.Items.Clear();
-            dynamicDotNetTwain.IfThrowException = false;
             foreach (var resolution in dynamicDotNetTwain.ResolutionForCamList)
             {
                 var strResolution = resolution.Width + " x " + resolution.Height;
@@ -274,7 +274,6 @@ namespace Barcode_Reader_Demo
             {
                 cbxWebCamRes.SelectedIndex = 0;
             }
-            dynamicDotNetTwain.IfThrowException = true;
 
             if (dynamicDotNetTwain.ErrorCode != Dynamsoft.DotNet.TWAIN.Enums.ErrorCode.Succeed && !_webCamErrorOccur)
             {
@@ -1132,9 +1131,6 @@ namespace Barcode_Reader_Demo
             }
             #endregion
 
-            CheckImageCount();
-
-            dynamicDotNetTwain.CloseSource();
 
             var isPicBoxWebCamVisible = picBoxWebCam.Visible;
 
@@ -1142,6 +1138,10 @@ namespace Barcode_Reader_Demo
             {
                 case "_thLoadImage":
                 case "_thAcquireImage":
+                    _bWebcamMode = false;
+                    CheckImageCount();
+                    dynamicDotNetTwain.CloseSource();
+
                     dynamicDotNetTwain.SupportedDeviceType = thHead.Name == "_thLoadImage" ?EnumSupportedDeviceType.SDT_ALL : EnumSupportedDeviceType.SDT_TWAIN;
                     
                     if (dynamicDotNetTwain.HowManyImagesInBuffer > 0) EnableControls(picboxReadBarcode);
@@ -1151,6 +1151,12 @@ namespace Barcode_Reader_Demo
                     break;
 
                 case "_thWebCamImage":
+                    if (_bWebcamMode)
+                        return;
+
+                    CheckImageCount();
+                    _bWebcamMode = true;
+
                     if (_webCamErrorOccur)
                     {
                         DisableControls(picboxReadBarcode);
@@ -1263,7 +1269,7 @@ namespace Barcode_Reader_Demo
 
                 if (aryResult == null)
                 {
-                    strResult = "The barcode for selected format is not found." + "\r\n";
+                    strResult = "No barcode found." + "\r\n";
                 }
                 else
                 {
@@ -1327,6 +1333,12 @@ namespace Barcode_Reader_Demo
         private void cbxBarcodeFormat_SelectedIndexChanged(object sender, EventArgs e)
         {
             if ((sender as ComboBox) == null) return;
+
+            if(timerWebCam.Enabled)
+            { 
+                timerWebCam.Enabled = false;
+                EnableControls(picboxReadBarcode);
+            }
 
             switch (cbxBarcodeFormat.SelectedIndex)
             {
@@ -1543,8 +1555,9 @@ namespace Barcode_Reader_Demo
             dynamicDotNetTwain.IfShowUI = true;
             ResizeVideoWindow(0);
             dynamicDotNetTwain.ResolutionForCam = GetCamResolution();
-            if (isTimerOn) TurnOnTimer(true);
-            else EnableControls(picboxReadBarcode);
+            //if (isTimerOn) TurnOnTimer(true);
+            //else 
+            EnableControls(picboxReadBarcode);
         }
 
         private bool IsNeedRebindCbxSrc(out List<string> curSrcNames)
@@ -1612,8 +1625,11 @@ namespace Barcode_Reader_Demo
 
         private void cbxWebCamRes_SelectedIndexChanged(object sender, EventArgs e)
         {
+            timerWebCam.Enabled = false;
             dynamicDotNetTwain.ResolutionForCam = GetCamResolution();
             dynamicDotNetTwain.IfShowUI = true;
+            EnableControls(picboxReadBarcode);
+
         }
 
         private void SetWebCamAsDntSrc(string srcName)

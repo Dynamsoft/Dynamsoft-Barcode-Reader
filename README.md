@@ -1,6 +1,6 @@
 Dynamsoft Barcode Reader
 =========
-version 4.1
+version 4.3
 
 Introduction
 -----------
@@ -88,9 +88,9 @@ A Simple Barcode Reader Application in C++
 #include <stdio.h>
 #include "<relative path>/If_DBRP.h"
 #ifdef _WIN64
-#pragma comment(lib, "<relative path>/x64/DBRx64.lib")
+#pragma comment(lib, "<relative path>/DBRx64.lib")
 #else
-#pragma comment(lib, "<relative path>/x86/DBRx86.lib")
+#pragma comment(lib, "<relative path>/DBRx86.lib")
 #endif
 
 int main(int argc, const char* argv[])
@@ -99,16 +99,10 @@ int main(int argc, const char* argv[])
 	const char * pszImageFile = "<your image file full path>";
 	int iIndex = 0;
 	int iRet = -1;
-
+        
     //Initialize license prior to any decoding
     CBarcodeReader reader;
 	reader.InitLicense("<your license key here>");
-
-    //Initialize ReaderOptions
-	ReaderOptions ro = {0};
-	ro.llBarcodeFormat = OneD;	//Expected barcode types to read.
-	ro.iMaxBarcodesNumPerPage = 100;	//Expected barcode numbers to read.
-    reader.SetReaderOptions(ro);
 
     //Start decoding
     iRet = reader.DecodeFile(pszImageFile);
@@ -116,7 +110,7 @@ int main(int argc, const char* argv[])
     //If not DBR_OK
 	if (iRet != DBR_OK)
 	{
-		printf("Failed to read barcode: %d\r\n%s\r\n",iRet, GetErrorString(iRet));
+		printf("Failed to read barcode: %d\r\n%s\r\n",iRet, DBR_GetErrorString(iRet));
 		return iRet;
 	}
 
@@ -134,7 +128,7 @@ int main(int argc, const char* argv[])
 
     //Finally release BarcodeResultArray
     CBarcodeReader::FreeBarcodeResults(&paryResult);
-
+        
 	return 0;
 }
 

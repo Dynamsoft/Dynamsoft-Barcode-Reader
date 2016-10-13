@@ -230,7 +230,7 @@ Public Class Form1
                                     If Not barcodeResult Is Nothing Then
                                         Dim rect As Rectangle = barcodeResult.BoundingRect
                                         g.DrawRectangle(pen, rect)
-                                        Dim strText As String = "[" + (barcodeResults(i) + 1).ToString() + "] {" + barcodeResult.BarcodeText + "}"
+                                        Dim strText As String = "[" + (barcodeResults(i) + 1).ToString() + "]"
                                         Dim size As SizeF = g.MeasureString(strText, textFont)
                                         'int iWidth = rect.Width + (((int)textFont.Size) >> 1);
                                         Dim iHeight As Integer = (CInt(size.Height) + 1) ' *((int)(size.Width / rect.Width + 1));//textFont.Height * 3 / 2;
@@ -360,7 +360,7 @@ Public Class Form1
             'Rectangle rect = new Rectangle();
             Dim reader As BarcodeReader = New Dynamsoft.Barcode.BarcodeReader()
             Try
-                reader.LicenseKeys = "38B9B94D8B0E2B41641A47AFC3809889"
+                reader.LicenseKeys = "38B9B94D8B0E2B41FDE1FB60861C28C0"
                 Dim ro As ReaderOptions = New ReaderOptions()
                 ro.BarcodeFormats = GetFormats()
                 ro.MaxBarcodesToReadPerPage = Integer.Parse(tbMaximumNum.Text)
