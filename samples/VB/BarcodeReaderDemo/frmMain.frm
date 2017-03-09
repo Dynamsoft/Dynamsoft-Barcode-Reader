@@ -241,64 +241,67 @@ ErrLabel:
 End Sub
 
 Private Function GetSelectedBarcodeTypes() As Variant
-    Dim oFormat As New BarcodeFormat
-    Dim vFormat As Variant
-    vFormat = 0
+    Dim lFormat As Long
+    lFormat = 0
     
     
     If cbCode39.Value = Checked Then
-        vFormat = vFormat Or oFormat.CODE_39
+        lFormat = lFormat Or EBF_CODE_39
     End If
         
     If cbCode128.Value = Checked Then
-        vFormat = vFormat Or oFormat.CODE_128
+        lFormat = lFormat Or EBF_CODE_128
     End If
      
     If cbCode93.Value = Checked Then
-        vFormat = vFormat Or oFormat.CODE_93
+        lFormat = lFormat Or EBF_CODE_93
     End If
     
     If cbCodabar.Value = Checked Then
-        vFormat = vFormat Or oFormat.CODABAR
+        lFormat = lFormat Or EBF_CODABAR
     End If
     
     If cbITF.Value = Checked Then
-        vFormat = vFormat Or oFormat.ITF
+        lFormat = lFormat Or EBF_ITF
     End If
     
     If cbEAN13.Value = Checked Then
-        vFormat = vFormat Or oFormat.EAN_13
+        lFormat = lFormat Or EBF_EAN_13
     End If
     
     If cbEAN8.Value = Checked Then
-        vFormat = vFormat Or oFormat.EAN_8
+        lFormat = lFormat Or EBF_EAN_8
     End If
     
     If cbUPCA.Value = Checked Then
-        vFormat = vFormat Or oFormat.UPC_A
+        lFormat = lFormat Or EBF_UPC_A
     End If
    
     If cbUPCE.Value = Checked Then
-        vFormat = vFormat Or oFormat.UPC_E
+        lFormat = lFormat Or EBF_UPC_E
     End If
     
     If cbIND.Value = Checked Then
-        vFormat = vFormat Or oFormat.INDUSTRIAL_25
+        lFormat = lFormat Or EBF_INDUSTRIAL_25
     End If
     
     If cbQRCode.Value = Checked Then
-        vFormat = vFormat Or oFormat.QR_CODE
+        lFormat = lFormat Or EBF_QR_CODE
     End If
     
     If cbPDF417.Value = Checked Then
-        vFormat = vFormat Or oFormat.PDF417
+        lFormat = lFormat Or EBF_PDF417
     End If
     
     If cbDataMatrix.Value = Checked Then
-        vFormat = vFormat Or oFormat.DATAMATRIX
+        lFormat = lFormat Or EBF_DATAMATRIX
     End If
     
-    GetSelectedBarcodeTypes = vFormat
+    If lFormat = 0 Then
+        lFormat = -1
+    End If
+    
+    GetSelectedBarcodeTypes = lFormat
     
 End Function
 Private Sub btnReadBarcode_Click()
@@ -307,13 +310,10 @@ Private Sub btnReadBarcode_Click()
     lbResults = ""
         
     Dim oBarcodeReader As New BarcodeReader
-    oBarcodeReader.InitLicense "38B9B94D8B0E2B41FDE1FB60861C28C0"
+    oBarcodeReader.InitLicense "t0260NQAAAFUZbbNi3xJ4oViu+0+5Eim8wPzn6GeJZrIvrb/HLjzJ8Mn+GRjbfdoa/f+iRLzKTudXVEkKqj9tKlzzDP+xKzZ2IdknzMXimKDmKBivdKTXM3T5ACPK25omqoQkqNw00zExtCrR532mHig0QU6dsF5EmvkgDLxsbWw/M54wj1F1pGagM7YfKzpLN0/qvCeejimX2nvTMfOzv+M37m+0RPsnyp20pITycnvBGyWkZ3OWQ97U8UNYl+OyyfuHymz8EcjqQm9nxvYTm4nYHERHkiXMmI6jWLgK+4+jIlcS9WLgWd8pMKkI0bZCcwmVzk5z+vuGYKjZVK/iuYIx7McOP9k="
     
-    Dim oOptions As New ReaderOptions
-    oOptions.MaxBarcodesNumPerPage = tbMaxNum.Text
-    oOptions.BarcodeFormats = GetSelectedBarcodeTypes
-    
-    oBarcodeReader.ReaderOptions = oOptions
+    oBarcodeReader.BarcodeFormats = GetSelectedBarcodeTypes
+    oBarcodeReader.MaxBarcodesNumPerPage = tbMaxNum.Text
     
     Dim dtBeg, dtEnd As Double
     dtBeg = Timer
@@ -323,7 +323,6 @@ Private Sub btnReadBarcode_Click()
     
     Dim oBarcodeArray As IBarcodeResultArray
     Set oBarcodeArray = oBarcodeReader.Barcodes
-    
     
     Dim oTempStr As String
     If oBarcodeArray.Count = 0 Then
@@ -342,12 +341,18 @@ Private Sub btnReadBarcode_Click()
         
         oTempStr = oTempStr & "    Barcode " & iIndex + 1 & ":" & vbCrLf
         oTempStr = oTempStr & "        Page: " & oBarcode.PageNum & vbCrLf
-        oTempStr = oTempStr & "        Type: " & oBarcode.BarcodeFormat.TypeString & vbCrLf
+        oTempStr = oTempStr & "        Type: " & oBarcode.BarcodeFormatString & vbCrLf
         oTempStr = oTempStr & "        Value: " & oBarcode.BarcodeText & vbCrLf
+               
+        oTempStr = oTempStr & "        Hex Data: " & ToHexString(oBarcode.BarcodeData) & vbCrLf
+        
         oTempStr = oTempStr & "        Region: {Left: " & oBarcode.Left & _
                                 ", Top: " & oBarcode.Top & _
                                 ", Width: " & oBarcode.Width & _
-                                ", Height: " & oBarcode.Height & "}" & vbCrLf & vbCrLf
+                                ", Height: " & oBarcode.Height & "}" & vbCrLf
+                                
+        oTempStr = oTempStr & "        Module size: " & oBarcode.ModuleSize & vbCrLf
+        oTempStr = oTempStr & "        Angle: " & oBarcode.Angle & vbCrLf & vbCrLf
     Next
     
     lbResults = oTempStr
@@ -361,6 +366,22 @@ ErrLabel:
     'MsgBox Err.Description, vbCritical
     lbResults.Text = Err.Description
 End Sub
+
+Private Function ToHexString(bytBuffer() As Byte)
+    Dim strHex As String
+    strHex = ""
+    
+    Dim iIndex As Long
+    For iIndex = 0 To UBound(bytBuffer)
+        If Len(Hex(bytBuffer(iIndex))) = 1 Then
+            strHex = strHex & "0" & Hex(bytBuffer(iIndex)) & " "
+        Else
+            strHex = strHex & Hex(bytBuffer(iIndex)) & " "
+        End If
+    Next iIndex
+    
+    ToHexString = strHex
+End Function
 
 Private Sub btnSelect_Click()
     If Not bUnselectFlag Then
@@ -401,7 +422,7 @@ Private Sub btnSelect_Click()
 End Sub
 
 Private Sub DisableOrEnableReadButton()
-    If GetSelectedBarcodeTypes = 0 Then
+    If GetSelectedBarcodeTypes = -1 Then
         btnReadBarcode.Enabled = False
     Else
         btnReadBarcode.Enabled = True

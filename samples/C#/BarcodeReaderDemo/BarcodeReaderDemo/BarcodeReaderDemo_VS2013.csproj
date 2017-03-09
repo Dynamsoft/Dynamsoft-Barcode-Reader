@@ -16,10 +16,14 @@
     </UpgradeBackupLocation>
     <OldToolsVersion>3.5</OldToolsVersion>
     <IsWebBootstrapper>false</IsWebBootstrapper>
-    <SccProjectName></SccProjectName>
-    <SccLocalPath></SccLocalPath>
-    <SccAuxPath></SccAuxPath>
-    <SccProvider></SccProvider>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile />
     <PublishUrl>publish\</PublishUrl>
@@ -115,7 +119,10 @@
       <DependentUpon>BarcodeReaderDemo.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
-    <EmbeddedResource Include="Properties\Resources.resx" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources1.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="BarcodeReaderDemo.resx">
       <SubType>Designer</SubType>
       <DependentUpon>BarcodeReaderDemo.cs</DependentUpon>
@@ -307,6 +314,10 @@
     <Content Include="Resources\picboxScan_Down.png" />
     <Content Include="Resources\picboxScan_Enter.png" />
     <Content Include="Resources\picboxScan_Leave.png" />
+    <Content Include="Resources\picboxStopBarcode_Disabled.png" />
+    <Content Include="Resources\picboxStopBarcode_Down.png" />
+    <Content Include="Resources\picboxStopBarcode_Enter.png" />
+    <Content Include="Resources\picboxStopBarcode_Leave.png" />
     <Content Include="Resources\picboxTextA_Disabled.png" />
     <Content Include="Resources\picboxTextA_Down.png" />
     <Content Include="Resources\picboxTextA_Enter.png" />

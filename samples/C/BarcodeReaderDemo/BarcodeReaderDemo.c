@@ -3,114 +3,95 @@
 #include <windows.h>
 #include <stdio.h>
 #include <conio.h>
-#include "../../../../Components/C_C++/Include/If_DBR.h"
+#include "../../../../Components/C_C++/Include/DynamsoftBarcodeReader.h"
+
 #ifdef _WIN64
 #pragma comment(lib, "../../../../Components/C_C++/Lib/DBRx64.lib")
 #else
 #pragma comment(lib, "../../../../Components/C_C++/Lib/DBRx86.lib")
 #endif
 
-__int64 GetFormat(int iIndex)
+int GetFormat(int iIndex)
 {
-	__int64 llFormat = 0;
+	int iFormat = -1;
 
 	switch(iIndex)
 	{
 	case 1:
-		llFormat = OneD | QR_CODE | PDF417 |DATAMATRIX;
+		iFormat = BF_All;
 		break;
 	case 2:
-		llFormat = OneD;
+		iFormat = BF_OneD;
 		break;
 	case 3:
-		llFormat = QR_CODE;
+		iFormat = BF_QR_CODE;
 		break;
 	case 4:
-		llFormat = CODE_39;
+		iFormat = BF_CODE_39;
 		break;	
 	case 5:
-		llFormat = CODE_128;
+		iFormat = BF_CODE_128;
 		break;	
 	case 6:
-		llFormat = CODE_93;
+		iFormat = BF_CODE_93;
 		break;	
 	case 7:
-		llFormat = CODABAR;
+		iFormat = BF_CODABAR;
 		break;	
 	case 8:
-		llFormat = ITF;
+		iFormat = BF_ITF;
 		break;
 	case 9:
-		llFormat = INDUSTRIAL_25;
+		iFormat = BF_INDUSTRIAL_25;
 		break;
 	case 10:
-		llFormat = EAN_13;
+		iFormat = BF_EAN_13;
 		break;
 	case 11:
-		llFormat = EAN_8;
+		iFormat = BF_EAN_8;
 		break;
 	case 12:
-		llFormat = UPC_A;
+		iFormat = BF_UPC_A;
 		break;
 	case 13:
-		llFormat = UPC_E;
+		iFormat = BF_UPC_E;
 		break;
 	case 14:
-		llFormat = PDF417;
+		iFormat = BF_PDF417;
 		break;
 	case 15:
-		llFormat = DATAMATRIX;
+		iFormat = BF_DATAMATRIX;
 		break;
 	default:
 		break;
 	}
 
-	return llFormat;
+	return iFormat;
 }
 
-const char * GetFormatStr(__int64 format)
+void ToHexString(char* pSrc, int iLen, char* pDest)
 {
-	if (format == CODE_39)
-		return "CODE_39";
-	if (format == CODE_128)
-		return "CODE_128";
-	if (format == CODE_93)
-		return "CODE_93";
-	if (format == CODABAR)	
-		return "CODABAR";
-	if (format == ITF)	
-		return "ITF";
-	if (format == UPC_A)	
-		return "UPC_A";
-	if (format == UPC_E)	
-		return "UPC_E";
-	if (format == EAN_13)	
-		return "EAN_13";
-	if (format == EAN_8)	
-		return "EAN_8";
-	if (format == INDUSTRIAL_25)	
-		return "INDUSTRIAL_25";
-	if (format == QR_CODE)
-		return "QR_CODE";
-	if (format == PDF417)
-		return "PDF417";
-	if (format == DATAMATRIX)
-		return "DATAMATRIX";
-	
-	return "UNKNOWN";
+	const char HEXCHARS[16] = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
+
+	int i;
+	char* ptr = pDest;
+
+	for(i = 0; i < iLen; ++i)
+	{
+		sprintf_s(ptr, 4, "%c%c ", HEXCHARS[ ( pSrc[i] & 0xF0 ) >> 4 ], HEXCHARS[ ( pSrc[i] & 0x0F ) >> 0 ]);
+		ptr += 3;
+	}
 }
 
 int main(int argc, const char* argv[])
 {
-
-	__int64 llFormat = (OneD | QR_CODE | PDF417 | DATAMATRIX);
+	int iFormat = 0;
 	char pszBuffer[512] = {0};
 
 	char pszImageFile[512] = {0};
 	int iMaxCount = 0x7FFFFFFF;
 	int iIndex = 0;
-	ReaderOptions ro = {0};
-	pBarcodeResultArray paryResult = NULL;
+	SBarcodeResultArray *paryResult = NULL;
 	int iRet = -1;
 	char * pszTemp = NULL;
 	char * pszTemp1 = NULL;
@@ -120,7 +101,8 @@ int main(int argc, const char* argv[])
 	FILE* fp = NULL;
 	int iExitFlag = 0;
 	errno_t err = 0;
-	
+	void* hBarcode = NULL;
+
 	printf("*************************************************\r\n");
 	printf("Welcome to Dynamsoft Barcode Reader Demo\r\n");
 	printf("*************************************************\r\n");
@@ -129,7 +111,7 @@ int main(int argc, const char* argv[])
 	while(1)
 	{
 		iMaxCount = 0x7FFFFFFF;
-		llFormat = (OneD | QR_CODE | PDF417 |DATAMATRIX);
+		iFormat = BF_All;
 
 		while(1)
 		{
@@ -188,8 +170,8 @@ int main(int argc, const char* argv[])
 			if(iLen > 0)
 			{
 				iIndex = atoi(pszBuffer);
-				llFormat = GetFormat(iIndex);
-				if(llFormat != 0)
+				iFormat = GetFormat(iIndex);
+				if(iFormat != -1)
 					break;
 			}
 			
@@ -216,13 +198,15 @@ int main(int argc, const char* argv[])
 		printf("\r\nBarcode Results:\r\n----------------------------------------------------------\r\n");
 
 
-		DBR_InitLicense("38B9B94D8B0E2B41FDE1FB60861C28C0");
+		hBarcode = DBR_CreateInstance();
+
+		DBR_InitLicenseEx(hBarcode, "t0260NQAAAFUZbbNi3xJ4oViu+0+5Eim8wPzn6GeJZrIvrb/HLjzJ8Mn+GRjbfdoa/f+iRLzKTudXVEkKqj9tKlzzDP+xKzZ2IdknzMXimKDmKBivdKTXM3T5ACPK25omqoQkqNw00zExtCrR532mHig0QU6dsF5EmvkgDLxsbWw/M54wj1F1pGagM7YfKzpLN0/qvCeejimX2nvTMfOzv+M37m+0RPsnyp20pITycnvBGyWkZ3OWQ97U8UNYl+OyyfuHymz8EcjqQm9nxvYTm4nYHERHkiXMmI6jWLgK+4+jIlcS9WLgWd8pMKkI0bZCcwmVzk5z+vuGYKjZVK/iuYIx7McOP9k=");
+		DBR_SetBarcodeFormats(hBarcode, iFormat);
+		DBR_SetMaxBarcodesNumPerPage(hBarcode, iMaxCount);
 
 		// Read barcode
 		ullTimeBegin = GetTickCount();
-		ro.llBarcodeFormat = llFormat;
-		ro.iMaxBarcodesNumPerPage = iMaxCount;
-		iRet = DBR_DecodeFile(pszImageFile, &ro, &paryResult);
+		iRet = DBR_DecodeFileEx(hBarcode, pszImageFile, &paryResult);
 		ullTimeEnd = GetTickCount();
 		
 		// Output barcode result
@@ -255,22 +239,33 @@ int main(int argc, const char* argv[])
 			printf(pszTemp);
 			sprintf_s(pszTemp, 4096, "    Page: %d\r\n", paryResult->ppBarcodes[iIndex]->iPageNum);
 			printf(pszTemp);
-			sprintf_s(pszTemp, 4096, "    Type: %s\r\n", GetFormatStr(paryResult->ppBarcodes[iIndex]->llFormat));
+			sprintf_s(pszTemp, 4096, "    Type: %s\r\n", paryResult->ppBarcodes[iIndex]->pBarcodeFormatString);
 			printf(pszTemp);
-			pszTemp1 = (char*)malloc(paryResult->ppBarcodes[iIndex]->iBarcodeDataLength + 1);
-			memset(pszTemp1, 0, paryResult->ppBarcodes[iIndex]->iBarcodeDataLength + 1);
-			memcpy(pszTemp1, paryResult->ppBarcodes[iIndex]->pBarcodeData, paryResult->ppBarcodes[iIndex]->iBarcodeDataLength);
-			sprintf_s(pszTemp, 4096, "    Value: %s\r\n", pszTemp1);
+			sprintf_s(pszTemp, 4096, "    Value: %s\r\n", paryResult->ppBarcodes[iIndex]->pBarcodeData);
+			printf(pszTemp);
+
+			pszTemp1 = (char*)malloc(paryResult->ppBarcodes[iIndex]->iBarcodeDataLength*3+1);
+			ToHexString(paryResult->ppBarcodes[iIndex]->pBarcodeData, paryResult->ppBarcodes[iIndex]->iBarcodeDataLength, pszTemp1);
+			sprintf_s(pszTemp, 4096, "    Hex Data: %s\r\n", pszTemp1);
 			printf(pszTemp);
 			free(pszTemp1);
-			sprintf_s(pszTemp, 4096, "    Region: {Left: %d, Top: %d, Width: %d, Height: %d}\r\n\r\n",
+
+			sprintf_s(pszTemp, 4096, "    Region: {Left: %d, Top: %d, Width: %d, Height: %d}\r\n",
 				paryResult->ppBarcodes[iIndex]->iLeft, paryResult->ppBarcodes[iIndex]->iTop, 
 				paryResult->ppBarcodes[iIndex]->iWidth, paryResult->ppBarcodes[iIndex]->iHeight);
 			printf(pszTemp);
+
+			sprintf_s(pszTemp, 4096, "    Module Size: %d\r\n", paryResult->ppBarcodes[iIndex]->iModuleSize);
+			printf(pszTemp);
+			sprintf_s(pszTemp, 4096, "    Angle: %d\r\n\r\n", paryResult->ppBarcodes[iIndex]->iAngle);
+			printf(pszTemp);
+
 		}
 
 		free(pszTemp);
 		DBR_FreeBarcodeResults(&paryResult);
+
+		DBR_DestroyInstance(hBarcode);
 	}
 
 	return 0;

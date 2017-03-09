@@ -44,8 +44,6 @@ type
 var
   Form1: TForm1;
   oBR: BarcodeReader;
-  oBF: BarcodeFormat;
-  oRO: ReaderOptions;
   oList: BarcodeResultArray;
   oBarcode: BarcodeResult;
   strResults : String;
@@ -63,77 +61,83 @@ begin
   Set8087CW($133f); { Disable all fpu exceptions }
 
   oBR := CoBarcodeReader.Create;
-  oBF := CoBarcodeFormat.Create;
-  oRO := CoReaderOptions.Create;
   bSelectAll := true;
-  oBR.InitLicense('38B9B94D8B0E2B41FDE1FB60861C28C0');
+  oBR.InitLicense('t0260NQAAAFUZbbNi3xJ4oViu+0+5Eim8wPzn6GeJZrIvrb/HLjzJ8Mn+GRjbfdoa/f+iRLzKTudXVEkKqj9tKlzzDP+xKzZ2IdknzMXimKDmKBivdKTXM3T5ACPK25omqoQkqNw00zExtCrR532mHig0QU6dsF5EmvkgDLxsbWw/M54wj1F1pGagM7YfKzpLN0/qvCe' + 'ejimX2nvTMfOzv+M37m+0RPsnyp20pITycnvBGyWkZ3OWQ97U8UNYl+OyyfuHymz8EcjqQm9nxvYTm4nYHERHkiXMmI6jWLgK+4+jIlcS9WLgWd8pMKkI0bZCcwmVzk5z+vuGYKjZVK/iuYIx7McOP9k=');
 end;
 
 procedure TForm1.btnReadBarcodesClick(Sender: TObject);
   var
     i : Integer;
-    format : OleVariant;
+    j : Integer;
+    iLow : Integer;
+    iHigh : Integer;
+    format : Integer;
     iBeg: Integer;
     iEnd: Integer;
+    strTemp : string;
   begin
 
   format := 0;
   if cbCode39.Checked then
   begin
-    format := format or oBF.CODE_39;
+    format := format or EBF_CODE_39;
   end;
   if cbCode128.Checked then
   begin
-    format := format or oBF.CODE_128;
+    format := format or EBF_CODE_128;
   end;
   if cbCode93.Checked then
   begin
-    format := format or oBF.CODE_93;
+    format := format or EBF_CODE_93;
   end;
   if cbCodabar.Checked then
   begin
-    format := format or oBF.CODABAR;
+    format := format or EBF_CODABAR;
   end;
   if cbITF.Checked then
   begin
-    format := format or oBF.ITF;
+    format := format or EBF_ITF;
   end;
   if cbIND.Checked then
   begin
-    format := format or oBF.INDUSTRIAL_25;
+    format := format or EBF_INDUSTRIAL_25;
   end;
   if cbEAN8.Checked then
   begin
-    format := format or oBF.EAN_8;
+    format := format or EBF_EAN_8;
   end;
   if cbEAN13.Checked then
   begin
-    format := format or oBF.EAN_13;
+    format := format or EBF_EAN_13;
   end;
   if cbUPCA.Checked then
   begin
-    format := format or oBF.UPC_A;
+    format := format or EBF_UPC_A;
   end;
   if cbUPCE.Checked then
   begin
-    format := format or oBF.UPC_E;
+    format := format or EBF_UPC_E;
   end;
   if cbQRCode.Checked then
   begin
-    format := format or oBF.QR_CODE;
+    format := format or EBF_QR_CODE;
   end;
   if cbPDF417.Checked then
   begin
-    format := format or oBF.PDF417;
+    format := format or EBF_PDF417;
   end;
   if cbDataMatrix.Checked then
   begin
-    format := format or oBF.DATAMATRIX;
+    format := format or EBF_DATAMATRIX;
   end;
 
-  oRO.BarcodeFormats := format;
-  oRO.MaxBarcodesNumPerPage := strtoint(tbMaxNum.Text);
-  oBR.ReaderOptions := oRO;
+  if format = 0 then
+  begin
+    format := -1;
+  end;
+  
+  oBR.BarcodeFormats := format;
+  oBR.MaxBarcodesNumPerPage := strtoint(tbMaxNum.Text);
 
   iBeg := GetTickCount();
 
@@ -168,12 +172,24 @@ procedure TForm1.btnReadBarcodesClick(Sender: TObject);
 
      strResults := strResults + '    Barcode ' + inttostr(i+1) + ':' + sLineBreak;
      strResults := strResults + '    Page: ' + inttostr(oBarcode.PageNum) + sLineBreak;
-     strResults := strResults + '    Type: ' + oBarcode.BarcodeFormat.TypeString + sLineBreak;
+     strResults := strResults + '    Type: ' + oBarcode.BarcodeFormatString + sLineBreak;
      strResults := strResults + '    Value: ' + oBarcode.BarcodeText + sLineBreak;
+
+     strTemp := '';
+     iLow := varArrayLowBound(oBarcode.BarcodeData, 1);
+     iHigh := varArrayHighBound(oBarcode.BarcodeData, 1);
+     for j := iLow to iHigh do
+     begin
+        strTemp := strTemp + inttohex(oBarcode.BarcodeData[j], 2) + ' ';
+     end;
+
+     strResults := strResults + '    Hex Data: ' + strTemp + sLineBreak ;
      strResults := strResults + '    Region: {Left: ' + inttostr(oBarcode.Left) +
                                 ', Top: ' + inttostr(oBarcode.Top) +
                                 ', Width: ' + inttostr(oBarcode.Width) +
                                 ', Height: ' + inttostr(oBarcode.Height) + '}' + sLineBreak;
+     strResults := strResults + '    Module Size: ' + inttostr(oBarcode.ModuleSize) + sLineBreak;
+     strResults := strResults + '    Angle: ' + inttostr(oBarcode.Angle) + sLineBreak;
                                 
      strResults := strResults + sLineBreak;
   end;

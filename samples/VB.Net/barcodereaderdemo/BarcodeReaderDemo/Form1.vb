@@ -360,7 +360,7 @@ Public Class Form1
             'Rectangle rect = new Rectangle();
             Dim reader As BarcodeReader = New Dynamsoft.Barcode.BarcodeReader()
             Try
-                reader.LicenseKeys = "38B9B94D8B0E2B41FDE1FB60861C28C0"
+                reader.LicenseKeys = "t0260NQAAAFUZbbNi3xJ4oViu+0+5Eim8wPzn6GeJZrIvrb/HLjzJ8Mn+GRjbfdoa/f+iRLzKTudXVEkKqj9tKlzzDP+xKzZ2IdknzMXimKDmKBivdKTXM3T5ACPK25omqoQkqNw00zExtCrR532mHig0QU6dsF5EmvkgDLxsbWw/M54wj1F1pGagM7YfKzpLN0/qvCeejimX2nvTMfOzv+M37m+0RPsnyp20pITycnvBGyWkZ3OWQ97U8UNYl+OyyfuHymz8EcjqQm9nxvYTm4nYHERHkiXMmI6jWLgK+4+jIlcS9WLgWd8pMKkI0bZCcwmVzk5z+vuGYKjZVK/iuYIx7McOP9k="
                 Dim ro As ReaderOptions = New ReaderOptions()
                 ro.BarcodeFormats = GetFormats()
                 ro.MaxBarcodesToReadPerPage = Integer.Parse(tbMaximumNum.Text)
@@ -378,6 +378,18 @@ Public Class Form1
         End If
     End Sub
 
+    Private Function ToHexString(ByVal bytData As Byte())
+        Dim strHex As String
+        Dim i As Integer
+
+        strHex = ""
+        For i = 0 To UBound(bytData)
+            strHex = strHex & Hex(bytData(i)) & " "
+        Next
+
+        ToHexString = strHex
+    End Function
+
     Private Sub ShowBarcodeResults(ByVal barcodeResults As BarcodeResult(), ByVal timeElapsed As Double)
         tbResults.Clear()
         m_results.Clear()
@@ -392,8 +404,11 @@ Public Class Form1
                     tbResults.AppendText(String.Format("    Page: {0}{1}", (barcodeResults(i).PageNumber).ToString(), vbCrLf))
                     tbResults.AppendText(String.Format("    Type: {0}{1}", barcodeResults(i).BarcodeFormat.ToString(), vbCrLf))
                     tbResults.AppendText(String.Format("    Value: {0}{1}", barcodeResults(i).BarcodeText, vbCrLf))
+                    tbResults.AppendText(String.Format("    Hex Data: {0}{1}", ToHexString(barcodeResults(i).BarcodeData), vbCrLf))
                     tbResults.AppendText(String.Format("    Region: {{Left: {0}, Top: {1}, Width: {2}, Height: {3}}}{4}", barcodeResults(i).BoundingRect.Left.ToString(), _
                                                        barcodeResults(i).BoundingRect.Top.ToString(), barcodeResults(i).BoundingRect.Width.ToString(), barcodeResults(i).BoundingRect.Height.ToString(), vbCrLf))
+                    tbResults.AppendText(String.Format("    Module Size: {0}{1}", barcodeResults(i).ModuleSize, vbCrLf))
+                    tbResults.AppendText(String.Format("    Angle: {0}{1}", barcodeResults(i).Angle, vbCrLf))
                     tbResults.AppendText(vbCrLf)
                 Next
                 tbResults.SelectionStart = 0
@@ -426,7 +441,7 @@ Public Class Form1
                                 For k = iStart To iEnd Step 1
                                     resultsOnePage(k - iStart) = k
                                 Next
-                                m_results(iLastPageNumber - 1) = resultsOnePage
+                                m_results(iLastPageNumber) = resultsOnePage
                             End If
                             iStartIndex = i
                             iLastPageNumber = barcodeResults(i).PageNumber
@@ -445,7 +460,7 @@ Public Class Form1
                             For k = iStart To iEnd Step 1
                                 resultsOnePage(k - iStart) = k
                             Next
-                            m_results(iLastPageNumber - 1) = resultsOnePage
+                            m_results(iLastPageNumber) = resultsOnePage
                         End If
                     End If
                 Next

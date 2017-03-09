@@ -12,21 +12,18 @@ unit DBRCtrlLib_TLB;
 // ************************************************************************ //
 
 // PASTLWTR : 1.2
-// File generated on 1/5/2016 10:21:39 PM from Type Library described below.
+// File generated on 2017/2/13 10:23:29 from Type Library described below.
 
 // ************************************************************************  //
-// Type Lib: C:\DBR\0106\Windows\Components\ActiveX\DynamsoftBarcodeReaderCtrlx86.dll (1)
-// LIBID: {FFE1D517-154B-4026-998B-66FFC1A3ACCA}
+// Type Lib: E:\DBR\DBRSamples\Components\ActiveX\DynamsoftBarcodeReaderCtrlx86.dll (1)
+// LIBID: {19AA5F16-9FA9-4B11-8F90-C269B8E668D9}
 // LCID: 0
 // Helpfile: 
-// HelpString: Dynamsoft Barcode Reader 4.1 Type Library
+// HelpString: Dynamsoft Barcode Reader 5.0 Type Library
 // DepndLst: 
 //   (1) v2.0 stdole, (C:\Windows\SysWOW64\stdole2.tlb)
 // Errors:
-//   Hint: Symbol 'Type' renamed to 'type_'
-//   Error creating palette bitmap of (TBarcodeReader) : Server C:\DBR\0106\Windows\Components\ActiveX\DynamsoftBarcodeReaderCtrlx86.dll contains no icons
-//   Error creating palette bitmap of (TBarcodeFormat) : Server C:\DBR\0106\Windows\Components\ActiveX\DynamsoftBarcodeReaderCtrlx86.dll contains no icons
-//   Error creating palette bitmap of (TReaderOptions) : Server C:\DBR\0106\Windows\Components\ActiveX\DynamsoftBarcodeReaderCtrlx86.dll contains no icons
+//   Error creating palette bitmap of (TBarcodeReader) : Server E:\DBR\DBRSamples\Components\ActiveX\DynamsoftBarcodeReaderCtrlx86.dll contains no icons
 // ************************************************************************ //
 // *************************************************************************//
 // NOTE:                                                                      
@@ -59,19 +56,98 @@ const
   DBRCtrlLibMajorVersion = 1;
   DBRCtrlLibMinorVersion = 0;
 
-  LIBID_DBRCtrlLib: TGUID = '{FFE1D517-154B-4026-998B-66FFC1A3ACCA}';
+  LIBID_DBRCtrlLib: TGUID = '{19AA5F16-9FA9-4B11-8F90-C269B8E668D9}';
 
-  DIID__IBarcodeReaderEvents: TGUID = '{07B5D2D9-B4F2-432C-ACF1-685C69485825}';
-  IID_IBarcodeReader: TGUID = '{70000CBB-F908-4E2C-9E53-070237A6BD1C}';
-  CLASS_BarcodeReader: TGUID = '{08D536C2-F4C9-44F6-A540-65957760C1B2}';
-  IID_IReaderOptions: TGUID = '{68ECF6D9-5BB7-42B5-8BDC-D1D6AFB0ED15}';
-  IID_IBarcodeResultArray: TGUID = '{B15268A1-E8B0-42AC-A1C9-42E9C8329DE3}';
-  IID_IBarcodeResult: TGUID = '{ABDFE739-97AD-4715-B2D6-BC023763E9B2}';
-  IID_IBarcodeFormat: TGUID = '{F03B5DC1-4C10-4D76-B73F-4222C1B783CF}';
-  CLASS_BarcodeFormat: TGUID = '{2FBB2D11-F616-4ABB-A0C7-AE709017385B}';
-  CLASS_ReaderOptions: TGUID = '{E483386B-CB2F-4B4E-B014-E8D2DA41AE7F}';
-  CLASS_BarcodeResult: TGUID = '{52826E02-2F94-4E1B-A08C-B9C3C6AADC2C}';
-  CLASS_BarcodeResultArray: TGUID = '{4B7DE7CB-B94F-46AD-AB91-D25F3461D603}';
+  DIID__IBarcodeReaderEvents: TGUID = '{96D15AE6-535C-417F-A4B2-9567460A1311}';
+  IID_IBarcodeReader: TGUID = '{5847949D-7195-4613-AE5E-E03F84C7D641}';
+  CLASS_BarcodeReader: TGUID = '{34251D1F-7229-4CED-B32A-CBBDA8DDBC31}';
+  IID_IBarcodeResultArray: TGUID = '{C37FE03C-854E-4057-A9C4-7FA47992A434}';
+  IID_IBarcodeResult: TGUID = '{5D746054-19C1-494F-8703-A92BA29B4AB8}';
+  CLASS_BarcodeResult: TGUID = '{0229F7CD-CD5C-4773-A575-E90122C59BB5}';
+  CLASS_BarcodeResultArray: TGUID = '{BC3689F9-4051-445A-8B71-C067F72634A0}';
+
+// *********************************************************************//
+// Declaration of Enumerations defined in Type Library                    
+// *********************************************************************//
+// Constants for enum __MIDL___MIDL_itf_DBR_ATL_0000_0000_0001
+type
+  __MIDL___MIDL_itf_DBR_ATL_0000_0000_0001 = TOleEnum;
+const
+  EBF_All = $00000000;
+  EBF_OneD = $000003FF;
+  EBF_CODE_39 = $00000001;
+  EBF_CODE_128 = $00000002;
+  EBF_CODE_93 = $00000004;
+  EBF_CODABAR = $00000008;
+  EBF_ITF = $00000010;
+  EBF_EAN_13 = $00000020;
+  EBF_EAN_8 = $00000040;
+  EBF_UPC_A = $00000080;
+  EBF_UPC_E = $00000100;
+  EBF_INDUSTRIAL_25 = $00000200;
+  EBF_PDF417 = $02000000;
+  EBF_QR_CODE = $04000000;
+  EBF_DATAMATRIX = $08000000;
+
+// Constants for enum __MIDL___MIDL_itf_DBR_ATL_0000_0000_0002
+type
+  __MIDL___MIDL_itf_DBR_ATL_0000_0000_0002 = TOleEnum;
+const
+  EICD_Unknown = $00000000;
+  EICD_Scanner = $00000001;
+  EICD_Camera = $00000002;
+  EICD_Fax = $00000003;
+
+// Constants for enum __MIDL___MIDL_itf_DBR_ATL_0000_0000_0003
+type
+  __MIDL___MIDL_itf_DBR_ATL_0000_0000_0003 = TOleEnum;
+const
+  EBCM_DarkOnLight = $00000000;
+  EBCM_LightOnDark = $00000001;
+  EBCM_DarkAndLight = $00000002;
+
+// Constants for enum __MIDL___MIDL_itf_DBR_ATL_0000_0000_0006
+type
+  __MIDL___MIDL_itf_DBR_ATL_0000_0000_0006 = TOleEnum;
+const
+  EBTE_Default = $00000000;
+  EBTE_SHIFT_JIS_932 = $000003A4;
+  EBTE_GB2312_936 = $000003A8;
+  EBTE_KOREAN_949 = $000003B5;
+  EBTE_BIG5_950 = $000003B6;
+  EBTE_UTF16 = $000004B0;
+  EBTE_UTF16BE = $000004B1;
+  EBTE_UTF8 = $0000FDE9;
+
+// Constants for enum __MIDL___MIDL_itf_DBR_ATL_0000_0000_0007
+type
+  __MIDL___MIDL_itf_DBR_ATL_0000_0000_0007 = TOleEnum;
+const
+  EIPT_Binary = $00000000;
+  EIPT_BinaryInverted = $00000001;
+  EIPT_GrayScaled = $00000002;
+  EIPT_NV21 = $00000003;
+  EIPT_RGB_565 = $00000004;
+  EIPT_RGB_555 = $00000005;
+  EIPT_RGB_888 = $00000006;
+  EIPT_ARGB_8888 = $00000007;
+
+// Constants for enum __MIDL___MIDL_itf_DBR_ATL_0000_0000_0004
+type
+  __MIDL___MIDL_itf_DBR_ATL_0000_0000_0004 = TOleEnum;
+const
+  ESRS_Left = $00000000;
+  ESRS_Top = $00000001;
+  ESRS_Right = $00000002;
+  ESRS_Bottom = $00000003;
+
+// Constants for enum __MIDL___MIDL_itf_DBR_ATL_0000_0000_0005
+type
+  __MIDL___MIDL_itf_DBR_ATL_0000_0000_0005 = TOleEnum;
+const
+  EBOT_Horizontal = $00000000;
+  EBOT_Vertical = $00000001;
+
 type
 
 // *********************************************************************//
@@ -80,134 +156,184 @@ type
   _IBarcodeReaderEvents = dispinterface;
   IBarcodeReader = interface;
   IBarcodeReaderDisp = dispinterface;
-  IReaderOptions = interface;
-  IReaderOptionsDisp = dispinterface;
   IBarcodeResultArray = interface;
   IBarcodeResultArrayDisp = dispinterface;
   IBarcodeResult = interface;
   IBarcodeResultDisp = dispinterface;
-  IBarcodeFormat = interface;
-  IBarcodeFormatDisp = dispinterface;
 
 // *********************************************************************//
 // Declaration of CoClasses defined in Type Library                       
 // (NOTE: Here we map each CoClass to its Default Interface)              
 // *********************************************************************//
   BarcodeReader = IBarcodeReader;
-  BarcodeFormat = IBarcodeFormat;
-  ReaderOptions = IReaderOptions;
   BarcodeResult = IBarcodeResult;
   BarcodeResultArray = IBarcodeResultArray;
 
 
 // *********************************************************************//
+// Declaration of structures, unions and aliases.                         
+// *********************************************************************//
+
+  enumBarcodeFormat = __MIDL___MIDL_itf_DBR_ATL_0000_0000_0001; 
+  enumImageCaptureDevice = __MIDL___MIDL_itf_DBR_ATL_0000_0000_0002; 
+  enumBarcodeColorMode = __MIDL___MIDL_itf_DBR_ATL_0000_0000_0003; 
+  enumBarcodeTextEncoding = __MIDL___MIDL_itf_DBR_ATL_0000_0000_0006; 
+  enumImagePixelFormat = __MIDL___MIDL_itf_DBR_ATL_0000_0000_0007; 
+  enumScanRegionSide = __MIDL___MIDL_itf_DBR_ATL_0000_0000_0004; 
+  enumBarcodeOrientationType = __MIDL___MIDL_itf_DBR_ATL_0000_0000_0005; 
+
+// *********************************************************************//
 // DispIntf:  _IBarcodeReaderEvents
 // Flags:     (4096) Dispatchable
-// GUID:      {07B5D2D9-B4F2-432C-ACF1-685C69485825}
+// GUID:      {96D15AE6-535C-417F-A4B2-9567460A1311}
 // *********************************************************************//
   _IBarcodeReaderEvents = dispinterface
-    ['{07B5D2D9-B4F2-432C-ACF1-685C69485825}']
+    ['{96D15AE6-535C-417F-A4B2-9567460A1311}']
   end;
 
 // *********************************************************************//
 // Interface: IBarcodeReader
 // Flags:     (4544) Dual NonExtensible OleAutomation Dispatchable
-// GUID:      {70000CBB-F908-4E2C-9E53-070237A6BD1C}
+// GUID:      {5847949D-7195-4613-AE5E-E03F84C7D641}
 // *********************************************************************//
   IBarcodeReader = interface(IDispatch)
-    ['{70000CBB-F908-4E2C-9E53-070237A6BD1C}']
+    ['{5847949D-7195-4613-AE5E-E03F84C7D641}']
     procedure InitLicense(const sLicenseKey: WideString); safecall;
     procedure DecodeFile(const sFileName: WideString); safecall;
-    procedure DecodeFileRect(const sFileName: WideString; iRectLeft: Integer; iRectTop: Integer; 
-                             iRectWidth: Integer; iRectHeight: Integer); safecall;
     procedure DecodeDIB(hDIB: Integer); safecall;
-    procedure DecodeDIBRect(hDIB: Integer; iRectLeft: Integer; iRectTop: Integer; 
-                            iRectWidth: Integer; iRectHeight: Integer); safecall;
-    function Get_ReaderOptions: IReaderOptions; safecall;
-    procedure Set_ReaderOptions(const pVal: IReaderOptions); safecall;
     function Get_Barcodes: IBarcodeResultArray; safecall;
     function Get_BarcodesCount: Integer; safecall;
     function Get_ErrorCode: Integer; safecall;
     function Get_ErrorString: WideString; safecall;
-    procedure DecodeBuffer(DIBBuffer: OleVariant); safecall;
-    procedure DecodeBufferRect(DIBBuffer: OleVariant; iRectLeft: Integer; iRectTop: Integer; 
-                               iRectWidth: Integer; iRectHeight: Integer); safecall;
     procedure DecodeStream(FileStream: OleVariant); safecall;
-    procedure DecodeStreamRect(FileStream: OleVariant; iRectLeft: Integer; iRectTop: Integer; 
-                               iRectWidth: Integer; iRectHeight: Integer); safecall;
-    procedure DecodeBase64String(const sFileStream: WideString); safecall;
-    procedure DecodeBase64StringRect(const sFileStream: WideString; iRectLeft: Integer; 
-                                     iRectTop: Integer; iRectWidth: Integer; iRectHeight: Integer); safecall;
-    property ReaderOptions: IReaderOptions read Get_ReaderOptions write Set_ReaderOptions;
+    procedure DecodeBase64String(const sBase64: WideString); safecall;
+    function Get_BarcodeFormats: Integer; safecall;
+    procedure Set_BarcodeFormats(pVal: Integer); safecall;
+    function Get_MaxBarcodesNumPerPage: Integer; safecall;
+    procedure Set_MaxBarcodesNumPerPage(pVal: Integer); safecall;
+    function Get_ImageCaptureDevice: enumImageCaptureDevice; safecall;
+    procedure Set_ImageCaptureDevice(pVal: enumImageCaptureDevice); safecall;
+    function Get_BarcodeColorMode: enumBarcodeColorMode; safecall;
+    procedure Set_BarcodeColorMode(pVal: enumBarcodeColorMode); safecall;
+    function Get_TimeoutPerPage: Integer; safecall;
+    procedure Set_TimeoutPerPage(pVal: Integer); safecall;
+    function Get_UseOneDDeblur: WordBool; safecall;
+    procedure Set_UseOneDDeblur(pVal: WordBool); safecall;
+    function Get_ReturnUnrecognizedBarcode: WordBool; safecall;
+    procedure Set_ReturnUnrecognizedBarcode(pVal: WordBool); safecall;
+    function Get_BarcodeTextEncoding: enumBarcodeTextEncoding; safecall;
+    procedure Set_BarcodeTextEncoding(pVal: enumBarcodeTextEncoding); safecall;
+    procedure DecodeBufferEx(Buffer: OleVariant; iWidth: Integer; iHeight: Integer; 
+                             iStride: Integer; format: enumImagePixelFormat); safecall;
+    procedure AddPage(iPage: Integer); safecall;
+    function GetPageCount: Integer; safecall;
+    procedure GetPage(iIndex: Integer; out piPage: Integer); safecall;
+    procedure ClearAllPages; safecall;
+    procedure AddRegion(iLeft: Integer; iTop: Integer; iRight: Integer; iBottom: Integer; 
+                        bByPercentage: WordBool); safecall;
+    procedure AddRegion2(emSide: enumScanRegionSide; iPercentage: Integer); safecall;
+    function GetRegionCount: Integer; safecall;
+    procedure GetRegion(iIndex: Integer; out piLeft: Integer; out piTop: Integer; 
+                        out piRight: Integer; out piBottom: Integer; out pbByPercentage: WordBool); safecall;
+    procedure ClearAllRegions; safecall;
+    procedure AddWidthRange(iMinWidth: Integer; iMaxWidth: Integer); safecall;
+    function GetWidthRangeCount: Integer; safecall;
+    procedure GetWidthRange(iIndex: Integer; out piMinWidth: Integer; out piMaxWidth: Integer); safecall;
+    procedure ClearAllWidthRanges; safecall;
+    procedure AddHeightRange(iMinHeight: Integer; iMaxHeight: Integer); safecall;
+    function GetHeightRangeCount: Integer; safecall;
+    procedure GetHeightRange(iIndex: Integer; out piMinHeight: Integer; out piMaxHeight: Integer); safecall;
+    procedure ClearAllHeightRanges; safecall;
+    procedure AddModuleSizeRange(iMinModuleSize: Integer; iMaxModuleSize: Integer); safecall;
+    function GetModuleSizeRangeCount: Integer; safecall;
+    procedure GetModuleSizeRange(iIndex: Integer; out piMinModuleSize: Integer; 
+                                 out piMaxModuleSize: Integer); safecall;
+    procedure ClearAllModuleSizeRanges; safecall;
+    procedure AddAngleRange(iFromAngle: Integer; iToAngle: Integer); safecall;
+    procedure AddAngle(emType: enumBarcodeOrientationType); safecall;
+    function GetAngleRangeCount: Integer; safecall;
+    procedure GetAngleRange(iIndex: Integer; out piFromAngle: Integer; out piToAngle: Integer); safecall;
+    procedure ClearAllAngleRanges; safecall;
+    function LoadSetting(const sJsonSetting: WideString): WordBool; safecall;
     property Barcodes: IBarcodeResultArray read Get_Barcodes;
     property BarcodesCount: Integer read Get_BarcodesCount;
     property ErrorCode: Integer read Get_ErrorCode;
     property ErrorString: WideString read Get_ErrorString;
+    property BarcodeFormats: Integer read Get_BarcodeFormats write Set_BarcodeFormats;
+    property MaxBarcodesNumPerPage: Integer read Get_MaxBarcodesNumPerPage write Set_MaxBarcodesNumPerPage;
+    property ImageCaptureDevice: enumImageCaptureDevice read Get_ImageCaptureDevice write Set_ImageCaptureDevice;
+    property BarcodeColorMode: enumBarcodeColorMode read Get_BarcodeColorMode write Set_BarcodeColorMode;
+    property TimeoutPerPage: Integer read Get_TimeoutPerPage write Set_TimeoutPerPage;
+    property UseOneDDeblur: WordBool read Get_UseOneDDeblur write Set_UseOneDDeblur;
+    property ReturnUnrecognizedBarcode: WordBool read Get_ReturnUnrecognizedBarcode write Set_ReturnUnrecognizedBarcode;
+    property BarcodeTextEncoding: enumBarcodeTextEncoding read Get_BarcodeTextEncoding write Set_BarcodeTextEncoding;
   end;
 
 // *********************************************************************//
 // DispIntf:  IBarcodeReaderDisp
 // Flags:     (4544) Dual NonExtensible OleAutomation Dispatchable
-// GUID:      {70000CBB-F908-4E2C-9E53-070237A6BD1C}
+// GUID:      {5847949D-7195-4613-AE5E-E03F84C7D641}
 // *********************************************************************//
   IBarcodeReaderDisp = dispinterface
-    ['{70000CBB-F908-4E2C-9E53-070237A6BD1C}']
+    ['{5847949D-7195-4613-AE5E-E03F84C7D641}']
     procedure InitLicense(const sLicenseKey: WideString); dispid 1;
     procedure DecodeFile(const sFileName: WideString); dispid 2;
-    procedure DecodeFileRect(const sFileName: WideString; iRectLeft: Integer; iRectTop: Integer; 
-                             iRectWidth: Integer; iRectHeight: Integer); dispid 3;
     procedure DecodeDIB(hDIB: Integer); dispid 4;
-    procedure DecodeDIBRect(hDIB: Integer; iRectLeft: Integer; iRectTop: Integer; 
-                            iRectWidth: Integer; iRectHeight: Integer); dispid 5;
-    property ReaderOptions: IReaderOptions dispid 6;
     property Barcodes: IBarcodeResultArray readonly dispid 7;
     property BarcodesCount: Integer readonly dispid 8;
     property ErrorCode: Integer readonly dispid 9;
     property ErrorString: WideString readonly dispid 10;
-    procedure DecodeBuffer(DIBBuffer: OleVariant); dispid 11;
-    procedure DecodeBufferRect(DIBBuffer: OleVariant; iRectLeft: Integer; iRectTop: Integer; 
-                               iRectWidth: Integer; iRectHeight: Integer); dispid 12;
     procedure DecodeStream(FileStream: OleVariant); dispid 13;
-    procedure DecodeStreamRect(FileStream: OleVariant; iRectLeft: Integer; iRectTop: Integer; 
-                               iRectWidth: Integer; iRectHeight: Integer); dispid 14;
-    procedure DecodeBase64String(const sFileStream: WideString); dispid 15;
-    procedure DecodeBase64StringRect(const sFileStream: WideString; iRectLeft: Integer; 
-                                     iRectTop: Integer; iRectWidth: Integer; iRectHeight: Integer); dispid 16;
-  end;
-
-// *********************************************************************//
-// Interface: IReaderOptions
-// Flags:     (4544) Dual NonExtensible OleAutomation Dispatchable
-// GUID:      {68ECF6D9-5BB7-42B5-8BDC-D1D6AFB0ED15}
-// *********************************************************************//
-  IReaderOptions = interface(IDispatch)
-    ['{68ECF6D9-5BB7-42B5-8BDC-D1D6AFB0ED15}']
-    function Get_BarcodeFormats: OleVariant; safecall;
-    procedure Set_BarcodeFormats(pVal: OleVariant); safecall;
-    function Get_MaxBarcodesNumPerPage: Integer; safecall;
-    procedure Set_MaxBarcodesNumPerPage(pVal: Integer); safecall;
-    property BarcodeFormats: OleVariant read Get_BarcodeFormats write Set_BarcodeFormats;
-    property MaxBarcodesNumPerPage: Integer read Get_MaxBarcodesNumPerPage write Set_MaxBarcodesNumPerPage;
-  end;
-
-// *********************************************************************//
-// DispIntf:  IReaderOptionsDisp
-// Flags:     (4544) Dual NonExtensible OleAutomation Dispatchable
-// GUID:      {68ECF6D9-5BB7-42B5-8BDC-D1D6AFB0ED15}
-// *********************************************************************//
-  IReaderOptionsDisp = dispinterface
-    ['{68ECF6D9-5BB7-42B5-8BDC-D1D6AFB0ED15}']
-    property BarcodeFormats: OleVariant dispid 1;
-    property MaxBarcodesNumPerPage: Integer dispid 2;
+    procedure DecodeBase64String(const sBase64: WideString); dispid 15;
+    property BarcodeFormats: Integer dispid 17;
+    property MaxBarcodesNumPerPage: Integer dispid 18;
+    property ImageCaptureDevice: enumImageCaptureDevice dispid 19;
+    property BarcodeColorMode: enumBarcodeColorMode dispid 20;
+    property TimeoutPerPage: Integer dispid 21;
+    property UseOneDDeblur: WordBool dispid 22;
+    property ReturnUnrecognizedBarcode: WordBool dispid 23;
+    property BarcodeTextEncoding: enumBarcodeTextEncoding dispid 24;
+    procedure DecodeBufferEx(Buffer: OleVariant; iWidth: Integer; iHeight: Integer; 
+                             iStride: Integer; format: enumImagePixelFormat); dispid 25;
+    procedure AddPage(iPage: Integer); dispid 26;
+    function GetPageCount: Integer; dispid 27;
+    procedure GetPage(iIndex: Integer; out piPage: Integer); dispid 28;
+    procedure ClearAllPages; dispid 29;
+    procedure AddRegion(iLeft: Integer; iTop: Integer; iRight: Integer; iBottom: Integer; 
+                        bByPercentage: WordBool); dispid 30;
+    procedure AddRegion2(emSide: enumScanRegionSide; iPercentage: Integer); dispid 31;
+    function GetRegionCount: Integer; dispid 32;
+    procedure GetRegion(iIndex: Integer; out piLeft: Integer; out piTop: Integer; 
+                        out piRight: Integer; out piBottom: Integer; out pbByPercentage: WordBool); dispid 33;
+    procedure ClearAllRegions; dispid 34;
+    procedure AddWidthRange(iMinWidth: Integer; iMaxWidth: Integer); dispid 35;
+    function GetWidthRangeCount: Integer; dispid 36;
+    procedure GetWidthRange(iIndex: Integer; out piMinWidth: Integer; out piMaxWidth: Integer); dispid 37;
+    procedure ClearAllWidthRanges; dispid 38;
+    procedure AddHeightRange(iMinHeight: Integer; iMaxHeight: Integer); dispid 39;
+    function GetHeightRangeCount: Integer; dispid 40;
+    procedure GetHeightRange(iIndex: Integer; out piMinHeight: Integer; out piMaxHeight: Integer); dispid 41;
+    procedure ClearAllHeightRanges; dispid 42;
+    procedure AddModuleSizeRange(iMinModuleSize: Integer; iMaxModuleSize: Integer); dispid 43;
+    function GetModuleSizeRangeCount: Integer; dispid 44;
+    procedure GetModuleSizeRange(iIndex: Integer; out piMinModuleSize: Integer; 
+                                 out piMaxModuleSize: Integer); dispid 45;
+    procedure ClearAllModuleSizeRanges; dispid 46;
+    procedure AddAngleRange(iFromAngle: Integer; iToAngle: Integer); dispid 47;
+    procedure AddAngle(emType: enumBarcodeOrientationType); dispid 48;
+    function GetAngleRangeCount: Integer; dispid 49;
+    procedure GetAngleRange(iIndex: Integer; out piFromAngle: Integer; out piToAngle: Integer); dispid 50;
+    procedure ClearAllAngleRanges; dispid 51;
+    function LoadSetting(const sJsonSetting: WideString): WordBool; dispid 52;
   end;
 
 // *********************************************************************//
 // Interface: IBarcodeResultArray
 // Flags:     (4544) Dual NonExtensible OleAutomation Dispatchable
-// GUID:      {B15268A1-E8B0-42AC-A1C9-42E9C8329DE3}
+// GUID:      {C37FE03C-854E-4057-A9C4-7FA47992A434}
 // *********************************************************************//
   IBarcodeResultArray = interface(IDispatch)
-    ['{B15268A1-E8B0-42AC-A1C9-42E9C8329DE3}']
+    ['{C37FE03C-854E-4057-A9C4-7FA47992A434}']
     function Get_Count: Integer; safecall;
     function Item(iIndex: Integer): IBarcodeResult; safecall;
     property Count: Integer read Get_Count;
@@ -216,10 +342,10 @@ type
 // *********************************************************************//
 // DispIntf:  IBarcodeResultArrayDisp
 // Flags:     (4544) Dual NonExtensible OleAutomation Dispatchable
-// GUID:      {B15268A1-E8B0-42AC-A1C9-42E9C8329DE3}
+// GUID:      {C37FE03C-854E-4057-A9C4-7FA47992A434}
 // *********************************************************************//
   IBarcodeResultArrayDisp = dispinterface
-    ['{B15268A1-E8B0-42AC-A1C9-42E9C8329DE3}']
+    ['{C37FE03C-854E-4057-A9C4-7FA47992A434}']
     property Count: Integer readonly dispid 1;
     function Item(iIndex: Integer): IBarcodeResult; dispid 2;
   end;
@@ -227,11 +353,10 @@ type
 // *********************************************************************//
 // Interface: IBarcodeResult
 // Flags:     (4544) Dual NonExtensible OleAutomation Dispatchable
-// GUID:      {ABDFE739-97AD-4715-B2D6-BC023763E9B2}
+// GUID:      {5D746054-19C1-494F-8703-A92BA29B4AB8}
 // *********************************************************************//
   IBarcodeResult = interface(IDispatch)
-    ['{ABDFE739-97AD-4715-B2D6-BC023763E9B2}']
-    function Get_BarcodeFormat: IBarcodeFormat; safecall;
+    ['{5D746054-19C1-494F-8703-A92BA29B4AB8}']
     function Get_BarcodeText: WideString; safecall;
     function Get_BarcodeData: OleVariant; safecall;
     function Get_Left: Integer; safecall;
@@ -247,7 +372,11 @@ type
     function Get_X4: Integer; safecall;
     function Get_Y4: Integer; safecall;
     function Get_PageNum: Integer; safecall;
-    property BarcodeFormat: IBarcodeFormat read Get_BarcodeFormat;
+    function Get_BarcodeFormat: enumBarcodeFormat; safecall;
+    function Get_BarcodeFormatString: WideString; safecall;
+    function Get_Angle: Integer; safecall;
+    function Get_ModuleSize: Integer; safecall;
+    function Get_IsUnrecognized: WordBool; safecall;
     property BarcodeText: WideString read Get_BarcodeText;
     property BarcodeData: OleVariant read Get_BarcodeData;
     property Left: Integer read Get_Left;
@@ -263,16 +392,20 @@ type
     property X4: Integer read Get_X4;
     property Y4: Integer read Get_Y4;
     property PageNum: Integer read Get_PageNum;
+    property BarcodeFormat: enumBarcodeFormat read Get_BarcodeFormat;
+    property BarcodeFormatString: WideString read Get_BarcodeFormatString;
+    property Angle: Integer read Get_Angle;
+    property ModuleSize: Integer read Get_ModuleSize;
+    property IsUnrecognized: WordBool read Get_IsUnrecognized;
   end;
 
 // *********************************************************************//
 // DispIntf:  IBarcodeResultDisp
 // Flags:     (4544) Dual NonExtensible OleAutomation Dispatchable
-// GUID:      {ABDFE739-97AD-4715-B2D6-BC023763E9B2}
+// GUID:      {5D746054-19C1-494F-8703-A92BA29B4AB8}
 // *********************************************************************//
   IBarcodeResultDisp = dispinterface
-    ['{ABDFE739-97AD-4715-B2D6-BC023763E9B2}']
-    property BarcodeFormat: IBarcodeFormat readonly dispid 1;
+    ['{5D746054-19C1-494F-8703-A92BA29B4AB8}']
     property BarcodeText: WideString readonly dispid 2;
     property BarcodeData: OleVariant readonly dispid 3;
     property Left: Integer readonly dispid 4;
@@ -288,72 +421,11 @@ type
     property X4: Integer readonly dispid 14;
     property Y4: Integer readonly dispid 15;
     property PageNum: Integer readonly dispid 16;
-  end;
-
-// *********************************************************************//
-// Interface: IBarcodeFormat
-// Flags:     (4544) Dual NonExtensible OleAutomation Dispatchable
-// GUID:      {F03B5DC1-4C10-4D76-B73F-4222C1B783CF}
-// *********************************************************************//
-  IBarcodeFormat = interface(IDispatch)
-    ['{F03B5DC1-4C10-4D76-B73F-4222C1B783CF}']
-    function Get_CODE_39: OleVariant; safecall;
-    function Get_CODE_128: OleVariant; safecall;
-    function Get_CODE_93: OleVariant; safecall;
-    function Get_CODABAR: OleVariant; safecall;
-    function Get_ITF: OleVariant; safecall;
-    function Get_EAN_13: OleVariant; safecall;
-    function Get_EAN_8: OleVariant; safecall;
-    function Get_UPC_A: OleVariant; safecall;
-    function Get_UPC_E: OleVariant; safecall;
-    function Get_OneD: OleVariant; safecall;
-    function Get_type_: OleVariant; safecall;
-    function Get_TypeString: WideString; safecall;
-    function Get_INDUSTRIAL_25: OleVariant; safecall;
-    function Get_QR_CODE: OleVariant; safecall;
-    function Get_PDF417: OleVariant; safecall;
-    function Get_DATAMATRIX: OleVariant; safecall;
-    property CODE_39: OleVariant read Get_CODE_39;
-    property CODE_128: OleVariant read Get_CODE_128;
-    property CODE_93: OleVariant read Get_CODE_93;
-    property CODABAR: OleVariant read Get_CODABAR;
-    property ITF: OleVariant read Get_ITF;
-    property EAN_13: OleVariant read Get_EAN_13;
-    property EAN_8: OleVariant read Get_EAN_8;
-    property UPC_A: OleVariant read Get_UPC_A;
-    property UPC_E: OleVariant read Get_UPC_E;
-    property OneD: OleVariant read Get_OneD;
-    property type_: OleVariant read Get_type_;
-    property TypeString: WideString read Get_TypeString;
-    property INDUSTRIAL_25: OleVariant read Get_INDUSTRIAL_25;
-    property QR_CODE: OleVariant read Get_QR_CODE;
-    property PDF417: OleVariant read Get_PDF417;
-    property DATAMATRIX: OleVariant read Get_DATAMATRIX;
-  end;
-
-// *********************************************************************//
-// DispIntf:  IBarcodeFormatDisp
-// Flags:     (4544) Dual NonExtensible OleAutomation Dispatchable
-// GUID:      {F03B5DC1-4C10-4D76-B73F-4222C1B783CF}
-// *********************************************************************//
-  IBarcodeFormatDisp = dispinterface
-    ['{F03B5DC1-4C10-4D76-B73F-4222C1B783CF}']
-    property CODE_39: OleVariant readonly dispid 1;
-    property CODE_128: OleVariant readonly dispid 2;
-    property CODE_93: OleVariant readonly dispid 3;
-    property CODABAR: OleVariant readonly dispid 4;
-    property ITF: OleVariant readonly dispid 5;
-    property EAN_13: OleVariant readonly dispid 6;
-    property EAN_8: OleVariant readonly dispid 7;
-    property UPC_A: OleVariant readonly dispid 8;
-    property UPC_E: OleVariant readonly dispid 9;
-    property OneD: OleVariant readonly dispid 10;
-    property type_: OleVariant readonly dispid 11;
-    property TypeString: WideString readonly dispid 12;
-    property INDUSTRIAL_25: OleVariant readonly dispid 13;
-    property QR_CODE: OleVariant readonly dispid 14;
-    property PDF417: OleVariant readonly dispid 15;
-    property DATAMATRIX: OleVariant readonly dispid 16;
+    property BarcodeFormat: enumBarcodeFormat readonly dispid 17;
+    property BarcodeFormatString: WideString readonly dispid 18;
+    property Angle: Integer readonly dispid 19;
+    property ModuleSize: Integer readonly dispid 20;
+    property IsUnrecognized: WordBool readonly dispid 21;
   end;
 
 // *********************************************************************//
@@ -392,12 +464,26 @@ type
   protected
     procedure InitServerData; override;
     procedure InvokeEvent(DispID: TDispID; var Params: TVariantArray); override;
-    function Get_ReaderOptions: IReaderOptions;
-    procedure Set_ReaderOptions(const pVal: IReaderOptions);
     function Get_Barcodes: IBarcodeResultArray;
     function Get_BarcodesCount: Integer;
     function Get_ErrorCode: Integer;
     function Get_ErrorString: WideString;
+    function Get_BarcodeFormats: Integer;
+    procedure Set_BarcodeFormats(pVal: Integer);
+    function Get_MaxBarcodesNumPerPage: Integer;
+    procedure Set_MaxBarcodesNumPerPage(pVal: Integer);
+    function Get_ImageCaptureDevice: enumImageCaptureDevice;
+    procedure Set_ImageCaptureDevice(pVal: enumImageCaptureDevice);
+    function Get_BarcodeColorMode: enumBarcodeColorMode;
+    procedure Set_BarcodeColorMode(pVal: enumBarcodeColorMode);
+    function Get_TimeoutPerPage: Integer;
+    procedure Set_TimeoutPerPage(pVal: Integer);
+    function Get_UseOneDDeblur: WordBool;
+    procedure Set_UseOneDDeblur(pVal: WordBool);
+    function Get_ReturnUnrecognizedBarcode: WordBool;
+    procedure Set_ReturnUnrecognizedBarcode(pVal: WordBool);
+    function Get_BarcodeTextEncoding: enumBarcodeTextEncoding;
+    procedure Set_BarcodeTextEncoding(pVal: enumBarcodeTextEncoding);
   public
     constructor Create(AOwner: TComponent); override;
     destructor  Destroy; override;
@@ -406,26 +492,54 @@ type
     procedure Disconnect; override;
     procedure InitLicense(const sLicenseKey: WideString);
     procedure DecodeFile(const sFileName: WideString);
-    procedure DecodeFileRect(const sFileName: WideString; iRectLeft: Integer; iRectTop: Integer; 
-                             iRectWidth: Integer; iRectHeight: Integer);
     procedure DecodeDIB(hDIB: Integer);
-    procedure DecodeDIBRect(hDIB: Integer; iRectLeft: Integer; iRectTop: Integer; 
-                            iRectWidth: Integer; iRectHeight: Integer);
-    procedure DecodeBuffer(DIBBuffer: OleVariant);
-    procedure DecodeBufferRect(DIBBuffer: OleVariant; iRectLeft: Integer; iRectTop: Integer; 
-                               iRectWidth: Integer; iRectHeight: Integer);
     procedure DecodeStream(FileStream: OleVariant);
-    procedure DecodeStreamRect(FileStream: OleVariant; iRectLeft: Integer; iRectTop: Integer; 
-                               iRectWidth: Integer; iRectHeight: Integer);
-    procedure DecodeBase64String(const sFileStream: WideString);
-    procedure DecodeBase64StringRect(const sFileStream: WideString; iRectLeft: Integer; 
-                                     iRectTop: Integer; iRectWidth: Integer; iRectHeight: Integer);
+    procedure DecodeBase64String(const sBase64: WideString);
+    procedure DecodeBufferEx(Buffer: OleVariant; iWidth: Integer; iHeight: Integer; 
+                             iStride: Integer; format: enumImagePixelFormat);
+    procedure AddPage(iPage: Integer);
+    function GetPageCount: Integer;
+    procedure GetPage(iIndex: Integer; out piPage: Integer);
+    procedure ClearAllPages;
+    procedure AddRegion(iLeft: Integer; iTop: Integer; iRight: Integer; iBottom: Integer; 
+                        bByPercentage: WordBool);
+    procedure AddRegion2(emSide: enumScanRegionSide; iPercentage: Integer);
+    function GetRegionCount: Integer;
+    procedure GetRegion(iIndex: Integer; out piLeft: Integer; out piTop: Integer; 
+                        out piRight: Integer; out piBottom: Integer; out pbByPercentage: WordBool);
+    procedure ClearAllRegions;
+    procedure AddWidthRange(iMinWidth: Integer; iMaxWidth: Integer);
+    function GetWidthRangeCount: Integer;
+    procedure GetWidthRange(iIndex: Integer; out piMinWidth: Integer; out piMaxWidth: Integer);
+    procedure ClearAllWidthRanges;
+    procedure AddHeightRange(iMinHeight: Integer; iMaxHeight: Integer);
+    function GetHeightRangeCount: Integer;
+    procedure GetHeightRange(iIndex: Integer; out piMinHeight: Integer; out piMaxHeight: Integer);
+    procedure ClearAllHeightRanges;
+    procedure AddModuleSizeRange(iMinModuleSize: Integer; iMaxModuleSize: Integer);
+    function GetModuleSizeRangeCount: Integer;
+    procedure GetModuleSizeRange(iIndex: Integer; out piMinModuleSize: Integer; 
+                                 out piMaxModuleSize: Integer);
+    procedure ClearAllModuleSizeRanges;
+    procedure AddAngleRange(iFromAngle: Integer; iToAngle: Integer);
+    procedure AddAngle(emType: enumBarcodeOrientationType);
+    function GetAngleRangeCount: Integer;
+    procedure GetAngleRange(iIndex: Integer; out piFromAngle: Integer; out piToAngle: Integer);
+    procedure ClearAllAngleRanges;
+    function LoadSetting(const sJsonSetting: WideString): WordBool;
     property DefaultInterface: IBarcodeReader read GetDefaultInterface;
     property Barcodes: IBarcodeResultArray read Get_Barcodes;
     property BarcodesCount: Integer read Get_BarcodesCount;
     property ErrorCode: Integer read Get_ErrorCode;
     property ErrorString: WideString read Get_ErrorString;
-    property ReaderOptions: IReaderOptions read Get_ReaderOptions write Set_ReaderOptions;
+    property BarcodeFormats: Integer read Get_BarcodeFormats write Set_BarcodeFormats;
+    property MaxBarcodesNumPerPage: Integer read Get_MaxBarcodesNumPerPage write Set_MaxBarcodesNumPerPage;
+    property ImageCaptureDevice: enumImageCaptureDevice read Get_ImageCaptureDevice write Set_ImageCaptureDevice;
+    property BarcodeColorMode: enumBarcodeColorMode read Get_BarcodeColorMode write Set_BarcodeColorMode;
+    property TimeoutPerPage: Integer read Get_TimeoutPerPage write Set_TimeoutPerPage;
+    property UseOneDDeblur: WordBool read Get_UseOneDDeblur write Set_UseOneDDeblur;
+    property ReturnUnrecognizedBarcode: WordBool read Get_ReturnUnrecognizedBarcode write Set_ReturnUnrecognizedBarcode;
+    property BarcodeTextEncoding: enumBarcodeTextEncoding read Get_BarcodeTextEncoding write Set_BarcodeTextEncoding;
   published
 {$IFDEF LIVE_SERVER_AT_DESIGN_TIME}
     property Server: TBarcodeReaderProperties read GetServerProperties;
@@ -445,211 +559,37 @@ type
     function    GetDefaultInterface: IBarcodeReader;
     constructor Create(AServer: TBarcodeReader);
   protected
-    function Get_ReaderOptions: IReaderOptions;
-    procedure Set_ReaderOptions(const pVal: IReaderOptions);
     function Get_Barcodes: IBarcodeResultArray;
     function Get_BarcodesCount: Integer;
     function Get_ErrorCode: Integer;
     function Get_ErrorString: WideString;
+    function Get_BarcodeFormats: Integer;
+    procedure Set_BarcodeFormats(pVal: Integer);
+    function Get_MaxBarcodesNumPerPage: Integer;
+    procedure Set_MaxBarcodesNumPerPage(pVal: Integer);
+    function Get_ImageCaptureDevice: enumImageCaptureDevice;
+    procedure Set_ImageCaptureDevice(pVal: enumImageCaptureDevice);
+    function Get_BarcodeColorMode: enumBarcodeColorMode;
+    procedure Set_BarcodeColorMode(pVal: enumBarcodeColorMode);
+    function Get_TimeoutPerPage: Integer;
+    procedure Set_TimeoutPerPage(pVal: Integer);
+    function Get_UseOneDDeblur: WordBool;
+    procedure Set_UseOneDDeblur(pVal: WordBool);
+    function Get_ReturnUnrecognizedBarcode: WordBool;
+    procedure Set_ReturnUnrecognizedBarcode(pVal: WordBool);
+    function Get_BarcodeTextEncoding: enumBarcodeTextEncoding;
+    procedure Set_BarcodeTextEncoding(pVal: enumBarcodeTextEncoding);
   public
     property DefaultInterface: IBarcodeReader read GetDefaultInterface;
   published
-    property ReaderOptions: IReaderOptions read Get_ReaderOptions write Set_ReaderOptions;
-  end;
-{$ENDIF}
-
-
-// *********************************************************************//
-// The Class CoBarcodeFormat provides a Create and CreateRemote method to          
-// create instances of the default interface IBarcodeFormat exposed by              
-// the CoClass BarcodeFormat. The functions are intended to be used by             
-// clients wishing to automate the CoClass objects exposed by the         
-// server of this typelibrary.                                            
-// *********************************************************************//
-  CoBarcodeFormat = class
-    class function Create: IBarcodeFormat;
-    class function CreateRemote(const MachineName: string): IBarcodeFormat;
-  end;
-
-
-// *********************************************************************//
-// OLE Server Proxy class declaration
-// Server Object    : TBarcodeFormat
-// Help String      : BarcodeFormat Class
-// Default Interface: IBarcodeFormat
-// Def. Intf. DISP? : No
-// Event   Interface: 
-// TypeFlags        : (2) CanCreate
-// *********************************************************************//
-{$IFDEF LIVE_SERVER_AT_DESIGN_TIME}
-  TBarcodeFormatProperties= class;
-{$ENDIF}
-  TBarcodeFormat = class(TOleServer)
-  private
-    FIntf:        IBarcodeFormat;
-{$IFDEF LIVE_SERVER_AT_DESIGN_TIME}
-    FProps:       TBarcodeFormatProperties;
-    function      GetServerProperties: TBarcodeFormatProperties;
-{$ENDIF}
-    function      GetDefaultInterface: IBarcodeFormat;
-  protected
-    procedure InitServerData; override;
-    function Get_CODE_39: OleVariant;
-    function Get_CODE_128: OleVariant;
-    function Get_CODE_93: OleVariant;
-    function Get_CODABAR: OleVariant;
-    function Get_ITF: OleVariant;
-    function Get_EAN_13: OleVariant;
-    function Get_EAN_8: OleVariant;
-    function Get_UPC_A: OleVariant;
-    function Get_UPC_E: OleVariant;
-    function Get_OneD: OleVariant;
-    function Get_type_: OleVariant;
-    function Get_TypeString: WideString;
-    function Get_INDUSTRIAL_25: OleVariant;
-    function Get_QR_CODE: OleVariant;
-    function Get_PDF417: OleVariant;
-    function Get_DATAMATRIX: OleVariant;
-  public
-    constructor Create(AOwner: TComponent); override;
-    destructor  Destroy; override;
-    procedure Connect; override;
-    procedure ConnectTo(svrIntf: IBarcodeFormat);
-    procedure Disconnect; override;
-    property DefaultInterface: IBarcodeFormat read GetDefaultInterface;
-    property CODE_39: OleVariant read Get_CODE_39;
-    property CODE_128: OleVariant read Get_CODE_128;
-    property CODE_93: OleVariant read Get_CODE_93;
-    property CODABAR: OleVariant read Get_CODABAR;
-    property ITF: OleVariant read Get_ITF;
-    property EAN_13: OleVariant read Get_EAN_13;
-    property EAN_8: OleVariant read Get_EAN_8;
-    property UPC_A: OleVariant read Get_UPC_A;
-    property UPC_E: OleVariant read Get_UPC_E;
-    property OneD: OleVariant read Get_OneD;
-    property type_: OleVariant read Get_type_;
-    property TypeString: WideString read Get_TypeString;
-    property INDUSTRIAL_25: OleVariant read Get_INDUSTRIAL_25;
-    property QR_CODE: OleVariant read Get_QR_CODE;
-    property PDF417: OleVariant read Get_PDF417;
-    property DATAMATRIX: OleVariant read Get_DATAMATRIX;
-  published
-{$IFDEF LIVE_SERVER_AT_DESIGN_TIME}
-    property Server: TBarcodeFormatProperties read GetServerProperties;
-{$ENDIF}
-  end;
-
-{$IFDEF LIVE_SERVER_AT_DESIGN_TIME}
-// *********************************************************************//
-// OLE Server Properties Proxy Class
-// Server Object    : TBarcodeFormat
-// (This object is used by the IDE's Property Inspector to allow editing
-//  of the properties of this server)
-// *********************************************************************//
- TBarcodeFormatProperties = class(TPersistent)
-  private
-    FServer:    TBarcodeFormat;
-    function    GetDefaultInterface: IBarcodeFormat;
-    constructor Create(AServer: TBarcodeFormat);
-  protected
-    function Get_CODE_39: OleVariant;
-    function Get_CODE_128: OleVariant;
-    function Get_CODE_93: OleVariant;
-    function Get_CODABAR: OleVariant;
-    function Get_ITF: OleVariant;
-    function Get_EAN_13: OleVariant;
-    function Get_EAN_8: OleVariant;
-    function Get_UPC_A: OleVariant;
-    function Get_UPC_E: OleVariant;
-    function Get_OneD: OleVariant;
-    function Get_type_: OleVariant;
-    function Get_TypeString: WideString;
-    function Get_INDUSTRIAL_25: OleVariant;
-    function Get_QR_CODE: OleVariant;
-    function Get_PDF417: OleVariant;
-    function Get_DATAMATRIX: OleVariant;
-  public
-    property DefaultInterface: IBarcodeFormat read GetDefaultInterface;
-  published
-  end;
-{$ENDIF}
-
-
-// *********************************************************************//
-// The Class CoReaderOptions provides a Create and CreateRemote method to          
-// create instances of the default interface IReaderOptions exposed by              
-// the CoClass ReaderOptions. The functions are intended to be used by             
-// clients wishing to automate the CoClass objects exposed by the         
-// server of this typelibrary.                                            
-// *********************************************************************//
-  CoReaderOptions = class
-    class function Create: IReaderOptions;
-    class function CreateRemote(const MachineName: string): IReaderOptions;
-  end;
-
-
-// *********************************************************************//
-// OLE Server Proxy class declaration
-// Server Object    : TReaderOptions
-// Help String      : ReaderOptions Class
-// Default Interface: IReaderOptions
-// Def. Intf. DISP? : No
-// Event   Interface: 
-// TypeFlags        : (2) CanCreate
-// *********************************************************************//
-{$IFDEF LIVE_SERVER_AT_DESIGN_TIME}
-  TReaderOptionsProperties= class;
-{$ENDIF}
-  TReaderOptions = class(TOleServer)
-  private
-    FIntf:        IReaderOptions;
-{$IFDEF LIVE_SERVER_AT_DESIGN_TIME}
-    FProps:       TReaderOptionsProperties;
-    function      GetServerProperties: TReaderOptionsProperties;
-{$ENDIF}
-    function      GetDefaultInterface: IReaderOptions;
-  protected
-    procedure InitServerData; override;
-    function Get_BarcodeFormats: OleVariant;
-    procedure Set_BarcodeFormats(pVal: OleVariant);
-    function Get_MaxBarcodesNumPerPage: Integer;
-    procedure Set_MaxBarcodesNumPerPage(pVal: Integer);
-  public
-    constructor Create(AOwner: TComponent); override;
-    destructor  Destroy; override;
-    procedure Connect; override;
-    procedure ConnectTo(svrIntf: IReaderOptions);
-    procedure Disconnect; override;
-    property DefaultInterface: IReaderOptions read GetDefaultInterface;
-    property BarcodeFormats: OleVariant read Get_BarcodeFormats write Set_BarcodeFormats;
+    property BarcodeFormats: Integer read Get_BarcodeFormats write Set_BarcodeFormats;
     property MaxBarcodesNumPerPage: Integer read Get_MaxBarcodesNumPerPage write Set_MaxBarcodesNumPerPage;
-  published
-{$IFDEF LIVE_SERVER_AT_DESIGN_TIME}
-    property Server: TReaderOptionsProperties read GetServerProperties;
-{$ENDIF}
-  end;
-
-{$IFDEF LIVE_SERVER_AT_DESIGN_TIME}
-// *********************************************************************//
-// OLE Server Properties Proxy Class
-// Server Object    : TReaderOptions
-// (This object is used by the IDE's Property Inspector to allow editing
-//  of the properties of this server)
-// *********************************************************************//
- TReaderOptionsProperties = class(TPersistent)
-  private
-    FServer:    TReaderOptions;
-    function    GetDefaultInterface: IReaderOptions;
-    constructor Create(AServer: TReaderOptions);
-  protected
-    function Get_BarcodeFormats: OleVariant;
-    procedure Set_BarcodeFormats(pVal: OleVariant);
-    function Get_MaxBarcodesNumPerPage: Integer;
-    procedure Set_MaxBarcodesNumPerPage(pVal: Integer);
-  public
-    property DefaultInterface: IReaderOptions read GetDefaultInterface;
-  published
-    property MaxBarcodesNumPerPage: Integer read Get_MaxBarcodesNumPerPage write Set_MaxBarcodesNumPerPage;
+    property ImageCaptureDevice: enumImageCaptureDevice read Get_ImageCaptureDevice write Set_ImageCaptureDevice;
+    property BarcodeColorMode: enumBarcodeColorMode read Get_BarcodeColorMode write Set_BarcodeColorMode;
+    property TimeoutPerPage: Integer read Get_TimeoutPerPage write Set_TimeoutPerPage;
+    property UseOneDDeblur: WordBool read Get_UseOneDDeblur write Set_UseOneDDeblur;
+    property ReturnUnrecognizedBarcode: WordBool read Get_ReturnUnrecognizedBarcode write Set_ReturnUnrecognizedBarcode;
+    property BarcodeTextEncoding: enumBarcodeTextEncoding read Get_BarcodeTextEncoding write Set_BarcodeTextEncoding;
   end;
 {$ENDIF}
 
@@ -702,9 +642,9 @@ end;
 procedure TBarcodeReader.InitServerData;
 const
   CServerData: TServerData = (
-    ClassID:   '{08D536C2-F4C9-44F6-A540-65957760C1B2}';
-    IntfIID:   '{70000CBB-F908-4E2C-9E53-070237A6BD1C}';
-    EventIID:  '{07B5D2D9-B4F2-432C-ACF1-685C69485825}';
+    ClassID:   '{34251D1F-7229-4CED-B32A-CBBDA8DDBC31}';
+    IntfIID:   '{5847949D-7195-4613-AE5E-E03F84C7D641}';
+    EventIID:  '{96D15AE6-535C-417F-A4B2-9567460A1311}';
     LicenseKey: nil;
     Version: 500);
 begin
@@ -777,16 +717,6 @@ begin
   end; {case DispID}
 end;
 
-function TBarcodeReader.Get_ReaderOptions: IReaderOptions;
-begin
-    Result := DefaultInterface.ReaderOptions;
-end;
-
-procedure TBarcodeReader.Set_ReaderOptions(const pVal: IReaderOptions);
-begin
-  DefaultInterface.Set_ReaderOptions(pVal);
-end;
-
 function TBarcodeReader.Get_Barcodes: IBarcodeResultArray;
 begin
     Result := DefaultInterface.Barcodes;
@@ -807,6 +737,86 @@ begin
     Result := DefaultInterface.ErrorString;
 end;
 
+function TBarcodeReader.Get_BarcodeFormats: Integer;
+begin
+    Result := DefaultInterface.BarcodeFormats;
+end;
+
+procedure TBarcodeReader.Set_BarcodeFormats(pVal: Integer);
+begin
+  DefaultInterface.Set_BarcodeFormats(pVal);
+end;
+
+function TBarcodeReader.Get_MaxBarcodesNumPerPage: Integer;
+begin
+    Result := DefaultInterface.MaxBarcodesNumPerPage;
+end;
+
+procedure TBarcodeReader.Set_MaxBarcodesNumPerPage(pVal: Integer);
+begin
+  DefaultInterface.Set_MaxBarcodesNumPerPage(pVal);
+end;
+
+function TBarcodeReader.Get_ImageCaptureDevice: enumImageCaptureDevice;
+begin
+    Result := DefaultInterface.ImageCaptureDevice;
+end;
+
+procedure TBarcodeReader.Set_ImageCaptureDevice(pVal: enumImageCaptureDevice);
+begin
+  DefaultInterface.Set_ImageCaptureDevice(pVal);
+end;
+
+function TBarcodeReader.Get_BarcodeColorMode: enumBarcodeColorMode;
+begin
+    Result := DefaultInterface.BarcodeColorMode;
+end;
+
+procedure TBarcodeReader.Set_BarcodeColorMode(pVal: enumBarcodeColorMode);
+begin
+  DefaultInterface.Set_BarcodeColorMode(pVal);
+end;
+
+function TBarcodeReader.Get_TimeoutPerPage: Integer;
+begin
+    Result := DefaultInterface.TimeoutPerPage;
+end;
+
+procedure TBarcodeReader.Set_TimeoutPerPage(pVal: Integer);
+begin
+  DefaultInterface.Set_TimeoutPerPage(pVal);
+end;
+
+function TBarcodeReader.Get_UseOneDDeblur: WordBool;
+begin
+    Result := DefaultInterface.UseOneDDeblur;
+end;
+
+procedure TBarcodeReader.Set_UseOneDDeblur(pVal: WordBool);
+begin
+  DefaultInterface.Set_UseOneDDeblur(pVal);
+end;
+
+function TBarcodeReader.Get_ReturnUnrecognizedBarcode: WordBool;
+begin
+    Result := DefaultInterface.ReturnUnrecognizedBarcode;
+end;
+
+procedure TBarcodeReader.Set_ReturnUnrecognizedBarcode(pVal: WordBool);
+begin
+  DefaultInterface.Set_ReturnUnrecognizedBarcode(pVal);
+end;
+
+function TBarcodeReader.Get_BarcodeTextEncoding: enumBarcodeTextEncoding;
+begin
+    Result := DefaultInterface.BarcodeTextEncoding;
+end;
+
+procedure TBarcodeReader.Set_BarcodeTextEncoding(pVal: enumBarcodeTextEncoding);
+begin
+  DefaultInterface.Set_BarcodeTextEncoding(pVal);
+end;
+
 procedure TBarcodeReader.InitLicense(const sLicenseKey: WideString);
 begin
   DefaultInterface.InitLicense(sLicenseKey);
@@ -817,33 +827,9 @@ begin
   DefaultInterface.DecodeFile(sFileName);
 end;
 
-procedure TBarcodeReader.DecodeFileRect(const sFileName: WideString; iRectLeft: Integer; 
-                                        iRectTop: Integer; iRectWidth: Integer; iRectHeight: Integer);
-begin
-  DefaultInterface.DecodeFileRect(sFileName, iRectLeft, iRectTop, iRectWidth, iRectHeight);
-end;
-
 procedure TBarcodeReader.DecodeDIB(hDIB: Integer);
 begin
   DefaultInterface.DecodeDIB(hDIB);
-end;
-
-procedure TBarcodeReader.DecodeDIBRect(hDIB: Integer; iRectLeft: Integer; iRectTop: Integer; 
-                                       iRectWidth: Integer; iRectHeight: Integer);
-begin
-  DefaultInterface.DecodeDIBRect(hDIB, iRectLeft, iRectTop, iRectWidth, iRectHeight);
-end;
-
-procedure TBarcodeReader.DecodeBuffer(DIBBuffer: OleVariant);
-begin
-  DefaultInterface.DecodeBuffer(DIBBuffer);
-end;
-
-procedure TBarcodeReader.DecodeBufferRect(DIBBuffer: OleVariant; iRectLeft: Integer; 
-                                          iRectTop: Integer; iRectWidth: Integer; 
-                                          iRectHeight: Integer);
-begin
-  DefaultInterface.DecodeBufferRect(DIBBuffer, iRectLeft, iRectTop, iRectWidth, iRectHeight);
 end;
 
 procedure TBarcodeReader.DecodeStream(FileStream: OleVariant);
@@ -851,23 +837,157 @@ begin
   DefaultInterface.DecodeStream(FileStream);
 end;
 
-procedure TBarcodeReader.DecodeStreamRect(FileStream: OleVariant; iRectLeft: Integer; 
-                                          iRectTop: Integer; iRectWidth: Integer; 
-                                          iRectHeight: Integer);
+procedure TBarcodeReader.DecodeBase64String(const sBase64: WideString);
 begin
-  DefaultInterface.DecodeStreamRect(FileStream, iRectLeft, iRectTop, iRectWidth, iRectHeight);
+  DefaultInterface.DecodeBase64String(sBase64);
 end;
 
-procedure TBarcodeReader.DecodeBase64String(const sFileStream: WideString);
+procedure TBarcodeReader.DecodeBufferEx(Buffer: OleVariant; iWidth: Integer; iHeight: Integer; 
+                                        iStride: Integer; format: enumImagePixelFormat);
 begin
-  DefaultInterface.DecodeBase64String(sFileStream);
+  DefaultInterface.DecodeBufferEx(Buffer, iWidth, iHeight, iStride, format);
 end;
 
-procedure TBarcodeReader.DecodeBase64StringRect(const sFileStream: WideString; iRectLeft: Integer; 
-                                                iRectTop: Integer; iRectWidth: Integer; 
-                                                iRectHeight: Integer);
+procedure TBarcodeReader.AddPage(iPage: Integer);
 begin
-  DefaultInterface.DecodeBase64StringRect(sFileStream, iRectLeft, iRectTop, iRectWidth, iRectHeight);
+  DefaultInterface.AddPage(iPage);
+end;
+
+function TBarcodeReader.GetPageCount: Integer;
+begin
+  Result := DefaultInterface.GetPageCount;
+end;
+
+procedure TBarcodeReader.GetPage(iIndex: Integer; out piPage: Integer);
+begin
+  DefaultInterface.GetPage(iIndex, piPage);
+end;
+
+procedure TBarcodeReader.ClearAllPages;
+begin
+  DefaultInterface.ClearAllPages;
+end;
+
+procedure TBarcodeReader.AddRegion(iLeft: Integer; iTop: Integer; iRight: Integer; 
+                                   iBottom: Integer; bByPercentage: WordBool);
+begin
+  DefaultInterface.AddRegion(iLeft, iTop, iRight, iBottom, bByPercentage);
+end;
+
+procedure TBarcodeReader.AddRegion2(emSide: enumScanRegionSide; iPercentage: Integer);
+begin
+  DefaultInterface.AddRegion2(emSide, iPercentage);
+end;
+
+function TBarcodeReader.GetRegionCount: Integer;
+begin
+  Result := DefaultInterface.GetRegionCount;
+end;
+
+procedure TBarcodeReader.GetRegion(iIndex: Integer; out piLeft: Integer; out piTop: Integer; 
+                                   out piRight: Integer; out piBottom: Integer; 
+                                   out pbByPercentage: WordBool);
+begin
+  DefaultInterface.GetRegion(iIndex, piLeft, piTop, piRight, piBottom, pbByPercentage);
+end;
+
+procedure TBarcodeReader.ClearAllRegions;
+begin
+  DefaultInterface.ClearAllRegions;
+end;
+
+procedure TBarcodeReader.AddWidthRange(iMinWidth: Integer; iMaxWidth: Integer);
+begin
+  DefaultInterface.AddWidthRange(iMinWidth, iMaxWidth);
+end;
+
+function TBarcodeReader.GetWidthRangeCount: Integer;
+begin
+  Result := DefaultInterface.GetWidthRangeCount;
+end;
+
+procedure TBarcodeReader.GetWidthRange(iIndex: Integer; out piMinWidth: Integer; 
+                                       out piMaxWidth: Integer);
+begin
+  DefaultInterface.GetWidthRange(iIndex, piMinWidth, piMaxWidth);
+end;
+
+procedure TBarcodeReader.ClearAllWidthRanges;
+begin
+  DefaultInterface.ClearAllWidthRanges;
+end;
+
+procedure TBarcodeReader.AddHeightRange(iMinHeight: Integer; iMaxHeight: Integer);
+begin
+  DefaultInterface.AddHeightRange(iMinHeight, iMaxHeight);
+end;
+
+function TBarcodeReader.GetHeightRangeCount: Integer;
+begin
+  Result := DefaultInterface.GetHeightRangeCount;
+end;
+
+procedure TBarcodeReader.GetHeightRange(iIndex: Integer; out piMinHeight: Integer; 
+                                        out piMaxHeight: Integer);
+begin
+  DefaultInterface.GetHeightRange(iIndex, piMinHeight, piMaxHeight);
+end;
+
+procedure TBarcodeReader.ClearAllHeightRanges;
+begin
+  DefaultInterface.ClearAllHeightRanges;
+end;
+
+procedure TBarcodeReader.AddModuleSizeRange(iMinModuleSize: Integer; iMaxModuleSize: Integer);
+begin
+  DefaultInterface.AddModuleSizeRange(iMinModuleSize, iMaxModuleSize);
+end;
+
+function TBarcodeReader.GetModuleSizeRangeCount: Integer;
+begin
+  Result := DefaultInterface.GetModuleSizeRangeCount;
+end;
+
+procedure TBarcodeReader.GetModuleSizeRange(iIndex: Integer; out piMinModuleSize: Integer; 
+                                            out piMaxModuleSize: Integer);
+begin
+  DefaultInterface.GetModuleSizeRange(iIndex, piMinModuleSize, piMaxModuleSize);
+end;
+
+procedure TBarcodeReader.ClearAllModuleSizeRanges;
+begin
+  DefaultInterface.ClearAllModuleSizeRanges;
+end;
+
+procedure TBarcodeReader.AddAngleRange(iFromAngle: Integer; iToAngle: Integer);
+begin
+  DefaultInterface.AddAngleRange(iFromAngle, iToAngle);
+end;
+
+procedure TBarcodeReader.AddAngle(emType: enumBarcodeOrientationType);
+begin
+  DefaultInterface.AddAngle(emType);
+end;
+
+function TBarcodeReader.GetAngleRangeCount: Integer;
+begin
+  Result := DefaultInterface.GetAngleRangeCount;
+end;
+
+procedure TBarcodeReader.GetAngleRange(iIndex: Integer; out piFromAngle: Integer; 
+                                       out piToAngle: Integer);
+begin
+  DefaultInterface.GetAngleRange(iIndex, piFromAngle, piToAngle);
+end;
+
+procedure TBarcodeReader.ClearAllAngleRanges;
+begin
+  DefaultInterface.ClearAllAngleRanges;
+end;
+
+function TBarcodeReader.LoadSetting(const sJsonSetting: WideString): WordBool;
+begin
+  Result := DefaultInterface.LoadSetting(sJsonSetting);
 end;
 
 {$IFDEF LIVE_SERVER_AT_DESIGN_TIME}
@@ -880,16 +1000,6 @@ end;
 function TBarcodeReaderProperties.GetDefaultInterface: IBarcodeReader;
 begin
   Result := FServer.DefaultInterface;
-end;
-
-function TBarcodeReaderProperties.Get_ReaderOptions: IReaderOptions;
-begin
-    Result := DefaultInterface.ReaderOptions;
-end;
-
-procedure TBarcodeReaderProperties.Set_ReaderOptions(const pVal: IReaderOptions);
-begin
-  DefaultInterface.Set_ReaderOptions(pVal);
 end;
 
 function TBarcodeReaderProperties.Get_Barcodes: IBarcodeResultArray;
@@ -912,484 +1022,84 @@ begin
     Result := DefaultInterface.ErrorString;
 end;
 
-{$ENDIF}
-
-class function CoBarcodeFormat.Create: IBarcodeFormat;
+function TBarcodeReaderProperties.Get_BarcodeFormats: Integer;
 begin
-  Result := CreateComObject(CLASS_BarcodeFormat) as IBarcodeFormat;
+    Result := DefaultInterface.BarcodeFormats;
 end;
 
-class function CoBarcodeFormat.CreateRemote(const MachineName: string): IBarcodeFormat;
-begin
-  Result := CreateRemoteComObject(MachineName, CLASS_BarcodeFormat) as IBarcodeFormat;
-end;
-
-procedure TBarcodeFormat.InitServerData;
-const
-  CServerData: TServerData = (
-    ClassID:   '{2FBB2D11-F616-4ABB-A0C7-AE709017385B}';
-    IntfIID:   '{F03B5DC1-4C10-4D76-B73F-4222C1B783CF}';
-    EventIID:  '';
-    LicenseKey: nil;
-    Version: 500);
-begin
-  ServerData := @CServerData;
-end;
-
-procedure TBarcodeFormat.Connect;
-var
-  punk: IUnknown;
-begin
-  if FIntf = nil then
-  begin
-    punk := GetServer;
-    Fintf:= punk as IBarcodeFormat;
-  end;
-end;
-
-procedure TBarcodeFormat.ConnectTo(svrIntf: IBarcodeFormat);
-begin
-  Disconnect;
-  FIntf := svrIntf;
-end;
-
-procedure TBarcodeFormat.DisConnect;
-begin
-  if Fintf <> nil then
-  begin
-    FIntf := nil;
-  end;
-end;
-
-function TBarcodeFormat.GetDefaultInterface: IBarcodeFormat;
-begin
-  if FIntf = nil then
-    Connect;
-  Assert(FIntf <> nil, 'DefaultInterface is NULL. Component is not connected to Server. You must call ''Connect'' or ''ConnectTo'' before this operation');
-  Result := FIntf;
-end;
-
-constructor TBarcodeFormat.Create(AOwner: TComponent);
-begin
-  inherited Create(AOwner);
-{$IFDEF LIVE_SERVER_AT_DESIGN_TIME}
-  FProps := TBarcodeFormatProperties.Create(Self);
-{$ENDIF}
-end;
-
-destructor TBarcodeFormat.Destroy;
-begin
-{$IFDEF LIVE_SERVER_AT_DESIGN_TIME}
-  FProps.Free;
-{$ENDIF}
-  inherited Destroy;
-end;
-
-{$IFDEF LIVE_SERVER_AT_DESIGN_TIME}
-function TBarcodeFormat.GetServerProperties: TBarcodeFormatProperties;
-begin
-  Result := FProps;
-end;
-{$ENDIF}
-
-function TBarcodeFormat.Get_CODE_39: OleVariant;
-var
-  InterfaceVariant : OleVariant;
-begin
-  InterfaceVariant := DefaultInterface;
-  Result := InterfaceVariant.CODE_39;
-end;
-
-function TBarcodeFormat.Get_CODE_128: OleVariant;
-var
-  InterfaceVariant : OleVariant;
-begin
-  InterfaceVariant := DefaultInterface;
-  Result := InterfaceVariant.CODE_128;
-end;
-
-function TBarcodeFormat.Get_CODE_93: OleVariant;
-var
-  InterfaceVariant : OleVariant;
-begin
-  InterfaceVariant := DefaultInterface;
-  Result := InterfaceVariant.CODE_93;
-end;
-
-function TBarcodeFormat.Get_CODABAR: OleVariant;
-var
-  InterfaceVariant : OleVariant;
-begin
-  InterfaceVariant := DefaultInterface;
-  Result := InterfaceVariant.CODABAR;
-end;
-
-function TBarcodeFormat.Get_ITF: OleVariant;
-var
-  InterfaceVariant : OleVariant;
-begin
-  InterfaceVariant := DefaultInterface;
-  Result := InterfaceVariant.ITF;
-end;
-
-function TBarcodeFormat.Get_EAN_13: OleVariant;
-var
-  InterfaceVariant : OleVariant;
-begin
-  InterfaceVariant := DefaultInterface;
-  Result := InterfaceVariant.EAN_13;
-end;
-
-function TBarcodeFormat.Get_EAN_8: OleVariant;
-var
-  InterfaceVariant : OleVariant;
-begin
-  InterfaceVariant := DefaultInterface;
-  Result := InterfaceVariant.EAN_8;
-end;
-
-function TBarcodeFormat.Get_UPC_A: OleVariant;
-var
-  InterfaceVariant : OleVariant;
-begin
-  InterfaceVariant := DefaultInterface;
-  Result := InterfaceVariant.UPC_A;
-end;
-
-function TBarcodeFormat.Get_UPC_E: OleVariant;
-var
-  InterfaceVariant : OleVariant;
-begin
-  InterfaceVariant := DefaultInterface;
-  Result := InterfaceVariant.UPC_E;
-end;
-
-function TBarcodeFormat.Get_OneD: OleVariant;
-var
-  InterfaceVariant : OleVariant;
-begin
-  InterfaceVariant := DefaultInterface;
-  Result := InterfaceVariant.OneD;
-end;
-
-function TBarcodeFormat.Get_type_: OleVariant;
-var
-  InterfaceVariant : OleVariant;
-begin
-  InterfaceVariant := DefaultInterface;
-  Result := InterfaceVariant.type_;
-end;
-
-function TBarcodeFormat.Get_TypeString: WideString;
-begin
-    Result := DefaultInterface.TypeString;
-end;
-
-function TBarcodeFormat.Get_INDUSTRIAL_25: OleVariant;
-var
-  InterfaceVariant : OleVariant;
-begin
-  InterfaceVariant := DefaultInterface;
-  Result := InterfaceVariant.INDUSTRIAL_25;
-end;
-
-function TBarcodeFormat.Get_QR_CODE: OleVariant;
-var
-  InterfaceVariant : OleVariant;
-begin
-  InterfaceVariant := DefaultInterface;
-  Result := InterfaceVariant.QR_CODE;
-end;
-
-function TBarcodeFormat.Get_PDF417: OleVariant;
-var
-  InterfaceVariant : OleVariant;
-begin
-  InterfaceVariant := DefaultInterface;
-  Result := InterfaceVariant.PDF417;
-end;
-
-function TBarcodeFormat.Get_DATAMATRIX: OleVariant;
-var
-  InterfaceVariant : OleVariant;
-begin
-  InterfaceVariant := DefaultInterface;
-  Result := InterfaceVariant.DATAMATRIX;
-end;
-
-{$IFDEF LIVE_SERVER_AT_DESIGN_TIME}
-constructor TBarcodeFormatProperties.Create(AServer: TBarcodeFormat);
-begin
-  inherited Create;
-  FServer := AServer;
-end;
-
-function TBarcodeFormatProperties.GetDefaultInterface: IBarcodeFormat;
-begin
-  Result := FServer.DefaultInterface;
-end;
-
-function TBarcodeFormatProperties.Get_CODE_39: OleVariant;
-var
-  InterfaceVariant : OleVariant;
-begin
-  InterfaceVariant := DefaultInterface;
-  Result := InterfaceVariant.CODE_39;
-end;
-
-function TBarcodeFormatProperties.Get_CODE_128: OleVariant;
-var
-  InterfaceVariant : OleVariant;
-begin
-  InterfaceVariant := DefaultInterface;
-  Result := InterfaceVariant.CODE_128;
-end;
-
-function TBarcodeFormatProperties.Get_CODE_93: OleVariant;
-var
-  InterfaceVariant : OleVariant;
-begin
-  InterfaceVariant := DefaultInterface;
-  Result := InterfaceVariant.CODE_93;
-end;
-
-function TBarcodeFormatProperties.Get_CODABAR: OleVariant;
-var
-  InterfaceVariant : OleVariant;
-begin
-  InterfaceVariant := DefaultInterface;
-  Result := InterfaceVariant.CODABAR;
-end;
-
-function TBarcodeFormatProperties.Get_ITF: OleVariant;
-var
-  InterfaceVariant : OleVariant;
-begin
-  InterfaceVariant := DefaultInterface;
-  Result := InterfaceVariant.ITF;
-end;
-
-function TBarcodeFormatProperties.Get_EAN_13: OleVariant;
-var
-  InterfaceVariant : OleVariant;
-begin
-  InterfaceVariant := DefaultInterface;
-  Result := InterfaceVariant.EAN_13;
-end;
-
-function TBarcodeFormatProperties.Get_EAN_8: OleVariant;
-var
-  InterfaceVariant : OleVariant;
-begin
-  InterfaceVariant := DefaultInterface;
-  Result := InterfaceVariant.EAN_8;
-end;
-
-function TBarcodeFormatProperties.Get_UPC_A: OleVariant;
-var
-  InterfaceVariant : OleVariant;
-begin
-  InterfaceVariant := DefaultInterface;
-  Result := InterfaceVariant.UPC_A;
-end;
-
-function TBarcodeFormatProperties.Get_UPC_E: OleVariant;
-var
-  InterfaceVariant : OleVariant;
-begin
-  InterfaceVariant := DefaultInterface;
-  Result := InterfaceVariant.UPC_E;
-end;
-
-function TBarcodeFormatProperties.Get_OneD: OleVariant;
-var
-  InterfaceVariant : OleVariant;
-begin
-  InterfaceVariant := DefaultInterface;
-  Result := InterfaceVariant.OneD;
-end;
-
-function TBarcodeFormatProperties.Get_type_: OleVariant;
-var
-  InterfaceVariant : OleVariant;
-begin
-  InterfaceVariant := DefaultInterface;
-  Result := InterfaceVariant.type_;
-end;
-
-function TBarcodeFormatProperties.Get_TypeString: WideString;
-begin
-    Result := DefaultInterface.TypeString;
-end;
-
-function TBarcodeFormatProperties.Get_INDUSTRIAL_25: OleVariant;
-var
-  InterfaceVariant : OleVariant;
-begin
-  InterfaceVariant := DefaultInterface;
-  Result := InterfaceVariant.INDUSTRIAL_25;
-end;
-
-function TBarcodeFormatProperties.Get_QR_CODE: OleVariant;
-var
-  InterfaceVariant : OleVariant;
-begin
-  InterfaceVariant := DefaultInterface;
-  Result := InterfaceVariant.QR_CODE;
-end;
-
-function TBarcodeFormatProperties.Get_PDF417: OleVariant;
-var
-  InterfaceVariant : OleVariant;
-begin
-  InterfaceVariant := DefaultInterface;
-  Result := InterfaceVariant.PDF417;
-end;
-
-function TBarcodeFormatProperties.Get_DATAMATRIX: OleVariant;
-var
-  InterfaceVariant : OleVariant;
-begin
-  InterfaceVariant := DefaultInterface;
-  Result := InterfaceVariant.DATAMATRIX;
-end;
-
-{$ENDIF}
-
-class function CoReaderOptions.Create: IReaderOptions;
-begin
-  Result := CreateComObject(CLASS_ReaderOptions) as IReaderOptions;
-end;
-
-class function CoReaderOptions.CreateRemote(const MachineName: string): IReaderOptions;
-begin
-  Result := CreateRemoteComObject(MachineName, CLASS_ReaderOptions) as IReaderOptions;
-end;
-
-procedure TReaderOptions.InitServerData;
-const
-  CServerData: TServerData = (
-    ClassID:   '{E483386B-CB2F-4B4E-B014-E8D2DA41AE7F}';
-    IntfIID:   '{68ECF6D9-5BB7-42B5-8BDC-D1D6AFB0ED15}';
-    EventIID:  '';
-    LicenseKey: nil;
-    Version: 500);
-begin
-  ServerData := @CServerData;
-end;
-
-procedure TReaderOptions.Connect;
-var
-  punk: IUnknown;
-begin
-  if FIntf = nil then
-  begin
-    punk := GetServer;
-    Fintf:= punk as IReaderOptions;
-  end;
-end;
-
-procedure TReaderOptions.ConnectTo(svrIntf: IReaderOptions);
-begin
-  Disconnect;
-  FIntf := svrIntf;
-end;
-
-procedure TReaderOptions.DisConnect;
-begin
-  if Fintf <> nil then
-  begin
-    FIntf := nil;
-  end;
-end;
-
-function TReaderOptions.GetDefaultInterface: IReaderOptions;
-begin
-  if FIntf = nil then
-    Connect;
-  Assert(FIntf <> nil, 'DefaultInterface is NULL. Component is not connected to Server. You must call ''Connect'' or ''ConnectTo'' before this operation');
-  Result := FIntf;
-end;
-
-constructor TReaderOptions.Create(AOwner: TComponent);
-begin
-  inherited Create(AOwner);
-{$IFDEF LIVE_SERVER_AT_DESIGN_TIME}
-  FProps := TReaderOptionsProperties.Create(Self);
-{$ENDIF}
-end;
-
-destructor TReaderOptions.Destroy;
-begin
-{$IFDEF LIVE_SERVER_AT_DESIGN_TIME}
-  FProps.Free;
-{$ENDIF}
-  inherited Destroy;
-end;
-
-{$IFDEF LIVE_SERVER_AT_DESIGN_TIME}
-function TReaderOptions.GetServerProperties: TReaderOptionsProperties;
-begin
-  Result := FProps;
-end;
-{$ENDIF}
-
-function TReaderOptions.Get_BarcodeFormats: OleVariant;
-var
-  InterfaceVariant : OleVariant;
-begin
-  InterfaceVariant := DefaultInterface;
-  Result := InterfaceVariant.BarcodeFormats;
-end;
-
-procedure TReaderOptions.Set_BarcodeFormats(pVal: OleVariant);
+procedure TBarcodeReaderProperties.Set_BarcodeFormats(pVal: Integer);
 begin
   DefaultInterface.Set_BarcodeFormats(pVal);
 end;
 
-function TReaderOptions.Get_MaxBarcodesNumPerPage: Integer;
+function TBarcodeReaderProperties.Get_MaxBarcodesNumPerPage: Integer;
 begin
     Result := DefaultInterface.MaxBarcodesNumPerPage;
 end;
 
-procedure TReaderOptions.Set_MaxBarcodesNumPerPage(pVal: Integer);
+procedure TBarcodeReaderProperties.Set_MaxBarcodesNumPerPage(pVal: Integer);
 begin
   DefaultInterface.Set_MaxBarcodesNumPerPage(pVal);
 end;
 
-{$IFDEF LIVE_SERVER_AT_DESIGN_TIME}
-constructor TReaderOptionsProperties.Create(AServer: TReaderOptions);
+function TBarcodeReaderProperties.Get_ImageCaptureDevice: enumImageCaptureDevice;
 begin
-  inherited Create;
-  FServer := AServer;
+    Result := DefaultInterface.ImageCaptureDevice;
 end;
 
-function TReaderOptionsProperties.GetDefaultInterface: IReaderOptions;
+procedure TBarcodeReaderProperties.Set_ImageCaptureDevice(pVal: enumImageCaptureDevice);
 begin
-  Result := FServer.DefaultInterface;
+  DefaultInterface.Set_ImageCaptureDevice(pVal);
 end;
 
-function TReaderOptionsProperties.Get_BarcodeFormats: OleVariant;
-var
-  InterfaceVariant : OleVariant;
+function TBarcodeReaderProperties.Get_BarcodeColorMode: enumBarcodeColorMode;
 begin
-  InterfaceVariant := DefaultInterface;
-  Result := InterfaceVariant.BarcodeFormats;
+    Result := DefaultInterface.BarcodeColorMode;
 end;
 
-procedure TReaderOptionsProperties.Set_BarcodeFormats(pVal: OleVariant);
+procedure TBarcodeReaderProperties.Set_BarcodeColorMode(pVal: enumBarcodeColorMode);
 begin
-  DefaultInterface.Set_BarcodeFormats(pVal);
+  DefaultInterface.Set_BarcodeColorMode(pVal);
 end;
 
-function TReaderOptionsProperties.Get_MaxBarcodesNumPerPage: Integer;
+function TBarcodeReaderProperties.Get_TimeoutPerPage: Integer;
 begin
-    Result := DefaultInterface.MaxBarcodesNumPerPage;
+    Result := DefaultInterface.TimeoutPerPage;
 end;
 
-procedure TReaderOptionsProperties.Set_MaxBarcodesNumPerPage(pVal: Integer);
+procedure TBarcodeReaderProperties.Set_TimeoutPerPage(pVal: Integer);
 begin
-  DefaultInterface.Set_MaxBarcodesNumPerPage(pVal);
+  DefaultInterface.Set_TimeoutPerPage(pVal);
+end;
+
+function TBarcodeReaderProperties.Get_UseOneDDeblur: WordBool;
+begin
+    Result := DefaultInterface.UseOneDDeblur;
+end;
+
+procedure TBarcodeReaderProperties.Set_UseOneDDeblur(pVal: WordBool);
+begin
+  DefaultInterface.Set_UseOneDDeblur(pVal);
+end;
+
+function TBarcodeReaderProperties.Get_ReturnUnrecognizedBarcode: WordBool;
+begin
+    Result := DefaultInterface.ReturnUnrecognizedBarcode;
+end;
+
+procedure TBarcodeReaderProperties.Set_ReturnUnrecognizedBarcode(pVal: WordBool);
+begin
+  DefaultInterface.Set_ReturnUnrecognizedBarcode(pVal);
+end;
+
+function TBarcodeReaderProperties.Get_BarcodeTextEncoding: enumBarcodeTextEncoding;
+begin
+    Result := DefaultInterface.BarcodeTextEncoding;
+end;
+
+procedure TBarcodeReaderProperties.Set_BarcodeTextEncoding(pVal: enumBarcodeTextEncoding);
+begin
+  DefaultInterface.Set_BarcodeTextEncoding(pVal);
 end;
 
 {$ENDIF}
@@ -1416,7 +1126,7 @@ end;
 
 procedure Register;
 begin
-  RegisterComponents(dtlServerPage, [TBarcodeReader, TBarcodeFormat, TReaderOptions]);
+  RegisterComponents(dtlServerPage, [TBarcodeReader]);
 end;
 
 end.

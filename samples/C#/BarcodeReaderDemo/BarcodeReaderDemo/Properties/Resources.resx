@@ -394,4 +394,16 @@
   <data name="barcode_Result" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Barcode_Result.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="picboxStopBarcode_Disabled" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\picboxStopBarcode_Disabled.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="picboxStopBarcode_Down" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\picboxStopBarcode_Down.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="picboxStopBarcode_Enter" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\picboxStopBarcode_Enter.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="picboxStopBarcode_Leave" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\picboxStopBarcode_Leave.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

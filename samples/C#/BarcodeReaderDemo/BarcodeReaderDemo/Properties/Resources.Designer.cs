@@ -851,6 +851,42 @@ namespace Barcode_Reader_Demo.Properties
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+
+        internal static System.Drawing.Bitmap picboxStopBarcode_Disabled
+        {
+            get
+            {
+                object obj = ResourceManager.GetObject("picboxStopBarcode_Disabled", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+
+        internal static System.Drawing.Bitmap picboxStopBarcode_Down
+        {
+            get
+            {
+                object obj = ResourceManager.GetObject("picboxStopBarcode_Down", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+
+        internal static System.Drawing.Bitmap picboxStopBarcode_Enter
+        {
+            get
+            {
+                object obj = ResourceManager.GetObject("picboxStopBarcode_Enter", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+
+        internal static System.Drawing.Bitmap picboxStopBarcode_Leave
+        {
+            get
+            {
+                object obj = ResourceManager.GetObject("picboxStopBarcode_Leave", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
         
         internal static System.Drawing.Bitmap picboxRectangle_Disabled {
             get {

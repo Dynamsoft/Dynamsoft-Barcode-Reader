@@ -30,10 +30,14 @@
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <SccProjectName></SccProjectName>
-    <SccLocalPath></SccLocalPath>
-    <SccAuxPath></SccAuxPath>
-    <SccProvider></SccProvider>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -301,6 +305,10 @@
     <Content Include="Resources\picboxScan_Down.png" />
     <Content Include="Resources\picboxScan_Enter.png" />
     <Content Include="Resources\picboxScan_Leave.png" />
+    <Content Include="Resources\picboxStopBarcode_Disabled.png" />
+    <Content Include="Resources\picboxStopBarcode_Down.png" />
+    <Content Include="Resources\picboxStopBarcode_Enter.png" />
+    <Content Include="Resources\picboxStopBarcode_Leave.png" />    
     <Content Include="Resources\picboxTextA_Disabled.png" />
     <Content Include="Resources\picboxTextA_Down.png" />
     <Content Include="Resources\picboxTextA_Enter.png" />

@@ -35,6 +35,7 @@ object Form1: TForm1
     Top = 24
     Width = 361
     Height = 21
+    ImeName = #20013#25991'('#31616#20307') - '#30334#24230#36755#20837#27861
     TabOrder = 0
   end
   object btnBrowse: TButton
@@ -198,6 +199,7 @@ object Form1: TForm1
     Top = 200
     Width = 401
     Height = 21
+    ImeName = #20013#25991'('#31616#20307') - '#30334#24230#36755#20837#27861
     TabOrder = 3
     Text = '100'
   end
@@ -206,6 +208,7 @@ object Form1: TForm1
     Top = 280
     Width = 497
     Height = 273
+    ImeName = #20013#25991'('#31616#20307') - '#30334#24230#36755#20837#27861
     Lines.Strings = (
       '')
     ScrollBars = ssVertical

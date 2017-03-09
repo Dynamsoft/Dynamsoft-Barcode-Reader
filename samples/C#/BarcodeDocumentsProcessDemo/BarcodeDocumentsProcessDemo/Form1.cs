@@ -43,7 +43,7 @@ namespace BarcodeDocumentsProcessDemo
         {
             InitializeComponent();
             InitialDefaultValue();
-            barcodeReader.LicenseKeys = "38B9B94D8B0E2B41FDE1FB60861C28C0";
+            barcodeReader.LicenseKeys = "t0260NQAAAFUZbbNi3xJ4oViu+0+5Eim8wPzn6GeJZrIvrb/HLjzJ8Mn+GRjbfdoa/f+iRLzKTudXVEkKqj9tKlzzDP+xKzZ2IdknzMXimKDmKBivdKTXM3T5ACPK25omqoQkqNw00zExtCrR532mHig0QU6dsF5EmvkgDLxsbWw/M54wj1F1pGagM7YfKzpLN0/qvCeejimX2nvTMfOzv+M37m+0RPsnyp20pITycnvBGyWkZ3OWQ97U8UNYl+OyyfuHymz8EcjqQm9nxvYTm4nYHERHkiXMmI6jWLgK+4+jIlcS9WLgWd8pMKkI0bZCcwmVzk5z+vuGYKjZVK/iuYIx7McOP9k=";
         }
 
         private void InitialDefaultValue()
@@ -498,10 +498,10 @@ namespace BarcodeDocumentsProcessDemo
 
                                 for (int i = 1; i <= separators.Count; i++)
                                 {
-                                    int start = separators[i - 1]-1;
+                                    int start = separators[i-1];
                                     int end = start;
                                     if (i != separators.Count)
-                                        end = separators[i]-1;
+                                        end = separators[i];
                                     else
                                         end = iFrameCount;
 
