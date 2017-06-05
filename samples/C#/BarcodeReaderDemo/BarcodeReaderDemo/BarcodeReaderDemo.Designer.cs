@@ -62,6 +62,8 @@ namespace Barcode_Reader_Demo
             this.panelWebCam = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label24 = new System.Windows.Forms.Label();
+            this.panelWebcamNote = new System.Windows.Forms.Panel();
+            this.labelWebcamNote = new System.Windows.Forms.Label();
             this.picboxLoadImage = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
             this.lblWebCamSrc = new System.Windows.Forms.Label();
@@ -141,6 +143,7 @@ namespace Barcode_Reader_Demo
             this.panelWebCam.SuspendLayout();
             this.panelLoad.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.panelWebcamNote.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picboxLoadImage)).BeginInit();
             this.panelAcquire.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picboxScan)).BeginInit();
@@ -487,6 +490,8 @@ namespace Barcode_Reader_Demo
             this.panelWebCam.Controls.Add(this.cbxWebCamSrc);
             this.panelWebCam.Controls.Add(this.lblWebCamRes);
             this.panelWebCam.Controls.Add(this.cbxWebCamRes);
+            this.panelWebCam.Controls.Add(this.panelWebcamNote);
+
             this.panelWebCam.Location = new System.Drawing.Point(1, 41);
             this.panelWebCam.Margin = new System.Windows.Forms.Padding(0);
             this.panelWebCam.Name = "panelWebCam";
@@ -524,6 +529,23 @@ namespace Barcode_Reader_Demo
             this.label24.Image = ((System.Drawing.Image)(Resources.ResourceManager.GetObject("icn_star")));
             this.label24.ImageAlign = ContentAlignment.TopLeft;
             // 
+            // panelWebcamNote
+            // 
+            this.panelWebcamNote.Controls.Add(this.labelWebcamNote);
+            this.panelWebcamNote.Location = new System.Drawing.Point(35, 110);
+            this.panelWebcamNote.Name = "panelWebcamNote";
+            this.panelWebcamNote.Size = new System.Drawing.Size(228, 60);
+            this.panelWebcamNote.TabIndex = 3;
+
+            this.labelWebcamNote.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.labelWebcamNote.Location = new System.Drawing.Point(0, 0);
+            this.labelWebcamNote.Name = "labelWebcamNote";
+            this.labelWebcamNote.Size = new System.Drawing.Size(228, 30);
+            this.labelWebcamNote.TabIndex = 0;
+            this.labelWebcamNote.Text = "     Note: Please place a barcode in front of your webcam and then click \"Read Barcode\" button. It will decode barcodes from camera stream directly.";
+            this.labelWebcamNote.Image = ((System.Drawing.Image)(Resources.ResourceManager.GetObject("icn_star")));
+            this.labelWebcamNote.ImageAlign = ContentAlignment.TopLeft;
+            // 
             // picboxLoadImage
             // 
             this.picboxLoadImage.Image = global::Barcode_Reader_Demo.Properties.Resources.picboxLoadImage_Leave;
@@ -558,7 +580,7 @@ namespace Barcode_Reader_Demo
             // 
             this.cbxWebCamSrc.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbxWebCamSrc.FormattingEnabled = true;
-            this.cbxWebCamSrc.Location = new System.Drawing.Point(38, 34);
+            this.cbxWebCamSrc.Location = new System.Drawing.Point(38, 30);
             this.cbxWebCamSrc.Name = "cbxWebCamSrc";
             this.cbxWebCamSrc.Size = new System.Drawing.Size(216, 22);
             this.cbxWebCamSrc.TabIndex = 13;
@@ -567,7 +589,7 @@ namespace Barcode_Reader_Demo
             // 
             this.lblWebCamRes.AutoSize = true;
             this.lblWebCamRes.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblWebCamRes.Location = new System.Drawing.Point(38, 72);
+            this.lblWebCamRes.Location = new System.Drawing.Point(38, 60);
             this.lblWebCamRes.Name = "lblWebCamRes";
             this.lblWebCamRes.Size = new System.Drawing.Size(83, 15);
             this.lblWebCamRes.TabIndex = 12;
@@ -577,7 +599,7 @@ namespace Barcode_Reader_Demo
             // 
             this.cbxWebCamRes.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbxWebCamRes.FormattingEnabled = true;
-            this.cbxWebCamRes.Location = new System.Drawing.Point(38, 96);
+            this.cbxWebCamRes.Location = new System.Drawing.Point(38, 80);
             this.cbxWebCamRes.Name = "cbxWebCamRes";
             this.cbxWebCamRes.Size = new System.Drawing.Size(216, 22);
             this.cbxWebCamRes.TabIndex = 13;
@@ -726,7 +748,7 @@ namespace Barcode_Reader_Demo
             this.labelBarcodeHeight.Name = "labelBarcodeHeight";
             this.labelBarcodeHeight.Size = new System.Drawing.Size(83, 15);
             this.labelBarcodeHeight.TabIndex = 84;
-            this.labelBarcodeHeight.Text = "Barcode Height (pixels) :";
+            this.labelBarcodeHeight.Text = "Barcode height (pixels) :";
 
             //private System.Windows.Forms.TextBox tbxMinHeight;
             this.tbxMinHeight.Location = new System.Drawing.Point(150, 83);
@@ -869,7 +891,7 @@ namespace Barcode_Reader_Demo
             this.cbxDeblurOneD.Name = "cbxDeblurOneD";
             this.cbxDeblurOneD.Size = new System.Drawing.Size(200, 20);
             this.cbxDeblurOneD.TabIndex = 86;
-            this.cbxDeblurOneD.Text = "Deblur OneD barcode";
+            this.cbxDeblurOneD.Text = "Deblur 1D barcode";
             this.cbxDeblurOneD.Checked = true;
 
             this.cbxReturnUnrecognized.AutoSize = true;
@@ -1018,7 +1040,7 @@ namespace Barcode_Reader_Demo
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(97, 15);
             this.label6.TabIndex = 2;
-            this.label6.Text = "Barcode Format :";
+            this.label6.Text = "Barcode format :";
 
             //labelTimeout;
             this.labelTimeout.AutoSize = true;
@@ -1045,7 +1067,7 @@ namespace Barcode_Reader_Demo
             this.labelBarcodeWidth.Name = "labelBarcodeWidth";
             this.labelBarcodeWidth.Size = new System.Drawing.Size(147, 15);
             this.labelBarcodeWidth.TabIndex = 3;
-            this.labelBarcodeWidth.Text = "Barcode Width (pixels) :";
+            this.labelBarcodeWidth.Text = "Barcode width (pixels) :";
 
             //private System.Windows.Forms.TextBox tbxMinWidth;
             this.tbxMinWidth.Location = new System.Drawing.Point(150, 49);
@@ -1071,7 +1093,7 @@ namespace Barcode_Reader_Demo
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(147, 15);
             this.label7.TabIndex = 3;
-            this.label7.Text = "Maximum Barcode Reads :";
+            this.label7.Text = "Maximum barcode reads :";
             // 
             // tbxBottom
             // 
@@ -1118,7 +1140,7 @@ namespace Barcode_Reader_Demo
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(211, 15);
             this.label8.TabIndex = 6;
-            this.label8.Text = "Selected Rectangle Area Of the Image :";
+            this.label8.Text = "Selected rectangle area of the image :";
             // 
             // label9
             // 
@@ -1273,6 +1295,7 @@ namespace Barcode_Reader_Demo
             this.panelLoad.ResumeLayout(false);
             this.panelLoad.PerformLayout();
             this.panel1.ResumeLayout(false);
+            this.panelWebcamNote.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.picboxLoadImage)).EndInit();
             this.panelAcquire.ResumeLayout(false);
             this.panelAcquire.PerformLayout();
@@ -1353,6 +1376,8 @@ namespace Barcode_Reader_Demo
         private System.Windows.Forms.PictureBox picboxOriginalSize;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.Panel panelWebcamNote;
+        private System.Windows.Forms.Label labelWebcamNote;
         //private System.Windows.Forms.Timer timerWebCam;
         private System.Windows.Forms.PictureBox picBoxWebCam;
         private System.Windows.Forms.Label labelImageCaptureDevice;

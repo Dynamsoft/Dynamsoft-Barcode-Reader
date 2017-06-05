@@ -92,8 +92,8 @@
             this.lbTitle.Name = "lbTitle";
             this.lbTitle.Size = new System.Drawing.Size(800, 52);
             this.lbTitle.TabIndex = 0;
-            this.lbTitle.MouseMove += new System.Windows.Forms.MouseEventHandler(this.lbTitle_MouseMove);
             this.lbTitle.MouseDown += new System.Windows.Forms.MouseEventHandler(this.lbTitle_MouseDown);
+            this.lbTitle.MouseMove += new System.Windows.Forms.MouseEventHandler(this.lbTitle_MouseMove);
             // 
             // label14
             // 
@@ -258,11 +258,11 @@
             this.lbClose.Size = new System.Drawing.Size(30, 27);
             this.lbClose.TabIndex = 2;
             this.lbClose.Tag = "close";
-            this.lbClose.MouseLeave += new System.EventHandler(this.lbButton_MouseLeave);
             this.lbClose.Click += new System.EventHandler(this.lbClose_Click);
             this.lbClose.MouseDown += new System.Windows.Forms.MouseEventHandler(this.lbButton_MouseDown);
-            this.lbClose.MouseUp += new System.Windows.Forms.MouseEventHandler(this.lbButton_MouseUp);
             this.lbClose.MouseEnter += new System.EventHandler(this.lbButton_MouseEnter);
+            this.lbClose.MouseLeave += new System.EventHandler(this.lbButton_MouseLeave);
+            this.lbClose.MouseUp += new System.Windows.Forms.MouseEventHandler(this.lbButton_MouseUp);
             // 
             // lbMinimum
             // 
@@ -273,11 +273,11 @@
             this.lbMinimum.Size = new System.Drawing.Size(30, 27);
             this.lbMinimum.TabIndex = 1;
             this.lbMinimum.Tag = "minimum";
-            this.lbMinimum.MouseLeave += new System.EventHandler(this.lbButton_MouseLeave);
             this.lbMinimum.Click += new System.EventHandler(this.lbMinimum_Click);
             this.lbMinimum.MouseDown += new System.Windows.Forms.MouseEventHandler(this.lbButton_MouseDown);
-            this.lbMinimum.MouseUp += new System.Windows.Forms.MouseEventHandler(this.lbButton_MouseUp);
             this.lbMinimum.MouseEnter += new System.EventHandler(this.lbButton_MouseEnter);
+            this.lbMinimum.MouseLeave += new System.EventHandler(this.lbButton_MouseLeave);
+            this.lbMinimum.MouseUp += new System.Windows.Forms.MouseEventHandler(this.lbButton_MouseUp);
             // 
             // lbSplit
             // 
@@ -290,8 +290,8 @@
             this.lbSplit.TabIndex = 21;
             this.lbSplit.Tag = "split";
             this.lbSplit.Text = "Split";
-            this.lbSplit.MouseLeave += new System.EventHandler(this.lbMode_MouseLeave);
             this.lbSplit.Click += new System.EventHandler(this.Mode_Changed);
+            this.lbSplit.MouseLeave += new System.EventHandler(this.lbMode_MouseLeave);
             this.lbSplit.MouseHover += new System.EventHandler(this.lbMode_MouseHover);
             // 
             // lbClassify
@@ -305,8 +305,8 @@
             this.lbClassify.TabIndex = 20;
             this.lbClassify.Tag = "classify";
             this.lbClassify.Text = "Classify";
-            this.lbClassify.MouseLeave += new System.EventHandler(this.lbMode_MouseLeave);
             this.lbClassify.Click += new System.EventHandler(this.Mode_Changed);
+            this.lbClassify.MouseLeave += new System.EventHandler(this.lbMode_MouseLeave);
             this.lbClassify.MouseHover += new System.EventHandler(this.lbMode_MouseHover);
             // 
             // lbRename
@@ -320,8 +320,8 @@
             this.lbRename.TabIndex = 19;
             this.lbRename.Tag = "rename";
             this.lbRename.Text = "Rename";
-            this.lbRename.MouseLeave += new System.EventHandler(this.lbMode_MouseLeave);
             this.lbRename.Click += new System.EventHandler(this.Mode_Changed);
+            this.lbRename.MouseLeave += new System.EventHandler(this.lbMode_MouseLeave);
             this.lbRename.MouseHover += new System.EventHandler(this.lbMode_MouseHover);
             // 
             // label1
@@ -342,7 +342,7 @@
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(110, 36);
             this.label2.TabIndex = 23;
-            this.label2.Text = "as a seperator to split documents";
+            this.label2.Text = "as a separator to split documents";
             // 
             // label3
             // 
@@ -544,11 +544,11 @@
             this.lbInputBrowse.Size = new System.Drawing.Size(90, 28);
             this.lbInputBrowse.TabIndex = 41;
             this.lbInputBrowse.Tag = "browse";
-            this.lbInputBrowse.MouseLeave += new System.EventHandler(this.lbButton_MouseLeave);
             this.lbInputBrowse.Click += new System.EventHandler(this.lbInputBrowse_Click);
             this.lbInputBrowse.MouseDown += new System.Windows.Forms.MouseEventHandler(this.lbButton_MouseDown);
-            this.lbInputBrowse.MouseUp += new System.Windows.Forms.MouseEventHandler(this.lbButton_MouseUp);
             this.lbInputBrowse.MouseEnter += new System.EventHandler(this.lbButton_MouseEnter);
+            this.lbInputBrowse.MouseLeave += new System.EventHandler(this.lbButton_MouseLeave);
+            this.lbInputBrowse.MouseUp += new System.Windows.Forms.MouseEventHandler(this.lbButton_MouseUp);
             // 
             // lbOutputBrowse
             // 
@@ -559,11 +559,11 @@
             this.lbOutputBrowse.Size = new System.Drawing.Size(90, 28);
             this.lbOutputBrowse.TabIndex = 42;
             this.lbOutputBrowse.Tag = "browse";
-            this.lbOutputBrowse.MouseLeave += new System.EventHandler(this.lbButton_MouseLeave);
             this.lbOutputBrowse.Click += new System.EventHandler(this.lbOutputBrowse_Click);
             this.lbOutputBrowse.MouseDown += new System.Windows.Forms.MouseEventHandler(this.lbButton_MouseDown);
-            this.lbOutputBrowse.MouseUp += new System.Windows.Forms.MouseEventHandler(this.lbButton_MouseUp);
             this.lbOutputBrowse.MouseEnter += new System.EventHandler(this.lbButton_MouseEnter);
+            this.lbOutputBrowse.MouseLeave += new System.EventHandler(this.lbButton_MouseLeave);
+            this.lbOutputBrowse.MouseUp += new System.Windows.Forms.MouseEventHandler(this.lbButton_MouseUp);
             // 
             // tbInputFolder
             // 
@@ -590,11 +590,11 @@
             this.lbProcess.Size = new System.Drawing.Size(175, 27);
             this.lbProcess.TabIndex = 45;
             this.lbProcess.Tag = "start";
-            this.lbProcess.MouseLeave += new System.EventHandler(this.lbButton_MouseLeave);
             this.lbProcess.Click += new System.EventHandler(this.lbProcess_Click);
             this.lbProcess.MouseDown += new System.Windows.Forms.MouseEventHandler(this.lbButton_MouseDown);
-            this.lbProcess.MouseUp += new System.Windows.Forms.MouseEventHandler(this.lbButton_MouseUp);
             this.lbProcess.MouseEnter += new System.EventHandler(this.lbButton_MouseEnter);
+            this.lbProcess.MouseLeave += new System.EventHandler(this.lbButton_MouseLeave);
+            this.lbProcess.MouseUp += new System.Windows.Forms.MouseEventHandler(this.lbButton_MouseUp);
             // 
             // tbLog
             // 
@@ -719,7 +719,7 @@
             this.lbModeInfo.Size = new System.Drawing.Size(182, 56);
             this.lbModeInfo.TabIndex = 56;
             this.lbModeInfo.Text = "Classify documents into indicidual output folders by barcodes on the first pages " +
-                "of the input files.";
+    "of the input files.";
             this.lbModeInfo.UseCompatibleTextRendering = true;
             this.lbModeInfo.Visible = false;
             // 

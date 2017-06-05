@@ -101,8 +101,8 @@ namespace Barcode_Reader_Demo
             Initialization();
             InitLastOpenedDirectoryStr();
 
-            _br = new BarcodeReader { LicenseKeys = "t0260NQAAAFUZbbNi3xJ4oViu+0+5Eim8wPzn6GeJZrIvrb/HLjzJ8Mn+GRjbfdoa/f+iRLzKTudXVEkKqj9tKlzzDP+xKzZ2IdknzMXimKDmKBivdKTXM3T5ACPK25omqoQkqNw00zExtCrR532mHig0QU6dsF5EmvkgDLxsbWw/M54wj1F1pGagM7YfKzpLN0/qvCeejimX2nvTMfOzv+M37m+0RPsnyp20pITycnvBGyWkZ3OWQ97U8UNYl+OyyfuHymz8EcjqQm9nxvYTm4nYHERHkiXMmI6jWLgK+4+jIlcS9WLgWd8pMKkI0bZCcwmVzk5z+vuGYKjZVK/iuYIx7McOP9k=" };
-            dynamicDotNetTwain.LicenseKeys = "50E1EFCB751C93C0B51CA408B6DC639F;50E1EFCB751C93C0B15C09693883C427;50E1EFCB751C93C0B5907A061A758683;50E1EFCB751C93C0A743B64283118C05;50E1EFCB751C93C0B9B324E78C071FE1";
+            _br = new BarcodeReader { LicenseKeys = "t0068MgAAABs0soPfOcktn1WIaQwU5tPkLklx8PbtKusKGedkkCTDIQldAxDlOkitjsoOoUHYq9Zxro5YEVTQ7/oqoIcoGzQ=" };
+            dynamicDotNetTwain.LicenseKeys = "ECD6D80BF542A2B0E24DA26383DF85D9;ECD6D80BF542A2B06F09F8514EFDB3FD;ECD6D80BF542A2B0EE8ED6DF3885C436;ECD6D80BF542A2B07C2CCE813856BCB5;ECD6D80BF542A2B0AD4D85B1DD690D94";
 
             _postShowFrameResults = new PostShowFrameResultsHandler(this.postShowFrameResults);
 
@@ -229,7 +229,7 @@ namespace Barcode_Reader_Demo
             _thReadSetting.Size = new Size(154, 40);
             _thReadSetting.State = TabHead.TabHeadState.SELECTED;
             _thReadSetting.TabIndex = 0;
-            _thReadSetting.Text = "Setting";
+            _thReadSetting.Text = "Settings";
             _thReadSetting.TextAlign = ContentAlignment.MiddleCenter;
             _thReadSetting.Click += TabHead_Click;
 
@@ -247,7 +247,7 @@ namespace Barcode_Reader_Demo
             _thReadMoreSetting.Size = new Size(155, 40);
             _thReadMoreSetting.State = TabHead.TabHeadState.FOLDED;
             _thReadMoreSetting.TabIndex = 0;
-            _thReadMoreSetting.Text = "More Setting";
+            _thReadMoreSetting.Text = "More Settings";
             _thReadMoreSetting.TextAlign = ContentAlignment.MiddleCenter;
             _thReadMoreSetting.Click += TabHead_Click;
 
@@ -1110,7 +1110,10 @@ namespace Barcode_Reader_Demo
                         var strSuffix = strFileName.Substring(pos, strFileName.Length - pos).ToLower();
                         if (strSuffix.CompareTo(".pdf") == 0)
                         {
-                            dynamicDotNetTwain.ConvertPDFToImage(strFileName, 200);
+                            dynamicDotNetTwain.PDFConvertMode = EnumPDFConvertMode.enumCM_RENDERALL;
+                            dynamicDotNetTwain.SetPDFResolution(300);
+                            dynamicDotNetTwain.LoadImage(strFileName);
+
                             if (dynamicDotNetTwain.ErrorCode != ErrorCode.Succeed)
                             {
                                 MessageBox.Show(dynamicDotNetTwain.ErrorString, "Loading image error", MessageBoxButtons.OK, MessageBoxIcon.Error);

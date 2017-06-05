@@ -19,7 +19,7 @@ unit DBRCtrlLib_TLB;
 // LIBID: {19AA5F16-9FA9-4B11-8F90-C269B8E668D9}
 // LCID: 0
 // Helpfile: 
-// HelpString: Dynamsoft Barcode Reader 5.0 Type Library
+// HelpString: Dynamsoft Barcode Reader 5.1 Type Library
 // DepndLst: 
 //   (1) v2.0 stdole, (C:\Windows\SysWOW64\stdole2.tlb)
 // Errors:
