@@ -200,7 +200,7 @@ int main(int argc, const char* argv[])
 
 		hBarcode = DBR_CreateInstance();
 
-		DBR_InitLicenseEx(hBarcode, "t0068MgAAABs0soPfOcktn1WIaQwU5tPkLklx8PbtKusKGedkkCTDIQldAxDlOkitjsoOoUHYq9Zxro5YEVTQ7/oqoIcoGzQ=");
+		DBR_InitLicenseEx(hBarcode, "t0068MgAAADwWnQrQnmYBrE+QnxSdTdMgwZy/UDlCMzl8YYvDGh3Wrc/cqDLpXBscXtnCozac3tY7QG+zf6iMVndW1vsfxWI=");
 		DBR_SetBarcodeFormats(hBarcode, iFormat);
 		DBR_SetMaxBarcodesNumPerPage(hBarcode, iMaxCount);
 

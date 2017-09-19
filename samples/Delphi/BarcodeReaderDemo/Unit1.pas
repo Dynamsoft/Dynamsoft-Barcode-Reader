@@ -62,7 +62,7 @@ begin
 
   oBR := CoBarcodeReader.Create;
   bSelectAll := true;
-  oBR.InitLicense('t0068MgAAABs0soPfOcktn1WIaQwU5tPkLklx8PbtKusKGedkkCTDIQldAxDlOkitjsoOoUHYq9Zxro5YEVTQ7/oqoIcoGzQ=');
+  oBR.InitLicense('t0068MgAAADwWnQrQnmYBrE+QnxSdTdMgwZy/UDlCMzl8YYvDGh3Wrc/cqDLpXBscXtnCozac3tY7QG+zf6iMVndW1vsfxWI=');
 end;
 
 procedure TForm1.btnReadBarcodesClick(Sender: TObject);

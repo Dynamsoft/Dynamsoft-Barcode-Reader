@@ -34,9 +34,6 @@ namespace Barcode_Reader_Demo
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BarcodeReaderDemo));
-            //this.timerWebCam = new System.Windows.Forms.Timer(this.components);
             this.picBoxWebCam = new System.Windows.Forms.PictureBox();
             this.picboxHand = new System.Windows.Forms.PictureBox();
             this.picboxPoint = new System.Windows.Forms.PictureBox();
@@ -55,21 +52,20 @@ namespace Barcode_Reader_Demo
             this.lbDiv = new System.Windows.Forms.Label();
             this.tbxCurrentImageIndex = new System.Windows.Forms.TextBox();
             this.tbxTotalImageNum = new System.Windows.Forms.TextBox();
-            this.dynamicDotNetTwain = new Dynamsoft.DotNet.TWAIN.DynamicDotNetTwain();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
             this.panelLoad = new System.Windows.Forms.Panel();
-            this.panelWebCam = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label24 = new System.Windows.Forms.Label();
-            this.panelWebcamNote = new System.Windows.Forms.Panel();
-            this.labelWebcamNote = new System.Windows.Forms.Label();
             this.picboxLoadImage = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.panelWebCam = new System.Windows.Forms.Panel();
             this.lblWebCamSrc = new System.Windows.Forms.Label();
             this.cbxWebCamSrc = new System.Windows.Forms.ComboBox();
             this.lblWebCamRes = new System.Windows.Forms.Label();
             this.cbxWebCamRes = new System.Windows.Forms.ComboBox();
+            this.panelWebcamNote = new System.Windows.Forms.Panel();
+            this.labelWebcamNote = new System.Windows.Forms.Label();
             this.panelAcquire = new System.Windows.Forms.Panel();
             this.rdbtnGray = new System.Windows.Forms.RadioButton();
             this.cbxResolution = new System.Windows.Forms.ComboBox();
@@ -81,10 +77,6 @@ namespace Barcode_Reader_Demo
             this.lbSelectSource = new System.Windows.Forms.Label();
             this.cbxSource = new System.Windows.Forms.ComboBox();
             this.panelReadSetting = new System.Windows.Forms.Panel();
-            this.panelReadMoreSetting = new System.Windows.Forms.Panel();
-            this.panelReadBarcode = new System.Windows.Forms.Panel();
-            this.picboxReadBarcode = new System.Windows.Forms.PictureBox();
-            this.picboxStopBarcode = new System.Windows.Forms.PictureBox();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.tbxBottom = new System.Windows.Forms.TextBox();
@@ -98,12 +90,11 @@ namespace Barcode_Reader_Demo
             this.label11 = new System.Windows.Forms.Label();
             this.tbxLeft = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
-            this.picboxFit = new System.Windows.Forms.PictureBox();
-            this.picboxOriginalSize = new System.Windows.Forms.PictureBox();
             this.labelImageCaptureDevice = new System.Windows.Forms.Label();
             this.labelBarcodeOrientation = new System.Windows.Forms.Label();
             this.cbxImageCaptureDevice = new System.Windows.Forms.ComboBox();
             this.cbxBarcodeOrientation = new System.Windows.Forms.ComboBox();
+            this.panelReadMoreSetting = new System.Windows.Forms.Panel();
             this.labelTimeout = new System.Windows.Forms.Label();
             this.labelBarcodeWidth = new System.Windows.Forms.Label();
             this.labelBarcodeHeight = new System.Windows.Forms.Label();
@@ -125,8 +116,15 @@ namespace Barcode_Reader_Demo
             this.cbxBarcodeLight = new System.Windows.Forms.CheckBox();
             this.cbxDeblurOneD = new System.Windows.Forms.CheckBox();
             this.cbxReturnUnrecognized = new System.Windows.Forms.CheckBox();
-            this.tbxResult = new TextBox();
-            this.lblCloseResult = new Label();
+            this.panelReadBarcode = new System.Windows.Forms.Panel();
+            this.picboxReadBarcode = new System.Windows.Forms.PictureBox();
+            this.picboxStopBarcode = new System.Windows.Forms.PictureBox();
+            this.picboxFit = new System.Windows.Forms.PictureBox();
+            this.picboxOriginalSize = new System.Windows.Forms.PictureBox();
+            this.tbxResult = new System.Windows.Forms.TextBox();
+            this.lblCloseResult = new System.Windows.Forms.Label();
+            this.dsViewer = new Dynamsoft.Forms.DSViewer();
+            ((System.ComponentModel.ISupportInitialize)(this.picBoxWebCam)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picboxHand)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picboxPoint)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picboxZoomOut)).BeginInit();
@@ -139,12 +137,11 @@ namespace Barcode_Reader_Demo
             ((System.ComponentModel.ISupportInitialize)(this.picboxPrevious)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picboxMin)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picboxClose)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picBoxWebCam)).BeginInit();
-            this.panelWebCam.SuspendLayout();
             this.panelLoad.SuspendLayout();
             this.panel1.SuspendLayout();
-            this.panelWebcamNote.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picboxLoadImage)).BeginInit();
+            this.panelWebCam.SuspendLayout();
+            this.panelWebcamNote.SuspendLayout();
             this.panelAcquire.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picboxScan)).BeginInit();
             this.panelReadSetting.SuspendLayout();
@@ -154,8 +151,20 @@ namespace Barcode_Reader_Demo
             ((System.ComponentModel.ISupportInitialize)(this.picboxStopBarcode)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picboxFit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picboxOriginalSize)).BeginInit();
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.BarcodeReaderDemo_FormClosing);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.BarcodeReaderDemo_FormClosed);
             this.SuspendLayout();
-
+            // 
+            // picBoxWebCam
+            // 
+            this.picBoxWebCam.BackColor = System.Drawing.Color.White;
+            this.picBoxWebCam.Location = new System.Drawing.Point(6, 48);
+            this.picBoxWebCam.Name = "picBoxWebCam";
+            this.picBoxWebCam.Size = new System.Drawing.Size(563, 628);
+            this.picBoxWebCam.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picBoxWebCam.TabIndex = 2;
+            this.picBoxWebCam.TabStop = false;
+            this.picBoxWebCam.Visible = false;
             // 
             // picboxHand
             // 
@@ -166,12 +175,12 @@ namespace Barcode_Reader_Demo
             this.picboxHand.TabIndex = 2;
             this.picboxHand.TabStop = false;
             this.picboxHand.Tag = "Move";
-            this.picboxHand.MouseLeave += new System.EventHandler(this.picbox_MouseLeave);
             this.picboxHand.Click += new System.EventHandler(this.picboxHand_Click);
             this.picboxHand.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picbox_MouseDown);
+            this.picboxHand.MouseEnter += new System.EventHandler(this.picbox_MouseEnter);
+            this.picboxHand.MouseLeave += new System.EventHandler(this.picbox_MouseLeave);
             this.picboxHand.MouseHover += new System.EventHandler(this.picbox_MouseHover);
             this.picboxHand.MouseUp += new System.Windows.Forms.MouseEventHandler(this.picbox_MouseUp);
-            this.picboxHand.MouseEnter += new System.EventHandler(this.picbox_MouseEnter);
             // 
             // picboxPoint
             // 
@@ -182,12 +191,12 @@ namespace Barcode_Reader_Demo
             this.picboxPoint.TabIndex = 4;
             this.picboxPoint.TabStop = false;
             this.picboxPoint.Tag = "Select";
-            this.picboxPoint.MouseLeave += new System.EventHandler(this.picbox_MouseLeave);
             this.picboxPoint.Click += new System.EventHandler(this.picboxPoint_Click);
             this.picboxPoint.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picbox_MouseDown);
+            this.picboxPoint.MouseEnter += new System.EventHandler(this.picbox_MouseEnter);
+            this.picboxPoint.MouseLeave += new System.EventHandler(this.picbox_MouseLeave);
             this.picboxPoint.MouseHover += new System.EventHandler(this.picbox_MouseHover);
             this.picboxPoint.MouseUp += new System.Windows.Forms.MouseEventHandler(this.picbox_MouseUp);
-            this.picboxPoint.MouseEnter += new System.EventHandler(this.picbox_MouseEnter);
             // 
             // lbMoveBar
             // 
@@ -196,8 +205,8 @@ namespace Barcode_Reader_Demo
             this.lbMoveBar.Name = "lbMoveBar";
             this.lbMoveBar.Size = new System.Drawing.Size(897, 32);
             this.lbMoveBar.TabIndex = 18;
-            this.lbMoveBar.MouseMove += new System.Windows.Forms.MouseEventHandler(this.lbMoveBar_MouseMove);
             this.lbMoveBar.MouseDown += new System.Windows.Forms.MouseEventHandler(this.lbMoveBar_MouseDown);
+            this.lbMoveBar.MouseMove += new System.Windows.Forms.MouseEventHandler(this.lbMoveBar_MouseMove);
             // 
             // picboxZoomOut
             // 
@@ -208,12 +217,12 @@ namespace Barcode_Reader_Demo
             this.picboxZoomOut.TabIndex = 34;
             this.picboxZoomOut.TabStop = false;
             this.picboxZoomOut.Tag = "Zoom Out";
-            this.picboxZoomOut.MouseLeave += new System.EventHandler(this.picbox_MouseLeave);
             this.picboxZoomOut.Click += new System.EventHandler(this.picboxZoomOut_Click);
             this.picboxZoomOut.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picbox_MouseDown);
+            this.picboxZoomOut.MouseEnter += new System.EventHandler(this.picbox_MouseEnter);
+            this.picboxZoomOut.MouseLeave += new System.EventHandler(this.picbox_MouseLeave);
             this.picboxZoomOut.MouseHover += new System.EventHandler(this.picbox_MouseHover);
             this.picboxZoomOut.MouseUp += new System.Windows.Forms.MouseEventHandler(this.picbox_MouseUp);
-            this.picboxZoomOut.MouseEnter += new System.EventHandler(this.picbox_MouseEnter);
             // 
             // picboxZoomIn
             // 
@@ -224,12 +233,12 @@ namespace Barcode_Reader_Demo
             this.picboxZoomIn.TabIndex = 32;
             this.picboxZoomIn.TabStop = false;
             this.picboxZoomIn.Tag = "Zoom In";
-            this.picboxZoomIn.MouseLeave += new System.EventHandler(this.picbox_MouseLeave);
             this.picboxZoomIn.Click += new System.EventHandler(this.picboxZoomIn_Click);
             this.picboxZoomIn.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picbox_MouseDown);
+            this.picboxZoomIn.MouseEnter += new System.EventHandler(this.picbox_MouseEnter);
+            this.picboxZoomIn.MouseLeave += new System.EventHandler(this.picbox_MouseLeave);
             this.picboxZoomIn.MouseHover += new System.EventHandler(this.picbox_MouseHover);
             this.picboxZoomIn.MouseUp += new System.Windows.Forms.MouseEventHandler(this.picbox_MouseUp);
-            this.picboxZoomIn.MouseEnter += new System.EventHandler(this.picbox_MouseEnter);
             // 
             // picboxDeleteAll
             // 
@@ -240,12 +249,12 @@ namespace Barcode_Reader_Demo
             this.picboxDeleteAll.TabIndex = 38;
             this.picboxDeleteAll.TabStop = false;
             this.picboxDeleteAll.Tag = "Delete All";
-            this.picboxDeleteAll.MouseLeave += new System.EventHandler(this.picbox_MouseLeave);
             this.picboxDeleteAll.Click += new System.EventHandler(this.picboxDeleteAll_Click);
             this.picboxDeleteAll.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picbox_MouseDown);
+            this.picboxDeleteAll.MouseEnter += new System.EventHandler(this.picbox_MouseEnter);
+            this.picboxDeleteAll.MouseLeave += new System.EventHandler(this.picbox_MouseLeave);
             this.picboxDeleteAll.MouseHover += new System.EventHandler(this.picbox_MouseHover);
             this.picboxDeleteAll.MouseUp += new System.Windows.Forms.MouseEventHandler(this.picbox_MouseUp);
-            this.picboxDeleteAll.MouseEnter += new System.EventHandler(this.picbox_MouseEnter);
             // 
             // picboxDelete
             // 
@@ -256,12 +265,12 @@ namespace Barcode_Reader_Demo
             this.picboxDelete.TabIndex = 36;
             this.picboxDelete.TabStop = false;
             this.picboxDelete.Tag = "Delete Current Image";
-            this.picboxDelete.MouseLeave += new System.EventHandler(this.picbox_MouseLeave);
             this.picboxDelete.Click += new System.EventHandler(this.picboxDelete_Click);
             this.picboxDelete.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picbox_MouseDown);
+            this.picboxDelete.MouseEnter += new System.EventHandler(this.picbox_MouseEnter);
+            this.picboxDelete.MouseLeave += new System.EventHandler(this.picbox_MouseLeave);
             this.picboxDelete.MouseHover += new System.EventHandler(this.picbox_MouseHover);
             this.picboxDelete.MouseUp += new System.Windows.Forms.MouseEventHandler(this.picbox_MouseUp);
-            this.picboxDelete.MouseEnter += new System.EventHandler(this.picbox_MouseEnter);
             // 
             // picboxFirst
             // 
@@ -272,12 +281,12 @@ namespace Barcode_Reader_Demo
             this.picboxFirst.TabIndex = 42;
             this.picboxFirst.TabStop = false;
             this.picboxFirst.Tag = "First Image";
-            this.picboxFirst.MouseLeave += new System.EventHandler(this.picbox_MouseLeave);
             this.picboxFirst.Click += new System.EventHandler(this.picboxFirst_Click);
             this.picboxFirst.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picbox_MouseDown);
+            this.picboxFirst.MouseEnter += new System.EventHandler(this.picbox_MouseEnter);
+            this.picboxFirst.MouseLeave += new System.EventHandler(this.picbox_MouseLeave);
             this.picboxFirst.MouseHover += new System.EventHandler(this.picbox_MouseHover);
             this.picboxFirst.MouseUp += new System.Windows.Forms.MouseEventHandler(this.picbox_MouseUp);
-            this.picboxFirst.MouseEnter += new System.EventHandler(this.picbox_MouseEnter);
             // 
             // picboxLast
             // 
@@ -288,12 +297,12 @@ namespace Barcode_Reader_Demo
             this.picboxLast.TabIndex = 43;
             this.picboxLast.TabStop = false;
             this.picboxLast.Tag = "Last Image";
-            this.picboxLast.MouseLeave += new System.EventHandler(this.picbox_MouseLeave);
             this.picboxLast.Click += new System.EventHandler(this.picboxLast_Click);
             this.picboxLast.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picbox_MouseDown);
+            this.picboxLast.MouseEnter += new System.EventHandler(this.picbox_MouseEnter);
+            this.picboxLast.MouseLeave += new System.EventHandler(this.picbox_MouseLeave);
             this.picboxLast.MouseHover += new System.EventHandler(this.picbox_MouseHover);
             this.picboxLast.MouseUp += new System.Windows.Forms.MouseEventHandler(this.picbox_MouseUp);
-            this.picboxLast.MouseEnter += new System.EventHandler(this.picbox_MouseEnter);
             // 
             // picboxNext
             // 
@@ -304,12 +313,12 @@ namespace Barcode_Reader_Demo
             this.picboxNext.TabIndex = 44;
             this.picboxNext.TabStop = false;
             this.picboxNext.Tag = "Next Image";
-            this.picboxNext.MouseLeave += new System.EventHandler(this.picbox_MouseLeave);
             this.picboxNext.Click += new System.EventHandler(this.picboxNext_Click);
             this.picboxNext.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picbox_MouseDown);
+            this.picboxNext.MouseEnter += new System.EventHandler(this.picbox_MouseEnter);
+            this.picboxNext.MouseLeave += new System.EventHandler(this.picbox_MouseLeave);
             this.picboxNext.MouseHover += new System.EventHandler(this.picbox_MouseHover);
             this.picboxNext.MouseUp += new System.Windows.Forms.MouseEventHandler(this.picbox_MouseUp);
-            this.picboxNext.MouseEnter += new System.EventHandler(this.picbox_MouseEnter);
             // 
             // picboxPrevious
             // 
@@ -320,12 +329,12 @@ namespace Barcode_Reader_Demo
             this.picboxPrevious.TabIndex = 47;
             this.picboxPrevious.TabStop = false;
             this.picboxPrevious.Tag = "Previous Image";
-            this.picboxPrevious.MouseLeave += new System.EventHandler(this.picbox_MouseLeave);
             this.picboxPrevious.Click += new System.EventHandler(this.picboxPrevious_Click);
             this.picboxPrevious.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picbox_MouseDown);
+            this.picboxPrevious.MouseEnter += new System.EventHandler(this.picbox_MouseEnter);
+            this.picboxPrevious.MouseLeave += new System.EventHandler(this.picbox_MouseLeave);
             this.picboxPrevious.MouseHover += new System.EventHandler(this.picbox_MouseHover);
             this.picboxPrevious.MouseUp += new System.Windows.Forms.MouseEventHandler(this.picbox_MouseUp);
-            this.picboxPrevious.MouseEnter += new System.EventHandler(this.picbox_MouseEnter);
             // 
             // cbxViewMode
             // 
@@ -339,7 +348,7 @@ namespace Barcode_Reader_Demo
             "5 x 5"});
             this.cbxViewMode.Location = new System.Drawing.Point(474, 645);
             this.cbxViewMode.Name = "cbxViewMode";
-            this.cbxViewMode.Size = new System.Drawing.Size(75, 25);
+            this.cbxViewMode.Size = new System.Drawing.Size(75, 23);
             this.cbxViewMode.TabIndex = 650;
             this.cbxViewMode.SelectedIndexChanged += new System.EventHandler(this.cbxLayout_SelectedIndexChanged);
             // 
@@ -351,11 +360,11 @@ namespace Barcode_Reader_Demo
             this.picboxMin.Size = new System.Drawing.Size(20, 20);
             this.picboxMin.TabIndex = 73;
             this.picboxMin.TabStop = false;
-            this.picboxMin.MouseLeave += new System.EventHandler(this.picbox_MouseLeave);
             this.picboxMin.Click += new System.EventHandler(this.picboxMin_Click);
             this.picboxMin.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picbox_MouseDown);
-            this.picboxMin.MouseUp += new System.Windows.Forms.MouseEventHandler(this.picbox_MouseUp);
             this.picboxMin.MouseEnter += new System.EventHandler(this.picbox_MouseEnter);
+            this.picboxMin.MouseLeave += new System.EventHandler(this.picbox_MouseLeave);
+            this.picboxMin.MouseUp += new System.Windows.Forms.MouseEventHandler(this.picbox_MouseUp);
             // 
             // picboxClose
             // 
@@ -365,11 +374,11 @@ namespace Barcode_Reader_Demo
             this.picboxClose.Size = new System.Drawing.Size(20, 20);
             this.picboxClose.TabIndex = 74;
             this.picboxClose.TabStop = false;
-            this.picboxClose.MouseLeave += new System.EventHandler(this.picbox_MouseLeave);
             this.picboxClose.MouseClick += new System.Windows.Forms.MouseEventHandler(this.picboxClose_MouseClick);
             this.picboxClose.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picbox_MouseDown);
-            this.picboxClose.MouseUp += new System.Windows.Forms.MouseEventHandler(this.picbox_MouseUp);
             this.picboxClose.MouseEnter += new System.EventHandler(this.picbox_MouseEnter);
+            this.picboxClose.MouseLeave += new System.EventHandler(this.picbox_MouseLeave);
+            this.picboxClose.MouseUp += new System.Windows.Forms.MouseEventHandler(this.picbox_MouseUp);
             // 
             // lbDiv
             // 
@@ -402,36 +411,6 @@ namespace Barcode_Reader_Demo
             this.tbxTotalImageNum.TabIndex = 77;
             this.tbxTotalImageNum.Text = "0";
             // 
-            // dynamicDotNetTwain
-            // 
-            this.dynamicDotNetTwain.AnnotationFillColor = System.Drawing.Color.White;
-            this.dynamicDotNetTwain.AnnotationPen = null;
-            this.dynamicDotNetTwain.AnnotationTextColor = System.Drawing.Color.Black;
-            this.dynamicDotNetTwain.AnnotationTextFont = null;
-            this.dynamicDotNetTwain.IfShowCancelDialogWhenImageTransfer = false;
-            this.dynamicDotNetTwain.IfShowPrintUI = false;
-            this.dynamicDotNetTwain.IfThrowException = false;
-            this.dynamicDotNetTwain.Location = new System.Drawing.Point(86, 50);
-            this.dynamicDotNetTwain.LogLevel = ((short)(0));
-            this.dynamicDotNetTwain.Name = "dynamicDotNetTwain";
-            this.dynamicDotNetTwain.PDFMarginBottom = ((uint)(0u));
-            this.dynamicDotNetTwain.PDFMarginLeft = ((uint)(0u));
-            this.dynamicDotNetTwain.PDFMarginRight = ((uint)(0u));
-            this.dynamicDotNetTwain.PDFMarginTop = ((uint)(0u));
-            this.dynamicDotNetTwain.PDFXConformance = ((uint)(0u));
-            this.dynamicDotNetTwain.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.dynamicDotNetTwain.Size = new System.Drawing.Size(477, 586);
-            this.dynamicDotNetTwain.TabIndex = 80;
-            this.dynamicDotNetTwain.Visible = false;
-            this.dynamicDotNetTwain.OnImageAreaSelected += new Dynamsoft.DotNet.TWAIN.Delegate.OnImageAreaSelectedHandler(this.dynamicDotNetTwain_OnImageAreaSelected);
-            this.dynamicDotNetTwain.OnPostAllTransfers += new Dynamsoft.DotNet.TWAIN.Delegate.OnPostAllTransfersHandler(this.dynamicDotNetTwain_OnPostAllTransfers);
-            this.dynamicDotNetTwain.OnMouseDoubleClick += new Dynamsoft.DotNet.TWAIN.Delegate.OnMouseDoubleClickHandler(this.dynamicDotNetTwain_OnMouseDoubleClick);
-            this.dynamicDotNetTwain.OnMouseClick += new Dynamsoft.DotNet.TWAIN.Delegate.OnMouseClickHandler(this.dynamicDotNetTwain_OnMouseClick);
-            this.dynamicDotNetTwain.OnSourceUIClose += new Dynamsoft.DotNet.TWAIN.Delegate.OnSourceUICloseHandler(this.dynamicDotNetTwain_OnSourceUIClose);
-            this.dynamicDotNetTwain.OnImageAreaDeselected += new Dynamsoft.DotNet.TWAIN.Delegate.OnImageAreaDeselectedHandler(this.dynamicDotNetTwain_OnImageAreaDeselected);
-            this.dynamicDotNetTwain.OnMouseRightClick += new Dynamsoft.DotNet.TWAIN.Delegate.OnMouseRightClickHandler(this.dynamicDotNetTwain_OnMouseRightClick);
-            this.dynamicDotNetTwain.OnFrameCapture += new Dynamsoft.DotNet.TWAIN.Delegate.OnFrameCaptureHandler(this.dynamicDotNetTwain_OnFrameCapture);
-            // 
             // openFileDialog
             // 
             this.openFileDialog.FileName = "openFileDialog1";
@@ -444,31 +423,6 @@ namespace Barcode_Reader_Demo
             this.flowLayoutPanel2.Name = "flowLayoutPanel2";
             this.flowLayoutPanel2.Size = new System.Drawing.Size(331, 624);
             this.flowLayoutPanel2.TabIndex = 84;
-
-            // 
-            // tbxResult
-            // 
-            this.tbxResult.BackColor = System.Drawing.Color.White;
-            this.tbxResult.Location = new System.Drawing.Point(1, 26);
-            this.tbxResult.Margin = new System.Windows.Forms.Padding(0);
-            this.tbxResult.Name = "rtbxResult";
-            this.tbxResult.Size = new System.Drawing.Size(309, 570);
-            this.tbxResult.ReadOnly = true;
-            this.tbxResult.Multiline = true;
-            this.tbxResult.ScrollBars = ScrollBars.Vertical;
-            this.tbxResult.TabIndex = 184;
-
-            // 
-            // lblCloseResult
-            // 
-            this.lblCloseResult.Text = "X";
-            this.lblCloseResult.BackColor = System.Drawing.SystemColors.Control;
-            this.lblCloseResult.Location = new Point(290, 5);
-            this.lblCloseResult.Size = new System.Drawing.Size(16, 16);
-            this.lblCloseResult.MouseLeave += new System.EventHandler(this.lblCloseResult_MouseLeave);
-            this.lblCloseResult.Click += new System.EventHandler(this.lblCloseResult_Click);
-            this.lblCloseResult.MouseHover += new System.EventHandler(this.lblCloseResult_MouseHover);
-            this.lblCloseResult.BringToFront();
             // 
             // panelLoad
             // 
@@ -483,33 +437,6 @@ namespace Barcode_Reader_Demo
             this.panelLoad.TabIndex = 3;
             this.panelLoad.Visible = false;
             // 
-            // panelWebCam
-            // 
-            this.panelWebCam.BackColor = System.Drawing.Color.Transparent;
-            this.panelWebCam.Controls.Add(this.lblWebCamSrc);
-            this.panelWebCam.Controls.Add(this.cbxWebCamSrc);
-            this.panelWebCam.Controls.Add(this.lblWebCamRes);
-            this.panelWebCam.Controls.Add(this.cbxWebCamRes);
-            this.panelWebCam.Controls.Add(this.panelWebcamNote);
-
-            this.panelWebCam.Location = new System.Drawing.Point(1, 41);
-            this.panelWebCam.Margin = new System.Windows.Forms.Padding(0);
-            this.panelWebCam.Name = "panelWebCam";
-            this.panelWebCam.Size = new System.Drawing.Size(300, 175);
-            this.panelWebCam.TabIndex = 3;
-            this.panelWebCam.Visible = false;
-            // 
-            // picBoxWebCam
-            // 
-            this.picBoxWebCam.BackColor = System.Drawing.Color.White;
-            this.picBoxWebCam.Location = new System.Drawing.Point(12, 48);
-            this.picBoxWebCam.Name = "picBoxWebCam";
-            this.picBoxWebCam.Size = new System.Drawing.Size(551, 628);
-            this.picBoxWebCam.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.picBoxWebCam.TabIndex = 2;
-            this.picBoxWebCam.TabStop = false;
-            this.picBoxWebCam.Visible = false;
-            // 
             // panel1
             // 
             this.panel1.Controls.Add(this.label24);
@@ -521,35 +448,17 @@ namespace Barcode_Reader_Demo
             // label24
             // 
             this.label24.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label24.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
             this.label24.Location = new System.Drawing.Point(0, 0);
             this.label24.Name = "label24";
             this.label24.Size = new System.Drawing.Size(228, 30);
             this.label24.TabIndex = 0;
             this.label24.Text = "     Note: PDF Rasterizer add-on is used when loading PDF files.";
-            this.label24.Image = ((System.Drawing.Image)(Resources.ResourceManager.GetObject("icn_star")));
-            this.label24.ImageAlign = ContentAlignment.TopLeft;
-            // 
-            // panelWebcamNote
-            // 
-            this.panelWebcamNote.Controls.Add(this.labelWebcamNote);
-            this.panelWebcamNote.Location = new System.Drawing.Point(35, 110);
-            this.panelWebcamNote.Name = "panelWebcamNote";
-            this.panelWebcamNote.Size = new System.Drawing.Size(228, 60);
-            this.panelWebcamNote.TabIndex = 3;
-
-            this.labelWebcamNote.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.labelWebcamNote.Location = new System.Drawing.Point(0, 0);
-            this.labelWebcamNote.Name = "labelWebcamNote";
-            this.labelWebcamNote.Size = new System.Drawing.Size(228, 30);
-            this.labelWebcamNote.TabIndex = 0;
-            this.labelWebcamNote.Text = "     Note: Please place a barcode in front of your webcam and then click \"Read Barcode\" button. It will decode barcodes from camera stream directly.";
-            this.labelWebcamNote.Image = ((System.Drawing.Image)(Resources.ResourceManager.GetObject("icn_star")));
-            this.labelWebcamNote.ImageAlign = ContentAlignment.TopLeft;
             // 
             // picboxLoadImage
             // 
-            this.picboxLoadImage.Image = global::Barcode_Reader_Demo.Properties.Resources.picboxLoadImage_Leave;
             this.picboxLoadImage.InitialImage = null;
+            this.picboxLoadImage.Image = global::Barcode_Reader_Demo.Properties.Resources.picboxLoadImage_Leave;
             this.picboxLoadImage.Location = new System.Drawing.Point(60, 60);
             this.picboxLoadImage.Name = "picboxLoadImage";
             this.picboxLoadImage.Size = new System.Drawing.Size(180, 38);
@@ -562,9 +471,24 @@ namespace Barcode_Reader_Demo
             this.label1.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(38, 22);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(200, 30);
+            this.label1.Size = new System.Drawing.Size(249, 25);
             this.label1.TabIndex = 0;
             this.label1.Text = "Load local images or PDF files";
+            // 
+            // panelWebCam
+            // 
+            this.panelWebCam.BackColor = System.Drawing.Color.Transparent;
+            this.panelWebCam.Controls.Add(this.lblWebCamSrc);
+            this.panelWebCam.Controls.Add(this.cbxWebCamSrc);
+            this.panelWebCam.Controls.Add(this.lblWebCamRes);
+            this.panelWebCam.Controls.Add(this.cbxWebCamRes);
+            this.panelWebCam.Controls.Add(this.panelWebcamNote);
+            this.panelWebCam.Location = new System.Drawing.Point(1, 41);
+            this.panelWebCam.Margin = new System.Windows.Forms.Padding(0);
+            this.panelWebCam.Name = "panelWebCam";
+            this.panelWebCam.Size = new System.Drawing.Size(300, 175);
+            this.panelWebCam.TabIndex = 3;
+            this.panelWebCam.Visible = false;
             // 
             // lblWebCamSrc
             // 
@@ -572,7 +496,7 @@ namespace Barcode_Reader_Demo
             this.lblWebCamSrc.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblWebCamSrc.Location = new System.Drawing.Point(38, 10);
             this.lblWebCamSrc.Name = "lblWebCamSrc";
-            this.lblWebCamSrc.Size = new System.Drawing.Size(83, 15);
+            this.lblWebCamSrc.Size = new System.Drawing.Size(96, 15);
             this.lblWebCamSrc.TabIndex = 0;
             this.lblWebCamSrc.Text = "Webcam Source:";
             // 
@@ -582,7 +506,7 @@ namespace Barcode_Reader_Demo
             this.cbxWebCamSrc.FormattingEnabled = true;
             this.cbxWebCamSrc.Location = new System.Drawing.Point(38, 30);
             this.cbxWebCamSrc.Name = "cbxWebCamSrc";
-            this.cbxWebCamSrc.Size = new System.Drawing.Size(216, 22);
+            this.cbxWebCamSrc.Size = new System.Drawing.Size(216, 21);
             this.cbxWebCamSrc.TabIndex = 13;
             // 
             // lblWebCamRes
@@ -591,7 +515,7 @@ namespace Barcode_Reader_Demo
             this.lblWebCamRes.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblWebCamRes.Location = new System.Drawing.Point(38, 60);
             this.lblWebCamRes.Name = "lblWebCamRes";
-            this.lblWebCamRes.Size = new System.Drawing.Size(83, 15);
+            this.lblWebCamRes.Size = new System.Drawing.Size(116, 15);
             this.lblWebCamRes.TabIndex = 12;
             this.lblWebCamRes.Text = "Webcam Resolution:";
             // 
@@ -601,9 +525,27 @@ namespace Barcode_Reader_Demo
             this.cbxWebCamRes.FormattingEnabled = true;
             this.cbxWebCamRes.Location = new System.Drawing.Point(38, 80);
             this.cbxWebCamRes.Name = "cbxWebCamRes";
-            this.cbxWebCamRes.Size = new System.Drawing.Size(216, 22);
+            this.cbxWebCamRes.Size = new System.Drawing.Size(216, 21);
             this.cbxWebCamRes.TabIndex = 13;
-            //this.cbxWebCamRes.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            // 
+            // panelWebcamNote
+            // 
+            this.panelWebcamNote.Controls.Add(this.labelWebcamNote);
+            this.panelWebcamNote.Location = new System.Drawing.Point(35, 110);
+            this.panelWebcamNote.Name = "panelWebcamNote";
+            this.panelWebcamNote.Size = new System.Drawing.Size(228, 60);
+            this.panelWebcamNote.TabIndex = 3;
+            // 
+            // labelWebcamNote
+            // 
+            this.labelWebcamNote.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.labelWebcamNote.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
+            this.labelWebcamNote.Location = new System.Drawing.Point(0, 0);
+            this.labelWebcamNote.Name = "labelWebcamNote";
+            this.labelWebcamNote.Size = new System.Drawing.Size(228, 60);
+            this.labelWebcamNote.TabIndex = 0;
+            this.labelWebcamNote.Text = "     Note: Please place a barcode in front of your webcam and then click \"Read Ba" +
+    "rcode\" button. It will decode barcodes from camera stream directly.";
             // 
             // panelAcquire
             // 
@@ -638,7 +580,6 @@ namespace Barcode_Reader_Demo
             // cbxResolution
             // 
             this.cbxResolution.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            //this.cbxResolution.Enabled = false;
             this.cbxResolution.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbxResolution.FormattingEnabled = true;
             this.cbxResolution.Location = new System.Drawing.Point(90, 82);
@@ -649,18 +590,17 @@ namespace Barcode_Reader_Demo
             // picboxScan
             // 
             this.picboxScan.Enabled = false;
-            this.picboxScan.Image = global::Barcode_Reader_Demo.Properties.Resources.picboxScan_Disabled;
             this.picboxScan.Location = new System.Drawing.Point(61, 120);
             this.picboxScan.Name = "picboxScan";
             this.picboxScan.Size = new System.Drawing.Size(180, 38);
             this.picboxScan.TabIndex = 85;
             this.picboxScan.TabStop = false;
             this.picboxScan.Tag = "Scan Image";
-            this.picboxScan.MouseLeave += new System.EventHandler(this.picbox_MouseLeave);
             this.picboxScan.Click += new System.EventHandler(this.picboxScan_Click);
             this.picboxScan.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picbox_MouseDown);
-            this.picboxScan.MouseUp += new System.Windows.Forms.MouseEventHandler(this.picbox_MouseUp);
             this.picboxScan.MouseEnter += new System.EventHandler(this.picbox_MouseEnter);
+            this.picboxScan.MouseLeave += new System.EventHandler(this.picbox_MouseLeave);
+            this.picboxScan.MouseUp += new System.Windows.Forms.MouseEventHandler(this.picbox_MouseUp);
             // 
             // rdbtnBW
             // 
@@ -716,7 +656,7 @@ namespace Barcode_Reader_Demo
             this.lbSelectSource.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbSelectSource.Location = new System.Drawing.Point(15, 15);
             this.lbSelectSource.Name = "lbSelectSource";
-            this.lbSelectSource.Size = new System.Drawing.Size(83, 15);
+            this.lbSelectSource.Size = new System.Drawing.Size(94, 15);
             this.lbSelectSource.TabIndex = 84;
             this.lbSelectSource.Text = "Scanner Source :";
             // 
@@ -729,207 +669,6 @@ namespace Barcode_Reader_Demo
             this.cbxSource.Name = "cbxSource";
             this.cbxSource.Size = new System.Drawing.Size(160, 22);
             this.cbxSource.TabIndex = 639;
-
-            //this.labelImageCaptureDevice
-            this.labelImageCaptureDevice.AutoSize = true;
-            this.labelImageCaptureDevice.BackColor = System.Drawing.Color.Transparent;
-            this.labelImageCaptureDevice.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelImageCaptureDevice.Location = new System.Drawing.Point(15, 83);
-            this.labelImageCaptureDevice.Name = "labelImageCaptureDevice";
-            this.labelImageCaptureDevice.Size = new System.Drawing.Size(83, 15);
-            this.labelImageCaptureDevice.TabIndex = 84;
-            this.labelImageCaptureDevice.Text = "Image capture device :";
-        
-            //labelBarcodeHeight;
-            this.labelBarcodeHeight.AutoSize = true;
-            this.labelBarcodeHeight.BackColor = System.Drawing.Color.Transparent;
-            this.labelBarcodeHeight.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelBarcodeHeight.Location = new System.Drawing.Point(15, 83);
-            this.labelBarcodeHeight.Name = "labelBarcodeHeight";
-            this.labelBarcodeHeight.Size = new System.Drawing.Size(83, 15);
-            this.labelBarcodeHeight.TabIndex = 84;
-            this.labelBarcodeHeight.Text = "Barcode height (pixels) :";
-
-            //private System.Windows.Forms.TextBox tbxMinHeight;
-            this.tbxMinHeight.Location = new System.Drawing.Point(150, 83);
-            this.tbxMinHeight.Name = "tbxMinHeight";
-            this.tbxMinHeight.Size = new System.Drawing.Size(60, 20);
-            this.tbxMinHeight.TabIndex = 650;
-            this.tbxMinHeight.Text = "8";
-            
-            //private System.Windows.Forms.Label labelBarcodeWidthMeasure;
-            this.labelBarcodeWidthMeasure.AutoSize = true;
-            this.labelBarcodeWidthMeasure.BackColor = System.Drawing.Color.Transparent;
-            this.labelBarcodeWidthMeasure.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelBarcodeWidthMeasure.Location = new System.Drawing.Point(212, 49);
-            this.labelBarcodeWidthMeasure.Name = "labelBarcodeWidthMeasure";
-            this.labelBarcodeWidthMeasure.Size = new System.Drawing.Size(20, 15);
-            this.labelBarcodeWidthMeasure.TabIndex = 84;
-            this.labelBarcodeWidthMeasure.Text = "-";
-
-            //private System.Windows.Forms.Label labelBarcodeHeightMeasure;
-            this.labelBarcodeHeightMeasure.AutoSize = true;
-            this.labelBarcodeHeightMeasure.BackColor = System.Drawing.Color.Transparent;
-            this.labelBarcodeHeightMeasure.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelBarcodeHeightMeasure.Location = new System.Drawing.Point(212, 83);
-            this.labelBarcodeHeightMeasure.Name = "labelBarcodeHeightMeasure";
-            this.labelBarcodeHeightMeasure.Size = new System.Drawing.Size(20, 15);
-            this.labelBarcodeHeightMeasure.TabIndex = 84;
-            this.labelBarcodeHeightMeasure.Text = "-";
-
-            //private System.Windows.Forms.Label labelBarcodeModuleSizeMeasure;
-            this.labelBarcodeModuleSizeMeasure.AutoSize = true;
-            this.labelBarcodeModuleSizeMeasure.BackColor = System.Drawing.Color.Transparent;
-            this.labelBarcodeModuleSizeMeasure.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelBarcodeModuleSizeMeasure.Location = new System.Drawing.Point(230, 117);
-            this.labelBarcodeModuleSizeMeasure.Name = "labelBarcodeModuleSizeMeasure";
-            this.labelBarcodeModuleSizeMeasure.Size = new System.Drawing.Size(20, 15);
-            this.labelBarcodeModuleSizeMeasure.TabIndex = 84;
-            this.labelBarcodeModuleSizeMeasure.Text = "-";
-
-            //private System.Windows.Forms.TextBox tbxMaxHeight;
-            this.tbxMaxHeight.Location = new System.Drawing.Point(230, 83);
-            this.tbxMaxHeight.Name = "tbxMaxHeight";
-            this.tbxMaxHeight.Size = new System.Drawing.Size(60, 20);
-            this.tbxMaxHeight.TabIndex = 651;
-            this.tbxMaxHeight.Text = "2048";
-
-            //this.labelBarcodeOrientation
-            this.labelBarcodeOrientation.AutoSize = true;
-            this.labelBarcodeOrientation.BackColor = System.Drawing.Color.Transparent;
-            this.labelBarcodeOrientation.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelBarcodeOrientation.Location = new System.Drawing.Point(15, 117);
-            this.labelBarcodeOrientation.Name = "labelBarcodeOrientation";
-            this.labelBarcodeOrientation.Size = new System.Drawing.Size(83, 15);
-            this.labelBarcodeOrientation.TabIndex = 84;
-            this.labelBarcodeOrientation.Text = "Barcode orientation :";
-
-            //labelBarcodeModuleSize;
-            this.labelBarcodeModuleSize.AutoSize = true;
-            this.labelBarcodeModuleSize.BackColor = System.Drawing.Color.Transparent;
-            this.labelBarcodeModuleSize.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelBarcodeModuleSize.Location = new System.Drawing.Point(15, 117);
-            this.labelBarcodeModuleSize.Name = "labelBarcodeModuleSize";
-            this.labelBarcodeModuleSize.Size = new System.Drawing.Size(100, 15);
-            this.labelBarcodeModuleSize.TabIndex = 84;
-            this.labelBarcodeModuleSize.Text = "Barcode module size (pixels) :";
-
-            //private System.Windows.Forms.TextBox tbxMinModuleSize;
-            this.tbxMinModuleSize.Location = new System.Drawing.Point(180, 117);
-            this.tbxMinModuleSize.Name = "tbxMinModuleSize";
-            this.tbxMinModuleSize.Size = new System.Drawing.Size(45, 20);
-            this.tbxMinModuleSize.TabIndex = 650;
-            this.tbxMinModuleSize.Text = "1";
-
-            //private System.Windows.Forms.TextBox tbxMaxModuleSize;
-            this.tbxMaxModuleSize.Location = new System.Drawing.Point(245, 117);
-            this.tbxMaxModuleSize.Name = "tbxMaxModuleSize";
-            this.tbxMaxModuleSize.Size = new System.Drawing.Size(45, 20);
-            this.tbxMaxModuleSize.TabIndex = 651;
-            this.tbxMaxModuleSize.Text = "32";
-
-            //private System.Windows.Forms.Label labelBarcodeTextEncoding;
-            this.labelBarcodeTextEncoding.AutoSize = true;
-            this.labelBarcodeTextEncoding.BackColor = System.Drawing.Color.Transparent;
-            this.labelBarcodeTextEncoding.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelBarcodeTextEncoding.Location = new System.Drawing.Point(15, 151);
-            this.labelBarcodeTextEncoding.Name = "labelBarcodeModuleSize";
-            this.labelBarcodeTextEncoding.Size = new System.Drawing.Size(100, 15);
-            this.labelBarcodeTextEncoding.TabIndex = 84;
-            this.labelBarcodeTextEncoding.Text = "Barcode text encoding :";
-
-            //cbxBarcodeTextEncoding
-            this.cbxBarcodeTextEncoding.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbxBarcodeTextEncoding.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbxBarcodeTextEncoding.FormattingEnabled = true;
-            this.cbxBarcodeTextEncoding.Location = new System.Drawing.Point(150, 151);
-            this.cbxBarcodeTextEncoding.Name = "cbxBarcodeTextEncoding";
-            this.cbxBarcodeTextEncoding.Size = new System.Drawing.Size(140, 45);
-            this.cbxBarcodeTextEncoding.TabIndex = 655;
-            this.cbxBarcodeTextEncoding.Items.Add("Default");
-            this.cbxBarcodeTextEncoding.Items.Add("UTF8");
-            this.cbxBarcodeTextEncoding.Items.Add("UTF16");
-            this.cbxBarcodeTextEncoding.Items.Add("SHIFT_JIS_932");
-            this.cbxBarcodeTextEncoding.Items.Add("GB2312_936");
-            this.cbxBarcodeTextEncoding.Items.Add("KOREAN_949");
-            this.cbxBarcodeTextEncoding.Items.Add("BIG5_950");
-            this.cbxBarcodeTextEncoding.SelectedIndex = 0;
-
-            //private System.Windows.Forms.Label labelBarcodeColorMode;
-            this.labelBarcodeColorMode.AutoSize = true;
-            this.labelBarcodeColorMode.BackColor = System.Drawing.Color.Transparent;
-            this.labelBarcodeColorMode.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelBarcodeColorMode.Location = new System.Drawing.Point(15, 185);
-            this.labelBarcodeColorMode.Name = "labelBarcodeModuleSize";
-            this.labelBarcodeColorMode.Size = new System.Drawing.Size(100, 15);
-            this.labelBarcodeColorMode.TabIndex = 84;
-            this.labelBarcodeColorMode.Text = "Barcode color mode :";
-
-            this.cbxBarcodeDark.AutoSize = true;
-            this.cbxBarcodeDark.BackColor = System.Drawing.Color.Transparent;
-            this.cbxBarcodeDark.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbxBarcodeDark.Location = new System.Drawing.Point(140, 185);
-            this.cbxBarcodeDark.Name = "cbxBarcodeDark";
-            this.cbxBarcodeDark.Size = new System.Drawing.Size(100, 20);
-            this.cbxBarcodeDark.TabIndex = 85;
-            this.cbxBarcodeDark.Text = "Dark on light";
-            this.cbxBarcodeDark.Checked = true;
-
-            this.cbxBarcodeLight.AutoSize = true;
-            this.cbxBarcodeLight.BackColor = System.Drawing.Color.Transparent;
-            this.cbxBarcodeLight.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbxBarcodeLight.Location = new System.Drawing.Point(140, 210);
-            this.cbxBarcodeLight.Name = "cbxBarcodeDark";
-            this.cbxBarcodeLight.Size = new System.Drawing.Size(100, 20);
-            this.cbxBarcodeLight.TabIndex = 86;
-            this.cbxBarcodeLight.Text = "Light on dark ";
-
-            this.cbxDeblurOneD.AutoSize = true;
-            this.cbxDeblurOneD.BackColor = System.Drawing.Color.Transparent;
-            this.cbxDeblurOneD.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbxDeblurOneD.Location = new System.Drawing.Point(18, 230);
-            this.cbxDeblurOneD.Name = "cbxDeblurOneD";
-            this.cbxDeblurOneD.Size = new System.Drawing.Size(200, 20);
-            this.cbxDeblurOneD.TabIndex = 86;
-            this.cbxDeblurOneD.Text = "Deblur 1D barcode";
-            this.cbxDeblurOneD.Checked = true;
-
-            this.cbxReturnUnrecognized.AutoSize = true;
-            this.cbxReturnUnrecognized.BackColor = System.Drawing.Color.Transparent;
-            this.cbxReturnUnrecognized.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbxReturnUnrecognized.Location = new System.Drawing.Point(18, 258);
-            this.cbxReturnUnrecognized.Name = "cbxReturnUnrecognized";
-            this.cbxReturnUnrecognized.Size = new System.Drawing.Size(200, 20);
-            this.cbxReturnUnrecognized.TabIndex = 86;
-            this.cbxReturnUnrecognized.Text = "Find unrecognized barcode";
-
-            //this.cbxImageCaptureDevice
-            this.cbxImageCaptureDevice.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbxImageCaptureDevice.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbxImageCaptureDevice.FormattingEnabled = true;
-            this.cbxImageCaptureDevice.Location = new System.Drawing.Point(150, 79);
-            this.cbxImageCaptureDevice.Name = "cbxImageCaptureDevice";
-            this.cbxImageCaptureDevice.Size = new System.Drawing.Size(140, 45);
-            this.cbxImageCaptureDevice.TabIndex = 643;
-            this.cbxImageCaptureDevice.Items.Add("Unknown");
-            this.cbxImageCaptureDevice.Items.Add("Scanner");
-            this.cbxImageCaptureDevice.Items.Add("Camera");
-            this.cbxImageCaptureDevice.Items.Add("Fax");
-            this.cbxImageCaptureDevice.SelectedIndex = 0;
-
-            //this.cbxBarcodeOrientation
-            this.cbxBarcodeOrientation.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbxBarcodeOrientation.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbxBarcodeOrientation.FormattingEnabled = true;
-            this.cbxBarcodeOrientation.Location = new System.Drawing.Point(150, 113);
-            this.cbxBarcodeOrientation.Name = "cbxBarcodeOrientation";
-            this.cbxBarcodeOrientation.Size = new System.Drawing.Size(140, 45);
-            this.cbxBarcodeOrientation.TabIndex = 643;
-            this.cbxBarcodeOrientation.Items.Add("All");
-            this.cbxBarcodeOrientation.Items.Add("Horizontal");
-            this.cbxBarcodeOrientation.Items.Add("Vertical");
-            this.cbxBarcodeOrientation.SelectedIndex = 0;
-
             // 
             // panelReadSetting
             // 
@@ -957,79 +696,6 @@ namespace Barcode_Reader_Demo
             this.panelReadSetting.Size = new System.Drawing.Size(300, 290);
             this.panelReadSetting.TabIndex = 2;
             this.panelReadSetting.Visible = false;
-
-            // 
-            // panelReadMoreSetting
-            // 
-            this.panelReadMoreSetting.BackColor = System.Drawing.Color.Transparent;
-            this.panelReadMoreSetting.Controls.Add(this.labelTimeout);
-            this.panelReadMoreSetting.Controls.Add(this.labelBarcodeWidth);
-            this.panelReadMoreSetting.Controls.Add(this.labelBarcodeHeight);
-            this.panelReadMoreSetting.Controls.Add(this.labelBarcodeModuleSize);
-            this.panelReadMoreSetting.Controls.Add(this.labelBarcodeWidthMeasure);
-            this.panelReadMoreSetting.Controls.Add(this.labelBarcodeHeightMeasure);
-            this.panelReadMoreSetting.Controls.Add(this.labelBarcodeModuleSizeMeasure);
-            this.panelReadMoreSetting.Controls.Add(this.labelBarcodeTextEncoding);
-            this.panelReadMoreSetting.Controls.Add(this.labelBarcodeColorMode);
-            this.panelReadMoreSetting.Controls.Add(this.tbxTimeout);
-            this.panelReadMoreSetting.Controls.Add(this.tbxMinWidth);
-            this.panelReadMoreSetting.Controls.Add(this.tbxMaxWidth);
-            this.panelReadMoreSetting.Controls.Add(this.tbxMinHeight);
-            this.panelReadMoreSetting.Controls.Add(this.tbxMaxHeight);
-            this.panelReadMoreSetting.Controls.Add(this.tbxMinModuleSize);
-            this.panelReadMoreSetting.Controls.Add(this.tbxMaxModuleSize);
-            this.panelReadMoreSetting.Controls.Add(this.cbxBarcodeTextEncoding);
-            this.panelReadMoreSetting.Controls.Add(this.cbxBarcodeDark);
-            this.panelReadMoreSetting.Controls.Add(this.cbxBarcodeLight);
-            this.panelReadMoreSetting.Controls.Add(this.cbxDeblurOneD);
-            this.panelReadMoreSetting.Controls.Add(this.cbxReturnUnrecognized);
-            this.panelReadMoreSetting.Location = new System.Drawing.Point(1, 41);
-            this.panelReadMoreSetting.Margin = new System.Windows.Forms.Padding(0);
-            this.panelReadMoreSetting.Name = "panelReadMoreSetting";
-            this.panelReadMoreSetting.Size = new System.Drawing.Size(300, 290);
-            this.panelReadMoreSetting.TabIndex = 3;
-            this.panelReadMoreSetting.Visible = false;
-
-            //this.panelReadBarcode
-            this.panelReadBarcode.BackColor = System.Drawing.Color.Transparent;
-            this.panelReadBarcode.Controls.Add(this.picboxReadBarcode);
-            this.panelReadBarcode.Controls.Add(this.picboxStopBarcode);
-            this.panelReadBarcode.Location = new System.Drawing.Point(1, 41);
-            this.panelReadBarcode.Margin = new System.Windows.Forms.Padding(0);
-            this.panelReadBarcode.Name = "panelReadBarcode";
-            this.panelReadBarcode.Size = new System.Drawing.Size(300, 50);
-            this.panelReadBarcode.TabIndex = 3;
-            this.panelReadBarcode.Visible = true;
-            // 
-            // picboxReadBarcode
-            // 
-            this.picboxReadBarcode.Image = global::Barcode_Reader_Demo.Properties.Resources.picboxReadBarcode_Disabled;
-            this.picboxReadBarcode.Location = new System.Drawing.Point(68, 6);
-            this.picboxReadBarcode.Name = "picboxReadBarcode";
-            this.picboxReadBarcode.Size = new System.Drawing.Size(180, 38);
-            this.picboxReadBarcode.TabIndex = 15;
-            this.picboxReadBarcode.TabStop = false;
-            this.picboxReadBarcode.MouseLeave += new System.EventHandler(this.picbox_MouseLeave);
-            this.picboxReadBarcode.Click += new System.EventHandler(this.picboxReadBarcode_Click);
-            this.picboxReadBarcode.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picbox_MouseDown);
-            this.picboxReadBarcode.MouseUp += new System.Windows.Forms.MouseEventHandler(this.picbox_MouseUp);
-            this.picboxReadBarcode.MouseEnter += new System.EventHandler(this.picbox_MouseEnter);
-
-            // 
-            // picboxStopBarcode
-            // 
-            this.picboxStopBarcode.Image = global::Barcode_Reader_Demo.Properties.Resources.picboxStopBarcode_Enter;
-            this.picboxStopBarcode.Location = new System.Drawing.Point(68, 6);
-            this.picboxStopBarcode.Name = "picboxStopBarcode";
-            this.picboxStopBarcode.Size = new System.Drawing.Size(180, 38);
-            this.picboxStopBarcode.TabIndex = 15;
-            this.picboxStopBarcode.TabStop = false;
-            this.picboxStopBarcode.MouseLeave += new System.EventHandler(this.picbox_MouseLeave);
-            this.picboxStopBarcode.Click += new System.EventHandler(this.picboxStopBarcode_Click);
-            this.picboxStopBarcode.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picbox_MouseDown);
-            this.picboxStopBarcode.MouseUp += new System.Windows.Forms.MouseEventHandler(this.picbox_MouseUp);
-            this.picboxStopBarcode.MouseEnter += new System.EventHandler(this.picbox_MouseEnter);
-            this.picboxStopBarcode.Visible = false;
             // 
             // label6
             // 
@@ -1038,51 +704,9 @@ namespace Barcode_Reader_Demo
             this.label6.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.Location = new System.Drawing.Point(15, 15);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(97, 15);
+            this.label6.Size = new System.Drawing.Size(95, 15);
             this.label6.TabIndex = 2;
             this.label6.Text = "Barcode format :";
-
-            //labelTimeout;
-            this.labelTimeout.AutoSize = true;
-            this.labelTimeout.BackColor = System.Drawing.Color.Transparent;
-            this.labelTimeout.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelTimeout.Location = new System.Drawing.Point(15, 15);
-            this.labelTimeout.Name = "labelTimeout";
-            this.labelTimeout.Size = new System.Drawing.Size(120, 15);
-            this.labelTimeout.TabIndex = 2;
-            this.labelTimeout.Text = "Timeout (milliseconds) :";
-
-            //private System.Windows.Forms.TextBox tbxTimeout;
-            this.tbxTimeout.Location = new System.Drawing.Point(150, 11);
-            this.tbxTimeout.Name = "tbxTimeout";
-            this.tbxTimeout.Size = new System.Drawing.Size(140, 20);
-            this.tbxTimeout.TabIndex = 645;
-            this.tbxTimeout.Text = "15000";
-            
-            //labelBarcodeWidth;
-            this.labelBarcodeWidth.AutoSize = true;
-            this.labelBarcodeWidth.BackColor = System.Drawing.Color.Transparent;
-            this.labelBarcodeWidth.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelBarcodeWidth.Location = new System.Drawing.Point(15, 49);
-            this.labelBarcodeWidth.Name = "labelBarcodeWidth";
-            this.labelBarcodeWidth.Size = new System.Drawing.Size(147, 15);
-            this.labelBarcodeWidth.TabIndex = 3;
-            this.labelBarcodeWidth.Text = "Barcode width (pixels) :";
-
-            //private System.Windows.Forms.TextBox tbxMinWidth;
-            this.tbxMinWidth.Location = new System.Drawing.Point(150, 49);
-            this.tbxMinWidth.Name = "tbxMinWidth";
-            this.tbxMinWidth.Size = new System.Drawing.Size(60, 20);
-            this.tbxMinWidth.TabIndex = 645;
-            this.tbxMinWidth.Text = "8";
-
-            //private System.Windows.Forms.TextBox tbxMaxWidth;
-            this.tbxMaxWidth.Location = new System.Drawing.Point(230, 49);
-            this.tbxMaxWidth.Name = "tbxMaxWidth";
-            this.tbxMaxWidth.Size = new System.Drawing.Size(60, 20);
-            this.tbxMaxWidth.TabIndex = 645;
-            this.tbxMaxWidth.Text = "2048";
-
             // 
             // label7
             // 
@@ -1091,7 +715,7 @@ namespace Barcode_Reader_Demo
             this.label7.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.Location = new System.Drawing.Point(15, 49);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(147, 15);
+            this.label7.Size = new System.Drawing.Size(144, 15);
             this.label7.TabIndex = 3;
             this.label7.Text = "Maximum barcode reads :";
             // 
@@ -1110,13 +734,12 @@ namespace Barcode_Reader_Demo
             this.tbxMaxBarcodeReads.Size = new System.Drawing.Size(120, 20);
             this.tbxMaxBarcodeReads.TabIndex = 645;
             this.tbxMaxBarcodeReads.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbxBarcodeLocation_KeyPress);
-            this.tbxMaxBarcodeReads.KeyUp += TbxMaxBarcodeReadsOnKeyUp;
             // 
             // cbxBarcodeFormat
             // 
             this.cbxBarcodeFormat.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbxBarcodeFormat.FormattingEnabled = true;
-            this.cbxBarcodeFormat.ItemHeight = 15;
+            this.cbxBarcodeFormat.ItemHeight = 13;
             this.cbxBarcodeFormat.Location = new System.Drawing.Point(120, 11);
             this.cbxBarcodeFormat.Name = "cbxBarcodeFormat";
             this.cbxBarcodeFormat.Size = new System.Drawing.Size(170, 21);
@@ -1138,7 +761,7 @@ namespace Barcode_Reader_Demo
             this.label8.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label8.Location = new System.Drawing.Point(15, 147);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(211, 15);
+            this.label8.Size = new System.Drawing.Size(204, 15);
             this.label8.TabIndex = 6;
             this.label8.Text = "Selected rectangle area of the image :";
             // 
@@ -1202,6 +825,354 @@ namespace Barcode_Reader_Demo
             this.label12.TabIndex = 10;
             this.label12.Text = "Bottom :";
             // 
+            // labelImageCaptureDevice
+            // 
+            this.labelImageCaptureDevice.AutoSize = true;
+            this.labelImageCaptureDevice.BackColor = System.Drawing.Color.Transparent;
+            this.labelImageCaptureDevice.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelImageCaptureDevice.Location = new System.Drawing.Point(15, 83);
+            this.labelImageCaptureDevice.Name = "labelImageCaptureDevice";
+            this.labelImageCaptureDevice.Size = new System.Drawing.Size(126, 15);
+            this.labelImageCaptureDevice.TabIndex = 84;
+            this.labelImageCaptureDevice.Text = "Image capture device :";
+            // 
+            // labelBarcodeOrientation
+            // 
+            this.labelBarcodeOrientation.AutoSize = true;
+            this.labelBarcodeOrientation.BackColor = System.Drawing.Color.Transparent;
+            this.labelBarcodeOrientation.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelBarcodeOrientation.Location = new System.Drawing.Point(15, 117);
+            this.labelBarcodeOrientation.Name = "labelBarcodeOrientation";
+            this.labelBarcodeOrientation.Size = new System.Drawing.Size(117, 15);
+            this.labelBarcodeOrientation.TabIndex = 84;
+            this.labelBarcodeOrientation.Text = "Barcode orientation :";
+            // 
+            // cbxImageCaptureDevice
+            // 
+            this.cbxImageCaptureDevice.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbxImageCaptureDevice.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbxImageCaptureDevice.FormattingEnabled = true;
+            this.cbxImageCaptureDevice.Items.AddRange(new object[] {
+            "Unknown",
+            "Scanner",
+            "Camera",
+            "Fax"});
+            this.cbxImageCaptureDevice.Location = new System.Drawing.Point(150, 79);
+            this.cbxImageCaptureDevice.Name = "cbxImageCaptureDevice";
+            this.cbxImageCaptureDevice.Size = new System.Drawing.Size(140, 23);
+            this.cbxImageCaptureDevice.TabIndex = 643;
+            this.cbxImageCaptureDevice.SelectedIndex = 0;
+            // 
+            // cbxBarcodeOrientation
+            // 
+            this.cbxBarcodeOrientation.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbxBarcodeOrientation.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbxBarcodeOrientation.FormattingEnabled = true;
+            this.cbxBarcodeOrientation.Items.AddRange(new object[] {
+            "All",
+            "Horizontal",
+            "Vertical"});
+            this.cbxBarcodeOrientation.Location = new System.Drawing.Point(150, 113);
+            this.cbxBarcodeOrientation.Name = "cbxBarcodeOrientation";
+            this.cbxBarcodeOrientation.Size = new System.Drawing.Size(140, 23);
+            this.cbxBarcodeOrientation.TabIndex = 643;
+            this.cbxBarcodeOrientation.SelectedIndex = 0;
+            // 
+            // panelReadMoreSetting
+            // 
+            this.panelReadMoreSetting.BackColor = System.Drawing.Color.Transparent;
+            this.panelReadMoreSetting.Controls.Add(this.labelTimeout);
+            this.panelReadMoreSetting.Controls.Add(this.labelBarcodeWidth);
+            this.panelReadMoreSetting.Controls.Add(this.labelBarcodeHeight);
+            this.panelReadMoreSetting.Controls.Add(this.labelBarcodeModuleSize);
+            this.panelReadMoreSetting.Controls.Add(this.labelBarcodeWidthMeasure);
+            this.panelReadMoreSetting.Controls.Add(this.labelBarcodeHeightMeasure);
+            this.panelReadMoreSetting.Controls.Add(this.labelBarcodeModuleSizeMeasure);
+            this.panelReadMoreSetting.Controls.Add(this.labelBarcodeTextEncoding);
+            this.panelReadMoreSetting.Controls.Add(this.labelBarcodeColorMode);
+            this.panelReadMoreSetting.Controls.Add(this.tbxTimeout);
+            this.panelReadMoreSetting.Controls.Add(this.tbxMinWidth);
+            this.panelReadMoreSetting.Controls.Add(this.tbxMaxWidth);
+            this.panelReadMoreSetting.Controls.Add(this.tbxMinHeight);
+            this.panelReadMoreSetting.Controls.Add(this.tbxMaxHeight);
+            this.panelReadMoreSetting.Controls.Add(this.tbxMinModuleSize);
+            this.panelReadMoreSetting.Controls.Add(this.tbxMaxModuleSize);
+            this.panelReadMoreSetting.Controls.Add(this.cbxBarcodeTextEncoding);
+            this.panelReadMoreSetting.Controls.Add(this.cbxBarcodeDark);
+            this.panelReadMoreSetting.Controls.Add(this.cbxBarcodeLight);
+            this.panelReadMoreSetting.Controls.Add(this.cbxDeblurOneD);
+            this.panelReadMoreSetting.Controls.Add(this.cbxReturnUnrecognized);
+            this.panelReadMoreSetting.Location = new System.Drawing.Point(1, 41);
+            this.panelReadMoreSetting.Margin = new System.Windows.Forms.Padding(0);
+            this.panelReadMoreSetting.Name = "panelReadMoreSetting";
+            this.panelReadMoreSetting.Size = new System.Drawing.Size(300, 290);
+            this.panelReadMoreSetting.TabIndex = 3;
+            this.panelReadMoreSetting.Visible = false;
+            // 
+            // labelTimeout
+            // 
+            this.labelTimeout.AutoSize = true;
+            this.labelTimeout.BackColor = System.Drawing.Color.Transparent;
+            this.labelTimeout.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelTimeout.Location = new System.Drawing.Point(15, 15);
+            this.labelTimeout.Name = "labelTimeout";
+            this.labelTimeout.Size = new System.Drawing.Size(135, 15);
+            this.labelTimeout.TabIndex = 2;
+            this.labelTimeout.Text = "Timeout (milliseconds) :";
+            // 
+            // labelBarcodeWidth
+            // 
+            this.labelBarcodeWidth.AutoSize = true;
+            this.labelBarcodeWidth.BackColor = System.Drawing.Color.Transparent;
+            this.labelBarcodeWidth.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelBarcodeWidth.Location = new System.Drawing.Point(15, 49);
+            this.labelBarcodeWidth.Name = "labelBarcodeWidth";
+            this.labelBarcodeWidth.Size = new System.Drawing.Size(129, 15);
+            this.labelBarcodeWidth.TabIndex = 3;
+            this.labelBarcodeWidth.Text = "Barcode width (pixels) :";
+            // 
+            // labelBarcodeHeight
+            // 
+            this.labelBarcodeHeight.AutoSize = true;
+            this.labelBarcodeHeight.BackColor = System.Drawing.Color.Transparent;
+            this.labelBarcodeHeight.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelBarcodeHeight.Location = new System.Drawing.Point(15, 83);
+            this.labelBarcodeHeight.Name = "labelBarcodeHeight";
+            this.labelBarcodeHeight.Size = new System.Drawing.Size(133, 15);
+            this.labelBarcodeHeight.TabIndex = 84;
+            this.labelBarcodeHeight.Text = "Barcode height (pixels) :";
+            // 
+            // labelBarcodeModuleSize
+            // 
+            this.labelBarcodeModuleSize.AutoSize = true;
+            this.labelBarcodeModuleSize.BackColor = System.Drawing.Color.Transparent;
+            this.labelBarcodeModuleSize.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelBarcodeModuleSize.Location = new System.Drawing.Point(15, 117);
+            this.labelBarcodeModuleSize.Name = "labelBarcodeModuleSize";
+            this.labelBarcodeModuleSize.Size = new System.Drawing.Size(162, 15);
+            this.labelBarcodeModuleSize.TabIndex = 84;
+            this.labelBarcodeModuleSize.Text = "Barcode module size (pixels) :";
+            // 
+            // labelBarcodeWidthMeasure
+            // 
+            this.labelBarcodeWidthMeasure.AutoSize = true;
+            this.labelBarcodeWidthMeasure.BackColor = System.Drawing.Color.Transparent;
+            this.labelBarcodeWidthMeasure.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelBarcodeWidthMeasure.Location = new System.Drawing.Point(212, 49);
+            this.labelBarcodeWidthMeasure.Name = "labelBarcodeWidthMeasure";
+            this.labelBarcodeWidthMeasure.Size = new System.Drawing.Size(12, 15);
+            this.labelBarcodeWidthMeasure.TabIndex = 84;
+            this.labelBarcodeWidthMeasure.Text = "-";
+            // 
+            // labelBarcodeHeightMeasure
+            // 
+            this.labelBarcodeHeightMeasure.AutoSize = true;
+            this.labelBarcodeHeightMeasure.BackColor = System.Drawing.Color.Transparent;
+            this.labelBarcodeHeightMeasure.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelBarcodeHeightMeasure.Location = new System.Drawing.Point(212, 83);
+            this.labelBarcodeHeightMeasure.Name = "labelBarcodeHeightMeasure";
+            this.labelBarcodeHeightMeasure.Size = new System.Drawing.Size(12, 15);
+            this.labelBarcodeHeightMeasure.TabIndex = 84;
+            this.labelBarcodeHeightMeasure.Text = "-";
+            // 
+            // labelBarcodeModuleSizeMeasure
+            // 
+            this.labelBarcodeModuleSizeMeasure.AutoSize = true;
+            this.labelBarcodeModuleSizeMeasure.BackColor = System.Drawing.Color.Transparent;
+            this.labelBarcodeModuleSizeMeasure.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelBarcodeModuleSizeMeasure.Location = new System.Drawing.Point(230, 117);
+            this.labelBarcodeModuleSizeMeasure.Name = "labelBarcodeModuleSizeMeasure";
+            this.labelBarcodeModuleSizeMeasure.Size = new System.Drawing.Size(12, 15);
+            this.labelBarcodeModuleSizeMeasure.TabIndex = 84;
+            this.labelBarcodeModuleSizeMeasure.Text = "-";
+            // 
+            // labelBarcodeTextEncoding
+            // 
+            this.labelBarcodeTextEncoding.AutoSize = true;
+            this.labelBarcodeTextEncoding.BackColor = System.Drawing.Color.Transparent;
+            this.labelBarcodeTextEncoding.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelBarcodeTextEncoding.Location = new System.Drawing.Point(15, 151);
+            this.labelBarcodeTextEncoding.Name = "labelBarcodeTextEncoding";
+            this.labelBarcodeTextEncoding.Size = new System.Drawing.Size(131, 15);
+            this.labelBarcodeTextEncoding.TabIndex = 84;
+            this.labelBarcodeTextEncoding.Text = "Barcode text encoding :";
+            // 
+            // labelBarcodeColorMode
+            // 
+            this.labelBarcodeColorMode.AutoSize = true;
+            this.labelBarcodeColorMode.BackColor = System.Drawing.Color.Transparent;
+            this.labelBarcodeColorMode.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelBarcodeColorMode.Location = new System.Drawing.Point(15, 185);
+            this.labelBarcodeColorMode.Name = "labelBarcodeColorMode";
+            this.labelBarcodeColorMode.Size = new System.Drawing.Size(120, 15);
+            this.labelBarcodeColorMode.TabIndex = 84;
+            this.labelBarcodeColorMode.Text = "Barcode color mode :";
+            // 
+            // tbxTimeout
+            // 
+            this.tbxTimeout.Location = new System.Drawing.Point(150, 11);
+            this.tbxTimeout.Name = "tbxTimeout";
+            this.tbxTimeout.Size = new System.Drawing.Size(140, 20);
+            this.tbxTimeout.TabIndex = 645;
+            this.tbxTimeout.Text = "15000";
+            // 
+            // tbxMinWidth
+            // 
+            this.tbxMinWidth.Location = new System.Drawing.Point(150, 49);
+            this.tbxMinWidth.Name = "tbxMinWidth";
+            this.tbxMinWidth.Size = new System.Drawing.Size(60, 20);
+            this.tbxMinWidth.TabIndex = 645;
+            this.tbxMinWidth.Text = "8";
+            // 
+            // tbxMaxWidth
+            // 
+            this.tbxMaxWidth.Location = new System.Drawing.Point(230, 49);
+            this.tbxMaxWidth.Name = "tbxMaxWidth";
+            this.tbxMaxWidth.Size = new System.Drawing.Size(60, 20);
+            this.tbxMaxWidth.TabIndex = 645;
+            this.tbxMaxWidth.Text = "2048";
+            // 
+            // tbxMinHeight
+            // 
+            this.tbxMinHeight.Location = new System.Drawing.Point(150, 83);
+            this.tbxMinHeight.Name = "tbxMinHeight";
+            this.tbxMinHeight.Size = new System.Drawing.Size(60, 20);
+            this.tbxMinHeight.TabIndex = 650;
+            this.tbxMinHeight.Text = "8";
+            // 
+            // tbxMaxHeight
+            // 
+            this.tbxMaxHeight.Location = new System.Drawing.Point(230, 83);
+            this.tbxMaxHeight.Name = "tbxMaxHeight";
+            this.tbxMaxHeight.Size = new System.Drawing.Size(60, 20);
+            this.tbxMaxHeight.TabIndex = 651;
+            this.tbxMaxHeight.Text = "2048";
+            // 
+            // tbxMinModuleSize
+            // 
+            this.tbxMinModuleSize.Location = new System.Drawing.Point(180, 117);
+            this.tbxMinModuleSize.Name = "tbxMinModuleSize";
+            this.tbxMinModuleSize.Size = new System.Drawing.Size(45, 20);
+            this.tbxMinModuleSize.TabIndex = 650;
+            this.tbxMinModuleSize.Text = "1";
+            // 
+            // tbxMaxModuleSize
+            // 
+            this.tbxMaxModuleSize.Location = new System.Drawing.Point(245, 117);
+            this.tbxMaxModuleSize.Name = "tbxMaxModuleSize";
+            this.tbxMaxModuleSize.Size = new System.Drawing.Size(45, 20);
+            this.tbxMaxModuleSize.TabIndex = 651;
+            this.tbxMaxModuleSize.Text = "32";
+            // 
+            // cbxBarcodeTextEncoding
+            // 
+            this.cbxBarcodeTextEncoding.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbxBarcodeTextEncoding.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbxBarcodeTextEncoding.FormattingEnabled = true;
+            this.cbxBarcodeTextEncoding.Items.AddRange(new object[] {
+            "Default",
+            "UTF8",
+            "UTF16",
+            "SHIFT_JIS_932",
+            "GB2312_936",
+            "KOREAN_949",
+            "BIG5_950"});
+            this.cbxBarcodeTextEncoding.Location = new System.Drawing.Point(150, 151);
+            this.cbxBarcodeTextEncoding.Name = "cbxBarcodeTextEncoding";
+            this.cbxBarcodeTextEncoding.Size = new System.Drawing.Size(140, 23);
+            this.cbxBarcodeTextEncoding.TabIndex = 655;
+            this.cbxBarcodeTextEncoding.SelectedIndex = 0;
+            // 
+            // cbxBarcodeDark
+            // 
+            this.cbxBarcodeDark.AutoSize = true;
+            this.cbxBarcodeDark.BackColor = System.Drawing.Color.Transparent;
+            this.cbxBarcodeDark.Checked = true;
+            this.cbxBarcodeDark.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbxBarcodeDark.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbxBarcodeDark.Location = new System.Drawing.Point(140, 185);
+            this.cbxBarcodeDark.Name = "cbxBarcodeDark";
+            this.cbxBarcodeDark.Size = new System.Drawing.Size(94, 19);
+            this.cbxBarcodeDark.TabIndex = 85;
+            this.cbxBarcodeDark.Text = "Dark on light";
+            this.cbxBarcodeDark.UseVisualStyleBackColor = false;
+            // 
+            // cbxBarcodeLight
+            // 
+            this.cbxBarcodeLight.AutoSize = true;
+            this.cbxBarcodeLight.BackColor = System.Drawing.Color.Transparent;
+            this.cbxBarcodeLight.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbxBarcodeLight.Location = new System.Drawing.Point(140, 210);
+            this.cbxBarcodeLight.Name = "cbxBarcodeLight";
+            this.cbxBarcodeLight.Size = new System.Drawing.Size(99, 19);
+            this.cbxBarcodeLight.TabIndex = 86;
+            this.cbxBarcodeLight.Text = "Light on dark ";
+            this.cbxBarcodeLight.UseVisualStyleBackColor = false;
+            // 
+            // cbxDeblurOneD
+            // 
+            this.cbxDeblurOneD.AutoSize = true;
+            this.cbxDeblurOneD.BackColor = System.Drawing.Color.Transparent;
+            this.cbxDeblurOneD.Checked = true;
+            this.cbxDeblurOneD.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbxDeblurOneD.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbxDeblurOneD.Location = new System.Drawing.Point(18, 230);
+            this.cbxDeblurOneD.Name = "cbxDeblurOneD";
+            this.cbxDeblurOneD.Size = new System.Drawing.Size(124, 19);
+            this.cbxDeblurOneD.TabIndex = 86;
+            this.cbxDeblurOneD.Text = "Deblur 1D barcode";
+            this.cbxDeblurOneD.UseVisualStyleBackColor = false;
+            // 
+            // cbxReturnUnrecognized
+            // 
+            this.cbxReturnUnrecognized.AutoSize = true;
+            this.cbxReturnUnrecognized.BackColor = System.Drawing.Color.Transparent;
+            this.cbxReturnUnrecognized.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbxReturnUnrecognized.Location = new System.Drawing.Point(18, 258);
+            this.cbxReturnUnrecognized.Name = "cbxReturnUnrecognized";
+            this.cbxReturnUnrecognized.Size = new System.Drawing.Size(170, 19);
+            this.cbxReturnUnrecognized.TabIndex = 86;
+            this.cbxReturnUnrecognized.Text = "Find unrecognized barcode";
+            this.cbxReturnUnrecognized.UseVisualStyleBackColor = false;
+            // 
+            // panelReadBarcode
+            // 
+            this.panelReadBarcode.BackColor = System.Drawing.Color.Transparent;
+            this.panelReadBarcode.Controls.Add(this.picboxReadBarcode);
+            this.panelReadBarcode.Controls.Add(this.picboxStopBarcode);
+            this.panelReadBarcode.Location = new System.Drawing.Point(1, 41);
+            this.panelReadBarcode.Margin = new System.Windows.Forms.Padding(0);
+            this.panelReadBarcode.Name = "panelReadBarcode";
+            this.panelReadBarcode.Size = new System.Drawing.Size(300, 50);
+            this.panelReadBarcode.TabIndex = 3;
+            // 
+            // picboxReadBarcode
+            // 
+            this.picboxReadBarcode.Location = new System.Drawing.Point(68, 6);
+            this.picboxReadBarcode.Name = "picboxReadBarcode";
+            this.picboxReadBarcode.Size = new System.Drawing.Size(180, 38);
+            this.picboxReadBarcode.TabIndex = 15;
+            this.picboxReadBarcode.TabStop = false;
+            this.picboxReadBarcode.Click += new System.EventHandler(this.picboxReadBarcode_Click);
+            this.picboxReadBarcode.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picbox_MouseDown);
+            this.picboxReadBarcode.MouseEnter += new System.EventHandler(this.picbox_MouseEnter);
+            this.picboxReadBarcode.MouseLeave += new System.EventHandler(this.picbox_MouseLeave);
+            this.picboxReadBarcode.MouseUp += new System.Windows.Forms.MouseEventHandler(this.picbox_MouseUp);
+            // 
+            // picboxStopBarcode
+            // 
+            this.picboxStopBarcode.Location = new System.Drawing.Point(68, 6);
+            this.picboxStopBarcode.Name = "picboxStopBarcode";
+            this.picboxStopBarcode.Size = new System.Drawing.Size(180, 38);
+            this.picboxStopBarcode.TabIndex = 15;
+            this.picboxStopBarcode.TabStop = false;
+            this.picboxStopBarcode.Visible = false;
+            this.picboxStopBarcode.Click += new System.EventHandler(this.picboxStopBarcode_Click);
+            this.picboxStopBarcode.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picbox_MouseDown);
+            this.picboxStopBarcode.MouseEnter += new System.EventHandler(this.picbox_MouseEnter);
+            this.picboxStopBarcode.MouseLeave += new System.EventHandler(this.picbox_MouseLeave);
+            this.picboxStopBarcode.MouseUp += new System.Windows.Forms.MouseEventHandler(this.picbox_MouseUp);
+            // 
             // picboxFit
             // 
             this.picboxFit.Image = global::Barcode_Reader_Demo.Properties.Resources.picboxFit_Leave;
@@ -1211,12 +1182,12 @@ namespace Barcode_Reader_Demo
             this.picboxFit.TabIndex = 88;
             this.picboxFit.TabStop = false;
             this.picboxFit.Tag = "Fit Window Size";
-            this.picboxFit.MouseLeave += new System.EventHandler(this.picbox_MouseLeave);
             this.picboxFit.Click += new System.EventHandler(this.picboxFit_Click);
             this.picboxFit.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picbox_MouseDown);
+            this.picboxFit.MouseEnter += new System.EventHandler(this.picbox_MouseEnter);
+            this.picboxFit.MouseLeave += new System.EventHandler(this.picbox_MouseLeave);
             this.picboxFit.MouseHover += new System.EventHandler(this.picbox_MouseHover);
             this.picboxFit.MouseUp += new System.Windows.Forms.MouseEventHandler(this.picbox_MouseUp);
-            this.picboxFit.MouseEnter += new System.EventHandler(this.picbox_MouseEnter);
             // 
             // picboxOriginalSize
             // 
@@ -1227,25 +1198,54 @@ namespace Barcode_Reader_Demo
             this.picboxOriginalSize.TabIndex = 87;
             this.picboxOriginalSize.TabStop = false;
             this.picboxOriginalSize.Tag = "Original Size";
-            this.picboxOriginalSize.MouseLeave += new System.EventHandler(this.picbox_MouseLeave);
             this.picboxOriginalSize.Click += new System.EventHandler(this.picboxOriginalSize_Click);
             this.picboxOriginalSize.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picbox_MouseDown);
+            this.picboxOriginalSize.MouseEnter += new System.EventHandler(this.picbox_MouseEnter);
+            this.picboxOriginalSize.MouseLeave += new System.EventHandler(this.picbox_MouseLeave);
             this.picboxOriginalSize.MouseHover += new System.EventHandler(this.picbox_MouseHover);
             this.picboxOriginalSize.MouseUp += new System.Windows.Forms.MouseEventHandler(this.picbox_MouseUp);
-            this.picboxOriginalSize.MouseEnter += new System.EventHandler(this.picbox_MouseEnter);
             // 
-            // webCamTimer
+            // tbxResult
             // 
-            //this.timerWebCam.Interval = 40;
-            //this.timerWebCam.Tick += new System.EventHandler(this.timerWebCam_Tick);
+            this.tbxResult.BackColor = System.Drawing.Color.White;
+            this.tbxResult.Location = new System.Drawing.Point(1, 26);
+            this.tbxResult.Margin = new System.Windows.Forms.Padding(0);
+            this.tbxResult.Multiline = true;
+            this.tbxResult.Name = "tbxResult";
+            this.tbxResult.ReadOnly = true;
+            this.tbxResult.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.tbxResult.Size = new System.Drawing.Size(309, 570);
+            this.tbxResult.TabIndex = 184;
             // 
-            // DotNetTWAINDemo
+            // lblCloseResult
+            // 
+            this.lblCloseResult.BackColor = System.Drawing.SystemColors.Control;
+            this.lblCloseResult.Location = new System.Drawing.Point(290, 5);
+            this.lblCloseResult.Name = "lblCloseResult";
+            this.lblCloseResult.Size = new System.Drawing.Size(16, 16);
+            this.lblCloseResult.TabIndex = 0;
+            this.lblCloseResult.Text = "X";
+            this.lblCloseResult.Click += new System.EventHandler(this.lblCloseResult_Click);
+            this.lblCloseResult.MouseLeave += new System.EventHandler(this.lblCloseResult_MouseLeave);
+            this.lblCloseResult.MouseHover += new System.EventHandler(this.lblCloseResult_MouseHover);
+            // 
+            // dsViewer
+            // 
+            this.dsViewer.Location = new System.Drawing.Point(86, 50);
+            this.dsViewer.Name = "dsViewer";
+            this.dsViewer.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.dsViewer.SelectionRectAspectRatio = 0D;
+            this.dsViewer.Size = new System.Drawing.Size(477, 586);
+            this.dsViewer.TabIndex = 651;
+            // 
+            // BarcodeReaderDemo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.BackgroundImage = global::Barcode_Reader_Demo.Properties.Resources.main_bg;
             this.ClientSize = new System.Drawing.Size(898, 698);
+            this.Controls.Add(this.dsViewer);
             this.Controls.Add(this.picboxFit);
             this.Controls.Add(this.picboxOriginalSize);
             this.Controls.Add(this.flowLayoutPanel2);
@@ -1266,17 +1266,16 @@ namespace Barcode_Reader_Demo
             this.Controls.Add(this.picboxZoomIn);
             this.Controls.Add(this.picboxPoint);
             this.Controls.Add(this.picboxHand);
-            this.Controls.Add(this.dynamicDotNetTwain);
             this.Controls.Add(this.picBoxWebCam);
             this.DoubleBuffered = true;
             this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "BarcodeReaderDemo";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Dynamsoft Barcode Reader Demo";
             this.Load += new System.EventHandler(this.DotNetTWAINDemo_Load);
-           
-            this.StartPosition = FormStartPosition.CenterScreen;
+            ((System.ComponentModel.ISupportInitialize)(this.picBoxWebCam)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picboxHand)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picboxPoint)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picboxZoomOut)).EndInit();
@@ -1289,20 +1288,23 @@ namespace Barcode_Reader_Demo
             ((System.ComponentModel.ISupportInitialize)(this.picboxPrevious)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picboxMin)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picboxClose)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picBoxWebCam)).EndInit();
-            this.panelWebCam.ResumeLayout(false);
-            this.panelWebCam.PerformLayout();
             this.panelLoad.ResumeLayout(false);
             this.panelLoad.PerformLayout();
             this.panel1.ResumeLayout(false);
-            this.panelWebcamNote.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.picboxLoadImage)).EndInit();
+            this.panelWebCam.ResumeLayout(false);
+            this.panelWebCam.PerformLayout();
+            this.panelWebcamNote.ResumeLayout(false);
             this.panelAcquire.ResumeLayout(false);
             this.panelAcquire.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picboxScan)).EndInit();
             this.panelReadSetting.ResumeLayout(false);
             this.panelReadSetting.PerformLayout();
+            this.panelReadMoreSetting.ResumeLayout(false);
+            this.panelReadMoreSetting.PerformLayout();
+            this.panelReadBarcode.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.picboxReadBarcode)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picboxStopBarcode)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picboxFit)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picboxOriginalSize)).EndInit();
             this.ResumeLayout(false);
@@ -1331,7 +1333,7 @@ namespace Barcode_Reader_Demo
         private System.Windows.Forms.Label lbDiv;
         private System.Windows.Forms.TextBox tbxCurrentImageIndex;
         private System.Windows.Forms.TextBox tbxTotalImageNum;
-        private Dynamsoft.DotNet.TWAIN.DynamicDotNetTwain dynamicDotNetTwain;
+        //private Dynamsoft.Forms.DSViewer dsViewer;
         private System.Windows.Forms.OpenFileDialog openFileDialog;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel2;
         private System.Windows.Forms.RadioButton rdbtnGray;
@@ -1405,6 +1407,7 @@ namespace Barcode_Reader_Demo
         private System.Windows.Forms.CheckBox cbxBarcodeLight;
         private System.Windows.Forms.CheckBox cbxDeblurOneD;
         private System.Windows.Forms.CheckBox cbxReturnUnrecognized;
+        private Dynamsoft.Forms.DSViewer dsViewer;
     }
 }
 

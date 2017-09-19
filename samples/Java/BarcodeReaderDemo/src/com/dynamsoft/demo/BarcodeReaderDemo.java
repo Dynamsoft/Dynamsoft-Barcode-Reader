@@ -179,7 +179,7 @@ public final class BarcodeReaderDemo {
 			System.out.println("----------------------------------------------------------");
 
 			// Set license
-			BarcodeReader br = new BarcodeReader("t0068MgAAABs0soPfOcktn1WIaQwU5tPkLklx8PbtKusKGedkkCTDIQldAxDlOkitjsoOoUHYq9Zxro5YEVTQ7/oqoIcoGzQ=");
+			BarcodeReader br = new BarcodeReader("t0068MgAAADwWnQrQnmYBrE+QnxSdTdMgwZy/UDlCMzl8YYvDGh3Wrc/cqDLpXBscXtnCozac3tY7QG+zf6iMVndW1vsfxWI=");
 			
 			// Read barcode
 			long ullTimeBegin = new Date().getTime();			

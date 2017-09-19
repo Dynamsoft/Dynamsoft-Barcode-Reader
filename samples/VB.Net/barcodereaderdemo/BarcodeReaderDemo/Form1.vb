@@ -360,7 +360,7 @@ Public Class Form1
             'Rectangle rect = new Rectangle();
             Dim reader As BarcodeReader = New Dynamsoft.Barcode.BarcodeReader()
             Try
-                reader.LicenseKeys = "t0068MgAAABs0soPfOcktn1WIaQwU5tPkLklx8PbtKusKGedkkCTDIQldAxDlOkitjsoOoUHYq9Zxro5YEVTQ7/oqoIcoGzQ="
+                reader.LicenseKeys = "t0068MgAAADwWnQrQnmYBrE+QnxSdTdMgwZy/UDlCMzl8YYvDGh3Wrc/cqDLpXBscXtnCozac3tY7QG+zf6iMVndW1vsfxWI="
                 Dim ro As ReaderOptions = New ReaderOptions()
                 ro.BarcodeFormats = GetFormats()
                 ro.MaxBarcodesToReadPerPage = Integer.Parse(tbMaximumNum.Text)

@@ -310,7 +310,7 @@ Private Sub btnReadBarcode_Click()
     lbResults = ""
         
     Dim oBarcodeReader As New BarcodeReader
-    oBarcodeReader.InitLicense "t0068MgAAABs0soPfOcktn1WIaQwU5tPkLklx8PbtKusKGedkkCTDIQldAxDlOkitjsoOoUHYq9Zxro5YEVTQ7/oqoIcoGzQ="
+    oBarcodeReader.InitLicense "t0068MgAAADwWnQrQnmYBrE+QnxSdTdMgwZy/UDlCMzl8YYvDGh3Wrc/cqDLpXBscXtnCozac3tY7QG+zf6iMVndW1vsfxWI="
     
     oBarcodeReader.BarcodeFormats = GetSelectedBarcodeTypes
     oBarcodeReader.MaxBarcodesNumPerPage = tbMaxNum.Text

@@ -74,13 +74,29 @@
     <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DynamicDotNetTWAIN">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>Lib\dotNet2_0\DynamicDotNetTWAIN.dll</HintPath>
-    </Reference>
     <Reference Include="Dynamsoft.BarcodeReader">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\Components\DotNet\2.0\Dynamsoft.BarcodeReader.dll</HintPath>
+    </Reference>
+    <Reference Include="Dynamsoft.Camera">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Lib\dotNet2_0\Dynamsoft.Camera.dll</HintPath>
+    </Reference>
+    <Reference Include="Dynamsoft.Forms.Viewer">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Lib\dotNet2_0\Dynamsoft.Forms.Viewer.dll</HintPath>
+    </Reference>
+    <Reference Include="Dynamsoft.ImageCore">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Lib\dotNet2_0\Dynamsoft.ImageCore.dll</HintPath>
+    </Reference>
+    <Reference Include="Dynamsoft.PDF">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Lib\dotNet2_0\Dynamsoft.PDF.dll</HintPath>
+    </Reference>
+    <Reference Include="Dynamsoft.Twain">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Lib\dotNet2_0\Dynamsoft.Twain.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -150,6 +166,7 @@
     <None Include="Resources\tab_webcam.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
     <None Include="Resources\Barcode_Result.png" />
   </ItemGroup>
   <ItemGroup>
@@ -295,7 +312,7 @@
     <Content Include="Resources\picboxStopBarcode_Disabled.png" />
     <Content Include="Resources\picboxStopBarcode_Down.png" />
     <Content Include="Resources\picboxStopBarcode_Enter.png" />
-    <Content Include="Resources\picboxStopBarcode_Leave.png" />    
+    <Content Include="Resources\picboxStopBarcode_Leave.png" />
     <Content Include="Resources\picboxTextA_Disabled.png" />
     <Content Include="Resources\picboxTextA_Down.png" />
     <Content Include="Resources\picboxTextA_Enter.png" />
@@ -330,6 +347,7 @@
   </Target>
   -->
   <PropertyGroup>
-    <PostBuildEvent>xcopy "$(ProjectDir)Lib\PDFResources" "$(TargetDir)PDFResources\" /Y</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
 </Project>

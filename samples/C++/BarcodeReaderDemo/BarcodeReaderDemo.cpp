@@ -197,7 +197,7 @@ int main(int argc, const char* argv[])
 
 		// Set license
 		CBarcodeReader reader;
-		reader.InitLicense("t0068MgAAABs0soPfOcktn1WIaQwU5tPkLklx8PbtKusKGedkkCTDIQldAxDlOkitjsoOoUHYq9Zxro5YEVTQ7/oqoIcoGzQ=");
+		reader.InitLicense("t0068MgAAADwWnQrQnmYBrE+QnxSdTdMgwZy/UDlCMzl8YYvDGh3Wrc/cqDLpXBscXtnCozac3tY7QG+zf6iMVndW1vsfxWI=");
 
 		//Set Property
 		reader.SetBarcodeFormats(iFormat);
