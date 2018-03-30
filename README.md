@@ -1,6 +1,6 @@
 Dynamsoft Barcode Reader
 =========
-version 5.2
+version 6.0
 
 Introduction
 -----------
@@ -13,13 +13,13 @@ Two editions, for Windows and Mac, are available. The Windows Edition provides C
 
 Download
 -----------
-http://www.dynamsoft.com/Downloads/Dynamic-Barcode-Reader-Download.aspx
+https://www.dynamsoft.com/Downloads/Dynamic-Barcode-Reader-Download.aspx
 
 Documentation
 --------------
 
-* Windows: http://www.dynamsoft.com/help/Barcode-Reader/index.html
-* Mac: http://www.dynamsoft.com/help/Barcode-Reader-Mac/index.html
+* Windows: https://www.dynamsoft.com/help/Barcode-Reader/index.html
+* Mac: https://www.dynamsoft.com/help/Barcode-Reader-Mac/index.html
 
 Specifications
 -----------
@@ -134,5 +134,5 @@ int main(int argc, const char* argv[])
 
   ```
 
-[1]:http://www.dynamsoft.com/Products/Dynamic-Barcode-Reader.aspx
-[2]:http://www.dynamsoft.com/Products/Dynamic-Barcode-Reader-Feature.aspx
+[1]:https://www.dynamsoft.com/Products/Dynamic-Barcode-Reader.aspx
+[2]:https://www.dynamsoft.com/Products/Dynamic-Barcode-Reader-Feature.aspx

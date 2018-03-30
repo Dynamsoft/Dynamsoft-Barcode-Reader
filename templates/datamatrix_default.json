@@ -1,0 +1,7 @@
+{
+    "Version": "1.0",
+    "ImageParameters": {
+        "Name": "DATAMATRIX_DEFAULT",
+        "BarcodeFormatIds": "DATAMATRIX"
+    }
+}

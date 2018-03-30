@@ -91,7 +91,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				CommandLine="copy &quot;..\..\..\..\Components\C_C++\Redist\DynamicPdf.dll&quot;  &quot;$(ConfigurationName)&quot;&#x0D;&#x0A;copy &quot;..\..\..\..\Components\C_C++\Redist\DynamsoftBarcodeReaderx86.dll&quot;  &quot;$(ConfigurationName)&quot;&#x0D;&#x0A;"
+				CommandLine="copy &quot;..\..\..\..\Components\C_C++\Redist\x86\DynamicPdf.dll&quot;  &quot;$(ConfigurationName)&quot;&#x0D;&#x0A;copy &quot;..\..\..\..\Components\C_C++\Redist\x86\DynamsoftBarcodeReaderx86.dll&quot;  &quot;$(ConfigurationName)&quot;&#x0D;&#x0A;copy &quot;..\..\..\..\Components\C_C++\Redist\x86\vcomp110.dll&quot;  &quot;$(ConfigurationName)&quot;"
 			/>
 		</Configuration>
 		<Configuration
@@ -167,7 +167,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				CommandLine="copy &quot;..\..\..\..\Components\C_C++\Redist\DynamicPdfx64.dll&quot;  &quot;$(PlatformName)\$(ConfigurationName)&quot;&#x0D;&#x0A;copy &quot;..\..\..\..\Components\C_C++\Redist\DynamsoftBarcodeReaderx64.dll&quot; &quot;$(PlatformName)\$(ConfigurationName)&quot;&#x0D;&#x0A;"
+				CommandLine="copy &quot;..\..\..\..\Components\C_C++\Redist\x64\DynamicPdfx64.dll&quot;  &quot;$(PlatformName)\$(ConfigurationName)&quot;&#x0D;&#x0A;copy &quot;..\..\..\..\Components\C_C++\Redist\x64\DynamsoftBarcodeReaderx64.dll&quot; &quot;$(PlatformName)\$(ConfigurationName)&quot;&#x0D;&#x0A;copy &quot;..\..\..\..\Components\C_C++\Redist\x64\vcomp110.dll&quot;  &quot;$(PlatformName)\$(ConfigurationName)&quot;"
 			/>
 		</Configuration>
 		<Configuration
@@ -242,7 +242,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				CommandLine="copy &quot;..\..\..\..\Components\C_C++\Redist\DynamsoftBarcodeReaderx86.dll&quot;   &quot;$(ConfigurationName)&quot;&#x0D;&#x0A;copy &quot;..\..\..\..\Components\C_C++\Redist\DynamicPdf.dll&quot;   &quot;$(ConfigurationName)&quot;&#x0D;&#x0A;"
+				CommandLine="copy &quot;..\..\..\..\Components\C_C++\Redist\x86\DynamicPdf.dll&quot;  &quot;$(ConfigurationName)&quot;&#x0D;&#x0A;copy &quot;..\..\..\..\Components\C_C++\Redist\x86\DynamsoftBarcodeReaderx86.dll&quot;  &quot;$(ConfigurationName)&quot;&#x0D;&#x0A;copy &quot;..\..\..\..\Components\C_C++\Redist\x86\vcomp110.dll&quot;  &quot;$(ConfigurationName)&quot;"
 			/>
 		</Configuration>
 		<Configuration
@@ -318,7 +318,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				CommandLine="copy &quot;..\..\..\..\Components\C_C++\Redist\DynamsoftBarcodeReaderx64.dll&quot;  &quot;$(PlatformName)\$(ConfigurationName)&quot;&#x0D;&#x0A;copy &quot;..\..\..\..\Components\C_C++\Redist\DynamicPdfx64.dll&quot;   &quot;$(PlatformName)\$(ConfigurationName)&quot;&#x0D;&#x0A;"
+				CommandLine="copy &quot;..\..\..\..\Components\C_C++\Redist\x64\DynamicPdfx64.dll&quot;  &quot;$(PlatformName)\$(ConfigurationName)&quot;&#x0D;&#x0A;copy &quot;..\..\..\..\Components\C_C++\Redist\x64\DynamsoftBarcodeReaderx64.dll&quot; &quot;$(PlatformName)\$(ConfigurationName)&quot;&#x0D;&#x0A;copy &quot;..\..\..\..\Components\C_C++\Redist\x64\vcomp110.dll&quot;  &quot;$(PlatformName)\$(ConfigurationName)&quot;"
 			/>
 		</Configuration>
 	</Configurations>

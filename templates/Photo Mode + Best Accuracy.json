@@ -1,0 +1,14 @@
+{
+  "ImageParameters": {
+    "Name": "Photo Mode + Best Accuracy",
+    "Description": "Optimized for photos captured by cameras, gives the best recognition results but it also costs time.",
+    "BarcodeFormatIds": "All",
+    "ImageType": "Photo",
+    "MaxBarcodesCount": 2147483647,
+    "Timeout": 2147483647,
+    "ScaleDownThreshold": 2048,
+    "LocalizationMode": "Auto",
+    "DeblurLevel": 9
+  },
+  "Version": "1.0"
+}

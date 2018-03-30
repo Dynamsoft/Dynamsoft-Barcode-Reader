@@ -11,13 +11,15 @@ Public Class Form1
     Private m_data As Image = Nothing
     Private iPageCount As Integer = 0
     Private m_results As List(Of Integer()) = New List(Of Integer())()
-    Private m_barcodes As BarcodeResult() = Nothing
+    Private m_barcodes As TextResult() = Nothing
     Private m_index As Integer = -1
     Private filePath As String = Nothing
     Private lastOpenedDirectory As String = Application.ExecutablePath
+    Private templateFilePath As String = Application.ExecutablePath
     Private Const iFormatCount As Integer = 13
-    Private iCheckedFormatCount As Integer = 0
-
+    Private reader As BarcodeReader = New Dynamsoft.Barcode.BarcodeReader()
+    Private mBarcodeType As String() = {"All_DEFAULT", "OneD_DEFAULT", "QR_CODE_DEFAULT", "PDF417_DEFAULT", "DATAMATRIX_DEFAULT", "CODE_39_DEFAULT", "CODE_128_DEFAULT", "CODE_93_DEFAULT", "CODABAR_DEFAULT", "ITF_DEFAULT", "INDUSTRIAL_25_DEFAULT", "EAN_13_DEFAULT", "EAN_8_DEFAULT", "UPC_A_DEFAULT", "UPC_E_DEFAULT"}
+    Private mBarcodeFormat As String = "All_DEFAULT"
     Public Property FitWindow() As Boolean
         Get
             Return m_bFitWindow
@@ -57,44 +59,40 @@ Public Class Form1
         chkFitWindow.Checked = True
         lastOpenedDirectory.Replace("/", "\")
         Dim index As Integer = lastOpenedDirectory.LastIndexOf("Samples")
+        Try
+            Dim mSettingsPath As String = "E:\\Program Files (x86)\\Dynamsoft\\Barcode Reader 6.0\\Templates\\default_settings.json"
+            reader.LoadSettingsFromFile(mSettingsPath)
+        Catch ex As Exception
+            MessageBox.Show("Failed to load the settings file, please check the file path.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
         If (index > 0) Then
-            lastOpenedDirectory = lastOpenedDirectory.Substring(0, index)
             lastOpenedDirectory += "Images\"
         End If
         If (Not System.IO.Directory.Exists(lastOpenedDirectory)) Then
             lastOpenedDirectory = ""
         End If
+        ComboBox1.Items.Add("All")
+        ComboBox1.Items.Add("OneD")
+        ComboBox1.Items.Add("QRCode")
+        ComboBox1.Items.Add("PDF417")
+        ComboBox1.Items.Add("Datamatrix")
+        ComboBox1.Items.Add("Code 39")
+        ComboBox1.Items.Add("Code 128")
+        ComboBox1.Items.Add("Code 93")
+        ComboBox1.Items.Add("Codabar")
+        ComboBox1.Items.Add("Interleaved 2 of 5")
+        ComboBox1.Items.Add("Industrial 2 of 5")
+        ComboBox1.Items.Add("EAN-13")
+        ComboBox1.Items.Add("EAN-8")
+        ComboBox1.Items.Add("UPC-A")
+        ComboBox1.Items.Add("UPC-E")
+        ComboBox1.SelectedIndex = 0
     End Sub
 
     Private Sub chkFitWindow_CheckedChanged(ByVal sender As Object, ByVal e As EventArgs) Handles chkFitWindow.CheckedChanged
         FitWindow = chkFitWindow.Checked
     End Sub
 
-    Private Sub btnSelectAll_Click(ByVal sender As Object, ByVal e As EventArgs) Handles btnSelectAll.Click
-        Dim selectall As Boolean = False
-        Dim count As Integer = gbBarcodeType.Controls.Count
-        Dim i As Integer
-        For i = 0 To count - 1 Step 1
-            If (TypeOf gbBarcodeType.Controls(i) Is CheckBox) Then
-                If (Not DirectCast(gbBarcodeType.Controls(i), CheckBox).Checked) Then
-                    selectall = True
-                    Exit For
-                End If
-            End If
-        Next
-
-        For i = 0 To count - 1 Step 1
-            If (TypeOf gbBarcodeType.Controls(i) Is CheckBox) Then
-                DirectCast(gbBarcodeType.Controls(i), CheckBox).Checked = selectall
-            End If
-        Next
-
-        If selectall Then
-            btnSelectAll.Text = "Unselect All"
-        Else
-            btnSelectAll.Text = "Select All"
-        End If
-    End Sub
 
     Declare Auto Sub CopyMemory Lib "kernel32.dll" Alias "CopyMemory" (ByVal dest As IntPtr, ByVal src As IntPtr, ByVal count As Integer)
 
@@ -159,7 +157,8 @@ Public Class Form1
                     iPageCount = m_data.GetFrameCount(demension)
                 End If
 
-                If iPageCount > 0 And iCheckedFormatCount > 0 Then
+                'If iPageCount > 0 And iCheckedFormatCount > 0 Then
+                If iPageCount > 0 Then
                     btnRead.Enabled = True
                 End If
                 CurrentIndex = iPageCount - 1
@@ -226,9 +225,9 @@ Public Class Form1
                                 Dim textFont As Font = New Font("Times New Roman", fsize, FontStyle.Bold)
                                 Dim i As Integer
                                 For i = barcodeResults.Length - 1 To 0 Step -1
-                                    Dim barcodeResult As BarcodeResult = m_barcodes(barcodeResults(i))
+                                    Dim barcodeResult As TextResult = m_barcodes(barcodeResults(i))
                                     If Not barcodeResult Is Nothing Then
-                                        Dim rect As Rectangle = barcodeResult.BoundingRect
+                                        Dim rect As Rectangle = ConvertLocationPointToRect(barcodeResult.LocalizationResult.ResultPoints)
                                         g.DrawRectangle(pen, rect)
                                         Dim strText As String = "[" + (barcodeResults(i) + 1).ToString() + "]"
                                         Dim size As SizeF = g.MeasureString(strText, textFont)
@@ -254,126 +253,33 @@ Public Class Form1
         End If
     End Sub
 
-    Private Function GetFormats() As BarcodeFormat
-        Dim formats As BarcodeFormat? = Nothing
-        If (chkCode39.Checked) Then
-            If (Not formats.HasValue) Then
-                formats = BarcodeFormat.CODE_39
-            Else
-                formats = formats Or BarcodeFormat.CODE_39
-            End If
-        End If
-        If (chkCode128.Checked) Then
-            If (Not formats.HasValue) Then
-                formats = BarcodeFormat.CODE_128
-            Else
-                formats = formats Or BarcodeFormat.CODE_128
-            End If
-        End If
-        If (chkCode93.Checked) Then
-            If (Not formats.HasValue) Then
-                formats = BarcodeFormat.CODE_93
-            Else
-                formats = formats Or BarcodeFormat.CODE_93
-            End If
-        End If
-        If (chkCodabar.Checked) Then
-            If (Not formats.HasValue) Then
-                formats = BarcodeFormat.CODABAR
-            Else
-                formats = formats Or BarcodeFormat.CODABAR
-            End If
-        End If
-        If (chkITF.Checked) Then
-            If (Not formats.HasValue) Then
-                formats = BarcodeFormat.ITF
-            Else
-                formats = formats Or BarcodeFormat.ITF
-            End If
-        End If
-        If (chkUPCA.Checked) Then
-            If (Not formats.HasValue) Then
-                formats = BarcodeFormat.UPC_A
-            Else
-                formats = formats Or BarcodeFormat.UPC_A
-            End If
-        End If
-        If (chkUPCE.Checked) Then
-            If (Not formats.HasValue) Then
-                formats = BarcodeFormat.UPC_E
-            Else
-                formats = formats Or BarcodeFormat.UPC_E
-            End If
-        End If
-        If (chkEAN8.Checked) Then
-            If (Not formats.HasValue) Then
-                formats = BarcodeFormat.EAN_8
-            Else
-                formats = formats Or BarcodeFormat.EAN_8
-            End If
-        End If
-        If (chkEAN13.Checked) Then
-            If (Not formats.HasValue) Then
-                formats = BarcodeFormat.EAN_13
-            Else
-                formats = formats Or BarcodeFormat.EAN_13
-            End If
-        End If
-        If (chkIndustrial25.Checked) Then
-            If (Not formats.HasValue) Then
-                formats = BarcodeFormat.INDUSTRIAL_25
-            Else
-                formats = formats Or BarcodeFormat.INDUSTRIAL_25
-            End If
-        End If
-        If (chkQRCode.Checked) Then
-            If (Not formats.HasValue) Then
-                formats = BarcodeFormat.QR_CODE
-            Else
-                formats = formats Or BarcodeFormat.QR_CODE
-            End If
-        End If
-        If (chkPDF417.Checked) Then
-            If (Not formats.HasValue) Then
-                formats = BarcodeFormat.PDF417
-            Else
-                formats = formats Or BarcodeFormat.PDF417
-            End If
-        End If
-        If (chkDatamatrix.Checked) Then
-            If (Not formats.HasValue) Then
-                formats = BarcodeFormat.DATAMATRIX
-            Else
-                formats = formats Or BarcodeFormat.DATAMATRIX
-            End If
-        End If
-
-        If Not formats.HasValue Then
-            Return BarcodeFormat.OneD Or BarcodeFormat.QR_CODE Or BarcodeFormat.PDF417 Or BarcodeFormat.DATAMATRIX
-        Else
-            Return formats.Value
-        End If
-    End Function
 
     Private Sub btnRead_Click(ByVal sender As Object, ByVal e As EventArgs) Handles btnRead.Click
         If (Not imageViewer.Image Is Nothing) Then
-            'Rectangle rect = new Rectangle();
-            Dim reader As BarcodeReader = New Dynamsoft.Barcode.BarcodeReader()
+
             Try
-                reader.LicenseKeys = "t0068MgAAADwWnQrQnmYBrE+QnxSdTdMgwZy/UDlCMzl8YYvDGh3Wrc/cqDLpXBscXtnCozac3tY7QG+zf6iMVndW1vsfxWI="
-                Dim ro As ReaderOptions = New ReaderOptions()
-                ro.BarcodeFormats = GetFormats()
-                ro.MaxBarcodesToReadPerPage = Integer.Parse(tbMaximumNum.Text)
-                reader.ReaderOptions = ro
+                reader.LicenseKeys = "t0068MgAAAB75AhCCV4AnnJxVDPm6sarBJZlWZBH1OnCKBKCz+hts0EMMlaae8x/HzWTBIPkj34U0Zy57u5MlsurNPaDwGSs="
                 Dim beforeRead As DateTime = DateTime.Now
-                Dim barcodes As BarcodeResult() = reader.DecodeFile(filePath)
-                Dim afterRead As DateTime = DateTime.Now
-                Dim timeElapsed As Double = (afterRead - beforeRead).TotalMilliseconds
-                ShowBarcodeResults(barcodes, timeElapsed)
+                Dim Templates As String() = reader.GetAllParameterTemplateNames()
+                Dim bifcontian = False
+                For i = 0 To Templates.Length - 1
+                    If mBarcodeFormat = Templates(i) Then
+                        bifcontian = True
+                    End If
+                Next
+                If bifcontian Then
+                    Dim barcodes As TextResult() = reader.DecodeFile(filePath, mBarcodeFormat)
+                    Dim afterRead As DateTime = DateTime.Now
+                    Dim timeElapsed As Double = (afterRead - beforeRead).TotalMilliseconds
+                    ShowBarcodeResults(barcodes, timeElapsed)
+                Else
+                    MessageBox.Show(("Failed to find the template named " + mBarcodeFormat + "."), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    Return
+                End If
+
             Catch exp As Exception
                 MessageBox.Show(exp.Message, "Barcode Reader Demo", MessageBoxButtons.OK)
             Finally
-                'reader.Dispose()
             End Try
         End If
     End Sub
@@ -390,7 +296,7 @@ Public Class Form1
         ToHexString = strHex
     End Function
 
-    Private Sub ShowBarcodeResults(ByVal barcodeResults As BarcodeResult(), ByVal timeElapsed As Double)
+    Private Sub ShowBarcodeResults(ByVal barcodeResults As TextResult(), ByVal timeElapsed As Double)
         tbResults.Clear()
         m_results.Clear()
         m_barcodes = barcodeResults
@@ -400,15 +306,17 @@ Public Class Form1
                 tbResults.AppendText(String.Format("Total barcode(s) found: {0}. Total cost time: {1} seconds{2}{3}", barcodeResults.Length, CType(Math.Floor(timeElapsed), Integer) / 1000.0F, vbCrLf, vbCrLf))
                 Dim i As Integer
                 For i = 0 To barcodeResults.Length - 1
+                    Dim tempRectangle As Rectangle = ConvertLocationPointToRect(barcodeResults(i).LocalizationResult.ResultPoints)
                     tbResults.AppendText(String.Format("  Barcode: {0}{1}", (i + 1).ToString(), vbCrLf))
-                    tbResults.AppendText(String.Format("    Page: {0}{1}", (barcodeResults(i).PageNumber).ToString(), vbCrLf))
+                    tbResults.AppendText(String.Format("    Page: {0}{1}", (barcodeResults(i).LocalizationResult.PageNumber).ToString(), vbCrLf))
                     tbResults.AppendText(String.Format("    Type: {0}{1}", barcodeResults(i).BarcodeFormat.ToString(), vbCrLf))
-                    tbResults.AppendText(String.Format("    Value: {0}{1}", barcodeResults(i).BarcodeText, vbCrLf))
-                    tbResults.AppendText(String.Format("    Hex Data: {0}{1}", ToHexString(barcodeResults(i).BarcodeData), vbCrLf))
-                    tbResults.AppendText(String.Format("    Region: {{Left: {0}, Top: {1}, Width: {2}, Height: {3}}}{4}", barcodeResults(i).BoundingRect.Left.ToString(), _
-                                                       barcodeResults(i).BoundingRect.Top.ToString(), barcodeResults(i).BoundingRect.Width.ToString(), barcodeResults(i).BoundingRect.Height.ToString(), vbCrLf))
-                    tbResults.AppendText(String.Format("    Module Size: {0}{1}", barcodeResults(i).ModuleSize, vbCrLf))
-                    tbResults.AppendText(String.Format("    Angle: {0}{1}", barcodeResults(i).Angle, vbCrLf))
+                    'tbResults.AppendText(String.Format("    Value: {0}{1}", barcodeResults(i).BarcodeText, vbCrLf))
+                    tbResults.AppendText(AddBarcodeText(barcodeResults(i).BarcodeText))
+                    tbResults.AppendText(String.Format("    Hex Data: {0}{1}", ToHexString(barcodeResults(i).BarcodeBytes), vbCrLf))
+                    tbResults.AppendText(String.Format("    Region: {{Left: {0}, Top: {1}, Width: {2}, Height: {3}}}{4}", tempRectangle.Left.ToString(), _
+                                                       tempRectangle.Top.ToString(), tempRectangle.Width.ToString(), tempRectangle.Height.ToString(), vbCrLf))
+                    tbResults.AppendText(String.Format("    Module Size: {0}{1}", barcodeResults(i).LocalizationResult.ModuleSize, vbCrLf))
+                    tbResults.AppendText(String.Format("    Angle: {0}{1}", barcodeResults(i).LocalizationResult.Angle, vbCrLf))
                     tbResults.AppendText(vbCrLf)
                 Next
                 tbResults.SelectionStart = 0
@@ -421,7 +329,7 @@ Public Class Form1
                 Next
                 For i = iStartIndex To 0 Step -1
                     If Not barcodeResults(i) Is Nothing Then
-                        If Not barcodeResults(i).PageNumber = iLastPageNumber Then
+                        If Not barcodeResults(i).LocalizationResult.PageNumber = iLastPageNumber Then
                             If Not i = iStartIndex Then
                                 Dim iEnd As Integer = i
                                 Dim iStart As Integer = iStartIndex
@@ -444,7 +352,7 @@ Public Class Form1
                                 m_results(iLastPageNumber) = resultsOnePage
                             End If
                             iStartIndex = i
-                            iLastPageNumber = barcodeResults(i).PageNumber
+                            iLastPageNumber = barcodeResults(i).LocalizationResult.PageNumber
                         End If
 
                         If i = 0 Then
@@ -475,13 +383,25 @@ Public Class Form1
         SetImageViewerImage()
     End Sub
 
+    Private Function AddBarcodeText(ByVal barcodetext As String) As String
+        Dim temp As String = ""
+        Dim temp1 As String = barcodetext
+        For j As Integer = 0 To temp1.Length - 1
+            If temp1(j) = vbNullChar Then
+                temp += "\"
+                temp += "0"
+            Else
+                temp += temp1(j).ToString()
+            End If
+        Next
+
+        Return String.Format("    Value: {0}" & vbCrLf, temp)
+    End Function
+
     Private Sub tbMaximumNum_KeyPress(ByVal sender As Object, ByVal e As KeyPressEventArgs)
         If (Not e.KeyChar = "\b") Then
             Dim array As Byte() = System.Text.Encoding.Default.GetBytes(e.KeyChar.ToString())
             If ((Not Char.IsDigit(e.KeyChar)) Or array.LongLength = 2) Then
-                e.Handled = True
-            End If
-            If ((tbMaximumNum.Text.Length = 0 Or tbMaximumNum.SelectionLength = tbMaximumNum.Text.Length) And e.KeyChar = "0") Then
                 e.Handled = True
             End If
         End If
@@ -590,24 +510,33 @@ Public Class Form1
 
 #End Region
 
-    Private Sub chkFormat_CheckedChanged(ByVal sender As Object, ByVal e As EventArgs) Handles chkCodabar.CheckedChanged, chkCode128.CheckedChanged, chkCode39.CheckedChanged, chkCode93.CheckedChanged, chkEAN13.CheckedChanged, chkEAN8.CheckedChanged, chkITF.CheckedChanged, chkUPCA.CheckedChanged, chkUPCE.CheckedChanged, chkQRCode.CheckedChanged, chkIndustrial25.CheckedChanged, chkPDF417.CheckedChanged, chkDatamatrix.CheckedChanged
-        Dim chkbox As CheckBox = DirectCast(sender, CheckBox)
-        If (chkbox.Checked) Then
-            iCheckedFormatCount = iCheckedFormatCount + 1
-        Else
-            iCheckedFormatCount = iCheckedFormatCount - 1
-        End If
 
-        If (iPageCount > 0 And iCheckedFormatCount > 0) Then
-            btnRead.Enabled = True
-        Else
-            btnRead.Enabled = False
-        End If
 
-        If (iCheckedFormatCount < iFormatCount) Then
-            btnSelectAll.Text = "Select All"
-        Else
-            btnSelectAll.Text = "Unselect All"
-        End If
+    Private Function ConvertLocationPointToRect(ByVal points As Point()) As Rectangle
+        Dim left As Integer = points(0).X, top As Integer = points(0).Y, right As Integer = points(1).X, bottom As Integer = points(1).Y
+        For i As Integer = 0 To points.Length - 1
+            If points(i).X < left Then
+                left = points(i).X
+            End If
+
+            If points(i).X > right Then
+                right = points(i).X
+            End If
+
+            If points(i).Y < top Then
+                top = points(i).Y
+            End If
+
+            If points(i).Y > bottom Then
+                bottom = points(i).Y
+            End If
+        Next
+
+        Dim temp As Rectangle = New Rectangle(left, top, (right - left), (bottom - top))
+        Return temp
+    End Function
+
+    Private Sub ComboBox1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ComboBox1.SelectedIndexChanged
+        mBarcodeFormat = mBarcodeType(ComboBox1.SelectedIndex)
     End Sub
 End Class

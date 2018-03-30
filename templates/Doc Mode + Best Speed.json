@@ -1,0 +1,14 @@
+{
+  "ImageParameters": {
+    "Name": "Doc Mode + Best Speed",
+    "Description": "Optimized for scanned documents, reading barcodes in fast mode but some of them may not be recognized.",
+    "BarcodeFormatIds": "All",
+    "ImageType": "Document",
+    "MaxBarcodesCount": 2147483647,
+    "Timeout": 10000,
+    "ScaleDownThreshold": 2048,
+    "LocalizationMode": "Auto",
+    "DeblurLevel": 0
+  },
+  "Version": "1.0"
+}

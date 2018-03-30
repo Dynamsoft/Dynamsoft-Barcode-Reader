@@ -1,0 +1,7 @@
+{
+    "Version": "1.0",
+    "ImageParameters": {
+        "Name": "UPC_E_DEFAULT",
+        "BarcodeFormatIds": "UPC_E"
+    }
+}
