@@ -2,6 +2,6 @@
     "Version": "1.0",
     "ImageParameters": {
         "Name": "ITF_DEFAULT",
-        "BarcodeFormatIds": "ITF"
+        "BarcodeFormatIds": ["ITF"]
     }
 }

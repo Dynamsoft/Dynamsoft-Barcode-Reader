@@ -2,6 +2,6 @@
     "Version": "1.0",
     "ImageParameters": {
         "Name": "All_DEFAULT",
-        "BarcodeFormatIds": "All"
+        "BarcodeFormatIds": ["All"]
     }
 }

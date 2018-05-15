@@ -2,6 +2,6 @@
     "Version": "1.0",
     "ImageParameters": {
         "Name": "OneD_DEFAULT",
-        "BarcodeFormatIds": "OneD"
+        "BarcodeFormatIds": ["OneD"]
     }
 }

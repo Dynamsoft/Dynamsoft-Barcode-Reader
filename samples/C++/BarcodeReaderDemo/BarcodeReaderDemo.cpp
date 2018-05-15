@@ -67,7 +67,7 @@ void ToHexString(unsigned char* pSrc, int iLen, char* pDest)
 
 int main(int argc, const char* argv[])
 {
-	const char* pszSettingFile = "E:\\Program Files (x86)\\Dynamsoft\\Barcode Reader 6.0\\Templates\\default_settings.json";
+	const char* pszSettingFile = "E:\\Program Files (x86)\\Dynamsoft\\Barcode Reader 6.1\\Templates\\template_aggregation.json";
 	const char* pszTemplateName = NULL;
 	char pszBuffer[512] = {0};
 	char pszImageFile[512] = {0};
@@ -88,7 +88,7 @@ int main(int argc, const char* argv[])
 	printf("Hints: Please input 'Q'or 'q' to quit the application.\r\n");
 	
 	CBarcodeReader reader;
-	reader.InitLicense("t0068MgAAAB75AhCCV4AnnJxVDPm6sarBJZlWZBH1OnCKBKCz+hts0EMMlaae8x/HzWTBIPkj34U0Zy57u5MlsurNPaDwGSs=");
+	reader.InitLicense("t0068MgAAAB00WDznQ4/hnyNXmCc6JXOYB1HfpUY92oyQHPMRFlpewnIIw45miIPWz0D1j7dFjC+QLdPRiwina9j4l5pgmGc=");
 	
 	iRet = reader.LoadSettingsFromFile(pszSettingFile, szErrorMsg, 256);
 	if(iRet != DBR_OK)

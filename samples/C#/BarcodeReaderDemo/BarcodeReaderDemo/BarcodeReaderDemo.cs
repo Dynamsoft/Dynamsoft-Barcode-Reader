@@ -60,8 +60,8 @@ namespace Barcode_Reader_Demo
         private CameraManager m_CameraManager = null;
         private ImageCore m_ImageCore = null;
         private PDFRasterizer m_PDFRasterizer = null;
-        string dbrLicenseKeys = "t0068MgAAAB75AhCCV4AnnJxVDPm6sarBJZlWZBH1OnCKBKCz+hts0EMMlaae8x/HzWTBIPkj34U0Zy57u5MlsurNPaDwGSs=";
-	    string dntLicenseKeys = "t0068MgAAADFTcdDocLIFubq1VTVLdZpCIGRBt5Y+EBd4dfVUHG3yqIAMNmXi7giojuUC5V0wDZM9hlzoK4ODsUsegaT5cTk=";
+        string dbrLicenseKeys = "t0068MgAAAB00WDznQ4/hnyNXmCc6JXOYB1HfpUY92oyQHPMRFlpewnIIw45miIPWz0D1j7dFjC+QLdPRiwina9j4l5pgmGc=";
+	    string dntLicenseKeys = "t0068MgAAAJY4XWp9+IepJA36+UcFjCqikFwrG4P223Gv7Y7kOyT66zJxRXb27+LnLxuMc7xvQ03AHZjnStoKTLxelGOQOQY=";
         private bool m_IfHasAddedOnFrameCaptureEvent = false;
         private string[] mBarcodeType = { "All_DEFAULT", "OneD_DEFAULT", "QR_CODE_DEFAULT", "PDF417_DEFAULT", "DATAMATRIX_DEFAULT", "CODE_39_DEFAULT", "CODE_128_DEFAULT", "CODE_93_DEFAULT", "CODABAR_DEFAULT", "ITF_DEFAULT", "INDUSTRIAL_25_DEFAULT", "EAN_13_DEFAULT", "EAN_8_DEFAULT", "UPC_A_DEFAULT", "UPC_E_DEFAULT" };
         private string mBarcodeFormat = "All_DEFAULT";
@@ -102,7 +102,7 @@ namespace Barcode_Reader_Demo
             _br = new BarcodeReader(dbrLicenseKeys);
             try
             {
-                string mSettingsPath = "E:\\Program Files (x86)\\Dynamsoft\\Barcode Reader 6.0\\Templates\\default_settings.json";
+                string mSettingsPath = "E:\\Program Files (x86)\\Dynamsoft\\Barcode Reader 6.1\\Templates\\template_aggregation.json";
                 _br.LoadSettingsFromFile(mSettingsPath);
             }
             catch

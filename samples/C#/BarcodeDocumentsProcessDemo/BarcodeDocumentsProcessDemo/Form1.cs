@@ -44,11 +44,11 @@ namespace BarcodeDocumentsProcessDemo
         {
             InitializeComponent();
             InitialDefaultValue();
-            barcodeReader.LicenseKeys = "t0068MgAAAB75AhCCV4AnnJxVDPm6sarBJZlWZBH1OnCKBKCz+hts0EMMlaae8x/HzWTBIPkj34U0Zy57u5MlsurNPaDwGSs=";
+            barcodeReader.LicenseKeys = "t0068MgAAAB00WDznQ4/hnyNXmCc6JXOYB1HfpUY92oyQHPMRFlpewnIIw45miIPWz0D1j7dFjC+QLdPRiwina9j4l5pgmGc=";
 
             try
             {
-                string _mSettingsFilePath = "E:\\Program Files (x86)\\Dynamsoft\\Barcode Reader 6.0\\Templates\\default_settings.json";
+                string _mSettingsFilePath = "E:\\Program Files (x86)\\Dynamsoft\\Barcode Reader 6.1\\Templates\\template_aggregation.json";
                 barcodeReader.LoadSettingsFromFile(_mSettingsFilePath);
             }
             catch
@@ -323,7 +323,7 @@ namespace BarcodeDocumentsProcessDemo
 
             //start processing
             tbLog.Clear();
-            tbLog.AppendText("Start processing…\r\n");
+            tbLog.AppendText("Start processing...\r\n");
             //tbLog.Refresh();
             switch (mode)
             {

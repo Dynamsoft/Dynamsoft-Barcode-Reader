@@ -2,6 +2,6 @@
     "Version": "1.0",
     "ImageParameters": {
         "Name": "UPC_A_DEFAULT",
-        "BarcodeFormatIds": "UPC_A"
+        "BarcodeFormatIds": ["UPC_A"]
     }
 }

@@ -2,6 +2,6 @@
     "Version": "1.0",
     "ImageParameters": {
         "Name": "CODE_128_DEFAULT",
-        "BarcodeFormatIds": "CODE_128"
+        "BarcodeFormatIds": ["CODE_128"]
     }
 }

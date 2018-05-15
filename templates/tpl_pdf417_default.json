@@ -2,6 +2,6 @@
     "Version": "1.0",
     "ImageParameters": {
         "Name": "PDF417_DEFAULT",
-        "BarcodeFormatIds": "PDF417"
+        "BarcodeFormatIds": ["PDF417"]
     }
 }

@@ -2,6 +2,6 @@
     "Version": "1.0",
     "ImageParameters": {
         "Name": "CODE_39_DEFAULT",
-        "BarcodeFormatIds": "CODE_39"
+        "BarcodeFormatIds": ["CODE_39"]
     }
 }

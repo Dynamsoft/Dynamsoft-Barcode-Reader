@@ -2,6 +2,6 @@
     "Version": "1.0",
     "ImageParameters": {
         "Name": "EAN_13_DEFAULT",
-        "BarcodeFormatIds": "EAN_13"
+        "BarcodeFormatIds": ["EAN_13"]
     }
 }

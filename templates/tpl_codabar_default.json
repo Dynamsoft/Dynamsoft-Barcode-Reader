@@ -2,7 +2,7 @@
     "Version": "1.0",
     "ImageParameters": {
         "Name": "CODABAR_DEFAULT",
-        "BarcodeFormatIds": "CODABAR"
+        "BarcodeFormatIds": ["CODABAR"]
         
     }
 }

@@ -2,6 +2,6 @@
     "Version": "1.0",
     "ImageParameters": {
         "Name": "QR_CODE_DEFAULT",
-        "BarcodeFormatIds": "QR_CODE"
+        "BarcodeFormatIds": ["QR_CODE"]
     }
 }
