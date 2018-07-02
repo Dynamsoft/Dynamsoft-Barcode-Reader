@@ -44,11 +44,11 @@ namespace BarcodeDocumentsProcessDemo
         {
             InitializeComponent();
             InitialDefaultValue();
-            barcodeReader.LicenseKeys = "t0068MgAAAB00WDznQ4/hnyNXmCc6JXOYB1HfpUY92oyQHPMRFlpewnIIw45miIPWz0D1j7dFjC+QLdPRiwina9j4l5pgmGc=";
+            barcodeReader.LicenseKeys = "t0068MgAAAEBDbYNoTMuh5/ccI24YdlzcggFG93NGuHrF/AWmcbKAsObdABAWC5GvZZpXBlfrsJhkQ1yMO4B8qTUnk6S8HdY=";
 
             try
             {
-                string _mSettingsFilePath = "E:\\Program Files (x86)\\Dynamsoft\\Barcode Reader 6.1\\Templates\\template_aggregation.json";
+                string _mSettingsFilePath = "E:\\Program Files (x86)\\Dynamsoft\\Barcode Reader 6.2\\Templates\\template_aggregation.json";
                 barcodeReader.LoadSettingsFromFile(_mSettingsFilePath);
             }
             catch

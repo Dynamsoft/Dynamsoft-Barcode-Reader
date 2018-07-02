@@ -73,7 +73,11 @@ namespace Barcode_Reader_Demo
             this.rdbtnColor = new System.Windows.Forms.RadioButton();
             this.lbPixelType = new System.Windows.Forms.Label();
             this.lbSelectSource = new System.Windows.Forms.Label();
+            this.lbSelectRecognitionMode = new System.Windows.Forms.Label();
             this.cbxSource = new System.Windows.Forms.ComboBox();
+            this.cbxRecognitionMode = new System.Windows.Forms.ComboBox();
+            
+
             this.panelReadSetting = new System.Windows.Forms.Panel();
             this.label6 = new System.Windows.Forms.Label();
             this.cbxBarcodeFormat = new System.Windows.Forms.ComboBox();
@@ -487,6 +491,7 @@ namespace Barcode_Reader_Demo
             this.panelAcquire.Controls.Add(this.lbPixelType);
             this.panelAcquire.Controls.Add(this.lbSelectSource);
             this.panelAcquire.Controls.Add(this.cbxSource);
+
             this.panelAcquire.Location = new System.Drawing.Point(1, 41);
             this.panelAcquire.Margin = new System.Windows.Forms.Padding(0);
             this.panelAcquire.Name = "panelAcquire";
@@ -587,6 +592,18 @@ namespace Barcode_Reader_Demo
             this.lbSelectSource.Size = new System.Drawing.Size(94, 15);
             this.lbSelectSource.TabIndex = 84;
             this.lbSelectSource.Text = "Scanner Source :";
+            //
+            //lbSelectRecognitionMode
+            //
+            this.lbSelectRecognitionMode.AutoSize = true;
+            this.lbSelectRecognitionMode.BackColor = System.Drawing.Color.Transparent;
+            this.lbSelectRecognitionMode.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbSelectRecognitionMode.Location = new System.Drawing.Point(10, 50);
+            this.lbSelectRecognitionMode.Name = "lbSelectRecognitionMode";
+            this.lbSelectRecognitionMode.Size = new System.Drawing.Size(94, 15);
+            this.lbSelectRecognitionMode.TabIndex = 84;
+            this.lbSelectRecognitionMode.Text = "Recognition Mode :";
+
             // 
             // cbxSource
             // 
@@ -597,12 +614,27 @@ namespace Barcode_Reader_Demo
             this.cbxSource.Name = "cbxSource";
             this.cbxSource.Size = new System.Drawing.Size(160, 22);
             this.cbxSource.TabIndex = 639;
+
+            //
+            //cbxRecognitionMode
+            //
+            this.cbxRecognitionMode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbxRecognitionMode.FormattingEnabled = true;
+            this.cbxRecognitionMode.ItemHeight = 13;
+            this.cbxRecognitionMode.FormattingEnabled = true;
+            this.cbxRecognitionMode.Location = new System.Drawing.Point(120, 45);
+            this.cbxRecognitionMode.Name = "cbxRecognitionMode";
+            this.cbxRecognitionMode.Size = new System.Drawing.Size(170,21);
+            this.cbxRecognitionMode.SelectedIndexChanged += cbxRecognitionMode_SelectedIndexChanged;
+
             // 
             // panelReadSetting
             // 
             this.panelReadSetting.BackColor = System.Drawing.Color.Transparent;
             this.panelReadSetting.Controls.Add(this.label6);
             this.panelReadSetting.Controls.Add(this.cbxBarcodeFormat);
+            this.panelReadSetting.Controls.Add(this.cbxRecognitionMode);
+            this.panelReadSetting.Controls.Add(this.lbSelectRecognitionMode);
             this.panelReadSetting.Location = new System.Drawing.Point(1, 41);
             this.panelReadSetting.Margin = new System.Windows.Forms.Padding(0);
             this.panelReadSetting.Name = "panelReadSetting";
@@ -615,7 +647,7 @@ namespace Barcode_Reader_Demo
             this.label6.AutoSize = true;
             this.label6.BackColor = System.Drawing.Color.Transparent;
             this.label6.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(15, 34);
+            this.label6.Location = new System.Drawing.Point(10, 20);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(95, 15);
             this.label6.TabIndex = 2;
@@ -626,7 +658,7 @@ namespace Barcode_Reader_Demo
             this.cbxBarcodeFormat.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbxBarcodeFormat.FormattingEnabled = true;
             this.cbxBarcodeFormat.ItemHeight = 13;
-            this.cbxBarcodeFormat.Location = new System.Drawing.Point(120, 30);
+            this.cbxBarcodeFormat.Location = new System.Drawing.Point(120, 15);
             this.cbxBarcodeFormat.Name = "cbxBarcodeFormat";
             this.cbxBarcodeFormat.Size = new System.Drawing.Size(170, 21);
             this.cbxBarcodeFormat.TabIndex = 644;
@@ -651,15 +683,20 @@ namespace Barcode_Reader_Demo
             this.panelReadBarcode.BackColor = System.Drawing.Color.Transparent;
             this.panelReadBarcode.Controls.Add(this.picboxReadBarcode);
             this.panelReadBarcode.Controls.Add(this.picboxStopBarcode);
+            //this.panelReadBarcode.Controls.Add(this.lbSelectRecognitionMode);
+            //this.panelReadBarcode.Controls.Add(this.cbxRecognitionMode);
+
+
             this.panelReadBarcode.Location = new System.Drawing.Point(1, 41);
             this.panelReadBarcode.Margin = new System.Windows.Forms.Padding(0);
             this.panelReadBarcode.Name = "panelReadBarcode";
-            this.panelReadBarcode.Size = new System.Drawing.Size(300, 100);
+            this.panelReadBarcode.Size = new System.Drawing.Size(300, 150);
             this.panelReadBarcode.TabIndex = 3;
+
             // 
             // picboxReadBarcode
             // 
-            this.picboxReadBarcode.Location = new System.Drawing.Point(68, 30);
+            this.picboxReadBarcode.Location = new System.Drawing.Point(68, 70);
             this.picboxReadBarcode.Name = "picboxReadBarcode";
             this.picboxReadBarcode.Size = new System.Drawing.Size(180, 38);
             this.picboxReadBarcode.TabIndex = 15;
@@ -672,7 +709,7 @@ namespace Barcode_Reader_Demo
             // 
             // picboxStopBarcode
             // 
-            this.picboxStopBarcode.Location = new System.Drawing.Point(68, 30);
+            this.picboxStopBarcode.Location = new System.Drawing.Point(68, 70);
             this.picboxStopBarcode.Name = "picboxStopBarcode";
             this.picboxStopBarcode.Size = new System.Drawing.Size(180, 38);
             this.picboxStopBarcode.TabIndex = 15;
@@ -822,13 +859,18 @@ namespace Barcode_Reader_Demo
 
         }
 
+        void cbxRecognitionMode_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            iRecognitionMode = cbxRecognitionMode.SelectedIndex;  
+        }
+
+
         void dsViewer_OnMouseClick(short sImageIndex)
         {
             if(sImageIndex>=0 && sImageIndex<m_ImageCore.ImageBuffer.HowManyImagesInBuffer)
             {
                 CheckImageCount();
             }
-
         }
 
 
@@ -859,9 +901,13 @@ namespace Barcode_Reader_Demo
         private System.Windows.Forms.Label lbPixelType;
         private System.Windows.Forms.RadioButton rdbtnColor;
         private System.Windows.Forms.ComboBox cbxSource;
+        private System.Windows.Forms.ComboBox cbxRecognitionMode;
         private System.Windows.Forms.ComboBox cbxResolution;
         private System.Windows.Forms.PictureBox picboxScan;
+        
         private System.Windows.Forms.Label lbSelectSource;
+        private System.Windows.Forms.Label lbSelectRecognitionMode;
+
         private System.Windows.Forms.Label lbResolution;
         private System.Windows.Forms.Panel panelAcquire;
         private System.Windows.Forms.Panel panelLoad;

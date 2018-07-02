@@ -60,7 +60,7 @@ Public Class Form1
         lastOpenedDirectory.Replace("/", "\")
         Dim index As Integer = lastOpenedDirectory.LastIndexOf("Samples")
         Try
-            Dim mSettingsPath As String = "E:\\Program Files (x86)\\Dynamsoft\\Barcode Reader 6.1\\Templates\\template_aggregation.json"
+            Dim mSettingsPath As String = "E:\\Program Files (x86)\\Dynamsoft\\Barcode Reader 6.2\\Templates\\template_aggregation.json"
             reader.LoadSettingsFromFile(mSettingsPath)
         Catch ex As Exception
             MessageBox.Show("Failed to load the settings file, please check the file path.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -258,7 +258,7 @@ Public Class Form1
         If (Not imageViewer.Image Is Nothing) Then
 
             Try
-                reader.LicenseKeys = "t0068MgAAAB00WDznQ4/hnyNXmCc6JXOYB1HfpUY92oyQHPMRFlpewnIIw45miIPWz0D1j7dFjC+QLdPRiwina9j4l5pgmGc="
+                reader.LicenseKeys = "t0068MgAAAEBDbYNoTMuh5/ccI24YdlzcggFG93NGuHrF/AWmcbKAsObdABAWC5GvZZpXBlfrsJhkQ1yMO4B8qTUnk6S8HdY="
                 Dim beforeRead As DateTime = DateTime.Now
                 Dim Templates As String() = reader.GetAllParameterTemplateNames()
                 Dim bifcontian = False

@@ -60,11 +60,12 @@ namespace Barcode_Reader_Demo
         private CameraManager m_CameraManager = null;
         private ImageCore m_ImageCore = null;
         private PDFRasterizer m_PDFRasterizer = null;
-        string dbrLicenseKeys = "t0068MgAAAB00WDznQ4/hnyNXmCc6JXOYB1HfpUY92oyQHPMRFlpewnIIw45miIPWz0D1j7dFjC+QLdPRiwina9j4l5pgmGc=";
-	    string dntLicenseKeys = "t0068MgAAAJY4XWp9+IepJA36+UcFjCqikFwrG4P223Gv7Y7kOyT66zJxRXb27+LnLxuMc7xvQ03AHZjnStoKTLxelGOQOQY=";
+        string dbrLicenseKeys = "t0068MgAAAEBDbYNoTMuh5/ccI24YdlzcggFG93NGuHrF/AWmcbKAsObdABAWC5GvZZpXBlfrsJhkQ1yMO4B8qTUnk6S8HdY=";
+        string dntLicenseKeys = "t0068MgAAADFbpKti1p+kv65K4jvnMeZBakYVjVWkCJ8tdmnLIOGVnMwzfMT6SJwOCcj2hHkPzHpHMRB+w2AWNrxVY3sdSFc=";
         private bool m_IfHasAddedOnFrameCaptureEvent = false;
         private string[] mBarcodeType = { "All_DEFAULT", "OneD_DEFAULT", "QR_CODE_DEFAULT", "PDF417_DEFAULT", "DATAMATRIX_DEFAULT", "CODE_39_DEFAULT", "CODE_128_DEFAULT", "CODE_93_DEFAULT", "CODABAR_DEFAULT", "ITF_DEFAULT", "INDUSTRIAL_25_DEFAULT", "EAN_13_DEFAULT", "EAN_8_DEFAULT", "UPC_A_DEFAULT", "UPC_E_DEFAULT" };
         private string mBarcodeFormat = "All_DEFAULT";
+        private int iRecognitionMode = 0;
         #endregion
 
         #region property
@@ -102,7 +103,7 @@ namespace Barcode_Reader_Demo
             _br = new BarcodeReader(dbrLicenseKeys);
             try
             {
-                string mSettingsPath = "E:\\Program Files (x86)\\Dynamsoft\\Barcode Reader 6.1\\Templates\\template_aggregation.json";
+                string mSettingsPath = "E:\\Program Files (x86)\\Dynamsoft\\Barcode Reader 6.2\\Templates\\template_aggregation.json";
                 _br.LoadSettingsFromFile(mSettingsPath);
             }
             catch
@@ -453,6 +454,11 @@ namespace Barcode_Reader_Demo
 
             cbxBarcodeFormat.SelectedIndex = 0;
 
+            cbxRecognitionMode.Items.Add("Best Speed");
+            cbxRecognitionMode.Items.Add("Balance");
+            cbxRecognitionMode.Items.Add("Best Coverage");
+
+            cbxRecognitionMode.SelectedIndex = 2;
 
 
             DisableControls(picboxReadBarcode);
@@ -1238,17 +1244,23 @@ namespace Barcode_Reader_Demo
 
                     InitWebCamControls();
 
-                    Camera tempCamera = m_CameraManager.SelectCamera((short)cbxWebCamSrc.SelectedIndex);
-                    if(tempCamera == null)
+                    if(m_CameraManager.GetCameraNames()!=null&& m_CameraManager.GetCameraNames().Count!=0)
                     {
-                        return;
+                        if(cbxWebCamSrc.SelectedIndex>=0 && cbxWebCamSrc.SelectedIndex<m_CameraManager.GetCameraNames().Count)
+                        {
+                            Camera tempCamera = m_CameraManager.SelectCamera((short)cbxWebCamSrc.SelectedIndex);
+                            if (tempCamera == null)
+                            {
+                                return;
+                            }
+                            tempCamera.SetVideoContainer(picBoxWebCam.Handle);
+                            tempCamera.Open();
+                            tempCamera.CurrentResolution = GetCamResolution();
+                            ResizeVideoWindow(0);
+                            picBoxWebCam.Visible = true;
+                            picBoxWebCam.BringToFront();
+                        }
                     }
-                    tempCamera.SetVideoContainer(picBoxWebCam.Handle);
-                    tempCamera.Open();
-                    tempCamera.CurrentResolution = GetCamResolution();
-                    ResizeVideoWindow(0);
-                    picBoxWebCam.Visible = true;
-                    picBoxWebCam.BringToFront();
 
                     if (ExistWebCam && !string.IsNullOrEmpty(cbxWebCamSrc.Text) && !string.IsNullOrEmpty(cbxWebCamRes.Text)) EnableControls(picboxReadBarcode);
                     else DisableControls(picboxReadBarcode);
@@ -1276,6 +1288,7 @@ namespace Barcode_Reader_Demo
         #endregion
 
         #region read Barcode
+
 
         private void picboxReadBarcode_Click(object sender, EventArgs e)
         {
@@ -1336,6 +1349,7 @@ namespace Barcode_Reader_Demo
             }
         }
 
+        int imageindex = 0;
         private void ReadFromFrame(Bitmap bitmap)
         {
             TextResult[] bars = null;
@@ -1360,7 +1374,32 @@ namespace Barcode_Reader_Demo
                     return;
                 }
 
+                //int iRecognitionMode = cbxRecognitionMode.SelectedIndex;
+                // 0 Best Speed. 1 Blance. 2 Best Coverage.
+                switch(iRecognitionMode)
+                {
+                    case 0:
+                       PublicParameterSettings tempBestSpeed = _br.GetTemplateSettings(mBarcodeFormat);
+                       tempBestSpeed.mAntiDamageLevel = 3;
+                       tempBestSpeed.mTextFilterMode = TextFilterMode.TFM_Disable;
+                       _br.SetTemplateSettings(tempBestSpeed);
+                        break;
+                    case 1:
+                        PublicParameterSettings tempBlance = _br.GetTemplateSettings(mBarcodeFormat);
+                        tempBlance.mAntiDamageLevel = 5;
+                        tempBlance.mTextFilterMode = TextFilterMode.TFM_Enable;
+                        _br.SetTemplateSettings(tempBlance);
+                        break;
+                    case 2:
+                        PublicParameterSettings tempCoverage = _br.GetTemplateSettings(mBarcodeFormat);
+                        tempCoverage.mAntiDamageLevel = 9;
+                        tempCoverage.mTextFilterMode = TextFilterMode.TFM_Enable;
+                        _br.SetTemplateSettings(tempCoverage);
+                        break;
+                }
+
                 bars = _br.DecodeBitmap(bitmap,mBarcodeFormat);
+                
                 DateTime afterRead = DateTime.Now;
                 timeElapsed = (int)(afterRead - beforeRead).TotalMilliseconds;
 
@@ -1411,7 +1450,6 @@ namespace Barcode_Reader_Demo
             {
 
                 Bitmap bmp = (Bitmap)(m_ImageCore.ImageBuffer.GetBitmap(m_ImageCore.ImageBuffer.CurrentImageIndexInBuffer));
-                
                 DateTime beforeRead = DateTime.Now;
 
                 string[] Templates = _br.GetAllParameterTemplateNames();
@@ -1428,8 +1466,31 @@ namespace Barcode_Reader_Demo
                     MessageBox.Show(("Failed to find the template named " + mBarcodeFormat + "."), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
-   
 
+                int iRecognitionMode = cbxRecognitionMode.SelectedIndex;
+                // 0 Best Speed. 1 Blance. 2 Best Coverage.
+                switch(iRecognitionMode)
+                {
+                    case 0:
+                       PublicParameterSettings tempBestSpeed = _br.GetTemplateSettings(mBarcodeFormat);
+                       tempBestSpeed.mAntiDamageLevel = 3;
+                       tempBestSpeed.mTextFilterMode = TextFilterMode.TFM_Disable;
+                       _br.SetTemplateSettings(tempBestSpeed);
+                        break;
+                    case 1:
+                        PublicParameterSettings tempBlance = _br.GetTemplateSettings(mBarcodeFormat);
+                        tempBlance.mAntiDamageLevel = 5;
+                        tempBlance.mTextFilterMode = TextFilterMode.TFM_Enable;
+                        _br.SetTemplateSettings(tempBlance);
+                        break;
+                    case 2:
+                        PublicParameterSettings tempCoverage = _br.GetTemplateSettings(mBarcodeFormat);
+                        tempCoverage.mAntiDamageLevel = 9;
+                        tempCoverage.mTextFilterMode = TextFilterMode.TFM_Enable;
+                        _br.SetTemplateSettings(tempCoverage);
+                        break;
+                }
+   
                 TextResult[] aryResult = _br.DecodeBitmap(bmp, mBarcodeFormat);
                 
                 DateTime afterRead = DateTime.Now;

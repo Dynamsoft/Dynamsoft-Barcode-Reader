@@ -1,6 +1,6 @@
 Dynamsoft Barcode Reader
 =========
-version 6.1
+version 6.2
 
 Introduction
 -----------
@@ -9,7 +9,7 @@ Dynamsoft’s [Barcode Reader SDK][1] enables you to efficiently embed barcode r
 
 Two editions, for Windows and Mac, are available. The Windows Edition provides C, C++, ActiveX / COM and .NET APIs. The Mac Edition provides C and C++ APIs. You can use the SDK in various development environments, such as Visual Studio .NET (C# / VB.NET), Visual C++, VB6, Delphi, Eclipse, Xcode, etc.
 
-![image](http://www.codepool.biz/wp-content/uploads/2015/08/dbr_3_0_screenshot.png)
+![image](https://www.codepool.biz/wp-content/uploads/2015/08/dbr_3_0_screenshot.png)
 
 Download
 -----------

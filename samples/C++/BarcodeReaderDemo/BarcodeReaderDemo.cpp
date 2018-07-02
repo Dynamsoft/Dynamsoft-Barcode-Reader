@@ -65,9 +65,146 @@ void ToHexString(unsigned char* pSrc, int iLen, char* pDest)
 	}
 }
 
+bool GetImagePath(char* pImagePath)
+{
+	char pszBuffer[512] = {0};
+	int iExitFlag = 0;
+	size_t iLen = 0;
+	FILE* fp = NULL;
+	while(1)
+	{
+		printf("\r\n>> Step 1: Input your image file's full path:\r\n");
+		gets_s(pszBuffer, 512);
+		iLen = strlen(pszBuffer);
+		if(iLen > 0)
+		{
+			if(strlen(pszBuffer) == 1 && (pszBuffer[0] == 'q' || pszBuffer[0] == 'Q'))
+			{
+				iExitFlag = 1;
+				break;
+			}
+
+			memset(pImagePath, 0, 512);
+			if(pszBuffer[0]=='\"' && pszBuffer[iLen-1] == '\"')
+				memcpy(pImagePath, &pszBuffer[1], iLen-2);
+			else
+				memcpy(pImagePath, pszBuffer, iLen);
+
+			errno_t err = fopen_s(&fp, pImagePath, "rb");
+			if(err == 0)
+			{
+				fclose(fp);
+				break;
+			}
+		}
+		printf("Please input a valid path.\r\n");
+	}
+	return iExitFlag;
+}
+
+bool SetBarcodeFormat(const char** pszTemplateName)
+{
+	char pszBuffer[512] = {0};
+	int iExitFlag = 0;
+	size_t iLen = 0;
+	int iIndex = 0;
+	while(1)
+	{
+		printf("\r\n>> Step 2: Choose a number for the format(s) of your barcode image:\r\n");
+		printf("   1: All\r\n");
+		printf("   2: OneD\r\n");
+		printf("   3: QR Code\r\n");
+		printf("   4: Code 39\r\n");
+		printf("   5: Code 128\r\n");
+		printf("   6: Code 93\r\n");
+		printf("   7: Codabar\r\n");
+		printf("   8: Interleaved 2 of 5\r\n");
+		printf("   9: Industrial 2 of 5\r\n");
+		printf("   10: EAN-13\r\n");
+		printf("   11: EAN-8\r\n");
+		printf("   12: UPC-A\r\n");
+		printf("   13: UPC-E\r\n");
+		printf("   14: PDF417\r\n");
+		printf("   15: DATAMATRIX\r\n");
+
+		gets_s(pszBuffer, 512);
+		iLen = strlen(pszBuffer);
+		if(iLen > 0)
+		{
+
+			if(strlen(pszBuffer) == 1 && (pszBuffer[0] == 'q' || pszBuffer[0] == 'Q'))
+			{
+				iExitFlag = 1;
+				break;
+			}
+
+			iIndex = atoi(pszBuffer);
+			*pszTemplateName = GetTemplateName(iIndex);
+			if(*pszTemplateName != NULL)
+				break;
+		}
+
+		if(iExitFlag)
+			break;
+
+		printf("Please choose a valid number. \r\n");
+
+	}
+	return iExitFlag;
+}
+
+void OutputResult(CBarcodeReader& reader,int errorcode,float time)
+{
+	char * pszTemp = NULL;
+	char * pszTemp1 = NULL;
+	int iRet = errorcode;
+	pszTemp = (char*)malloc(4096);
+	if (iRet != DBR_OK && iRet != DBRERR_LICENSE_EXPIRED && iRet != DBRERR_QR_LICENSE_INVALID &&
+		iRet != DBRERR_1D_LICENSE_INVALID && iRet != DBRERR_PDF417_LICENSE_INVALID && iRet != DBRERR_DATAMATRIX_LICENSE_INVALID)
+	{
+		sprintf_s(pszTemp, 4096, "Failed to read barcode: %s\r\n", CBarcodeReader::GetErrorString(iRet));
+		printf(pszTemp);
+		free(pszTemp);
+		//continue;
+	}
+
+	STextResultArray *paryResult = NULL;
+	reader.GetAllTextResults(&paryResult);
+		
+	if (paryResult->nResultsCount == 0)
+	{
+		sprintf_s(pszTemp, 4096, "No barcode found. Total time spent: %.3f seconds.\r\n", time);
+		printf(pszTemp);
+		free(pszTemp);
+		CBarcodeReader::FreeTextResults(&paryResult);
+		//continue;
+	}
+		
+	sprintf_s(pszTemp, 4096, "Total barcode(s) found: %d. Total time spent: %.3f seconds\r\n\r\n", paryResult->nResultsCount, time);
+	printf(pszTemp);
+	for (int iIndex = 0; iIndex < paryResult->nResultsCount; iIndex++)
+	{
+		sprintf_s(pszTemp, 4096, "Barcode %d:\r\n", iIndex + 1);
+		printf(pszTemp);
+		sprintf_s(pszTemp, 4096, "    Type: %s\r\n", paryResult->ppResults[iIndex]->pszBarcodeFormatString);
+		printf(pszTemp);
+		sprintf_s(pszTemp, 4096, "    Value: %s\r\n", paryResult->ppResults[iIndex]->pszBarcodeText);
+		printf(pszTemp);
+
+		pszTemp1 = (char*)malloc(paryResult->ppResults[iIndex]->nBarcodeBytesLength*3 + 1);
+		ToHexString(paryResult->ppResults[iIndex]->pBarcodeBytes, paryResult->ppResults[iIndex]->nBarcodeBytesLength, pszTemp1);
+		sprintf_s(pszTemp, 4096, "    Hex Data: %s\r\n", pszTemp1);
+		printf(pszTemp);
+		free(pszTemp1);
+	}	
+
+	free(pszTemp);
+	CBarcodeReader::FreeTextResults(&paryResult);
+}
+
 int main(int argc, const char* argv[])
 {
-	const char* pszSettingFile = "E:\\Program Files (x86)\\Dynamsoft\\Barcode Reader 6.1\\Templates\\template_aggregation.json";
+	const char* pszSettingFile = "E:\\Program Files (x86)\\Dynamsoft\\Barcode Reader 6.2\\Templates\\template_aggregation.json";
 	const char* pszTemplateName = NULL;
 	char pszBuffer[512] = {0};
 	char pszImageFile[512] = {0};
@@ -88,7 +225,7 @@ int main(int argc, const char* argv[])
 	printf("Hints: Please input 'Q'or 'q' to quit the application.\r\n");
 	
 	CBarcodeReader reader;
-	reader.InitLicense("t0068MgAAAB00WDznQ4/hnyNXmCc6JXOYB1HfpUY92oyQHPMRFlpewnIIw45miIPWz0D1j7dFjC+QLdPRiwina9j4l5pgmGc=");
+	reader.InitLicense("t0068MgAAAEBDbYNoTMuh5/ccI24YdlzcggFG93NGuHrF/AWmcbKAsObdABAWC5GvZZpXBlfrsJhkQ1yMO4B8qTUnk6S8HdY=");
 	
 	iRet = reader.LoadSettingsFromFile(pszSettingFile, szErrorMsg, 256);
 	if(iRet != DBR_OK)
@@ -99,84 +236,13 @@ int main(int argc, const char* argv[])
 
 	while(1)
 	{
-		while(1)
-		{
-			printf("\r\n>> Step 1: Input your image file's full path:\r\n");
-			gets_s(pszBuffer, 512);
-			iLen = strlen(pszBuffer);
-			if(iLen > 0)
-			{
-				if(strlen(pszBuffer) == 1 && (pszBuffer[0] == 'q' || pszBuffer[0] == 'Q'))
-				{
-					iExitFlag = 1;
-					break;
-				}
-
-				memset(pszImageFile, 0, 512);
-				if(pszBuffer[0]=='\"' && pszBuffer[iLen-1] == '\"')
-					memcpy(pszImageFile, &pszBuffer[1], iLen-2);
-				else
-					memcpy(pszImageFile, pszBuffer, iLen);
-
-				errno_t err = fopen_s(&fp, pszImageFile, "rb");
-				if(err == 0)
-				{
-					fclose(fp);
-					break;
-				}
-			}
-			
-			printf("Please input a valid path.\r\n");
-		}
-
+		iExitFlag = GetImagePath(pszImageFile);
 		if(iExitFlag)
 			break;
 
-		while(1)
-		{
-			printf("\r\n>> Step 2: Choose a number for the format(s) of your barcode image:\r\n");
-			printf("   1: All\r\n");
-			printf("   2: OneD\r\n");
-			printf("   3: QR Code\r\n");
-			printf("   4: Code 39\r\n");
-			printf("   5: Code 128\r\n");
-			printf("   6: Code 93\r\n");
-			printf("   7: Codabar\r\n");
-			printf("   8: Interleaved 2 of 5\r\n");
-			printf("   9: Industrial 2 of 5\r\n");
-			printf("   10: EAN-13\r\n");
-			printf("   11: EAN-8\r\n");
-			printf("   12: UPC-A\r\n");
-			printf("   13: UPC-E\r\n");
-			printf("   14: PDF417\r\n");
-			printf("   15: DATAMATRIX\r\n");
-
-			gets_s(pszBuffer, 512);
-			iLen = strlen(pszBuffer);
-			if(iLen > 0)
-			{
-
-				if(strlen(pszBuffer) == 1 && (pszBuffer[0] == 'q' || pszBuffer[0] == 'Q'))
-				{
-					iExitFlag = 1;
-					break;
-				}
-
-				iIndex = atoi(pszBuffer);
-				pszTemplateName = GetTemplateName(iIndex);
-				if(pszTemplateName != NULL)
-					break;
-			}
-
-			if(iExitFlag)
-				break;
-
-			printf("Please choose a valid number. \r\n");
-
-		}
+		iExitFlag = SetBarcodeFormat(&pszTemplateName);
 		if(iExitFlag)
 			break;
-		printf("\r\nBarcode Results:\r\n----------------------------------------------------------\r\n");
 
 		// Read barcode
 		ullTimeBegin = GetTickCount();
@@ -184,48 +250,7 @@ int main(int argc, const char* argv[])
 		ullTimeEnd = GetTickCount();
 			
 		// Output barcode result
-		pszTemp = (char*)malloc(4096);
-		if (iRet != DBR_OK && iRet != DBRERR_LICENSE_EXPIRED && iRet != DBRERR_QR_LICENSE_INVALID &&
-			iRet != DBRERR_1D_LICENSE_INVALID && iRet != DBRERR_PDF417_LICENSE_INVALID && iRet != DBRERR_DATAMATRIX_LICENSE_INVALID)
-		{
-			sprintf_s(pszTemp, 4096, "Failed to read barcode: %s\r\n", CBarcodeReader::GetErrorString(iRet));
-			printf(pszTemp);
-			free(pszTemp);
-			continue;
-		}
-
-		STextResultArray *paryResult = NULL;
-		reader.GetAllTextResults(&paryResult);
-		
-		if (paryResult->nResultsCount == 0)
-		{
-			sprintf_s(pszTemp, 4096, "No barcode found. Total time spent: %.3f seconds.\r\n", ((float)(ullTimeEnd - ullTimeBegin)/1000));
-			printf(pszTemp);
-			free(pszTemp);
-			CBarcodeReader::FreeTextResults(&paryResult);
-			continue;
-		}
-		
-		sprintf_s(pszTemp, 4096, "Total barcode(s) found: %d. Total time spent: %.3f seconds\r\n\r\n", paryResult->nResultsCount, ((float)(ullTimeEnd - ullTimeBegin)/1000));
-		printf(pszTemp);
-		for (iIndex = 0; iIndex < paryResult->nResultsCount; iIndex++)
-		{
-			sprintf_s(pszTemp, 4096, "Barcode %d:\r\n", iIndex + 1);
-			printf(pszTemp);
-			sprintf_s(pszTemp, 4096, "    Type: %s\r\n", paryResult->ppResults[iIndex]->pszBarcodeFormatString);
-			printf(pszTemp);
-			sprintf_s(pszTemp, 4096, "    Value: %s\r\n", paryResult->ppResults[iIndex]->pszBarcodeText);
-			printf(pszTemp);
-
-			pszTemp1 = (char*)malloc(paryResult->ppResults[iIndex]->nBarcodeBytesLength*3 + 1);
-			ToHexString(paryResult->ppResults[iIndex]->pBarcodeBytes, paryResult->ppResults[iIndex]->nBarcodeBytesLength, pszTemp1);
-			sprintf_s(pszTemp, 4096, "    Hex Data: %s\r\n", pszTemp1);
-			printf(pszTemp);
-			free(pszTemp1);
-		}	
-
-		free(pszTemp);
-		CBarcodeReader::FreeTextResults(&paryResult);
+		OutputResult(reader,iRet,(((float)(ullTimeEnd - ullTimeBegin))/1000));
 	}
 
 	return 0;
