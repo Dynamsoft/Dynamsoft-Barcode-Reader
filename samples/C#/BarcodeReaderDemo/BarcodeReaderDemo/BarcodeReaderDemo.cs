@@ -60,11 +60,12 @@ namespace Barcode_Reader_Demo
         private CameraManager m_CameraManager = null;
         private ImageCore m_ImageCore = null;
         private PDFRasterizer m_PDFRasterizer = null;
-        string dbrLicenseKeys = "t0068MgAAAEBDbYNoTMuh5/ccI24YdlzcggFG93NGuHrF/AWmcbKAsObdABAWC5GvZZpXBlfrsJhkQ1yMO4B8qTUnk6S8HdY=";
-        string dntLicenseKeys = "t0068MgAAADFbpKti1p+kv65K4jvnMeZBakYVjVWkCJ8tdmnLIOGVnMwzfMT6SJwOCcj2hHkPzHpHMRB+w2AWNrxVY3sdSFc=";
+        string dbrLicenseKeys = "t0068MgAAAGTcD3/UEt+AMn7RN1iiqcAcVlpCTQ4Kv33Xv1sLQNylV6AA/P2iq4JRxPuN6V9NzQ7mDhZti9661K0JRw2wUMI=";
+        string dntLicenseKeys = "t0068MgAAAHWAhoWA88V3KVLmts8rgcDk8eEEuZWhIJWsCZRR5RprAyBFRSLz3BTSFEPKtqoaFYm3Fveg84NDCmP5J1jp9/4=";
         private bool m_IfHasAddedOnFrameCaptureEvent = false;
-        private string[] mBarcodeType = { "All_DEFAULT", "OneD_DEFAULT", "QR_CODE_DEFAULT", "PDF417_DEFAULT", "DATAMATRIX_DEFAULT", "CODE_39_DEFAULT", "CODE_128_DEFAULT", "CODE_93_DEFAULT", "CODABAR_DEFAULT", "ITF_DEFAULT", "INDUSTRIAL_25_DEFAULT", "EAN_13_DEFAULT", "EAN_8_DEFAULT", "UPC_A_DEFAULT", "UPC_E_DEFAULT" };
-        private string mBarcodeFormat = "All_DEFAULT";
+
+        //private string[] mBarcodeType = { "All_DEFAULT", "OneD_DEFAULT", "QR_CODE_DEFAULT", "PDF417_DEFAULT", "DATAMATRIX_DEFAULT", "CODE_39_DEFAULT", "CODE_128_DEFAULT", "CODE_93_DEFAULT", "CODABAR_DEFAULT", "ITF_DEFAULT", "INDUSTRIAL_25_DEFAULT", "EAN_13_DEFAULT", "EAN_8_DEFAULT", "UPC_A_DEFAULT", "UPC_E_DEFAULT" };
+        private int mBarcodeFormat = (int)EnumBarcodeFormat.All;
         private int iRecognitionMode = 0;
         #endregion
 
@@ -103,8 +104,8 @@ namespace Barcode_Reader_Demo
             _br = new BarcodeReader(dbrLicenseKeys);
             try
             {
-                string mSettingsPath = "E:\\Program Files (x86)\\Dynamsoft\\Barcode Reader 6.2\\Templates\\template_aggregation.json";
-                _br.LoadSettingsFromFile(mSettingsPath);
+                //string mSettingsPath = "Put the full path of settings file here";
+                //_br.LoadSettingsFromFile(mSettingsPath);
             }
             catch
             {
@@ -338,8 +339,15 @@ namespace Barcode_Reader_Demo
                         Camera tempCamera = m_CameraManager.SelectCamera((short)cbxWebCamSrc.SelectedIndex);
                         foreach (var resolution in tempCamera.SupportedResolutions)
                         {
-                            var strResolution = resolution.Width + " x " + resolution.Height;
-                            cbxWebCamRes.Items.Add(strResolution);
+                            if (resolution.Width < 400 && resolution.Height < 400)
+                            {
+                            }
+                            else
+                            {
+                                var strResolution = resolution.Width + " x " + resolution.Height;
+                                cbxWebCamRes.Items.Add(strResolution);
+                            }
+
                         }
                         cbxWebCamRes.SelectedIndex = 0;
                     }
@@ -451,6 +459,8 @@ namespace Barcode_Reader_Demo
             cbxBarcodeFormat.Items.Add("EAN-8");
             cbxBarcodeFormat.Items.Add("UPC-A");
             cbxBarcodeFormat.Items.Add("UPC-E");
+            cbxBarcodeFormat.Items.Add("AZTEC");
+            
 
             cbxBarcodeFormat.SelectedIndex = 0;
 
@@ -1359,46 +1369,35 @@ namespace Barcode_Reader_Demo
             try
             {
                 DateTime beforeRead = DateTime.Now;
-                string[] Templates = _br.GetAllParameterTemplateNames();
-                bool bifcontian = false;
-                for (int i = 0; i < Templates.Length; i++)
-                {
-                    if (mBarcodeFormat == Templates[i])
-                    {
-                        bifcontian = true;
-                    }
-                }
-                if (!bifcontian)
-                {
-                    MessageBox.Show(("Failed to find the template named " + mBarcodeFormat + "."), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
 
                 //int iRecognitionMode = cbxRecognitionMode.SelectedIndex;
-                // 0 Best Speed. 1 Blance. 2 Best Coverage.
+                // 0 Best Speed. 1 Balance. 2 Best Coverage.
                 switch(iRecognitionMode)
                 {
                     case 0:
-                       PublicParameterSettings tempBestSpeed = _br.GetTemplateSettings(mBarcodeFormat);
+                       PublicRuntimeSettings tempBestSpeed = _br.GetRuntimeSettings();
+                       tempBestSpeed.mBarcodeFormatIds = mBarcodeFormat;
                        tempBestSpeed.mAntiDamageLevel = 3;
                        tempBestSpeed.mTextFilterMode = TextFilterMode.TFM_Disable;
-                       _br.SetTemplateSettings(tempBestSpeed);
+                       _br.UpdateRuntimeSettings(tempBestSpeed);
                         break;
                     case 1:
-                        PublicParameterSettings tempBlance = _br.GetTemplateSettings(mBarcodeFormat);
-                        tempBlance.mAntiDamageLevel = 5;
-                        tempBlance.mTextFilterMode = TextFilterMode.TFM_Enable;
-                        _br.SetTemplateSettings(tempBlance);
+                        PublicRuntimeSettings tempBalance = _br.GetRuntimeSettings();
+                        tempBalance.mBarcodeFormatIds = mBarcodeFormat;
+                        tempBalance.mAntiDamageLevel = 5;
+                        tempBalance.mTextFilterMode = TextFilterMode.TFM_Enable;
+                        _br.UpdateRuntimeSettings(tempBalance);
                         break;
                     case 2:
-                        PublicParameterSettings tempCoverage = _br.GetTemplateSettings(mBarcodeFormat);
+                        PublicRuntimeSettings tempCoverage = _br.GetRuntimeSettings();
+                        tempCoverage.mBarcodeFormatIds = mBarcodeFormat;
                         tempCoverage.mAntiDamageLevel = 9;
                         tempCoverage.mTextFilterMode = TextFilterMode.TFM_Enable;
-                        _br.SetTemplateSettings(tempCoverage);
+                        _br.UpdateRuntimeSettings(tempCoverage);
                         break;
                 }
 
-                bars = _br.DecodeBitmap(bitmap,mBarcodeFormat);
+                bars = _br.DecodeBitmap(bitmap,"");
                 
                 DateTime afterRead = DateTime.Now;
                 timeElapsed = (int)(afterRead - beforeRead).TotalMilliseconds;
@@ -1452,46 +1451,35 @@ namespace Barcode_Reader_Demo
                 Bitmap bmp = (Bitmap)(m_ImageCore.ImageBuffer.GetBitmap(m_ImageCore.ImageBuffer.CurrentImageIndexInBuffer));
                 DateTime beforeRead = DateTime.Now;
 
-                string[] Templates = _br.GetAllParameterTemplateNames();
-                bool bifcontian = false;
-                for (int i = 0; i < Templates.Length; i++)
-                {
-                    if (mBarcodeFormat == Templates[i])
-                    {
-                        bifcontian = true;
-                    }
-                }
-                if (!bifcontian)
-                {
-                    MessageBox.Show(("Failed to find the template named " + mBarcodeFormat + "."), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
 
                 int iRecognitionMode = cbxRecognitionMode.SelectedIndex;
-                // 0 Best Speed. 1 Blance. 2 Best Coverage.
+                // 0 Best Speed. 1 Balance. 2 Best Coverage.
                 switch(iRecognitionMode)
                 {
                     case 0:
-                       PublicParameterSettings tempBestSpeed = _br.GetTemplateSettings(mBarcodeFormat);
+                        PublicRuntimeSettings tempBestSpeed = _br.GetRuntimeSettings();
+                       tempBestSpeed.mBarcodeFormatIds = mBarcodeFormat;
                        tempBestSpeed.mAntiDamageLevel = 3;
                        tempBestSpeed.mTextFilterMode = TextFilterMode.TFM_Disable;
-                       _br.SetTemplateSettings(tempBestSpeed);
+                       _br.UpdateRuntimeSettings(tempBestSpeed);
                         break;
                     case 1:
-                        PublicParameterSettings tempBlance = _br.GetTemplateSettings(mBarcodeFormat);
-                        tempBlance.mAntiDamageLevel = 5;
-                        tempBlance.mTextFilterMode = TextFilterMode.TFM_Enable;
-                        _br.SetTemplateSettings(tempBlance);
+                        PublicRuntimeSettings tempBalance = _br.GetRuntimeSettings();
+                        tempBalance.mBarcodeFormatIds = mBarcodeFormat;
+                        tempBalance.mAntiDamageLevel = 5;
+                        tempBalance.mTextFilterMode = TextFilterMode.TFM_Enable;
+                        _br.UpdateRuntimeSettings(tempBalance);
                         break;
                     case 2:
-                        PublicParameterSettings tempCoverage = _br.GetTemplateSettings(mBarcodeFormat);
+                        PublicRuntimeSettings tempCoverage = _br.GetRuntimeSettings();
+                        tempCoverage.mBarcodeFormatIds = mBarcodeFormat;
                         tempCoverage.mAntiDamageLevel = 9;
                         tempCoverage.mTextFilterMode = TextFilterMode.TFM_Enable;
-                        _br.SetTemplateSettings(tempCoverage);
+                        _br.UpdateRuntimeSettings(tempCoverage);
                         break;
                 }
    
-                TextResult[] aryResult = _br.DecodeBitmap(bmp, mBarcodeFormat);
+                TextResult[] aryResult = _br.DecodeBitmap(bmp, "");
                 
                 DateTime afterRead = DateTime.Now;
                 int timeElapsed = (int)(afterRead - beforeRead).TotalMilliseconds;
@@ -1627,8 +1615,62 @@ namespace Barcode_Reader_Demo
 
         private void cbxBarcodeFormat_SelectedIndexChanged(object sender, EventArgs e)
         {
+            //private string[] mBarcodeType = { "All_DEFAULT", "OneD_DEFAULT", "QR_CODE_DEFAULT", "PDF417_DEFAULT", "DATAMATRIX_DEFAULT", "CODE_39_DEFAULT", "CODE_128_DEFAULT", "CODE_93_DEFAULT", "CODABAR_DEFAULT", "ITF_DEFAULT", "INDUSTRIAL_25_DEFAULT", "EAN_13_DEFAULT", "EAN_8_DEFAULT", "UPC_A_DEFAULT", "UPC_E_DEFAULT" };
             int index = cbxBarcodeFormat.SelectedIndex;
-            mBarcodeFormat = mBarcodeType[index];
+            switch(index)
+            {
+                case 0:
+                    mBarcodeFormat = (int)EnumBarcodeFormat.All;
+                    break;
+                case 1:
+                    mBarcodeFormat = (int)EnumBarcodeFormat.OneD;
+                    break;
+                case 2:
+                    mBarcodeFormat = (int)EnumBarcodeFormat.QR_CODE;
+                    break;
+                case 3:
+                    mBarcodeFormat = (int)EnumBarcodeFormat.PDF417;
+                    break;
+                case 4:
+                    mBarcodeFormat = (int)EnumBarcodeFormat.DATAMATRIX;
+                    break;
+                case 5:
+                    mBarcodeFormat = (int)EnumBarcodeFormat.CODE_39;
+                    break;
+                case 6:
+                    mBarcodeFormat = (int)EnumBarcodeFormat.CODE_128;
+                    break;
+                case 7:
+                    mBarcodeFormat = (int)EnumBarcodeFormat.CODE_93;
+                    break;
+                case 8:
+                    mBarcodeFormat = (int)EnumBarcodeFormat.CODABAR;
+                    break;
+                case 9:
+                    mBarcodeFormat = (int)EnumBarcodeFormat.ITF;
+                    break;
+                case 10:
+                    mBarcodeFormat = (int)EnumBarcodeFormat.INDUSTRIAL_25;
+                    break;
+                case 11:
+                    mBarcodeFormat = (int)EnumBarcodeFormat.EAN_13;
+                    break;
+                case 12:
+                    mBarcodeFormat = (int)EnumBarcodeFormat.EAN_8;
+                    break;
+                case 13:
+                    mBarcodeFormat = (int)EnumBarcodeFormat.UPC_A;
+                    break;
+                case 14:
+                    mBarcodeFormat = (int)EnumBarcodeFormat.UPC_E;
+                    break;
+                case 15:
+                    mBarcodeFormat = (int)EnumBarcodeFormat.AZTEC;
+                    break;
+                default:
+                    mBarcodeFormat = (int)EnumBarcodeFormat.All;
+                    break;
+            }
         }
 
         private void tbxBarcodeLocation_KeyPress(object sender, KeyPressEventArgs e)

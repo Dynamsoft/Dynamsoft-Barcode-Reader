@@ -12,42 +12,44 @@
 #pragma comment(lib, "../../../../Components/C_C++/Lib/DBRx86.lib")
 #endif
 
-const char* GetTemplateName(int iIndex)
+const int GetBarcodeFormatId(int iIndex)
 {
 	switch(iIndex)
 	{
 	case 1:
-		return "All_DEFAULT";
+		return BF_All;
 	case 2:
-		return "OneD_DEFAULT";
+		return BF_OneD;
 	case 3:
-		return "QR_CODE_DEFAULT";
+		return BF_QR_CODE;
 	case 4:
-		return "CODE_39_DEFAULT";
+		return BF_CODE_39;
 	case 5:
-		return "CODE_128_DEFAULT";
+		return BF_CODE_128;
 	case 6:
-		return "CODE_93_DEFAULT";
+		return BF_CODE_93;
 	case 7:
-		return "CODABAR_DEFAULT";
+		return BF_CODABAR;
 	case 8:
-		return "ITF_DEFAULT";
+		return BF_ITF;
 	case 9:
-		return "INDUSTRIAL_25_DEFAULT";
+		return BF_INDUSTRIAL_25;
 	case 10:
-		return "EAN_13_DEFAULT";
+		return BF_EAN_13;
 	case 11:
-		return "EAN_8_DEFAULT";
+		return BF_EAN_8;
 	case 12:
-		return "UPC_A_DEFAULT";
+		return BF_UPC_A;
 	case 13:
-		return "UPC_E_DEFAULT";
+		return BF_UPC_E;
 	case 14:
-		return "PDF417_DEFAULT";
+		return BF_PDF417;
 	case 15:
-		return "DATAMATRIX_DEFAULT";
+		return BF_DATAMATRIX;
+	case 16:
+		return BF_AZTEC;
 	default:
-		return NULL;
+		return -1;
 	}
 }
 
@@ -102,7 +104,7 @@ bool GetImagePath(char* pImagePath)
 	return iExitFlag;
 }
 
-bool SetBarcodeFormat(const char** pszTemplateName)
+bool SetBarcodeFormat(int* iBarcodeFormatId)
 {
 	char pszBuffer[512] = {0};
 	int iExitFlag = 0;
@@ -126,6 +128,7 @@ bool SetBarcodeFormat(const char** pszTemplateName)
 		printf("   13: UPC-E\r\n");
 		printf("   14: PDF417\r\n");
 		printf("   15: DATAMATRIX\r\n");
+		printf("   16: AZTEC\r\n");
 
 		gets_s(pszBuffer, 512);
 		iLen = strlen(pszBuffer);
@@ -139,8 +142,8 @@ bool SetBarcodeFormat(const char** pszTemplateName)
 			}
 
 			iIndex = atoi(pszBuffer);
-			*pszTemplateName = GetTemplateName(iIndex);
-			if(*pszTemplateName != NULL)
+			*iBarcodeFormatId =  GetBarcodeFormatId(iIndex);
+			if(*iBarcodeFormatId != -1)
 				break;
 		}
 
@@ -177,7 +180,7 @@ void OutputResult(CBarcodeReader& reader,int errorcode,float time)
 		printf(pszTemp);
 		free(pszTemp);
 		CBarcodeReader::FreeTextResults(&paryResult);
-		//continue;
+		return;
 	}
 		
 	sprintf_s(pszTemp, 4096, "Total barcode(s) found: %d. Total time spent: %.3f seconds\r\n\r\n", paryResult->nResultsCount, time);
@@ -204,8 +207,8 @@ void OutputResult(CBarcodeReader& reader,int errorcode,float time)
 
 int main(int argc, const char* argv[])
 {
-	const char* pszSettingFile = "E:\\Program Files (x86)\\Dynamsoft\\Barcode Reader 6.2\\Templates\\template_aggregation.json";
 	const char* pszTemplateName = NULL;
+	int iBarcodeFormatId = -1;
 	char pszBuffer[512] = {0};
 	char pszImageFile[512] = {0};
 	int iIndex = 0;
@@ -218,6 +221,7 @@ int main(int argc, const char* argv[])
 	FILE* fp = NULL;
 	int iExitFlag = 0;
 	char szErrorMsg[256];
+	PublicRuntimeSettings runtimeSettings;
 
 	printf("*************************************************\r\n");
 	printf("Welcome to Dynamsoft Barcode Reader Demo\r\n");
@@ -225,14 +229,8 @@ int main(int argc, const char* argv[])
 	printf("Hints: Please input 'Q'or 'q' to quit the application.\r\n");
 	
 	CBarcodeReader reader;
-	reader.InitLicense("t0068MgAAAEBDbYNoTMuh5/ccI24YdlzcggFG93NGuHrF/AWmcbKAsObdABAWC5GvZZpXBlfrsJhkQ1yMO4B8qTUnk6S8HdY=");
+	reader.InitLicense("t0068MgAAAGTcD3/UEt+AMn7RN1iiqcAcVlpCTQ4Kv33Xv1sLQNylV6AA/P2iq4JRxPuN6V9NzQ7mDhZti9661K0JRw2wUMI=");
 	
-	iRet = reader.LoadSettingsFromFile(pszSettingFile, szErrorMsg, 256);
-	if(iRet != DBR_OK)
-	{
-		printf("Error code: %d. Error message: %s\n", iRet, szErrorMsg);
-		return -1;
-	}
 
 	while(1)
 	{
@@ -240,9 +238,18 @@ int main(int argc, const char* argv[])
 		if(iExitFlag)
 			break;
 
-		iExitFlag = SetBarcodeFormat(&pszTemplateName);
+		iExitFlag = SetBarcodeFormat(&iBarcodeFormatId);
 		if(iExitFlag)
 			break;
+
+		reader.GetRuntimeSettings(&runtimeSettings);
+		runtimeSettings.mBarcodeFormatIds = iBarcodeFormatId;
+		iRet = reader.UpdateRuntimeSettings(&runtimeSettings,szErrorMsg,256);
+		if(iRet != DBR_OK)
+		{
+			printf("Error code: %d. Error message: %s\n", iRet, szErrorMsg);
+			return -1;
+		}
 
 		// Read barcode
 		ullTimeBegin = GetTickCount();

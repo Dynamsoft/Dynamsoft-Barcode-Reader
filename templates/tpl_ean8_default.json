@@ -1,7 +1,0 @@
-{
-    "Version": "1.0",
-    "ImageParameters": {
-        "Name": "EAN_8_DEFAULT",
-        "BarcodeFormatIds": ["EAN_8"]
-    }
-}

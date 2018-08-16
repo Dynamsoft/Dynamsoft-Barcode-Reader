@@ -33,7 +33,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Dynamsoft.BarcodeReader">
-      <HintPath>..\..\..\..\..\..\Barcode Reader 6.2\Components\DotNet\4.0\Dynamsoft.BarcodeReader.dll</HintPath>
+      <HintPath>..\..\..\..\..\Components\DotNet\4.0\Dynamsoft.BarcodeReader.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

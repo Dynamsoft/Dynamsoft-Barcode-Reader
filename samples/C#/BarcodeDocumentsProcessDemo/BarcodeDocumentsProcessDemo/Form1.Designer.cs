@@ -59,6 +59,7 @@
             this.label22 = new System.Windows.Forms.Label();
             this.label23 = new System.Windows.Forms.Label();
             this.label24 = new System.Windows.Forms.Label();
+            this.labelAZTEC = new System.Windows.Forms.Label();
             this.label25 = new System.Windows.Forms.Label();
             this.label26 = new System.Windows.Forms.Label();
             this.label27 = new System.Windows.Forms.Label();
@@ -82,6 +83,7 @@
             this.label6 = new System.Windows.Forms.Label();
             this.lbUnknown = new System.Windows.Forms.Label();
             this.lbModeInfo = new System.Windows.Forms.Label();
+            this.lbAZTEC = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.picboxMode)).BeginInit();
             this.SuspendLayout();
             // 
@@ -443,6 +445,22 @@
             this.label24.TabIndex = 33;
             this.label24.Text = "UPC-A";
             this.label24.Click += new System.EventHandler(this.Format_Changed);
+
+            // 
+            // labelAZTEC
+            // 
+            this.labelAZTEC.AutoSize = true;
+            this.labelAZTEC.BackColor = System.Drawing.Color.Transparent;
+            this.labelAZTEC.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold);
+            this.labelAZTEC.ForeColor = System.Drawing.Color.DimGray;
+            this.labelAZTEC.Location = new System.Drawing.Point(352, 558);
+            this.labelAZTEC.Name = "labelAZTEC";
+            this.labelAZTEC.Size = new System.Drawing.Size(48, 16);
+            this.labelAZTEC.TabIndex = 33;
+            this.labelAZTEC.Text = "AZTEC";
+            this.labelAZTEC.Click += new System.EventHandler(this.Format_Changed);
+
+
             // 
             // label25
             // 
@@ -692,7 +710,7 @@
             this.label6.BackColor = System.Drawing.Color.Transparent;
             this.label6.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold);
             this.label6.ForeColor = System.Drawing.Color.DimGray;
-            this.label6.Location = new System.Drawing.Point(353, 558);
+            this.label6.Location = new System.Drawing.Point(440, 558);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(67, 16);
             this.label6.TabIndex = 55;
@@ -703,12 +721,24 @@
             // 
             this.lbUnknown.BackColor = System.Drawing.Color.Transparent;
             this.lbUnknown.Image = global::BarcodeDocumentsProcessDemo.Properties.Resources.radio_unchecked;
-            this.lbUnknown.Location = new System.Drawing.Point(334, 558);
+            this.lbUnknown.Location = new System.Drawing.Point(421, 558);
             this.lbUnknown.Name = "lbUnknown";
             this.lbUnknown.Size = new System.Drawing.Size(16, 16);
             this.lbUnknown.TabIndex = 54;
             this.lbUnknown.Tag = "bf-unknown";
             this.lbUnknown.Click += new System.EventHandler(this.Format_Changed);
+            // 
+            // lbAZTEC
+            // 
+            this.lbAZTEC.BackColor = System.Drawing.Color.Transparent;
+            this.lbAZTEC.Image = global::BarcodeDocumentsProcessDemo.Properties.Resources.radio_unchecked;
+            this.lbAZTEC.Location = new System.Drawing.Point(333, 558);
+            this.lbAZTEC.Name = "lbAZTEC";
+            this.lbAZTEC.Size = new System.Drawing.Size(16, 16);
+            this.lbAZTEC.TabIndex = 54;
+            this.lbAZTEC.Tag = "bf-aztec";
+            this.lbAZTEC.Click += new System.EventHandler(this.Format_Changed);
+
             // 
             // lbModeInfo
             // 
@@ -734,6 +764,7 @@
             this.Controls.Add(this.lbModeInfo);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.lbUnknown);
+            this.Controls.Add(this.lbAZTEC);
             this.Controls.Add(this.label16);
             this.Controls.Add(this.label19);
             this.Controls.Add(this.label4);
@@ -751,6 +782,7 @@
             this.Controls.Add(this.label27);
             this.Controls.Add(this.label26);
             this.Controls.Add(this.label25);
+            this.Controls.Add(this.labelAZTEC);
             this.Controls.Add(this.label24);
             this.Controls.Add(this.label23);
             this.Controls.Add(this.label22);
@@ -826,6 +858,7 @@
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.Label label23;
         private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.Label labelAZTEC;
         private System.Windows.Forms.Label label25;
         private System.Windows.Forms.Label label26;
         private System.Windows.Forms.Label label27;
@@ -849,6 +882,8 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label lbUnknown;
         private System.Windows.Forms.Label lbModeInfo;
+
+        private System.Windows.Forms.Label lbAZTEC;
 
     }
 }

@@ -1,6 +1,6 @@
 Dynamsoft Barcode Reader
 =========
-version 6.2
+version 6.3
 
 Introduction
 -----------
@@ -40,7 +40,7 @@ Specifications
 
 ### Supported Barcode Types
 * 1D barcodes: Code39, Code93, Code128, Codabar, ITF, EAN13, EAN8, UPCA, UPCE
-* 2D barcodes: QR Code, DataMatrix, PDF417
+* 2D barcodes: QR Code, DataMatrix, PDF417 and Aztec Code
 
 ### Barcode Reading Results
 * Barcode type

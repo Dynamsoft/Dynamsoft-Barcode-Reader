@@ -385,7 +385,7 @@ namespace Barcode_Reader_Demo
             this.label24.Name = "label24";
             this.label24.Size = new System.Drawing.Size(228, 30);
             this.label24.TabIndex = 0;
-            this.label24.Text = "     Note: PDF Rasterizer add-on is used when loading PDF files.";
+            this.label24.Text = "     *Note: PDF Rasterizer add-on is used when loading PDF files.";
             // 
             // picboxLoadImage
             // 
@@ -476,7 +476,7 @@ namespace Barcode_Reader_Demo
             this.labelWebcamNote.Name = "labelWebcamNote";
             this.labelWebcamNote.Size = new System.Drawing.Size(228, 60);
             this.labelWebcamNote.TabIndex = 0;
-            this.labelWebcamNote.Text = "     Note: Please place a barcode in front of your webcam and then click \"Read Ba" +
+            this.labelWebcamNote.Text = "     *Note: Please place a barcode in front of your webcam and then click \"Read Ba" +
     "rcode\" button. It will decode barcodes from camera stream directly.";
             // 
             // panelAcquire

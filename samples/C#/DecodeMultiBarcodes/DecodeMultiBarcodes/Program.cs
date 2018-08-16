@@ -13,11 +13,11 @@ namespace DecodeMultiBarcodes
         private static TextResult[] DecodeFile(BarcodeReader _br, string strImagePath)
         {
             //modifiy the default template and decode file.
-            PublicParameterSettings settings = _br.GetTemplateSettings("");
+            PublicRuntimeSettings settings = _br.GetRuntimeSettings();
             //set excepted barcode count.
             settings.mExpectedBarcodesCount = 0x7ffffff;
             settings.mRegionPredetectionMode = RegionPredetectionMode.RPM_Enable;
-            _br.SetTemplateSettings(settings);
+            _br.UpdateRuntimeSettings(settings);
             TextResult[] result = _br.DecodeFile(strImagePath, "");
             return result;
         }
@@ -101,7 +101,7 @@ namespace DecodeMultiBarcodes
             Console.WriteLine("Hints: Please input 'Q'or 'q' to quit the application.\r\n");
             bool bExitFlag = false;
             BarcodeReader _br = new BarcodeReader();
-            _br.LicenseKeys = "t0068MgAAAEBDbYNoTMuh5/ccI24YdlzcggFG93NGuHrF/AWmcbKAsObdABAWC5GvZZpXBlfrsJhkQ1yMO4B8qTUnk6S8HdY=";
+            _br.LicenseKeys = "t0068MgAAAGTcD3/UEt+AMn7RN1iiqcAcVlpCTQ4Kv33Xv1sLQNylV6AA/P2iq4JRxPuN6V9NzQ7mDhZti9661K0JRw2wUMI=";
             while (true)
             {
                 string strImagePath = null;

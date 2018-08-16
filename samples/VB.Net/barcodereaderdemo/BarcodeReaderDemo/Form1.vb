@@ -18,8 +18,8 @@ Public Class Form1
     Private templateFilePath As String = Application.ExecutablePath
     Private Const iFormatCount As Integer = 13
     Private reader As BarcodeReader = New Dynamsoft.Barcode.BarcodeReader()
-    Private mBarcodeType As String() = {"All_DEFAULT", "OneD_DEFAULT", "QR_CODE_DEFAULT", "PDF417_DEFAULT", "DATAMATRIX_DEFAULT", "CODE_39_DEFAULT", "CODE_128_DEFAULT", "CODE_93_DEFAULT", "CODABAR_DEFAULT", "ITF_DEFAULT", "INDUSTRIAL_25_DEFAULT", "EAN_13_DEFAULT", "EAN_8_DEFAULT", "UPC_A_DEFAULT", "UPC_E_DEFAULT"}
-    Private mBarcodeFormat As String = "All_DEFAULT"
+    'Private mBarcodeType As String() = {"All_DEFAULT", "OneD_DEFAULT", "QR_CODE_DEFAULT", "PDF417_DEFAULT", "DATAMATRIX_DEFAULT", "CODE_39_DEFAULT", "CODE_128_DEFAULT", "CODE_93_DEFAULT", "CODABAR_DEFAULT", "ITF_DEFAULT", "INDUSTRIAL_25_DEFAULT", "EAN_13_DEFAULT", "EAN_8_DEFAULT", "UPC_A_DEFAULT", "UPC_E_DEFAULT"}
+    Private mBarcodeFormat As Integer = EnumBarcodeFormat.All
     Public Property FitWindow() As Boolean
         Get
             Return m_bFitWindow
@@ -59,12 +59,12 @@ Public Class Form1
         chkFitWindow.Checked = True
         lastOpenedDirectory.Replace("/", "\")
         Dim index As Integer = lastOpenedDirectory.LastIndexOf("Samples")
-        Try
-            Dim mSettingsPath As String = "E:\\Program Files (x86)\\Dynamsoft\\Barcode Reader 6.2\\Templates\\template_aggregation.json"
-            reader.LoadSettingsFromFile(mSettingsPath)
-        Catch ex As Exception
-            MessageBox.Show("Failed to load the settings file, please check the file path.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        End Try
+        'Try
+        '    Dim mSettingsPath As String = "Put the full path of settings file here"
+        '    reader.LoadSettingsFromFile(mSettingsPath)
+        'Catch ex As Exception
+        '    MessageBox.Show("Failed to load the settings file, please check the file path.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        'End Try
         If (index > 0) Then
             lastOpenedDirectory += "Images\"
         End If
@@ -86,6 +86,7 @@ Public Class Form1
         ComboBox1.Items.Add("EAN-8")
         ComboBox1.Items.Add("UPC-A")
         ComboBox1.Items.Add("UPC-E")
+        ComboBox1.Items.Add("AZTEC")
         ComboBox1.SelectedIndex = 0
     End Sub
 
@@ -258,24 +259,15 @@ Public Class Form1
         If (Not imageViewer.Image Is Nothing) Then
 
             Try
-                reader.LicenseKeys = "t0068MgAAAEBDbYNoTMuh5/ccI24YdlzcggFG93NGuHrF/AWmcbKAsObdABAWC5GvZZpXBlfrsJhkQ1yMO4B8qTUnk6S8HdY="
+                reader.LicenseKeys = "t0068MgAAAGTcD3/UEt+AMn7RN1iiqcAcVlpCTQ4Kv33Xv1sLQNylV6AA/P2iq4JRxPuN6V9NzQ7mDhZti9661K0JRw2wUMI="
                 Dim beforeRead As DateTime = DateTime.Now
-                Dim Templates As String() = reader.GetAllParameterTemplateNames()
-                Dim bifcontian = False
-                For i = 0 To Templates.Length - 1
-                    If mBarcodeFormat = Templates(i) Then
-                        bifcontian = True
-                    End If
-                Next
-                If bifcontian Then
-                    Dim barcodes As TextResult() = reader.DecodeFile(filePath, mBarcodeFormat)
-                    Dim afterRead As DateTime = DateTime.Now
-                    Dim timeElapsed As Double = (afterRead - beforeRead).TotalMilliseconds
-                    ShowBarcodeResults(barcodes, timeElapsed)
-                Else
-                    MessageBox.Show(("Failed to find the template named " + mBarcodeFormat + "."), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                    Return
-                End If
+                Dim tempPublicParameterSettings As PublicRuntimeSettings = reader.GetRuntimeSettings()
+                tempPublicParameterSettings.mBarcodeFormatIds = mBarcodeFormat
+                reader.UpdateRuntimeSettings(tempPublicParameterSettings)
+                Dim barcodes As TextResult() = reader.DecodeFile(filePath, "")
+                Dim afterRead As DateTime = DateTime.Now
+                Dim timeElapsed As Double = (afterRead - beforeRead).TotalMilliseconds
+                ShowBarcodeResults(barcodes, timeElapsed)
 
             Catch exp As Exception
                 MessageBox.Show(exp.Message, "Barcode Reader Demo", MessageBoxButtons.OK)
@@ -537,6 +529,41 @@ Public Class Form1
     End Function
 
     Private Sub ComboBox1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ComboBox1.SelectedIndexChanged
-        mBarcodeFormat = mBarcodeType(ComboBox1.SelectedIndex)
+
+        'Private mBarcodeType As String() = {"All_DEFAULT", "OneD_DEFAULT", "QR_CODE_DEFAULT", "PDF417_DEFAULT", "DATAMATRIX_DEFAULT", "CODE_39_DEFAULT", "CODE_128_DEFAULT", "CODE_93_DEFAULT", "CODABAR_DEFAULT", "ITF_DEFAULT", "INDUSTRIAL_25_DEFAULT", "EAN_13_DEFAULT", "EAN_8_DEFAULT", "UPC_A_DEFAULT", "UPC_E_DEFAULT"}
+        If ComboBox1.SelectedIndex = 0 Then
+            mBarcodeFormat = EnumBarcodeFormat.All
+        ElseIf ComboBox1.SelectedIndex = 1 Then
+            mBarcodeFormat = EnumBarcodeFormat.OneD
+        ElseIf ComboBox1.SelectedIndex = 2 Then
+            mBarcodeFormat = EnumBarcodeFormat.QR_CODE
+        ElseIf ComboBox1.SelectedIndex = 3 Then
+            mBarcodeFormat = EnumBarcodeFormat.PDF417
+        ElseIf ComboBox1.SelectedIndex = 4 Then
+            mBarcodeFormat = EnumBarcodeFormat.DATAMATRIX
+        ElseIf ComboBox1.SelectedIndex = 5 Then
+            mBarcodeFormat = EnumBarcodeFormat.CODE_39
+        ElseIf ComboBox1.SelectedIndex = 6 Then
+            mBarcodeFormat = EnumBarcodeFormat.CODE_128
+        ElseIf ComboBox1.SelectedIndex = 7 Then
+            mBarcodeFormat = EnumBarcodeFormat.CODE_93
+        ElseIf ComboBox1.SelectedIndex = 8 Then
+            mBarcodeFormat = EnumBarcodeFormat.CODABAR
+        ElseIf ComboBox1.SelectedIndex = 9 Then
+            mBarcodeFormat = EnumBarcodeFormat.ITF
+        ElseIf ComboBox1.SelectedIndex = 10 Then
+            mBarcodeFormat = EnumBarcodeFormat.INDUSTRIAL_25
+        ElseIf ComboBox1.SelectedIndex = 11 Then
+            mBarcodeFormat = EnumBarcodeFormat.EAN_13
+        ElseIf ComboBox1.SelectedIndex = 12 Then
+            mBarcodeFormat = EnumBarcodeFormat.EAN_8
+        ElseIf ComboBox1.SelectedIndex = 13 Then
+            mBarcodeFormat = EnumBarcodeFormat.UPC_A
+        ElseIf ComboBox1.SelectedIndex = 14 Then
+            mBarcodeFormat = EnumBarcodeFormat.UPC_E
+        ElseIf ComboBox1.SelectedIndex = 15 Then
+            mBarcodeFormat = EnumBarcodeFormat.AZTEC
+        End If
+
     End Sub
 End Class

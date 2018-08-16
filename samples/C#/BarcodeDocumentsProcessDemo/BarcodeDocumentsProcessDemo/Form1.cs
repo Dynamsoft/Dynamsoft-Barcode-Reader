@@ -23,8 +23,8 @@ namespace BarcodeDocumentsProcessDemo
         Label lbRenameLastFormat = null;
         Label lbSplitLastFormat = null;
         Label lbClassifyLastFormat = null;
-        private static string[] mBarcodeType = { "All_DEFAULT", "OneD_DEFAULT", "QR_CODE_DEFAULT", "PDF417_DEFAULT", "DATAMATRIX_DEFAULT", "CODE_39_DEFAULT", "CODE_128_DEFAULT", "CODE_93_DEFAULT", "CODABAR_DEFAULT", "ITF_DEFAULT", "INDUSTRIAL_25_DEFAULT", "EAN_13_DEFAULT", "EAN_8_DEFAULT", "UPC_A_DEFAULT", "UPC_E_DEFAULT" };
-        private string format = "All_DEFAULT";
+        //private static string[] mBarcodeType = { "All_DEFAULT", "OneD_DEFAULT", "QR_CODE_DEFAULT", "PDF417_DEFAULT", "DATAMATRIX_DEFAULT", "CODE_39_DEFAULT", "CODE_128_DEFAULT", "CODE_93_DEFAULT", "CODABAR_DEFAULT", "ITF_DEFAULT", "INDUSTRIAL_25_DEFAULT", "EAN_13_DEFAULT", "EAN_8_DEFAULT", "UPC_A_DEFAULT", "UPC_E_DEFAULT" };
+        private int formatid = (int)EnumBarcodeFormat.All;
         /// <summary>
         /// Click to minimize the form
         /// </summary>
@@ -44,17 +44,8 @@ namespace BarcodeDocumentsProcessDemo
         {
             InitializeComponent();
             InitialDefaultValue();
-            barcodeReader.LicenseKeys = "t0068MgAAAEBDbYNoTMuh5/ccI24YdlzcggFG93NGuHrF/AWmcbKAsObdABAWC5GvZZpXBlfrsJhkQ1yMO4B8qTUnk6S8HdY=";
+            barcodeReader.LicenseKeys = "t0068MgAAAGTcD3/UEt+AMn7RN1iiqcAcVlpCTQ4Kv33Xv1sLQNylV6AA/P2iq4JRxPuN6V9NzQ7mDhZti9661K0JRw2wUMI=";
 
-            try
-            {
-                string _mSettingsFilePath = "E:\\Program Files (x86)\\Dynamsoft\\Barcode Reader 6.2\\Templates\\template_aggregation.json";
-                barcodeReader.LoadSettingsFromFile(_mSettingsFilePath);
-            }
-            catch
-            {
-                MessageBox.Show("Failed to load the settings file, please check the file path.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
 
             if (!Directory.Exists(_lastOpenedDirectory))
                 _lastOpenedDirectory = string.Empty;
@@ -212,45 +203,48 @@ namespace BarcodeDocumentsProcessDemo
                 switch (tag)
                 {
                     case "code 39":
-                        format = mBarcodeType[5];
+                        formatid = (int)EnumBarcodeFormat.CODE_39;
                         break;
                     case "code 93":
-                        format = mBarcodeType[7];
+                        formatid = (int)EnumBarcodeFormat.CODE_93;
                         break;
                     case "code 128":
-                        format = mBarcodeType[6];
+                        formatid = (int)EnumBarcodeFormat.CODE_128;
                         break;
                     case "codabar":
-                        format = mBarcodeType[8];
+                        formatid = (int)EnumBarcodeFormat.CODABAR;
                         break;
                     case "ean-13":
-                        format = mBarcodeType[11];
+                        formatid = (int)EnumBarcodeFormat.EAN_13;
                         break;
                     case "ean-8":
-                        format = mBarcodeType[12];
+                        formatid = (int)EnumBarcodeFormat.EAN_8;
                         break;
                     case "upc-a":
-                        format = mBarcodeType[13];
+                        formatid = (int)EnumBarcodeFormat.UPC_A;
                         break;
                     case "upc-e":
-                        format = mBarcodeType[14];
+                        formatid = (int)EnumBarcodeFormat.UPC_E;
                         break;
                     case "interleaved 2 of 5":
-                        format = mBarcodeType[9];
+                        formatid = (int)EnumBarcodeFormat.ITF;
                         break;
                     case "industrial 2 of 5":
-                        format = mBarcodeType[10];
+                        formatid = (int)EnumBarcodeFormat.INDUSTRIAL_25;
                         break;
                     case "qrcode":
-                        format = mBarcodeType[2];
+                        formatid = (int)EnumBarcodeFormat.QR_CODE;
                         break;
                     case "pdf417":
-                        format = mBarcodeType[3];
+                        formatid = (int)EnumBarcodeFormat.PDF417;
                         break;
                     case "datamatrix":
-                        format = mBarcodeType[4];
+                        formatid = (int)EnumBarcodeFormat.DATAMATRIX;
                         break;
-                    default: format = mBarcodeType[0]; break;
+                    case "aztec":
+                        formatid = (int)EnumBarcodeFormat.AZTEC;
+                        break;
+                    default: formatid = (int)EnumBarcodeFormat.All; break;
                 }
             }
         }
@@ -372,21 +366,12 @@ namespace BarcodeDocumentsProcessDemo
                             tbLog.AppendText(string.Format("\r\nProcessing file {0}\r\n", strFileName));
                             Bitmap bmp = (Bitmap)Bitmap.FromFile(strFile);
 
-                            string[] Templates = barcodeReader.GetAllParameterTemplateNames();
-                            bool bifcontian = false;
-                            for (int i = 0; i < Templates.Length; i++)
-                            {
-                                if (format == Templates[i])
-                                {
-                                    bifcontian = true;
-                                }
-                            }
-                            if (!bifcontian)
-                            {
-                                MessageBox.Show(("Failed to find the template named " + format + "."), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                return;
-                            }
-                            TextResult[] barcodes = barcodeReader.DecodeBitmap(bmp,format);//DecodeFile(strFile);
+
+                            PublicRuntimeSettings tempParameterSettings = barcodeReader.GetRuntimeSettings();
+                            tempParameterSettings.mBarcodeFormatIds = formatid;
+                            barcodeReader.UpdateRuntimeSettings(tempParameterSettings);
+
+                            TextResult[] barcodes = barcodeReader.DecodeBitmap(bmp,"");//DecodeFile(strFile);
                             bmp.Dispose();
                             if (barcodes == null || barcodes.Length <= 0 )
                             {
@@ -483,19 +468,12 @@ namespace BarcodeDocumentsProcessDemo
 
                             string[] Templates = barcodeReader.GetAllParameterTemplateNames();
                             bool bifcontian = false;
-                            for (int i = 0; i < Templates.Length; i++)
-                            {
-                                if (format == Templates[i])
-                                {
-                                    bifcontian = true;
-                                }
-                            }
-                            if (!bifcontian)
-                            {
-                                MessageBox.Show(("Failed to find the template named " + format + "."), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                return;
-                            }
-                            TextResult[] barcodes = barcodeReader.DecodeFile(strFile,format);
+
+                            PublicRuntimeSettings tempParameterSettings = barcodeReader.GetRuntimeSettings();
+                            tempParameterSettings.mBarcodeFormatIds = formatid;
+                            barcodeReader.UpdateRuntimeSettings(tempParameterSettings);
+
+                            TextResult[] barcodes = barcodeReader.DecodeFile(strFile,"");
                             if (barcodes == null || barcodes.Length <= 0)
                             {
                                 tbLog.AppendText("There is no barcode on the first page\r\n");
@@ -658,20 +636,11 @@ namespace BarcodeDocumentsProcessDemo
                             tbLog.AppendText(string.Format("\r\nProcessing file {0}\r\n", strFileName));
                             Bitmap bmp = (Bitmap)Bitmap.FromFile(strFile);
                             string[] Templates = barcodeReader.GetAllParameterTemplateNames();
-                            bool bifcontian = false;
-                            for (int i = 0; i < Templates.Length; i++)
-                            {
-                                if (format == Templates[i])
-                                {
-                                    bifcontian = true;
-                                }
-                            }
-                            if (!bifcontian)
-                            {
-                                MessageBox.Show(("Failed to find the template named " + format + "."), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                return;
-                            };
-                            TextResult[] barcodes = barcodeReader.DecodeBitmap(bmp,format);
+
+                            PublicRuntimeSettings tempParameterSettings = barcodeReader.GetRuntimeSettings();
+                            tempParameterSettings.mBarcodeFormatIds = formatid;
+                            barcodeReader.UpdateRuntimeSettings(tempParameterSettings);
+                            TextResult[] barcodes = barcodeReader.DecodeBitmap(bmp, "");
                             bmp.Dispose();
                             if (barcodes == null || barcodes.Length <= 0)
                             {
@@ -750,14 +719,6 @@ namespace BarcodeDocumentsProcessDemo
                     strFileName.EndsWith(".jpeg") || strFileName.EndsWith(".jpg") || strFileName.EndsWith(".jpe") || strFileName.EndsWith(".jfif") ||
                     strFileName.EndsWith(".bmp") || strFileName.EndsWith(".png") || strFileName.EndsWith(".gif"))
                     ret = true;
-                //int dotIndex = strFileName.LastIndexOf('.');
-                //if (dotIndex > 0)
-                //{
-                //    string strFileExt = strFileName.Substring(dotIndex+1);
-                //    if (strFileExt.Equals
-                //    {
-                //    }
-                //}
             }
             return ret;
         }

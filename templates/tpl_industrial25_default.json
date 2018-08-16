@@ -1,7 +1,0 @@
-{
-    "Version": "1.0",
-    "ImageParameters": {
-        "Name": "INDUSTRIAL_25_DEFAULT",
-        "BarcodeFormatIds": ["INDUSTRIAL_25"]
-    }
-}
