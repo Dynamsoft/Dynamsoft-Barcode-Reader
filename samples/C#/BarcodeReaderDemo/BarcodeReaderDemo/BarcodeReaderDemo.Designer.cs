@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
 using Barcode_Reader_Demo;
@@ -34,6 +34,7 @@ namespace Barcode_Reader_Demo
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.picBoxWebCam = new System.Windows.Forms.PictureBox();
             this.lbMoveBar = new System.Windows.Forms.Label();
             this.picboxZoomOut = new System.Windows.Forms.PictureBox();
@@ -52,18 +53,79 @@ namespace Barcode_Reader_Demo
             this.tbxTotalImageNum = new System.Windows.Forms.TextBox();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
+            this.panelNormalSettings = new System.Windows.Forms.Panel();
+            this.panelOneDetail = new System.Windows.Forms.Panel();
+            this.cbINDUSTRIAL25 = new System.Windows.Forms.CheckBox();
+            this.cbUPCE = new System.Windows.Forms.CheckBox();
+            this.cbUPCA = new System.Windows.Forms.CheckBox();
+            this.cbEAN8 = new System.Windows.Forms.CheckBox();
+            this.cbCODABAR = new System.Windows.Forms.CheckBox();
+            this.cbITF = new System.Windows.Forms.CheckBox();
+            this.cbEAN13 = new System.Windows.Forms.CheckBox();
+            this.cbCODE93 = new System.Windows.Forms.CheckBox();
+            this.cbCODE128 = new System.Windows.Forms.CheckBox();
+            this.cbCOD39 = new System.Windows.Forms.CheckBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.panelRecognitionMode = new System.Windows.Forms.Panel();
+            this.pictureBoxCustomize = new System.Windows.Forms.PictureBox();
+            this.comment = new System.Windows.Forms.Label();
+            this.lbRecMode = new System.Windows.Forms.Label();
+            this.panelReadBarcode = new System.Windows.Forms.Panel();
+            this.picboxReadBarcode = new System.Windows.Forms.PictureBox();
+            this.picboxStopBarcode = new System.Windows.Forms.PictureBox();
+            this.rbBalance = new System.Windows.Forms.RadioButton();
+            this.rbBestSpeed = new System.Windows.Forms.RadioButton();
+            this.rbBestCoverage = new System.Windows.Forms.RadioButton();
+            this.panelFormat = new System.Windows.Forms.Panel();
+            this.btnExportSettings = new System.Windows.Forms.Button();
+            this.btnShowAllOneD = new System.Windows.Forms.Button();
+            this.lableFormat = new System.Windows.Forms.Label();
+            this.cbOneD = new System.Windows.Forms.CheckBox();
+            this.cbPDF417 = new System.Windows.Forms.CheckBox();
+            this.cbQRcode = new System.Windows.Forms.CheckBox();
+            this.cbDataMatrix = new System.Windows.Forms.CheckBox();
+            this.cbAZTEC = new System.Windows.Forms.CheckBox();
+            this.panelCustom = new System.Windows.Forms.Panel();
+            this.panelCustomTop = new System.Windows.Forms.Panel();
+            this.panelBarcodeReaderParent = new System.Windows.Forms.Panel();
+            this.lbCustomPanelClose = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
+            this.panelCustomSettings = new System.Windows.Forms.Panel();
+            this.panelFormatParent = new System.Windows.Forms.Panel();
+            this.label17 = new System.Windows.Forms.Label();
+            this.panelSettings = new System.Windows.Forms.Panel();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.cmbTextureDetectionSensitivity = new System.Windows.Forms.ComboBox();
+            this.cmbGrayEqualizationSensitivity = new System.Windows.Forms.ComboBox();
+            this.cmbBarcodeInvertMode = new System.Windows.Forms.ComboBox();
+            this.cmbColorImageConvertMode = new System.Windows.Forms.ComboBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.tbBinarizationBlockSize = new System.Windows.Forms.TextBox();
+            this.tbScaleDownThreshold = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.cbRegionPredetectionMode = new System.Windows.Forms.CheckBox();
+            this.cbTextFilterMode = new System.Windows.Forms.CheckBox();
+            this.cmbAntiDamageLevel = new System.Windows.Forms.ComboBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.cmbDeblurLevel = new System.Windows.Forms.ComboBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.tbExpectedBarcodesCount = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.panelLoad = new System.Windows.Forms.Panel();
-            this.panel1 = new System.Windows.Forms.Panel();
             this.label24 = new System.Windows.Forms.Label();
             this.picboxLoadImage = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
             this.panelWebCam = new System.Windows.Forms.Panel();
+            this.labelWebcamNote = new System.Windows.Forms.Label();
             this.lblWebCamSrc = new System.Windows.Forms.Label();
             this.cbxWebCamSrc = new System.Windows.Forms.ComboBox();
             this.lblWebCamRes = new System.Windows.Forms.Label();
             this.cbxWebCamRes = new System.Windows.Forms.ComboBox();
-            this.panelWebcamNote = new System.Windows.Forms.Panel();
-            this.labelWebcamNote = new System.Windows.Forms.Label();
             this.panelAcquire = new System.Windows.Forms.Panel();
             this.rdbtnGray = new System.Windows.Forms.RadioButton();
             this.cbxResolution = new System.Windows.Forms.ComboBox();
@@ -73,25 +135,18 @@ namespace Barcode_Reader_Demo
             this.rdbtnColor = new System.Windows.Forms.RadioButton();
             this.lbPixelType = new System.Windows.Forms.Label();
             this.lbSelectSource = new System.Windows.Forms.Label();
-            this.lbSelectRecognitionMode = new System.Windows.Forms.Label();
             this.cbxSource = new System.Windows.Forms.ComboBox();
-            this.cbxRecognitionMode = new System.Windows.Forms.ComboBox();
-            
-
+            this.lbSelectRecognitionMode = new System.Windows.Forms.Label();
             this.panelReadSetting = new System.Windows.Forms.Panel();
             this.label6 = new System.Windows.Forms.Label();
-            this.cbxBarcodeFormat = new System.Windows.Forms.ComboBox();
-
             this.panelReadMoreSetting = new System.Windows.Forms.Panel();
-
-            this.panelReadBarcode = new System.Windows.Forms.Panel();
-            this.picboxReadBarcode = new System.Windows.Forms.PictureBox();
-            this.picboxStopBarcode = new System.Windows.Forms.PictureBox();
             this.picboxFit = new System.Windows.Forms.PictureBox();
             this.picboxOriginalSize = new System.Windows.Forms.PictureBox();
             this.tbxResult = new System.Windows.Forms.TextBox();
             this.lblCloseResult = new System.Windows.Forms.Label();
             this.dsViewer = new Dynamsoft.Forms.DSViewer();
+            this.saveRuntimeSettingsFileDialog = new System.Windows.Forms.SaveFileDialog();
+            this.toolTipExport = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.picBoxWebCam)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picboxZoomOut)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picboxZoomIn)).BeginInit();
@@ -103,18 +158,25 @@ namespace Barcode_Reader_Demo
             ((System.ComponentModel.ISupportInitialize)(this.picboxPrevious)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picboxMin)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picboxClose)).BeginInit();
-            this.panelLoad.SuspendLayout();
-            this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picboxLoadImage)).BeginInit();
-            this.panelWebCam.SuspendLayout();
-            this.panelWebcamNote.SuspendLayout();
-            this.panelAcquire.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picboxScan)).BeginInit();
-            this.panelReadSetting.SuspendLayout();
-            this.panelReadMoreSetting.SuspendLayout();
+            this.flowLayoutPanel2.SuspendLayout();
+            this.panelNormalSettings.SuspendLayout();
+            this.panelOneDetail.SuspendLayout();
+            this.panelRecognitionMode.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCustomize)).BeginInit();
             this.panelReadBarcode.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picboxReadBarcode)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picboxStopBarcode)).BeginInit();
+            this.panelFormat.SuspendLayout();
+            this.panelCustom.SuspendLayout();
+            this.panelCustomTop.SuspendLayout();
+            this.panelCustomSettings.SuspendLayout();
+            this.panelSettings.SuspendLayout();
+            this.panelLoad.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picboxLoadImage)).BeginInit();
+            this.panelWebCam.SuspendLayout();
+            this.panelAcquire.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picboxScan)).BeginInit();
+            this.panelReadSetting.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picboxFit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picboxOriginalSize)).BeginInit();
             this.SuspendLayout();
@@ -350,134 +412,979 @@ namespace Barcode_Reader_Demo
             // flowLayoutPanel2
             // 
             this.flowLayoutPanel2.BackColor = System.Drawing.Color.White;
+            this.flowLayoutPanel2.Controls.Add(this.panelNormalSettings);
             this.flowLayoutPanel2.Location = new System.Drawing.Point(566, 48);
             this.flowLayoutPanel2.Margin = new System.Windows.Forms.Padding(0);
             this.flowLayoutPanel2.Name = "flowLayoutPanel2";
             this.flowLayoutPanel2.Size = new System.Drawing.Size(331, 624);
             this.flowLayoutPanel2.TabIndex = 84;
             // 
+            // panelNormalSettings
+            // 
+            this.panelNormalSettings.BackColor = System.Drawing.Color.Transparent;
+            this.panelNormalSettings.Controls.Add(this.panelOneDetail);
+            this.panelNormalSettings.Controls.Add(this.label14);
+            this.panelNormalSettings.Controls.Add(this.label2);
+            this.panelNormalSettings.Controls.Add(this.label13);
+            this.panelNormalSettings.Controls.Add(this.panelRecognitionMode);
+            this.panelNormalSettings.Controls.Add(this.panelFormat);
+            this.panelNormalSettings.Location = new System.Drawing.Point(3, 3);
+            this.panelNormalSettings.Name = "panelNormalSettings";
+            this.panelNormalSettings.Size = new System.Drawing.Size(310, 382);
+            this.panelNormalSettings.TabIndex = 0;
+            // 
+            // panelOneDetail
+            // 
+            this.panelOneDetail.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(221)))), ((int)(((byte)(221)))), ((int)(((byte)(221)))));
+            this.panelOneDetail.Controls.Add(this.cbINDUSTRIAL25);
+            this.panelOneDetail.Controls.Add(this.cbUPCE);
+            this.panelOneDetail.Controls.Add(this.cbUPCA);
+            this.panelOneDetail.Controls.Add(this.cbEAN8);
+            this.panelOneDetail.Controls.Add(this.cbCODABAR);
+            this.panelOneDetail.Controls.Add(this.cbITF);
+            this.panelOneDetail.Controls.Add(this.cbEAN13);
+            this.panelOneDetail.Controls.Add(this.cbCODE93);
+            this.panelOneDetail.Controls.Add(this.cbCODE128);
+            this.panelOneDetail.Controls.Add(this.cbCOD39);
+            this.panelOneDetail.Location = new System.Drawing.Point(0, 109);
+            this.panelOneDetail.Name = "panelOneDetail";
+            this.panelOneDetail.Size = new System.Drawing.Size(308, 160);
+            this.panelOneDetail.TabIndex = 8;
+            this.panelOneDetail.Visible = false;
+            // 
+            // cbINDUSTRIAL25
+            // 
+            this.cbINDUSTRIAL25.AutoSize = true;
+            this.cbINDUSTRIAL25.Checked = true;
+            this.cbINDUSTRIAL25.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbINDUSTRIAL25.Font = new System.Drawing.Font("Open Sans", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.cbINDUSTRIAL25.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
+            this.cbINDUSTRIAL25.Location = new System.Drawing.Point(168, 122);
+            this.cbINDUSTRIAL25.Name = "cbINDUSTRIAL25";
+            this.cbINDUSTRIAL25.Size = new System.Drawing.Size(130, 23);
+            this.cbINDUSTRIAL25.TabIndex = 0;
+            this.cbINDUSTRIAL25.Text = "INDUSTRIAL_25";
+            this.cbINDUSTRIAL25.UseVisualStyleBackColor = true;
+            this.cbINDUSTRIAL25.CheckedChanged += new System.EventHandler(this.rbOneMode_CheckedChanged);
+            // 
+            // cbUPCE
+            // 
+            this.cbUPCE.AutoSize = true;
+            this.cbUPCE.Checked = true;
+            this.cbUPCE.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbUPCE.Font = new System.Drawing.Font("Open Sans", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.cbUPCE.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
+            this.cbUPCE.Location = new System.Drawing.Point(10, 122);
+            this.cbUPCE.Name = "cbUPCE";
+            this.cbUPCE.Size = new System.Drawing.Size(69, 23);
+            this.cbUPCE.TabIndex = 0;
+            this.cbUPCE.Text = "UPC_E";
+            this.cbUPCE.UseVisualStyleBackColor = true;
+            this.cbUPCE.CheckedChanged += new System.EventHandler(this.rbOneMode_CheckedChanged);
+            // 
+            // cbUPCA
+            // 
+            this.cbUPCA.AutoSize = true;
+            this.cbUPCA.Checked = true;
+            this.cbUPCA.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbUPCA.Font = new System.Drawing.Font("Open Sans", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.cbUPCA.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
+            this.cbUPCA.Location = new System.Drawing.Point(168, 94);
+            this.cbUPCA.Name = "cbUPCA";
+            this.cbUPCA.Size = new System.Drawing.Size(70, 23);
+            this.cbUPCA.TabIndex = 0;
+            this.cbUPCA.Text = "UPC_A";
+            this.cbUPCA.UseVisualStyleBackColor = true;
+            // 
+            // cbEAN8
+            // 
+            this.cbEAN8.AutoSize = true;
+            this.cbEAN8.Checked = true;
+            this.cbEAN8.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbEAN8.Font = new System.Drawing.Font("Open Sans", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.cbEAN8.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
+            this.cbEAN8.Location = new System.Drawing.Point(10, 94);
+            this.cbEAN8.Name = "cbEAN8";
+            this.cbEAN8.Size = new System.Drawing.Size(70, 23);
+            this.cbEAN8.TabIndex = 0;
+            this.cbEAN8.Text = "EAN_8";
+            this.cbEAN8.UseVisualStyleBackColor = true;
+            this.cbEAN8.CheckedChanged += new System.EventHandler(this.rbOneMode_CheckedChanged);
+            // 
+            // cbCODABAR
+            // 
+            this.cbCODABAR.AutoSize = true;
+            this.cbCODABAR.Checked = true;
+            this.cbCODABAR.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbCODABAR.Font = new System.Drawing.Font("Open Sans", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.cbCODABAR.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
+            this.cbCODABAR.Location = new System.Drawing.Point(168, 38);
+            this.cbCODABAR.Name = "cbCODABAR";
+            this.cbCODABAR.Size = new System.Drawing.Size(94, 23);
+            this.cbCODABAR.TabIndex = 0;
+            this.cbCODABAR.Text = "CODABAR";
+            this.cbCODABAR.UseVisualStyleBackColor = true;
+            this.cbCODABAR.CheckedChanged += new System.EventHandler(this.rbOneMode_CheckedChanged);
+            // 
+            // cbITF
+            // 
+            this.cbITF.AutoSize = true;
+            this.cbITF.Checked = true;
+            this.cbITF.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbITF.Font = new System.Drawing.Font("Open Sans", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.cbITF.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
+            this.cbITF.Location = new System.Drawing.Point(10, 66);
+            this.cbITF.Name = "cbITF";
+            this.cbITF.Size = new System.Drawing.Size(47, 23);
+            this.cbITF.TabIndex = 0;
+            this.cbITF.Text = "ITF";
+            this.cbITF.UseVisualStyleBackColor = true;
+            this.cbITF.CheckedChanged += new System.EventHandler(this.rbOneMode_CheckedChanged);
+            // 
+            // cbEAN13
+            // 
+            this.cbEAN13.AutoSize = true;
+            this.cbEAN13.Checked = true;
+            this.cbEAN13.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbEAN13.Font = new System.Drawing.Font("Open Sans", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.cbEAN13.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
+            this.cbEAN13.Location = new System.Drawing.Point(168, 66);
+            this.cbEAN13.Name = "cbEAN13";
+            this.cbEAN13.Size = new System.Drawing.Size(78, 23);
+            this.cbEAN13.TabIndex = 0;
+            this.cbEAN13.Text = "EAN_13";
+            this.cbEAN13.UseVisualStyleBackColor = true;
+            this.cbEAN13.CheckedChanged += new System.EventHandler(this.rbOneMode_CheckedChanged);
+            // 
+            // cbCODE93
+            // 
+            this.cbCODE93.AutoSize = true;
+            this.cbCODE93.Checked = true;
+            this.cbCODE93.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbCODE93.Font = new System.Drawing.Font("Open Sans", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.cbCODE93.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
+            this.cbCODE93.Location = new System.Drawing.Point(168, 10);
+            this.cbCODE93.Name = "cbCODE93";
+            this.cbCODE93.Size = new System.Drawing.Size(88, 23);
+            this.cbCODE93.TabIndex = 0;
+            this.cbCODE93.Text = "CODE_93";
+            this.cbCODE93.UseVisualStyleBackColor = true;
+            this.cbCODE93.CheckedChanged += new System.EventHandler(this.rbOneMode_CheckedChanged);
+            // 
+            // cbCODE128
+            // 
+            this.cbCODE128.AutoSize = true;
+            this.cbCODE128.Checked = true;
+            this.cbCODE128.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbCODE128.Font = new System.Drawing.Font("Open Sans", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.cbCODE128.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
+            this.cbCODE128.Location = new System.Drawing.Point(10, 38);
+            this.cbCODE128.Name = "cbCODE128";
+            this.cbCODE128.Size = new System.Drawing.Size(96, 23);
+            this.cbCODE128.TabIndex = 0;
+            this.cbCODE128.Text = "CODE_128";
+            this.cbCODE128.UseVisualStyleBackColor = true;
+            this.cbCODE128.CheckedChanged += new System.EventHandler(this.rbOneMode_CheckedChanged);
+            // 
+            // cbCOD39
+            // 
+            this.cbCOD39.AutoSize = true;
+            this.cbCOD39.Checked = true;
+            this.cbCOD39.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbCOD39.Font = new System.Drawing.Font("Open Sans", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.cbCOD39.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
+            this.cbCOD39.Location = new System.Drawing.Point(10, 10);
+            this.cbCOD39.Name = "cbCOD39";
+            this.cbCOD39.Size = new System.Drawing.Size(88, 23);
+            this.cbCOD39.TabIndex = 0;
+            this.cbCOD39.Text = "CODE_39";
+            this.cbCOD39.UseVisualStyleBackColor = true;
+            this.cbCOD39.CheckedChanged += new System.EventHandler(this.rbOneMode_CheckedChanged);
+            // 
+            // label14
+            // 
+            this.label14.BackColor = System.Drawing.Color.DarkGray;
+            this.label14.Location = new System.Drawing.Point(0, 186);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(310, 1);
+            this.label14.TabIndex = 9;
+            // 
+            // label2
+            // 
+            this.label2.BackColor = System.Drawing.Color.DarkGray;
+            this.label2.Location = new System.Drawing.Point(0, 43);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(310, 1);
+            this.label2.TabIndex = 8;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Open Sans", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.label13.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
+            this.label13.Location = new System.Drawing.Point(11, 13);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(79, 22);
+            this.label13.TabIndex = 8;
+            this.label13.Text = "Settings";
+            // 
+            // panelRecognitionMode
+            // 
+            this.panelRecognitionMode.Controls.Add(this.pictureBoxCustomize);
+            this.panelRecognitionMode.Controls.Add(this.comment);
+            this.panelRecognitionMode.Controls.Add(this.lbRecMode);
+            this.panelRecognitionMode.Controls.Add(this.panelReadBarcode);
+            this.panelRecognitionMode.Controls.Add(this.rbBalance);
+            this.panelRecognitionMode.Controls.Add(this.rbBestSpeed);
+            this.panelRecognitionMode.Controls.Add(this.rbBestCoverage);
+            this.panelRecognitionMode.Location = new System.Drawing.Point(0, 190);
+            this.panelRecognitionMode.Name = "panelRecognitionMode";
+            this.panelRecognitionMode.Size = new System.Drawing.Size(310, 189);
+            this.panelRecognitionMode.TabIndex = 7;
+            // 
+            // pictureBoxCustomize
+            // 
+            this.pictureBoxCustomize.InitialImage = global::Barcode_Reader_Demo.Properties.Resources.pictureBoxCustomize_hover;
+            this.pictureBoxCustomize.Location = new System.Drawing.Point(190, 111);
+            this.pictureBoxCustomize.Name = "pictureBoxCustomize";
+            this.pictureBoxCustomize.Size = new System.Drawing.Size(100, 34);
+            this.pictureBoxCustomize.TabIndex = 8;
+            this.pictureBoxCustomize.TabStop = false;
+            this.pictureBoxCustomize.Click += new System.EventHandler(this.btnEditSettings_Click);
+            this.pictureBoxCustomize.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBoxCustomize_MouseDown);
+            this.pictureBoxCustomize.MouseEnter += new System.EventHandler(this.pictureBoxCustomize_MouseEnter);
+            this.pictureBoxCustomize.MouseLeave += new System.EventHandler(this.pictureBoxCustomize_MouseLeave);
+            this.pictureBoxCustomize.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBoxCustomize_MouseUp);
+            // 
+            // comment
+            // 
+            this.comment.AutoSize = true;
+            this.comment.Font = new System.Drawing.Font("Open Sans", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comment.Location = new System.Drawing.Point(22, 160);
+            this.comment.Name = "comment";
+            this.comment.Size = new System.Drawing.Size(241, 17);
+            this.comment.TabIndex = 7;
+            this.comment.Text = "* \"Customize\" is only for advanced users. ";
+            // 
+            // lbRecMode
+            // 
+            this.lbRecMode.AutoSize = true;
+            this.lbRecMode.Font = new System.Drawing.Font("Open Sans", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.lbRecMode.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
+            this.lbRecMode.Location = new System.Drawing.Point(19, 11);
+            this.lbRecMode.Name = "lbRecMode";
+            this.lbRecMode.Size = new System.Drawing.Size(130, 19);
+            this.lbRecMode.TabIndex = 4;
+            this.lbRecMode.Text = "Recognition Mode";
+            // 
+            // panelReadBarcode
+            // 
+            this.panelReadBarcode.AutoSize = true;
+            this.panelReadBarcode.BackColor = System.Drawing.Color.Transparent;
+            this.panelReadBarcode.Controls.Add(this.picboxReadBarcode);
+            this.panelReadBarcode.Controls.Add(this.picboxStopBarcode);
+            this.panelReadBarcode.Location = new System.Drawing.Point(20, 111);
+            this.panelReadBarcode.Margin = new System.Windows.Forms.Padding(0);
+            this.panelReadBarcode.Name = "panelReadBarcode";
+            this.panelReadBarcode.Size = new System.Drawing.Size(160, 37);
+            this.panelReadBarcode.TabIndex = 3;
+            // 
+            // picboxReadBarcode
+            // 
+            this.picboxReadBarcode.Location = new System.Drawing.Point(0, 0);
+            this.picboxReadBarcode.Name = "picboxReadBarcode";
+            this.picboxReadBarcode.Size = new System.Drawing.Size(153, 34);
+            this.picboxReadBarcode.TabIndex = 15;
+            this.picboxReadBarcode.TabStop = false;
+            this.picboxReadBarcode.Click += new System.EventHandler(this.picboxReadBarcode_Click);
+            this.picboxReadBarcode.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picbox_MouseDown);
+            this.picboxReadBarcode.MouseEnter += new System.EventHandler(this.picbox_MouseEnter);
+            this.picboxReadBarcode.MouseLeave += new System.EventHandler(this.picbox_MouseLeave);
+            this.picboxReadBarcode.MouseUp += new System.Windows.Forms.MouseEventHandler(this.picbox_MouseUp);
+            // 
+            // picboxStopBarcode
+            // 
+            this.picboxStopBarcode.Location = new System.Drawing.Point(0, 0);
+            this.picboxStopBarcode.Name = "picboxStopBarcode";
+            this.picboxStopBarcode.Size = new System.Drawing.Size(153, 34);
+            this.picboxStopBarcode.TabIndex = 15;
+            this.picboxStopBarcode.TabStop = false;
+            this.picboxStopBarcode.Visible = false;
+            this.picboxStopBarcode.Click += new System.EventHandler(this.picboxStopBarcode_Click);
+            this.picboxStopBarcode.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picbox_MouseDown);
+            this.picboxStopBarcode.MouseEnter += new System.EventHandler(this.picbox_MouseEnter);
+            this.picboxStopBarcode.MouseLeave += new System.EventHandler(this.picbox_MouseLeave);
+            this.picboxStopBarcode.MouseUp += new System.Windows.Forms.MouseEventHandler(this.picbox_MouseUp);
+            // 
+            // rbBalance
+            // 
+            this.rbBalance.AutoSize = true;
+            this.rbBalance.Font = new System.Drawing.Font("Open Sans", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.rbBalance.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
+            this.rbBalance.Location = new System.Drawing.Point(186, 40);
+            this.rbBalance.Name = "rbBalance";
+            this.rbBalance.Size = new System.Drawing.Size(80, 23);
+            this.rbBalance.TabIndex = 5;
+            this.rbBalance.Text = "Balance";
+            this.rbBalance.UseVisualStyleBackColor = true;
+            this.rbBalance.CheckedChanged += new System.EventHandler(this.rbMode_CheckedChanged);
+            // 
+            // rbBestSpeed
+            // 
+            this.rbBestSpeed.AutoSize = true;
+            this.rbBestSpeed.Font = new System.Drawing.Font("Open Sans", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.rbBestSpeed.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
+            this.rbBestSpeed.Location = new System.Drawing.Point(19, 40);
+            this.rbBestSpeed.Name = "rbBestSpeed";
+            this.rbBestSpeed.Size = new System.Drawing.Size(102, 23);
+            this.rbBestSpeed.TabIndex = 5;
+            this.rbBestSpeed.TabStop = true;
+            this.rbBestSpeed.Text = "Best Speed";
+            this.rbBestSpeed.UseVisualStyleBackColor = true;
+            this.rbBestSpeed.CheckedChanged += new System.EventHandler(this.rbMode_CheckedChanged);
+            // 
+            // rbBestCoverage
+            // 
+            this.rbBestCoverage.AutoSize = true;
+            this.rbBestCoverage.Checked = true;
+            this.rbBestCoverage.Font = new System.Drawing.Font("Open Sans", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.rbBestCoverage.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
+            this.rbBestCoverage.Location = new System.Drawing.Point(19, 74);
+            this.rbBestCoverage.Name = "rbBestCoverage";
+            this.rbBestCoverage.Size = new System.Drawing.Size(122, 23);
+            this.rbBestCoverage.TabIndex = 5;
+            this.rbBestCoverage.TabStop = true;
+            this.rbBestCoverage.Text = "Best Coverage";
+            this.rbBestCoverage.UseVisualStyleBackColor = true;
+            this.rbBestCoverage.CheckedChanged += new System.EventHandler(this.rbMode_CheckedChanged);
+            // 
+            // panelFormat
+            // 
+            this.panelFormat.Controls.Add(this.btnExportSettings);
+            this.panelFormat.Controls.Add(this.btnShowAllOneD);
+            this.panelFormat.Controls.Add(this.lableFormat);
+            this.panelFormat.Controls.Add(this.cbOneD);
+            this.panelFormat.Controls.Add(this.cbPDF417);
+            this.panelFormat.Controls.Add(this.cbQRcode);
+            this.panelFormat.Controls.Add(this.cbDataMatrix);
+            this.panelFormat.Controls.Add(this.cbAZTEC);
+            this.panelFormat.Location = new System.Drawing.Point(0, 44);
+            this.panelFormat.Name = "panelFormat";
+            this.panelFormat.Size = new System.Drawing.Size(310, 145);
+            this.panelFormat.TabIndex = 1;
+            // 
+            // btnExportSettings
+            // 
+            this.btnExportSettings.FlatAppearance.BorderSize = 0;
+            this.btnExportSettings.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnExportSettings.Image = global::Barcode_Reader_Demo.Properties.Resources.icon_output;
+            this.btnExportSettings.Location = new System.Drawing.Point(256, 9);
+            this.btnExportSettings.Name = "btnExportSettings";
+            this.btnExportSettings.Size = new System.Drawing.Size(30, 23);
+            this.btnExportSettings.TabIndex = 8;
+            this.btnExportSettings.UseVisualStyleBackColor = true;
+            this.btnExportSettings.Visible = false;
+            this.btnExportSettings.Click += new System.EventHandler(this.btnExportSettings_Click);
+            this.btnExportSettings.DragEnter += new System.Windows.Forms.DragEventHandler(this.btnExportSettings_DragEnter);
+            this.btnExportSettings.DragLeave += new System.EventHandler(this.btnExportSettings_DragLeave);
+            // 
+            // btnShowAllOneD
+            // 
+            this.btnShowAllOneD.BackColor = System.Drawing.Color.Transparent;
+            this.btnShowAllOneD.FlatAppearance.BorderSize = 0;
+            this.btnShowAllOneD.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnShowAllOneD.Font = new System.Drawing.Font("Open Sans", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.btnShowAllOneD.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(168)))), ((int)(((byte)(225)))));
+            this.btnShowAllOneD.Image = global::Barcode_Reader_Demo.Properties.Resources.arrow_down;
+            this.btnShowAllOneD.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnShowAllOneD.Location = new System.Drawing.Point(66, 36);
+            this.btnShowAllOneD.Name = "btnShowAllOneD";
+            this.btnShowAllOneD.Size = new System.Drawing.Size(86, 24);
+            this.btnShowAllOneD.TabIndex = 7;
+            this.btnShowAllOneD.Text = "show all";
+            this.btnShowAllOneD.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
+            this.btnShowAllOneD.UseVisualStyleBackColor = false;
+            this.btnShowAllOneD.Click += new System.EventHandler(this.btnShowAllOneD_Click);
+            // 
+            // lableFormat
+            // 
+            this.lableFormat.AutoSize = true;
+            this.lableFormat.Font = new System.Drawing.Font("Open Sans", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.lableFormat.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
+            this.lableFormat.Location = new System.Drawing.Point(18, 11);
+            this.lableFormat.Margin = new System.Windows.Forms.Padding(0);
+            this.lableFormat.Name = "lableFormat";
+            this.lableFormat.Size = new System.Drawing.Size(115, 19);
+            this.lableFormat.TabIndex = 0;
+            this.lableFormat.Text = "Barcode Format";
+            // 
+            // cbOneD
+            // 
+            this.cbOneD.AutoSize = true;
+            this.cbOneD.Checked = true;
+            this.cbOneD.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbOneD.Font = new System.Drawing.Font("Open Sans", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.cbOneD.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
+            this.cbOneD.Location = new System.Drawing.Point(19, 40);
+            this.cbOneD.Name = "cbOneD";
+            this.cbOneD.Size = new System.Drawing.Size(46, 23);
+            this.cbOneD.TabIndex = 1;
+            this.cbOneD.Text = "1D";
+            this.cbOneD.UseVisualStyleBackColor = true;
+            this.cbOneD.CheckStateChanged += new System.EventHandler(this.cbOneD_CheckStateChanged);
+            // 
+            // cbPDF417
+            // 
+            this.cbPDF417.AutoSize = true;
+            this.cbPDF417.Checked = true;
+            this.cbPDF417.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbPDF417.Font = new System.Drawing.Font("Open Sans", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.cbPDF417.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
+            this.cbPDF417.Location = new System.Drawing.Point(19, 72);
+            this.cbPDF417.Margin = new System.Windows.Forms.Padding(0);
+            this.cbPDF417.Name = "cbPDF417";
+            this.cbPDF417.Size = new System.Drawing.Size(81, 23);
+            this.cbPDF417.TabIndex = 2;
+            this.cbPDF417.Text = "PDF 417";
+            this.cbPDF417.UseVisualStyleBackColor = true;
+            this.cbPDF417.CheckedChanged += new System.EventHandler(this.cbBarcodeFormat_CheckedChanged);
+            // 
+            // cbQRcode
+            // 
+            this.cbQRcode.AutoSize = true;
+            this.cbQRcode.Checked = true;
+            this.cbQRcode.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbQRcode.Font = new System.Drawing.Font("Open Sans", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.cbQRcode.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
+            this.cbQRcode.Location = new System.Drawing.Point(186, 72);
+            this.cbQRcode.Name = "cbQRcode";
+            this.cbQRcode.Size = new System.Drawing.Size(86, 23);
+            this.cbQRcode.TabIndex = 2;
+            this.cbQRcode.Text = "QR Code";
+            this.cbQRcode.UseVisualStyleBackColor = true;
+            this.cbQRcode.CheckedChanged += new System.EventHandler(this.cbBarcodeFormat_CheckedChanged);
+            // 
+            // cbDataMatrix
+            // 
+            this.cbDataMatrix.AutoSize = true;
+            this.cbDataMatrix.Checked = true;
+            this.cbDataMatrix.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbDataMatrix.Font = new System.Drawing.Font("Open Sans", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.cbDataMatrix.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
+            this.cbDataMatrix.Location = new System.Drawing.Point(19, 106);
+            this.cbDataMatrix.Name = "cbDataMatrix";
+            this.cbDataMatrix.Size = new System.Drawing.Size(102, 23);
+            this.cbDataMatrix.TabIndex = 2;
+            this.cbDataMatrix.Text = "DataMatrix";
+            this.cbDataMatrix.UseVisualStyleBackColor = true;
+            this.cbDataMatrix.CheckedChanged += new System.EventHandler(this.cbBarcodeFormat_CheckedChanged);
+            // 
+            // cbAZTEC
+            // 
+            this.cbAZTEC.AutoSize = true;
+            this.cbAZTEC.Font = new System.Drawing.Font("Open Sans", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.cbAZTEC.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
+            this.cbAZTEC.Location = new System.Drawing.Point(186, 106);
+            this.cbAZTEC.Name = "cbAZTEC";
+            this.cbAZTEC.Size = new System.Drawing.Size(70, 23);
+            this.cbAZTEC.TabIndex = 2;
+            this.cbAZTEC.Text = "AZTEC";
+            this.cbAZTEC.UseVisualStyleBackColor = true;
+            this.cbAZTEC.CheckedChanged += new System.EventHandler(this.cbBarcodeFormat_CheckedChanged);
+            // 
+            // panelCustom
+            // 
+            this.panelCustom.BackColor = System.Drawing.Color.Transparent;
+            this.panelCustom.Controls.Add(this.panelCustomTop);
+            this.panelCustom.Controls.Add(this.label18);
+            this.panelCustom.Controls.Add(this.panelCustomSettings);
+            this.panelCustom.Location = new System.Drawing.Point(3, 3);
+            this.panelCustom.Name = "panelCustom";
+            this.panelCustom.Size = new System.Drawing.Size(310, 500);
+            this.panelCustom.TabIndex = 652;
+            // 
+            // panelCustomTop
+            // 
+            this.panelCustomTop.Controls.Add(this.panelBarcodeReaderParent);
+            this.panelCustomTop.Controls.Add(this.lbCustomPanelClose);
+            this.panelCustomTop.Location = new System.Drawing.Point(0, 0);
+            this.panelCustomTop.Name = "panelCustomTop";
+            this.panelCustomTop.Size = new System.Drawing.Size(310, 55);
+            this.panelCustomTop.TabIndex = 6;
+            // 
+            // panelBarcodeReaderParent
+            // 
+            this.panelBarcodeReaderParent.Location = new System.Drawing.Point(19, 11);
+            this.panelBarcodeReaderParent.Name = "panelBarcodeReaderParent";
+            this.panelBarcodeReaderParent.Size = new System.Drawing.Size(153, 34);
+            this.panelBarcodeReaderParent.TabIndex = 6;
+            // 
+            // lbCustomPanelClose
+            // 
+            this.lbCustomPanelClose.Image = global::Barcode_Reader_Demo.Properties.Resources.icon_closed;
+            this.lbCustomPanelClose.Location = new System.Drawing.Point(277, 22);
+            this.lbCustomPanelClose.Name = "lbCustomPanelClose";
+            this.lbCustomPanelClose.Size = new System.Drawing.Size(14, 15);
+            this.lbCustomPanelClose.TabIndex = 5;
+            this.lbCustomPanelClose.Click += new System.EventHandler(this.pbCloseCustomPanel_Click);
+            this.lbCustomPanelClose.MouseLeave += new System.EventHandler(this.lbCustomPanelClose_MouseLeave);
+            this.lbCustomPanelClose.MouseHover += new System.EventHandler(this.lbCustomPanelClose_MouseHover);
+            // 
+            // label18
+            // 
+            this.label18.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.label18.Location = new System.Drawing.Point(1, 55);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(308, 1);
+            this.label18.TabIndex = 4;
+            // 
+            // panelCustomSettings
+            // 
+            this.panelCustomSettings.AutoScroll = true;
+            this.panelCustomSettings.Controls.Add(this.panelFormatParent);
+            this.panelCustomSettings.Controls.Add(this.label17);
+            this.panelCustomSettings.Controls.Add(this.panelSettings);
+            this.panelCustomSettings.Location = new System.Drawing.Point(0, 56);
+            this.panelCustomSettings.Name = "panelCustomSettings";
+            this.panelCustomSettings.Size = new System.Drawing.Size(305, 310);
+            this.panelCustomSettings.TabIndex = 0;
+            // 
+            // panelFormatParent
+            // 
+            this.panelFormatParent.Location = new System.Drawing.Point(0, 0);
+            this.panelFormatParent.Name = "panelFormatParent";
+            this.panelFormatParent.Size = new System.Drawing.Size(310, 146);
+            this.panelFormatParent.TabIndex = 3;
+            // 
+            // label17
+            // 
+            this.label17.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.label17.Location = new System.Drawing.Point(1, 147);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(308, 1);
+            this.label17.TabIndex = 2;
+            // 
+            // panelSettings
+            // 
+            this.panelSettings.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.panelSettings.Controls.Add(this.label12);
+            this.panelSettings.Controls.Add(this.label11);
+            this.panelSettings.Controls.Add(this.label10);
+            this.panelSettings.Controls.Add(this.cmbTextureDetectionSensitivity);
+            this.panelSettings.Controls.Add(this.cmbGrayEqualizationSensitivity);
+            this.panelSettings.Controls.Add(this.cmbBarcodeInvertMode);
+            this.panelSettings.Controls.Add(this.cmbColorImageConvertMode);
+            this.panelSettings.Controls.Add(this.label9);
+            this.panelSettings.Controls.Add(this.label8);
+            this.panelSettings.Controls.Add(this.tbBinarizationBlockSize);
+            this.panelSettings.Controls.Add(this.tbScaleDownThreshold);
+            this.panelSettings.Controls.Add(this.label7);
+            this.panelSettings.Controls.Add(this.cbRegionPredetectionMode);
+            this.panelSettings.Controls.Add(this.cbTextFilterMode);
+            this.panelSettings.Controls.Add(this.cmbAntiDamageLevel);
+            this.panelSettings.Controls.Add(this.label5);
+            this.panelSettings.Controls.Add(this.cmbDeblurLevel);
+            this.panelSettings.Controls.Add(this.label4);
+            this.panelSettings.Controls.Add(this.tbExpectedBarcodesCount);
+            this.panelSettings.Controls.Add(this.label3);
+            this.panelSettings.Location = new System.Drawing.Point(0, 148);
+            this.panelSettings.Name = "panelSettings";
+            this.panelSettings.Size = new System.Drawing.Size(308, 683);
+            this.panelSettings.TabIndex = 1;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Open Sans", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.label12.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
+            this.label12.Location = new System.Drawing.Point(17, 619);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(168, 19);
+            this.label12.TabIndex = 13;
+            this.label12.Text = "Binarization Block Size: ";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Open Sans", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.label11.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
+            this.label11.Location = new System.Drawing.Point(16, 547);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(208, 19);
+            this.label11.TabIndex = 13;
+            this.label11.Text = "Texture Detection Sensitivity: ";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Open Sans", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.label10.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
+            this.label10.Location = new System.Drawing.Point(19, 478);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(207, 19);
+            this.label10.TabIndex = 13;
+            this.label10.Text = "Gray Equalization Sensitivity: ";
+            // 
+            // cmbTextureDetectionSensitivity
+            // 
+            this.cmbTextureDetectionSensitivity.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbTextureDetectionSensitivity.Font = new System.Drawing.Font("Open Sans", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.cmbTextureDetectionSensitivity.FormattingEnabled = true;
+            this.cmbTextureDetectionSensitivity.Items.AddRange(new object[] {
+            "0",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9"});
+            this.cmbTextureDetectionSensitivity.Location = new System.Drawing.Point(19, 572);
+            this.cmbTextureDetectionSensitivity.Name = "cmbTextureDetectionSensitivity";
+            this.cmbTextureDetectionSensitivity.Size = new System.Drawing.Size(258, 27);
+            this.cmbTextureDetectionSensitivity.TabIndex = 12;
+            // 
+            // cmbGrayEqualizationSensitivity
+            // 
+            this.cmbGrayEqualizationSensitivity.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbGrayEqualizationSensitivity.Font = new System.Drawing.Font("Open Sans", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.cmbGrayEqualizationSensitivity.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(96)))), ((int)(((byte)(96)))), ((int)(((byte)(96)))));
+            this.cmbGrayEqualizationSensitivity.FormattingEnabled = true;
+            this.cmbGrayEqualizationSensitivity.Items.AddRange(new object[] {
+            "0",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9"});
+            this.cmbGrayEqualizationSensitivity.Location = new System.Drawing.Point(19, 501);
+            this.cmbGrayEqualizationSensitivity.Name = "cmbGrayEqualizationSensitivity";
+            this.cmbGrayEqualizationSensitivity.Size = new System.Drawing.Size(258, 27);
+            this.cmbGrayEqualizationSensitivity.TabIndex = 12;
+            // 
+            // cmbBarcodeInvertMode
+            // 
+            this.cmbBarcodeInvertMode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbBarcodeInvertMode.Font = new System.Drawing.Font("Open Sans", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.cmbBarcodeInvertMode.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(96)))), ((int)(((byte)(96)))), ((int)(((byte)(96)))));
+            this.cmbBarcodeInvertMode.FormattingEnabled = true;
+            this.cmbBarcodeInvertMode.Items.AddRange(new object[] {
+            "Dark On Light",
+            "Light On Dark"});
+            this.cmbBarcodeInvertMode.Location = new System.Drawing.Point(19, 432);
+            this.cmbBarcodeInvertMode.Name = "cmbBarcodeInvertMode";
+            this.cmbBarcodeInvertMode.Size = new System.Drawing.Size(258, 27);
+            this.cmbBarcodeInvertMode.TabIndex = 12;
+            // 
+            // cmbColorImageConvertMode
+            // 
+            this.cmbColorImageConvertMode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbColorImageConvertMode.Font = new System.Drawing.Font("Open Sans", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.cmbColorImageConvertMode.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(96)))), ((int)(((byte)(96)))), ((int)(((byte)(96)))));
+            this.cmbColorImageConvertMode.FormattingEnabled = true;
+            this.cmbColorImageConvertMode.Items.AddRange(new object[] {
+            "Auto",
+            "Grayscale"});
+            this.cmbColorImageConvertMode.Location = new System.Drawing.Point(19, 366);
+            this.cmbColorImageConvertMode.Name = "cmbColorImageConvertMode";
+            this.cmbColorImageConvertMode.Size = new System.Drawing.Size(258, 27);
+            this.cmbColorImageConvertMode.TabIndex = 12;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Open Sans", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.label9.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
+            this.label9.Location = new System.Drawing.Point(19, 408);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(157, 19);
+            this.label9.TabIndex = 11;
+            this.label9.Text = "Barcode Invert Mode: ";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Open Sans", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
+            this.label8.Location = new System.Drawing.Point(19, 341);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(211, 20);
+            this.label8.TabIndex = 11;
+            this.label8.Text = "Colour Image Convert Mode: ";
+            // 
+            // tbBinarizationBlockSize
+            // 
+            this.tbBinarizationBlockSize.Font = new System.Drawing.Font("Open Sans", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.tbBinarizationBlockSize.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(96)))), ((int)(((byte)(96)))), ((int)(((byte)(96)))));
+            this.tbBinarizationBlockSize.Location = new System.Drawing.Point(21, 645);
+            this.tbBinarizationBlockSize.MaxLength = 11;
+            this.tbBinarizationBlockSize.Name = "tbBinarizationBlockSize";
+            this.tbBinarizationBlockSize.Size = new System.Drawing.Size(258, 27);
+            this.tbBinarizationBlockSize.TabIndex = 10;
+            this.tbBinarizationBlockSize.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxNumberOnly_KeyPress);
+            // 
+            // tbScaleDownThreshold
+            // 
+            this.tbScaleDownThreshold.Font = new System.Drawing.Font("Open Sans", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.tbScaleDownThreshold.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(96)))), ((int)(((byte)(96)))), ((int)(((byte)(96)))));
+            this.tbScaleDownThreshold.Location = new System.Drawing.Point(19, 300);
+            this.tbScaleDownThreshold.MaxLength = 11;
+            this.tbScaleDownThreshold.Name = "tbScaleDownThreshold";
+            this.tbScaleDownThreshold.Size = new System.Drawing.Size(258, 27);
+            this.tbScaleDownThreshold.TabIndex = 10;
+            this.tbScaleDownThreshold.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxNumberOnly_KeyPress);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Open Sans", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.label7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
+            this.label7.Location = new System.Drawing.Point(19, 275);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(166, 19);
+            this.label7.TabIndex = 9;
+            this.label7.Text = "Scale Down Threshold: ";
+            // 
+            // cbRegionPredetectionMode
+            // 
+            this.cbRegionPredetectionMode.AutoSize = true;
+            this.cbRegionPredetectionMode.Font = new System.Drawing.Font("Open Sans", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.cbRegionPredetectionMode.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
+            this.cbRegionPredetectionMode.Location = new System.Drawing.Point(19, 243);
+            this.cbRegionPredetectionMode.Name = "cbRegionPredetectionMode";
+            this.cbRegionPredetectionMode.Size = new System.Drawing.Size(234, 23);
+            this.cbRegionPredetectionMode.TabIndex = 8;
+            this.cbRegionPredetectionMode.Text = "Use Region Predetection Mode";
+            this.cbRegionPredetectionMode.UseVisualStyleBackColor = true;
+            // 
+            // cbTextFilterMode
+            // 
+            this.cbTextFilterMode.AutoSize = true;
+            this.cbTextFilterMode.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
+            this.cbTextFilterMode.Font = new System.Drawing.Font("Open Sans", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.cbTextFilterMode.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
+            this.cbTextFilterMode.Location = new System.Drawing.Point(19, 210);
+            this.cbTextFilterMode.Name = "cbTextFilterMode";
+            this.cbTextFilterMode.Size = new System.Drawing.Size(165, 23);
+            this.cbTextFilterMode.TabIndex = 7;
+            this.cbTextFilterMode.Text = "Use Text Filter Mode";
+            this.cbTextFilterMode.UseVisualStyleBackColor = true;
+            // 
+            // cmbAntiDamageLevel
+            // 
+            this.cmbAntiDamageLevel.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbAntiDamageLevel.Font = new System.Drawing.Font("Open Sans", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.cmbAntiDamageLevel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(96)))), ((int)(((byte)(96)))), ((int)(((byte)(96)))));
+            this.cmbAntiDamageLevel.FormattingEnabled = true;
+            this.cmbAntiDamageLevel.Items.AddRange(new object[] {
+            "0",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9"});
+            this.cmbAntiDamageLevel.Location = new System.Drawing.Point(19, 169);
+            this.cmbAntiDamageLevel.Name = "cmbAntiDamageLevel";
+            this.cmbAntiDamageLevel.Size = new System.Drawing.Size(258, 27);
+            this.cmbAntiDamageLevel.TabIndex = 5;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Open Sans", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
+            this.label5.Location = new System.Drawing.Point(18, 141);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(142, 20);
+            this.label5.TabIndex = 4;
+            this.label5.Text = "Anti-Damage Level:";
+            // 
+            // cmbDeblurLevel
+            // 
+            this.cmbDeblurLevel.BackColor = System.Drawing.SystemColors.Window;
+            this.cmbDeblurLevel.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbDeblurLevel.Font = new System.Drawing.Font("Open Sans", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.cmbDeblurLevel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(96)))), ((int)(((byte)(96)))), ((int)(((byte)(96)))));
+            this.cmbDeblurLevel.FormattingEnabled = true;
+            this.cmbDeblurLevel.Items.AddRange(new object[] {
+            "0",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9"});
+            this.cmbDeblurLevel.Location = new System.Drawing.Point(19, 101);
+            this.cmbDeblurLevel.Name = "cmbDeblurLevel";
+            this.cmbDeblurLevel.Size = new System.Drawing.Size(258, 27);
+            this.cmbDeblurLevel.TabIndex = 3;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Open Sans", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
+            this.label4.Location = new System.Drawing.Point(18, 75);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(93, 19);
+            this.label4.TabIndex = 2;
+            this.label4.Text = "DeblurLevel:";
+            // 
+            // tbExpectedBarcodesCount
+            // 
+            this.tbExpectedBarcodesCount.BackColor = System.Drawing.Color.White;
+            this.tbExpectedBarcodesCount.Font = new System.Drawing.Font("Open Sans", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.tbExpectedBarcodesCount.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(96)))), ((int)(((byte)(96)))), ((int)(((byte)(96)))));
+            this.tbExpectedBarcodesCount.Location = new System.Drawing.Point(19, 39);
+            this.tbExpectedBarcodesCount.MaxLength = 11;
+            this.tbExpectedBarcodesCount.Name = "tbExpectedBarcodesCount";
+            this.tbExpectedBarcodesCount.Size = new System.Drawing.Size(258, 27);
+            this.tbExpectedBarcodesCount.TabIndex = 1;
+            this.tbExpectedBarcodesCount.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxNumberOnly_KeyPress);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Open Sans", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
+            this.label3.Location = new System.Drawing.Point(18, 15);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(184, 19);
+            this.label3.TabIndex = 0;
+            this.label3.Text = "Expected Barcodes Count:";
+            // 
             // panelLoad
             // 
             this.panelLoad.BackColor = System.Drawing.Color.Transparent;
-            this.panelLoad.Controls.Add(this.panel1);
+            this.panelLoad.Controls.Add(this.label24);
             this.panelLoad.Controls.Add(this.picboxLoadImage);
             this.panelLoad.Controls.Add(this.label1);
-            this.panelLoad.Location = new System.Drawing.Point(1, 41);
+            this.panelLoad.Location = new System.Drawing.Point(0, 45);
             this.panelLoad.Margin = new System.Windows.Forms.Padding(0);
             this.panelLoad.Name = "panelLoad";
-            this.panelLoad.Size = new System.Drawing.Size(300, 175);
+            this.panelLoad.Size = new System.Drawing.Size(310, 175);
             this.panelLoad.TabIndex = 3;
             this.panelLoad.Visible = false;
             // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.label24);
-            this.panel1.Location = new System.Drawing.Point(43, 120);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(228, 30);
-            this.panel1.TabIndex = 3;
-            // 
             // label24
             // 
-            this.label24.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label24.Font = new System.Drawing.Font("Open Sans", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.label24.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
             this.label24.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.label24.Location = new System.Drawing.Point(0, 0);
+            this.label24.Location = new System.Drawing.Point(41, 118);
+            this.label24.Margin = new System.Windows.Forms.Padding(0);
             this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(228, 30);
+            this.label24.Size = new System.Drawing.Size(230, 40);
             this.label24.TabIndex = 0;
-            this.label24.Text = "     *Note: PDF Rasterizer add-on is used when loading PDF files.";
+            this.label24.Text = " Note: PDF Rasterizer add-on is used when loading PDF files";
             // 
             // picboxLoadImage
             // 
             this.picboxLoadImage.Image = global::Barcode_Reader_Demo.Properties.Resources.picboxLoadImage_Leave;
             this.picboxLoadImage.InitialImage = null;
-            this.picboxLoadImage.Location = new System.Drawing.Point(60, 60);
+            this.picboxLoadImage.Location = new System.Drawing.Point(78, 67);
             this.picboxLoadImage.Name = "picboxLoadImage";
-            this.picboxLoadImage.Size = new System.Drawing.Size(180, 38);
+            this.picboxLoadImage.Size = new System.Drawing.Size(154, 36);
             this.picboxLoadImage.TabIndex = 1;
             this.picboxLoadImage.TabStop = false;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Font = new System.Drawing.Font("Open Sans", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
             this.label1.Location = new System.Drawing.Point(38, 22);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(249, 25);
+            this.label1.Size = new System.Drawing.Size(233, 22);
             this.label1.TabIndex = 0;
             this.label1.Text = "Load local images or PDF files";
             // 
             // panelWebCam
             // 
             this.panelWebCam.BackColor = System.Drawing.Color.Transparent;
+            this.panelWebCam.Controls.Add(this.labelWebcamNote);
             this.panelWebCam.Controls.Add(this.lblWebCamSrc);
             this.panelWebCam.Controls.Add(this.cbxWebCamSrc);
             this.panelWebCam.Controls.Add(this.lblWebCamRes);
             this.panelWebCam.Controls.Add(this.cbxWebCamRes);
-            this.panelWebCam.Controls.Add(this.panelWebcamNote);
-            this.panelWebCam.Location = new System.Drawing.Point(1, 41);
+            this.panelWebCam.Location = new System.Drawing.Point(0, 45);
             this.panelWebCam.Margin = new System.Windows.Forms.Padding(0);
             this.panelWebCam.Name = "panelWebCam";
             this.panelWebCam.Size = new System.Drawing.Size(300, 175);
             this.panelWebCam.TabIndex = 3;
             this.panelWebCam.Visible = false;
             // 
+            // labelWebcamNote
+            // 
+            this.labelWebcamNote.Font = new System.Drawing.Font("Open Sans", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.labelWebcamNote.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
+            this.labelWebcamNote.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
+            this.labelWebcamNote.Location = new System.Drawing.Point(16, 93);
+            this.labelWebcamNote.Name = "labelWebcamNote";
+            this.labelWebcamNote.Size = new System.Drawing.Size(275, 80);
+            this.labelWebcamNote.TabIndex = 0;
+            this.labelWebcamNote.Text = "Note: Please place a barcode in front of \r\nyour webcam and then click “Read Barco" +
+    "de” \r\nbutton. It will decode barcodes from camera \r\nstream directly.";
+            this.labelWebcamNote.Click += new System.EventHandler(this.labelWebcamNote_Click);
+            // 
             // lblWebCamSrc
             // 
             this.lblWebCamSrc.AutoSize = true;
-            this.lblWebCamSrc.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblWebCamSrc.Location = new System.Drawing.Point(38, 10);
+            this.lblWebCamSrc.Font = new System.Drawing.Font("Open Sans", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.lblWebCamSrc.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
+            this.lblWebCamSrc.Location = new System.Drawing.Point(20, 21);
             this.lblWebCamSrc.Name = "lblWebCamSrc";
-            this.lblWebCamSrc.Size = new System.Drawing.Size(96, 15);
+            this.lblWebCamSrc.Size = new System.Drawing.Size(121, 19);
             this.lblWebCamSrc.TabIndex = 0;
             this.lblWebCamSrc.Text = "Webcam Source:";
             // 
             // cbxWebCamSrc
             // 
             this.cbxWebCamSrc.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbxWebCamSrc.DropDownWidth = 145;
+            this.cbxWebCamSrc.Font = new System.Drawing.Font("Open Sans", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.cbxWebCamSrc.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(96)))), ((int)(((byte)(96)))), ((int)(((byte)(96)))));
             this.cbxWebCamSrc.FormattingEnabled = true;
-            this.cbxWebCamSrc.Location = new System.Drawing.Point(38, 30);
+            this.cbxWebCamSrc.Location = new System.Drawing.Point(148, 18);
             this.cbxWebCamSrc.Name = "cbxWebCamSrc";
-            this.cbxWebCamSrc.Size = new System.Drawing.Size(216, 21);
+            this.cbxWebCamSrc.Size = new System.Drawing.Size(145, 27);
             this.cbxWebCamSrc.TabIndex = 13;
             // 
             // lblWebCamRes
             // 
             this.lblWebCamRes.AutoSize = true;
-            this.lblWebCamRes.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblWebCamRes.Location = new System.Drawing.Point(38, 60);
+            this.lblWebCamRes.Font = new System.Drawing.Font("Open Sans", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.lblWebCamRes.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
+            this.lblWebCamRes.Location = new System.Drawing.Point(20, 60);
             this.lblWebCamRes.Name = "lblWebCamRes";
-            this.lblWebCamRes.Size = new System.Drawing.Size(116, 15);
+            this.lblWebCamRes.Size = new System.Drawing.Size(146, 19);
             this.lblWebCamRes.TabIndex = 12;
             this.lblWebCamRes.Text = "Webcam Resolution:";
             // 
             // cbxWebCamRes
             // 
             this.cbxWebCamRes.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbxWebCamRes.DropDownWidth = 120;
+            this.cbxWebCamRes.Font = new System.Drawing.Font("Open Sans", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.cbxWebCamRes.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(96)))), ((int)(((byte)(96)))), ((int)(((byte)(96)))));
             this.cbxWebCamRes.FormattingEnabled = true;
-            this.cbxWebCamRes.Location = new System.Drawing.Point(38, 80);
+            this.cbxWebCamRes.Location = new System.Drawing.Point(173, 57);
             this.cbxWebCamRes.Name = "cbxWebCamRes";
-            this.cbxWebCamRes.Size = new System.Drawing.Size(216, 21);
+            this.cbxWebCamRes.Size = new System.Drawing.Size(120, 27);
             this.cbxWebCamRes.TabIndex = 13;
-            // 
-            // panelWebcamNote
-            // 
-            this.panelWebcamNote.Controls.Add(this.labelWebcamNote);
-            this.panelWebcamNote.Location = new System.Drawing.Point(35, 110);
-            this.panelWebcamNote.Name = "panelWebcamNote";
-            this.panelWebcamNote.Size = new System.Drawing.Size(228, 60);
-            this.panelWebcamNote.TabIndex = 3;
-            // 
-            // labelWebcamNote
-            // 
-            this.labelWebcamNote.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.labelWebcamNote.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.labelWebcamNote.Location = new System.Drawing.Point(0, 0);
-            this.labelWebcamNote.Name = "labelWebcamNote";
-            this.labelWebcamNote.Size = new System.Drawing.Size(228, 60);
-            this.labelWebcamNote.TabIndex = 0;
-            this.labelWebcamNote.Text = "     *Note: Please place a barcode in front of your webcam and then click \"Read Ba" +
-    "rcode\" button. It will decode barcodes from camera stream directly.";
             // 
             // panelAcquire
             // 
@@ -491,20 +1398,20 @@ namespace Barcode_Reader_Demo
             this.panelAcquire.Controls.Add(this.lbPixelType);
             this.panelAcquire.Controls.Add(this.lbSelectSource);
             this.panelAcquire.Controls.Add(this.cbxSource);
-
-            this.panelAcquire.Location = new System.Drawing.Point(1, 41);
+            this.panelAcquire.Location = new System.Drawing.Point(0, 45);
             this.panelAcquire.Margin = new System.Windows.Forms.Padding(0);
             this.panelAcquire.Name = "panelAcquire";
-            this.panelAcquire.Size = new System.Drawing.Size(300, 175);
+            this.panelAcquire.Size = new System.Drawing.Size(310, 175);
             this.panelAcquire.TabIndex = 2;
             // 
             // rdbtnGray
             // 
             this.rdbtnGray.AutoSize = true;
-            this.rdbtnGray.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rdbtnGray.Location = new System.Drawing.Point(165, 50);
+            this.rdbtnGray.Font = new System.Drawing.Font("Open Sans", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.rdbtnGray.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(96)))), ((int)(((byte)(96)))), ((int)(((byte)(96)))));
+            this.rdbtnGray.Location = new System.Drawing.Point(170, 52);
             this.rdbtnGray.Name = "rdbtnGray";
-            this.rdbtnGray.Size = new System.Drawing.Size(49, 19);
+            this.rdbtnGray.Size = new System.Drawing.Size(58, 23);
             this.rdbtnGray.TabIndex = 641;
             this.rdbtnGray.TabStop = true;
             this.rdbtnGray.Text = "Gray";
@@ -512,20 +1419,22 @@ namespace Barcode_Reader_Demo
             // 
             // cbxResolution
             // 
+            this.cbxResolution.BackColor = System.Drawing.SystemColors.Window;
             this.cbxResolution.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbxResolution.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbxResolution.Font = new System.Drawing.Font("Open Sans", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.cbxResolution.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
             this.cbxResolution.FormattingEnabled = true;
-            this.cbxResolution.Location = new System.Drawing.Point(90, 82);
+            this.cbxResolution.Location = new System.Drawing.Point(104, 86);
             this.cbxResolution.Name = "cbxResolution";
-            this.cbxResolution.Size = new System.Drawing.Size(190, 23);
+            this.cbxResolution.Size = new System.Drawing.Size(168, 27);
             this.cbxResolution.TabIndex = 643;
             // 
             // picboxScan
             // 
             this.picboxScan.Enabled = false;
-            this.picboxScan.Location = new System.Drawing.Point(61, 120);
+            this.picboxScan.Location = new System.Drawing.Point(78, 126);
             this.picboxScan.Name = "picboxScan";
-            this.picboxScan.Size = new System.Drawing.Size(180, 38);
+            this.picboxScan.Size = new System.Drawing.Size(154, 36);
             this.picboxScan.TabIndex = 85;
             this.picboxScan.TabStop = false;
             this.picboxScan.Tag = "Scan Image";
@@ -538,10 +1447,11 @@ namespace Barcode_Reader_Demo
             // rdbtnBW
             // 
             this.rdbtnBW.AutoSize = true;
-            this.rdbtnBW.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rdbtnBW.Location = new System.Drawing.Point(88, 50);
+            this.rdbtnBW.Font = new System.Drawing.Font("Open Sans", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.rdbtnBW.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(96)))), ((int)(((byte)(96)))), ((int)(((byte)(96)))));
+            this.rdbtnBW.Location = new System.Drawing.Point(101, 52);
             this.rdbtnBW.Name = "rdbtnBW";
-            this.rdbtnBW.Size = new System.Drawing.Size(59, 19);
+            this.rdbtnBW.Size = new System.Drawing.Size(67, 23);
             this.rdbtnBW.TabIndex = 640;
             this.rdbtnBW.TabStop = true;
             this.rdbtnBW.Text = "B && W";
@@ -551,10 +1461,11 @@ namespace Barcode_Reader_Demo
             // 
             this.lbResolution.AutoSize = true;
             this.lbResolution.BackColor = System.Drawing.Color.Transparent;
-            this.lbResolution.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbResolution.Location = new System.Drawing.Point(15, 85);
+            this.lbResolution.Font = new System.Drawing.Font("Open Sans", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.lbResolution.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
+            this.lbResolution.Location = new System.Drawing.Point(15, 90);
             this.lbResolution.Name = "lbResolution";
-            this.lbResolution.Size = new System.Drawing.Size(69, 15);
+            this.lbResolution.Size = new System.Drawing.Size(88, 19);
             this.lbResolution.TabIndex = 83;
             this.lbResolution.Text = "Resolution :";
             // 
@@ -562,10 +1473,11 @@ namespace Barcode_Reader_Demo
             // 
             this.rdbtnColor.AutoSize = true;
             this.rdbtnColor.BackColor = System.Drawing.Color.Transparent;
-            this.rdbtnColor.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rdbtnColor.Location = new System.Drawing.Point(232, 50);
+            this.rdbtnColor.Font = new System.Drawing.Font("Open Sans", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.rdbtnColor.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(96)))), ((int)(((byte)(96)))), ((int)(((byte)(96)))));
+            this.rdbtnColor.Location = new System.Drawing.Point(232, 52);
             this.rdbtnColor.Name = "rdbtnColor";
-            this.rdbtnColor.Size = new System.Drawing.Size(54, 19);
+            this.rdbtnColor.Size = new System.Drawing.Size(62, 23);
             this.rdbtnColor.TabIndex = 642;
             this.rdbtnColor.TabStop = true;
             this.rdbtnColor.Text = "Color";
@@ -575,72 +1487,59 @@ namespace Barcode_Reader_Demo
             // 
             this.lbPixelType.AutoSize = true;
             this.lbPixelType.BackColor = System.Drawing.Color.Transparent;
-            this.lbPixelType.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbPixelType.Location = new System.Drawing.Point(15, 50);
+            this.lbPixelType.Font = new System.Drawing.Font("Open Sans", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.lbPixelType.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
+            this.lbPixelType.Location = new System.Drawing.Point(15, 52);
             this.lbPixelType.Name = "lbPixelType";
-            this.lbPixelType.Size = new System.Drawing.Size(65, 15);
+            this.lbPixelType.Size = new System.Drawing.Size(84, 19);
             this.lbPixelType.TabIndex = 87;
             this.lbPixelType.Text = "Pixel Type :";
             // 
             // lbSelectSource
             // 
             this.lbSelectSource.AutoSize = true;
-            this.lbSelectSource.BackColor = System.Drawing.Color.Transparent;
-            this.lbSelectSource.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbSelectSource.Font = new System.Drawing.Font("Open Sans", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.lbSelectSource.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(96)))), ((int)(((byte)(96)))), ((int)(((byte)(96)))));
             this.lbSelectSource.Location = new System.Drawing.Point(15, 15);
             this.lbSelectSource.Name = "lbSelectSource";
-            this.lbSelectSource.Size = new System.Drawing.Size(94, 15);
+            this.lbSelectSource.Size = new System.Drawing.Size(122, 19);
             this.lbSelectSource.TabIndex = 84;
             this.lbSelectSource.Text = "Scanner Source :";
-            //
-            //lbSelectRecognitionMode
-            //
+            // 
+            // cbxSource
+            // 
+            this.cbxSource.BackColor = System.Drawing.SystemColors.Window;
+            this.cbxSource.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbxSource.DropDownWidth = 180;
+            this.cbxSource.Font = new System.Drawing.Font("Open Sans", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.cbxSource.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(96)))), ((int)(((byte)(96)))), ((int)(((byte)(96)))));
+            this.cbxSource.FormattingEnabled = true;
+            this.cbxSource.Location = new System.Drawing.Point(140, 13);
+            this.cbxSource.Name = "cbxSource";
+            this.cbxSource.Size = new System.Drawing.Size(158, 27);
+            this.cbxSource.TabIndex = 639;
+            // 
+            // lbSelectRecognitionMode
+            // 
             this.lbSelectRecognitionMode.AutoSize = true;
             this.lbSelectRecognitionMode.BackColor = System.Drawing.Color.Transparent;
             this.lbSelectRecognitionMode.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbSelectRecognitionMode.Location = new System.Drawing.Point(10, 50);
             this.lbSelectRecognitionMode.Name = "lbSelectRecognitionMode";
-            this.lbSelectRecognitionMode.Size = new System.Drawing.Size(94, 15);
+            this.lbSelectRecognitionMode.Size = new System.Drawing.Size(111, 15);
             this.lbSelectRecognitionMode.TabIndex = 84;
             this.lbSelectRecognitionMode.Text = "Recognition Mode :";
-
-            // 
-            // cbxSource
-            // 
-            this.cbxSource.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbxSource.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbxSource.FormattingEnabled = true;
-            this.cbxSource.Location = new System.Drawing.Point(120, 12);
-            this.cbxSource.Name = "cbxSource";
-            this.cbxSource.Size = new System.Drawing.Size(160, 22);
-            this.cbxSource.TabIndex = 639;
-
-            //
-            //cbxRecognitionMode
-            //
-            this.cbxRecognitionMode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbxRecognitionMode.FormattingEnabled = true;
-            this.cbxRecognitionMode.ItemHeight = 13;
-            this.cbxRecognitionMode.FormattingEnabled = true;
-            this.cbxRecognitionMode.Location = new System.Drawing.Point(120, 45);
-            this.cbxRecognitionMode.Name = "cbxRecognitionMode";
-            this.cbxRecognitionMode.Size = new System.Drawing.Size(170,21);
-            this.cbxRecognitionMode.SelectedIndexChanged += cbxRecognitionMode_SelectedIndexChanged;
-
             // 
             // panelReadSetting
             // 
             this.panelReadSetting.BackColor = System.Drawing.Color.Transparent;
             this.panelReadSetting.Controls.Add(this.label6);
-            this.panelReadSetting.Controls.Add(this.cbxBarcodeFormat);
-            this.panelReadSetting.Controls.Add(this.cbxRecognitionMode);
             this.panelReadSetting.Controls.Add(this.lbSelectRecognitionMode);
             this.panelReadSetting.Location = new System.Drawing.Point(1, 41);
             this.panelReadSetting.Margin = new System.Windows.Forms.Padding(0);
             this.panelReadSetting.Name = "panelReadSetting";
             this.panelReadSetting.Size = new System.Drawing.Size(300, 80);
             this.panelReadSetting.TabIndex = 2;
-            this.panelReadSetting.Visible = false;
             // 
             // label6
             // 
@@ -653,73 +1552,15 @@ namespace Barcode_Reader_Demo
             this.label6.TabIndex = 2;
             this.label6.Text = "Barcode format :";
             // 
-            // cbxBarcodeFormat
-            // 
-            this.cbxBarcodeFormat.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbxBarcodeFormat.FormattingEnabled = true;
-            this.cbxBarcodeFormat.ItemHeight = 13;
-            this.cbxBarcodeFormat.Location = new System.Drawing.Point(120, 15);
-            this.cbxBarcodeFormat.Name = "cbxBarcodeFormat";
-            this.cbxBarcodeFormat.Size = new System.Drawing.Size(170, 21);
-            this.cbxBarcodeFormat.TabIndex = 644;
-            this.cbxBarcodeFormat.SelectedIndexChanged += new System.EventHandler(this.cbxBarcodeFormat_SelectedIndexChanged);
-
-            // 
             // panelReadMoreSetting
             // 
             this.panelReadMoreSetting.BackColor = System.Drawing.Color.Transparent;
-
-
             this.panelReadMoreSetting.Location = new System.Drawing.Point(1, 41);
             this.panelReadMoreSetting.Margin = new System.Windows.Forms.Padding(0);
             this.panelReadMoreSetting.Name = "panelReadMoreSetting";
             this.panelReadMoreSetting.Size = new System.Drawing.Size(300, 290);
             this.panelReadMoreSetting.TabIndex = 3;
             this.panelReadMoreSetting.Visible = false;
-
-            // 
-            // panelReadBarcode
-            // 
-            this.panelReadBarcode.BackColor = System.Drawing.Color.Transparent;
-            this.panelReadBarcode.Controls.Add(this.picboxReadBarcode);
-            this.panelReadBarcode.Controls.Add(this.picboxStopBarcode);
-            //this.panelReadBarcode.Controls.Add(this.lbSelectRecognitionMode);
-            //this.panelReadBarcode.Controls.Add(this.cbxRecognitionMode);
-
-
-            this.panelReadBarcode.Location = new System.Drawing.Point(1, 41);
-            this.panelReadBarcode.Margin = new System.Windows.Forms.Padding(0);
-            this.panelReadBarcode.Name = "panelReadBarcode";
-            this.panelReadBarcode.Size = new System.Drawing.Size(300, 150);
-            this.panelReadBarcode.TabIndex = 3;
-
-            // 
-            // picboxReadBarcode
-            // 
-            this.picboxReadBarcode.Location = new System.Drawing.Point(68, 70);
-            this.picboxReadBarcode.Name = "picboxReadBarcode";
-            this.picboxReadBarcode.Size = new System.Drawing.Size(180, 38);
-            this.picboxReadBarcode.TabIndex = 15;
-            this.picboxReadBarcode.TabStop = false;
-            this.picboxReadBarcode.Click += new System.EventHandler(this.picboxReadBarcode_Click);
-            this.picboxReadBarcode.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picbox_MouseDown);
-            this.picboxReadBarcode.MouseEnter += new System.EventHandler(this.picbox_MouseEnter);
-            this.picboxReadBarcode.MouseLeave += new System.EventHandler(this.picbox_MouseLeave);
-            this.picboxReadBarcode.MouseUp += new System.Windows.Forms.MouseEventHandler(this.picbox_MouseUp);
-            // 
-            // picboxStopBarcode
-            // 
-            this.picboxStopBarcode.Location = new System.Drawing.Point(68, 70);
-            this.picboxStopBarcode.Name = "picboxStopBarcode";
-            this.picboxStopBarcode.Size = new System.Drawing.Size(180, 38);
-            this.picboxStopBarcode.TabIndex = 15;
-            this.picboxStopBarcode.TabStop = false;
-            this.picboxStopBarcode.Visible = false;
-            this.picboxStopBarcode.Click += new System.EventHandler(this.picboxStopBarcode_Click);
-            this.picboxStopBarcode.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picbox_MouseDown);
-            this.picboxStopBarcode.MouseEnter += new System.EventHandler(this.picbox_MouseEnter);
-            this.picboxStopBarcode.MouseLeave += new System.EventHandler(this.picbox_MouseLeave);
-            this.picboxStopBarcode.MouseUp += new System.Windows.Forms.MouseEventHandler(this.picbox_MouseUp);
             // 
             // picboxFit
             // 
@@ -785,7 +1626,11 @@ namespace Barcode_Reader_Demo
             this.dsViewer.SelectionRectAspectRatio = 0D;
             this.dsViewer.Size = new System.Drawing.Size(477, 586);
             this.dsViewer.TabIndex = 651;
-            this.dsViewer.OnMouseClick += dsViewer_OnMouseClick;
+            // 
+            // saveRuntimeSettingsFileDialog
+            // 
+            this.saveRuntimeSettingsFileDialog.FileOk += new System.ComponentModel.CancelEventHandler(this.saveRuntimeSettingsFileDialog_FileOk);
+            this.saveRuntimeSettingsFileDialog.Filter = "|*.json";
             // 
             // BarcodeReaderDemo
             // 
@@ -835,23 +1680,34 @@ namespace Barcode_Reader_Demo
             ((System.ComponentModel.ISupportInitialize)(this.picboxPrevious)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picboxMin)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picboxClose)).EndInit();
+            this.flowLayoutPanel2.ResumeLayout(false);
+            this.panelNormalSettings.ResumeLayout(false);
+            this.panelNormalSettings.PerformLayout();
+            this.panelOneDetail.ResumeLayout(false);
+            this.panelOneDetail.PerformLayout();
+            this.panelRecognitionMode.ResumeLayout(false);
+            this.panelRecognitionMode.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCustomize)).EndInit();
+            this.panelReadBarcode.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.picboxReadBarcode)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picboxStopBarcode)).EndInit();
+            this.panelFormat.ResumeLayout(false);
+            this.panelFormat.PerformLayout();
+            this.panelCustom.ResumeLayout(false);
+            this.panelCustomTop.ResumeLayout(false);
+            this.panelCustomSettings.ResumeLayout(false);
+            this.panelSettings.ResumeLayout(false);
+            this.panelSettings.PerformLayout();
             this.panelLoad.ResumeLayout(false);
             this.panelLoad.PerformLayout();
-            this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.picboxLoadImage)).EndInit();
             this.panelWebCam.ResumeLayout(false);
             this.panelWebCam.PerformLayout();
-            this.panelWebcamNote.ResumeLayout(false);
             this.panelAcquire.ResumeLayout(false);
             this.panelAcquire.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picboxScan)).EndInit();
             this.panelReadSetting.ResumeLayout(false);
             this.panelReadSetting.PerformLayout();
-            this.panelReadMoreSetting.ResumeLayout(false);
-            this.panelReadMoreSetting.PerformLayout();
-            this.panelReadBarcode.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.picboxReadBarcode)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picboxStopBarcode)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picboxFit)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picboxOriginalSize)).EndInit();
             this.ResumeLayout(false);
@@ -859,15 +1715,10 @@ namespace Barcode_Reader_Demo
 
         }
 
-        void cbxRecognitionMode_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            iRecognitionMode = cbxRecognitionMode.SelectedIndex;  
-        }
-
 
         void dsViewer_OnMouseClick(short sImageIndex)
         {
-            if(sImageIndex>=0 && sImageIndex<m_ImageCore.ImageBuffer.HowManyImagesInBuffer)
+            if(sImageIndex>=0 && sImageIndex<mImageCore.ImageBuffer.HowManyImagesInBuffer)
             {
                 CheckImageCount();
             }
@@ -901,7 +1752,7 @@ namespace Barcode_Reader_Demo
         private System.Windows.Forms.Label lbPixelType;
         private System.Windows.Forms.RadioButton rdbtnColor;
         private System.Windows.Forms.ComboBox cbxSource;
-        private System.Windows.Forms.ComboBox cbxRecognitionMode;
+       // private System.Windows.Forms.ComboBox cbxRecognitionMode;
         private System.Windows.Forms.ComboBox cbxResolution;
         private System.Windows.Forms.PictureBox picboxScan;
         
@@ -919,25 +1770,82 @@ namespace Barcode_Reader_Demo
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.PictureBox picboxLoadImage;
         private System.Windows.Forms.Label label6;
-        
-        private System.Windows.Forms.ComboBox cbxBarcodeFormat;
-
-        private System.Windows.Forms.PictureBox picboxReadBarcode;
-        private System.Windows.Forms.PictureBox picboxStopBarcode;
         private System.Windows.Forms.Panel panelReadSetting;
         private System.Windows.Forms.Panel panelReadMoreSetting;
-        private System.Windows.Forms.Panel panelReadBarcode;
         private System.Windows.Forms.TextBox tbxResult;
         private System.Windows.Forms.Label lblCloseResult;
         private System.Windows.Forms.PictureBox picboxFit;
         private System.Windows.Forms.PictureBox picboxOriginalSize;
-        private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label24;
-        private System.Windows.Forms.Panel panelWebcamNote;
-        private System.Windows.Forms.Label labelWebcamNote;
         private System.Windows.Forms.PictureBox picBoxWebCam;
 
         private Dynamsoft.Forms.DSViewer dsViewer;
+        private Panel panelNormalSettings;
+        private Panel panelOneDetail;
+        private CheckBox cbINDUSTRIAL25;
+        private CheckBox cbUPCE;
+        private CheckBox cbUPCA;
+        private CheckBox cbEAN8;
+        private CheckBox cbCODABAR;
+        private CheckBox cbITF;
+        private CheckBox cbEAN13;
+        private CheckBox cbCODE93;
+        private CheckBox cbCODE128;
+        private CheckBox cbCOD39;
+        private Button btnShowAllOneD;
+        private RadioButton rbBestCoverage;
+        private RadioButton rbBalance;
+        private RadioButton rbBestSpeed;
+        private Label lbRecMode;
+        private CheckBox cbAZTEC;
+        private CheckBox cbDataMatrix;
+        private CheckBox cbQRcode;
+        private CheckBox cbPDF417;
+        private CheckBox cbOneD;
+        private Label lableFormat;
+        private Panel panelSettings;
+        private Label label12;
+        private Label label11;
+        private Label label10;
+        private ComboBox cmbTextureDetectionSensitivity;
+        private ComboBox cmbGrayEqualizationSensitivity;
+        private ComboBox cmbBarcodeInvertMode;
+        private ComboBox cmbColorImageConvertMode;
+        private Label label9;
+        private Label label8;
+        private TextBox tbBinarizationBlockSize;
+        private TextBox tbScaleDownThreshold;
+        private Label label7;
+        private CheckBox cbRegionPredetectionMode;
+        private CheckBox cbTextFilterMode;
+        private ComboBox cmbAntiDamageLevel;
+        private Label label5;
+        private ComboBox cmbDeblurLevel;
+        private Label label4;
+        private TextBox tbExpectedBarcodesCount;
+        private Label label3;
+        private Panel panelCustomSettings;
+        private Panel panelFormat;
+        private Panel panelCustom;
+        private Label label17;
+        private Label label18;
+        private Label lbCustomPanelClose;
+        private Panel panelRecognitionMode;
+        private Label label2;
+        private Label label13;
+        private Label label14;
+        private Panel panelReadBarcode;
+        private PictureBox picboxReadBarcode;
+        private PictureBox picboxStopBarcode;
+        private Label labelWebcamNote;
+        private Panel panelCustomTop;
+        private Panel panelBarcodeReaderParent;
+        private Panel panelFormatParent;
+        private Button btnExportSettings;
+        private SaveFileDialog saveRuntimeSettingsFileDialog;
+        private Label comment;
+        private ToolTip toolTipExport;
+        private PictureBox pictureBoxCustomize;
     }
 }
 

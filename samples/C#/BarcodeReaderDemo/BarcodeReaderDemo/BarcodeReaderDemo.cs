@@ -1,11 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Globalization;
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
-using System.Windows.Forms.VisualStyles;
 using Barcode_Reader_Demo.Properties;
 using Dynamsoft.Barcode;
 
@@ -18,7 +16,6 @@ using Dynamsoft.PDF;
 using Dynamsoft.TWAIN.Enums;
 using Dynamsoft.Core.Enums;
 using Dynamsoft.Core.Annotation;
-using System.Configuration;
 
 namespace Barcode_Reader_Demo
 {
@@ -32,41 +29,42 @@ namespace Barcode_Reader_Demo
         private Point _mouseOffset2;
         private int _currentImageIndex = -1;
         private delegate void CrossThreadOperationControl();
-        private delegate void PostShowFrameResultsHandler(Bitmap _bitmap, TextResult[] _bars, int timeElapsed,Exception ex);
+        private delegate void PostShowFrameResultsHandler(Bitmap bitmap, TextResult[] textResults, int timeElapsed,Exception ex);
 
-        private PostShowFrameResultsHandler _postShowFrameResults; 
-        private bool _isToCrop;
-        private string _lastOpenedDirectory;
-        private string _templateFileDirectory;
-        private Label _infoLabel;
+        private PostShowFrameResultsHandler mPostShowFrameResults; 
+        private bool mIsToCrop;
+        private string mLastOpenedDirectory;
+        private string mTemplateFileDirectory;
+        private Label nInfoLabel;
 
-        private RoundedRectanglePanel _roundedRectanglePanelAcquireLoad;
-        private RoundedRectanglePanel _roundedRectanglePanelBarcode;
-        private TabHead _thReadMoreSetting;
-        private TabHead _thLoadImage;
-        private TabHead _thAcquireImage;
-        private TabHead _thWebCamImage;
+        private RoundedRectanglePanel mRoundedRectanglePanelAcquireLoad;
+        private RoundedRectanglePanel mRoundedRectanglePanelBarcode;
+        //private TabHead mThReadMoreSetting;
+        private TabHead mThLoadImage;
+        private TabHead mThAcquireImage;
+        private TabHead mThWebCamImage;
 
-        private TabHead _thResult;
-        private RoundedRectanglePanel _panelResult;
+        private TabHead mThResult;
+        private RoundedRectanglePanel mPanelResult;
+        EnumBarcodeFormat mEmBarcodeFormat = 0;
+        private readonly BarcodeReader mBarcodeReader;
+        PublicRuntimeSettings mCustomRuntimeSettings;
 
-        private readonly BarcodeReader _br;
+        private bool mIsWebCamErrorOccur = false;
+        private bool mIsTurnOnReading = false;
 
+        private TwainManager mTwainManager = null;
+        private CameraManager mCameraManager = null;
+        private ImageCore mImageCore = null;
+        private PDFRasterizer mPDFRasterizer = null;
+        string dbrLicenseKeys = "t0068MgAAAHpXHm20GKgsFjQtxei4HQATUZwDxkkTCVXINan1sjFRH/AlwU5i7COEVsEIqAf2nN9bJFoK+S3+LIXsjN68YNU=";
+        string dntLicenseKeys = "t0068MgAAAIRksvsrcYAAgrnU2oCYSGBvdjee/Q6HxPammDJl2gYjrBy31psm6FMBdi/4wZ2H+g/3BkWL/jUvisndS1FsiCQ=";
+        private bool mIfHasAddedOnFrameCaptureEvent = false;
 
-        private bool _webCamErrorOccur = false;
-        private bool _bTurnOnReading = false;
+        private int miRecognitionMode = 2;//best converage
 
-        private TwainManager m_TwainManager = null;
-        private CameraManager m_CameraManager = null;
-        private ImageCore m_ImageCore = null;
-        private PDFRasterizer m_PDFRasterizer = null;
-        string dbrLicenseKeys = "t0068MgAAAGTcD3/UEt+AMn7RN1iiqcAcVlpCTQ4Kv33Xv1sLQNylV6AA/P2iq4JRxPuN6V9NzQ7mDhZti9661K0JRw2wUMI=";
-        string dntLicenseKeys = "t0068MgAAAHWAhoWA88V3KVLmts8rgcDk8eEEuZWhIJWsCZRR5RprAyBFRSLz3BTSFEPKtqoaFYm3Fveg84NDCmP5J1jp9/4=";
-        private bool m_IfHasAddedOnFrameCaptureEvent = false;
-
-        //private string[] mBarcodeType = { "All_DEFAULT", "OneD_DEFAULT", "QR_CODE_DEFAULT", "PDF417_DEFAULT", "DATAMATRIX_DEFAULT", "CODE_39_DEFAULT", "CODE_128_DEFAULT", "CODE_93_DEFAULT", "CODABAR_DEFAULT", "ITF_DEFAULT", "INDUSTRIAL_25_DEFAULT", "EAN_13_DEFAULT", "EAN_8_DEFAULT", "UPC_A_DEFAULT", "UPC_E_DEFAULT" };
-        private int mBarcodeFormat = (int)EnumBarcodeFormat.All;
-        private int iRecognitionMode = 0;
+        private bool mbCustom = false;
+        private PublicRuntimeSettings mNormalRuntimeSettings;
         #endregion
 
         #region property
@@ -76,7 +74,7 @@ namespace Barcode_Reader_Demo
             get
             {
                 var exist = false;
-                if(m_CameraManager.GetCameraNames()!=null)
+                if(mCameraManager.GetCameraNames()!=null)
                 {
                     exist = true;
                 }
@@ -101,17 +99,12 @@ namespace Barcode_Reader_Demo
             dsViewer.MouseShape = true;
             dsViewer.Annotation.Type = Dynamsoft.Forms.Enums.EnumAnnotationType.enumNone;
 
-            _br = new BarcodeReader(dbrLicenseKeys);
-            try
-            {
-                //string mSettingsPath = "Put the full path of settings file here";
-                //_br.LoadSettingsFromFile(mSettingsPath);
-            }
-            catch
-            {
-                MessageBox.Show("Failed to load the settings file, please check the file path.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            _postShowFrameResults = new PostShowFrameResultsHandler(this.postShowFrameResults);
+            mBarcodeReader = new BarcodeReader(dbrLicenseKeys);           
+            mPostShowFrameResults = new PostShowFrameResultsHandler(this.postShowFrameResults);
+            mNormalRuntimeSettings = mBarcodeReader.GetRuntimeSettings();
+            UpdateBarcodeFormat();
+            toolTipExport.SetToolTip(btnExportSettings, "out put settings");
+           
         }
 
         #region form relevant
@@ -143,179 +136,162 @@ namespace Barcode_Reader_Demo
 
         private void InitializeComponentForCustomControl()
         {
-            _roundedRectanglePanelAcquireLoad = new RoundedRectanglePanel();
-            _roundedRectanglePanelBarcode = new RoundedRectanglePanel();
-            _thReadMoreSetting = new TabHead();
-            _thLoadImage = new TabHead();
-            _thAcquireImage = new TabHead();
-            _thWebCamImage = new TabHead();
-            _thResult = new TabHead();
-            _panelResult = new RoundedRectanglePanel();
+            mRoundedRectanglePanelAcquireLoad = new RoundedRectanglePanel();
+            mRoundedRectanglePanelBarcode = new RoundedRectanglePanel();
+            mThLoadImage = new TabHead();
+            mThAcquireImage = new TabHead();
+            mThWebCamImage = new TabHead();
+            mThResult = new TabHead();
+            mPanelResult = new RoundedRectanglePanel();
 
-            _roundedRectanglePanelAcquireLoad.SuspendLayout();
-            _roundedRectanglePanelBarcode.SuspendLayout();
-            _panelResult.SuspendLayout();
+            mRoundedRectanglePanelAcquireLoad.SuspendLayout();
+            mRoundedRectanglePanelBarcode.SuspendLayout();
+            mPanelResult.SuspendLayout();
             
             //
             // _panelResult
             //
-            _panelResult.AutoSize = true;
-            _panelResult.BackColor = SystemColors.Control;
-            _panelResult.Controls.Add(lblCloseResult);
-            _panelResult.Controls.Add(_thResult);
-            _panelResult.Controls.Add(this.tbxResult);
-            _panelResult.Location = new Point(12, 12);
-            _panelResult.Margin = new Padding(10, 12, 12, 0);
-            _panelResult.Name = "_panelResult";
-            _panelResult.Padding = new Padding(1);
-            _panelResult.Size = new Size(311, 500);
-            _panelResult.TabIndex = 2;
+            mPanelResult.AutoSize = true;
+            mPanelResult.BackColor = SystemColors.Control;
+            mPanelResult.Controls.Add(lblCloseResult);
+            mPanelResult.Controls.Add(mThResult);
+            mPanelResult.Controls.Add(this.tbxResult);
+            mPanelResult.Location = new Point(12, 12);
+            mPanelResult.Margin = new Padding(10, 12, 12, 0);
+            mPanelResult.Name = "_panelResult";
+            mPanelResult.Padding = new Padding(1);
+            mPanelResult.Size = new Size(311, 500);
+            mPanelResult.TabIndex = 2;
 
             // 
             // _thResult
             // 
-            _thResult.BackColor = Color.Transparent;
-            _thResult.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            _thResult.ImageAlign = ContentAlignment.MiddleRight;
-            _thResult.Index = 4;
-            _thResult.Location = new Point(1, 1);
-            _thResult.Margin = new Padding(0);
-            _thResult.MultiTabHead = false;
-            _thResult.Name = "_thResult";
-            _thResult.Size = new Size(309, 25);
-            _thResult.State = TabHead.TabHeadState.SELECTED;
-            _thResult.TabIndex = 0;
-            _thResult.Text = "Barcode Results";
-            _thResult.TextAlign = ContentAlignment.MiddleLeft;
+            mThResult.BackColor = Color.Transparent;
+            mThResult.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            mThResult.ImageAlign = ContentAlignment.MiddleRight;
+            mThResult.Index = 4;
+            mThResult.Location = new Point(1, 1);
+            mThResult.Margin = new Padding(0);
+            mThResult.MultiTabHead = false;
+            mThResult.Name = "_thResult";
+            mThResult.Size = new Size(309, 25);
+            mThResult.State = TabHead.TabHeadState.SELECTED;
+            mThResult.TabIndex = 0;
+            mThResult.Text = "Barcode Results";
+            mThResult.TextAlign = ContentAlignment.MiddleLeft;
 
+            //
+            // this.panelNormalSettings
+            //
+            this.panelNormalSettings.Location = new Point(1, 41);
 
             // 
             // roundedRectanglePanelAcquireLoad
             // 
-            _roundedRectanglePanelAcquireLoad.AutoSize = true;
-            _roundedRectanglePanelAcquireLoad.BackColor = SystemColors.Control;
-            _roundedRectanglePanelAcquireLoad.Controls.Add(panelLoad);
-            _roundedRectanglePanelAcquireLoad.Controls.Add(panelAcquire);
-            _roundedRectanglePanelAcquireLoad.Controls.Add(panelWebCam);
-            _roundedRectanglePanelAcquireLoad.Controls.Add(_thLoadImage);
-            _roundedRectanglePanelAcquireLoad.Controls.Add(_thAcquireImage);
-            _roundedRectanglePanelAcquireLoad.Controls.Add(_thWebCamImage);
-            _roundedRectanglePanelAcquireLoad.Location = new Point(12, 12);
-            _roundedRectanglePanelAcquireLoad.Margin = new Padding(10, 12, 12, 0);
-            _roundedRectanglePanelAcquireLoad.Name = "roundedRectanglePanelAcquireLoad";
-            _roundedRectanglePanelAcquireLoad.Padding = new Padding(1);
-            _roundedRectanglePanelAcquireLoad.Size = new Size(311, 270);
-            _roundedRectanglePanelAcquireLoad.TabIndex = 0;
+            mRoundedRectanglePanelAcquireLoad.AutoSize = true;
+            mRoundedRectanglePanelAcquireLoad.BackColor = Color.Transparent; ;
+            mRoundedRectanglePanelAcquireLoad.Controls.Add(panelLoad);
+            mRoundedRectanglePanelAcquireLoad.Controls.Add(panelAcquire);
+            mRoundedRectanglePanelAcquireLoad.Controls.Add(panelWebCam);
+            mRoundedRectanglePanelAcquireLoad.Controls.Add(mThLoadImage);
+            mRoundedRectanglePanelAcquireLoad.Controls.Add(mThAcquireImage);
+            mRoundedRectanglePanelAcquireLoad.Controls.Add(mThWebCamImage);
+            mRoundedRectanglePanelAcquireLoad.Location = new Point(12, 12);
+            mRoundedRectanglePanelAcquireLoad.Margin = new Padding(10, 12, 12, 0);
+            mRoundedRectanglePanelAcquireLoad.Name = "roundedRectanglePanelAcquireLoad";
+            mRoundedRectanglePanelAcquireLoad.Padding = new Padding(1);
+            mRoundedRectanglePanelAcquireLoad.Size = new Size(311, 265);
+            mRoundedRectanglePanelAcquireLoad.TabIndex = 0;
             // 
             // roundedRectanglePanelBarcode
             // 
-            _roundedRectanglePanelBarcode.AutoSize = true;
-            _roundedRectanglePanelBarcode.Controls.Add(panelReadSetting);
-            _roundedRectanglePanelBarcode.Controls.Add(panelReadMoreSetting);
-            _roundedRectanglePanelBarcode.Controls.Add(_thReadMoreSetting);
-            _roundedRectanglePanelBarcode.Location = new Point(12, 294);
-            _roundedRectanglePanelBarcode.Margin = new Padding(10, 12, 12, 0);
-            _roundedRectanglePanelBarcode.Name = "roundedRectanglePanelBarcode";
-            _roundedRectanglePanelBarcode.Padding = new Padding(1);
-            _roundedRectanglePanelBarcode.Size = new Size(311, 362);
-            _roundedRectanglePanelBarcode.TabIndex = 1;
+            mRoundedRectanglePanelBarcode.AutoSize = false;
+            mRoundedRectanglePanelBarcode.Controls.Add(this.panelNormalSettings);
+          
 
-            // 
-            // _thReadMoreSetting
-            // 
-            _thReadMoreSetting.BackColor = Color.Transparent;
-            _thReadMoreSetting.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            _thReadMoreSetting.ImageAlign = ContentAlignment.MiddleRight;
-            _thReadMoreSetting.Index = 4;
-            _thReadMoreSetting.Location = new Point(1, 1);
-            _thReadMoreSetting.Margin = new Padding(0);
-            _thReadMoreSetting.MultiTabHead = true;
-            _thReadMoreSetting.Name = "_thReadMoreSetting";
-            _thReadMoreSetting.Size = new Size(309, 40);
-            _thReadMoreSetting.State = TabHead.TabHeadState.FOLDED;
-            _thReadMoreSetting.TabIndex = 0;
-            _thReadMoreSetting.Text = "Settings";
-            _thReadMoreSetting.TextAlign = ContentAlignment.MiddleCenter;
+            mRoundedRectanglePanelBarcode.Location = new Point(12, 376);
+            mRoundedRectanglePanelBarcode.Margin = new Padding(10, 12, 12, 0);
+            mRoundedRectanglePanelBarcode.Name = "roundedRectanglePanelBarcode";
+            mRoundedRectanglePanelBarcode.Size = new Size(312, 376);
+            mRoundedRectanglePanelBarcode.TabIndex = 1;
 
+ 
             // 
             // thLoadImage
             // 
-            _thLoadImage.BackColor = Color.Transparent;
-            _thLoadImage.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            _thLoadImage.Image = ((Image)(Resources.ResourceManager.GetObject("tab_file")));
-            _thLoadImage.ImageAlign = ContentAlignment.MiddleLeft;
-            _thLoadImage.Index = 0;
-            _thLoadImage.Location = new Point(1, 1);
-            _thLoadImage.Margin = new Padding(0);
-            _thLoadImage.Padding = new Padding(25,0,0,0);
-            _thLoadImage.MultiTabHead = true;
-            _thLoadImage.Name = "_thLoadImage";
-            _thLoadImage.Size = new Size(103, 40);
-            _thLoadImage.State = TabHead.TabHeadState.SELECTED;
-            _thLoadImage.TabIndex = 1;
-            _thLoadImage.Text = "Files";
-            _thLoadImage.TextAlign = ContentAlignment.MiddleCenter;
-            _thLoadImage.Click += TabHead_Click;
+            mThLoadImage.BackColor = Color.Transparent;
+            mThLoadImage.Font = new Font("Open Sans", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel, 0);
+            mThLoadImage.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
+            mThLoadImage.Index = 0;
+            mThLoadImage.Location = new Point(1, 1);
+            mThLoadImage.Margin = new Padding(0);
+            mThLoadImage.Padding = new Padding(10,0,0,0);
+            mThLoadImage.MultiTabHead = true;
+            mThLoadImage.Name = "_thLoadImage";
+            mThLoadImage.Size = new Size(103, 40);
+            mThLoadImage.State = TabHead.TabHeadState.SELECTED;
+            mThLoadImage.TabIndex = 1;
+            mThLoadImage.Text = "Files";
+            mThLoadImage.TextAlign = ContentAlignment.MiddleCenter;
+            mThLoadImage.Click += TabHead_Click;
             // 
             // thAcquireImage
             // 
-            _thAcquireImage.BackColor = Color.Transparent;
-            _thAcquireImage.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            _thAcquireImage.Image = ((Image)(Resources.ResourceManager.GetObject("tab_scanner")));
-            _thAcquireImage.ImageAlign = ContentAlignment.MiddleLeft;
-            _thAcquireImage.Index = 1;
-            _thAcquireImage.Location = new Point(104, 1);
-            _thAcquireImage.Margin = new Padding(0);
-            _thAcquireImage.Padding = new Padding(10, 0, 0, 0);
-            _thAcquireImage.MultiTabHead = true;
-            _thAcquireImage.Name = "_thAcquireImage";
-            _thAcquireImage.Size = new Size(103, 40);
-            _thAcquireImage.State = TabHead.TabHeadState.FOLDED;
-            _thAcquireImage.TabIndex = 2;
-            _thAcquireImage.Text = "   Scanner";
-            _thAcquireImage.TextAlign = ContentAlignment.MiddleCenter;
-            _thAcquireImage.Click += TabHead_Click;
+            mThAcquireImage.BackColor = Color.Transparent;
+            mThAcquireImage.Font = new Font("Open Sans", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel, 0);
+            mThAcquireImage.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
+
+            mThAcquireImage.Index = 1;
+            mThAcquireImage.Location = new Point(104, 1);
+            mThAcquireImage.Margin = new Padding(0);
+            mThAcquireImage.Padding = new Padding(10, 0, 0, 0);
+            mThAcquireImage.MultiTabHead = true;
+            mThAcquireImage.Name = "_thAcquireImage";
+            mThAcquireImage.Size = new Size(103, 40);
+            mThAcquireImage.State = TabHead.TabHeadState.FOLDED;
+            mThAcquireImage.TabIndex = 2;
+            mThAcquireImage.Text = "Scanner";
+            mThAcquireImage.TextAlign = ContentAlignment.MiddleCenter;
+            mThAcquireImage.Click += TabHead_Click;
             // 
             // thWebCamImage
             // 
-            _thWebCamImage.BackColor = Color.Transparent;
-            _thWebCamImage.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            _thWebCamImage.Image = ((Image)(Resources.ResourceManager.GetObject("tab_webcam")));
-            _thWebCamImage.ImageAlign = ContentAlignment.MiddleLeft;
-            _thWebCamImage.Index = 2;
-            _thWebCamImage.Location = new Point(207, 1);
-            _thWebCamImage.Margin = new Padding(0);
-            _thWebCamImage.Padding = new Padding(8, 0, 0, 0);
-            _thWebCamImage.MultiTabHead = true;
-            _thWebCamImage.Name = "_thWebCamImage";
-            _thWebCamImage.Size = new Size(103, 40);
-            _thWebCamImage.State = TabHead.TabHeadState.FOLDED;
-            _thWebCamImage.TabIndex = 3;
-            _thWebCamImage.Text = "   WebCam";
-            _thWebCamImage.TextAlign = ContentAlignment.MiddleCenter;
-            _thWebCamImage.Click += TabHead_Click;
+            mThWebCamImage.BackColor = Color.Transparent;
+            mThWebCamImage.Font = new Font("Open Sans", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel, 0);
+            mThWebCamImage.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
+            mThWebCamImage.Index = 2;
+            mThWebCamImage.Location = new Point(207, 1);
+            mThWebCamImage.Margin = new Padding(0);
+            mThWebCamImage.Padding = new Padding(8, 0, 0, 0);
+            mThWebCamImage.MultiTabHead = true;
+            mThWebCamImage.Name = "_thWebCamImage";
+            mThWebCamImage.Size = new Size(103, 40);
+            mThWebCamImage.State = TabHead.TabHeadState.FOLDED;
+            mThWebCamImage.TabIndex = 3;
+            mThWebCamImage.Text = "Webcam";
+            mThWebCamImage.TextAlign = ContentAlignment.MiddleCenter;
+            mThWebCamImage.Click += TabHead_Click;
 
-            _panelResult.ResumeLayout(false);
-            _roundedRectanglePanelAcquireLoad.ResumeLayout(false);
-            _roundedRectanglePanelBarcode.ResumeLayout(false);
+            mPanelResult.ResumeLayout(false);
+            mRoundedRectanglePanelAcquireLoad.ResumeLayout(false);
+            mRoundedRectanglePanelBarcode.ResumeLayout(false);
 
-            flowLayoutPanel2.Controls.Add(_panelResult);
-            flowLayoutPanel2.Controls.Add(_roundedRectanglePanelAcquireLoad);
-            flowLayoutPanel2.Controls.Add(_roundedRectanglePanelBarcode);
-            flowLayoutPanel2.Controls.Add(this.panelReadBarcode);
+            flowLayoutPanel2.Controls.Add(mPanelResult);
+            flowLayoutPanel2.Controls.Add(mRoundedRectanglePanelAcquireLoad);
+            flowLayoutPanel2.Controls.Add(mRoundedRectanglePanelBarcode);
             
-            _panelResult.Visible = false;
+            mPanelResult.Visible = false;
         }
 
         protected void Initialization()
         {
             var appPath = Application.StartupPath;
-            m_TwainManager = new TwainManager(dntLicenseKeys);
-            m_CameraManager = new CameraManager(dntLicenseKeys);
-            m_PDFRasterizer = new PDFRasterizer(dntLicenseKeys);
-            m_ImageCore = new ImageCore();
-            dsViewer.Bind(m_ImageCore);
-            m_ImageCore.ImageBuffer.MaxImagesInBuffer = 64;
+            mTwainManager = new TwainManager(dntLicenseKeys);
+            mCameraManager = new CameraManager(dntLicenseKeys);
+            mPDFRasterizer = new PDFRasterizer(dntLicenseKeys);
+            mImageCore = new ImageCore();
+            dsViewer.Bind(mImageCore);
+            mImageCore.ImageBuffer.MaxImagesInBuffer = 64;
         }
 
 
@@ -330,13 +306,13 @@ namespace Barcode_Reader_Demo
         private void InitCbxWebCamRes()
         {
             cbxWebCamRes.Items.Clear();
-            if (m_CameraManager.GetCameraNames() != null)
+            if (mCameraManager.GetCameraNames() != null)
             {
                 try
                 {
                     if (cbxWebCamSrc.SelectedIndex != -1)
                     {
-                        Camera tempCamera = m_CameraManager.SelectCamera((short)cbxWebCamSrc.SelectedIndex);
+                        Camera tempCamera = mCameraManager.SelectCamera((short)cbxWebCamSrc.SelectedIndex);
                         foreach (var resolution in tempCamera.SupportedResolutions)
                         {
                             if (resolution.Width < 400 && resolution.Height < 400)
@@ -369,14 +345,14 @@ namespace Barcode_Reader_Demo
         private void BindCbxWebCamSrc()
         {
             cbxWebCamSrc.Items.Clear();
-            if(m_CameraManager.GetCameraNames()!=null)
+            if(mCameraManager.GetCameraNames()!=null)
             {
-                for (short i = 0; i < m_CameraManager.GetCameraNames().Count;i++)
+                for (short i = 0; i < mCameraManager.GetCameraNames().Count;i++)
                 {
-                    var strSourceName = m_CameraManager.SelectCamera(i).GetCameraName();
+                    var strSourceName = mCameraManager.SelectCamera(i).GetCameraName();
                     cbxWebCamSrc.Items.Add(strSourceName);
                 }
-                m_CameraManager.SelectCamera(0);
+                mCameraManager.SelectCamera(0);
                 if (cbxWebCamSrc.Items.Count > 0)
                     cbxWebCamSrc.SelectedIndex = 0;
             }
@@ -411,7 +387,7 @@ namespace Barcode_Reader_Demo
             DisableControls(picboxScan);
 
             // For the popup tip label
-            _infoLabel = new Label
+            nInfoLabel = new Label
             {
                 Text = "",
                 Visible = false,
@@ -421,8 +397,8 @@ namespace Barcode_Reader_Demo
                 BorderStyle = BorderStyle.FixedSingle,
                 Font = new Font("Consolas", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0)
             };
-            _infoLabel.BringToFront();          
-            Controls.Add(_infoLabel);
+            nInfoLabel.BringToFront();          
+            Controls.Add(nInfoLabel);
 
             // For the load image button
             picboxLoadImage.MouseLeave += picbox_MouseLeave;
@@ -432,46 +408,18 @@ namespace Barcode_Reader_Demo
             picboxLoadImage.MouseEnter += picbox_MouseEnter;
 
             //Tab Heads
-            _mTabHeads[0] = _thLoadImage;
-            _mTabHeads[1] = _thAcquireImage;
-            _mTabHeads[2] = _thWebCamImage;
-            _mTabHeads[4] = _thReadMoreSetting;
+            _mTabHeads[0] = mThLoadImage;
+            _mTabHeads[1] = mThAcquireImage;
+            _mTabHeads[2] = mThWebCamImage;
             _mPanels[0] = panelLoad;
             _mPanels[1] = panelAcquire;
             _mPanels[2] = panelWebCam;
             _mPanels[3] = panelReadSetting;
             _mPanels[4] = panelReadMoreSetting;
-            _thLoadImage.State = TabHead.TabHeadState.SELECTED;
+            mThLoadImage.State = TabHead.TabHeadState.SELECTED;
             
-            //Read Barcode
-            cbxBarcodeFormat.Items.Add("All");
-            cbxBarcodeFormat.Items.Add("OneD");
-            cbxBarcodeFormat.Items.Add("QRCode");
-            cbxBarcodeFormat.Items.Add("PDF417");
-            cbxBarcodeFormat.Items.Add("Datamatrix");
-            cbxBarcodeFormat.Items.Add("Code 39");
-            cbxBarcodeFormat.Items.Add("Code 128");
-            cbxBarcodeFormat.Items.Add("Code 93");
-            cbxBarcodeFormat.Items.Add("Codabar");
-            cbxBarcodeFormat.Items.Add("Interleaved 2 of 5");
-            cbxBarcodeFormat.Items.Add("Industrial 2 of 5");
-            cbxBarcodeFormat.Items.Add("EAN-13");
-            cbxBarcodeFormat.Items.Add("EAN-8");
-            cbxBarcodeFormat.Items.Add("UPC-A");
-            cbxBarcodeFormat.Items.Add("UPC-E");
-            cbxBarcodeFormat.Items.Add("AZTEC");
-            
-
-            cbxBarcodeFormat.SelectedIndex = 0;
-
-            cbxRecognitionMode.Items.Add("Best Speed");
-            cbxRecognitionMode.Items.Add("Balance");
-            cbxRecognitionMode.Items.Add("Best Coverage");
-
-            cbxRecognitionMode.SelectedIndex = 2;
-
-
             DisableControls(picboxReadBarcode);
+            DisableControls(pictureBoxCustomize);
 
             picBoxWebCam.BringToFront();
         }
@@ -533,20 +481,20 @@ namespace Barcode_Reader_Demo
 
         private void InitLastOpenedDirectoryStr()
         {
-            _lastOpenedDirectory = Application.ExecutablePath;
-            _lastOpenedDirectory = _lastOpenedDirectory.Replace("/", "\\");
-            var index = _lastOpenedDirectory.LastIndexOf("Samples");
+            mLastOpenedDirectory = Application.ExecutablePath;
+            mLastOpenedDirectory = mLastOpenedDirectory.Replace("/", "\\");
+            var index = mLastOpenedDirectory.LastIndexOf("Samples");
             if (index > 0)
             {
-                _lastOpenedDirectory = _lastOpenedDirectory.Substring(0, index);
-                _lastOpenedDirectory += "Images\\";
-                _templateFileDirectory = _lastOpenedDirectory.Substring(0,index);
-                _templateFileDirectory += "Templates\\";
+                mLastOpenedDirectory = mLastOpenedDirectory.Substring(0, index);
+                mLastOpenedDirectory += "Images\\";
+                mTemplateFileDirectory = mLastOpenedDirectory.Substring(0,index);
+                mTemplateFileDirectory += "Templates\\";
                 
             }
 
-            if (!Directory.Exists(_lastOpenedDirectory))
-                _lastOpenedDirectory = string.Empty;
+            if (!Directory.Exists(mLastOpenedDirectory))
+                mLastOpenedDirectory = string.Empty;
         }
 
         #endregion
@@ -587,19 +535,19 @@ namespace Barcode_Reader_Demo
             EnableControls(picboxFit);
             EnableControls(picboxOriginalSize);
 
-            if (m_ImageCore.ImageBuffer.HowManyImagesInBuffer > 1)
+            if (mImageCore.ImageBuffer.HowManyImagesInBuffer > 1)
             {
                 EnableControls(picboxFirst);
                 EnableControls(picboxPrevious);
                 EnableControls(picboxNext);
                 EnableControls(picboxLast);
 
-                if (m_ImageCore.ImageBuffer.CurrentImageIndexInBuffer == 0)
+                if (mImageCore.ImageBuffer.CurrentImageIndexInBuffer == 0)
                 {
                     DisableControls(picboxPrevious);
                     DisableControls(picboxFirst);
                 }
-                if (m_ImageCore.ImageBuffer.CurrentImageIndexInBuffer + 1 == m_ImageCore.ImageBuffer.HowManyImagesInBuffer)
+                if (mImageCore.ImageBuffer.CurrentImageIndexInBuffer + 1 == mImageCore.ImageBuffer.HowManyImagesInBuffer)
                 {
                     DisableControls(picboxNext);
                     DisableControls(picboxLast);
@@ -631,14 +579,14 @@ namespace Barcode_Reader_Demo
         {
             if (sender is PictureBox)
             {
-                _infoLabel.Text = "";
-                _infoLabel.Visible = false;
+                nInfoLabel.Text = "";
+                nInfoLabel.Visible = false;
             }
             if (!(sender is PictureBox) || !(sender as PictureBox).Enabled) return;
 
             (sender as PictureBox).Image = (Image)Resources.ResourceManager.GetObject((sender as PictureBox).Name + "_Leave");
-            _infoLabel.Text = "";
-            _infoLabel.Visible = false;
+            nInfoLabel.Text = "";
+            nInfoLabel.Visible = false;
         }
 
         private void picbox_MouseUp(object sender, MouseEventArgs e)
@@ -650,10 +598,10 @@ namespace Barcode_Reader_Demo
         private void picbox_MouseHover(object sender, EventArgs e)
         {
             var pictureBox = sender as PictureBox;
-            if (pictureBox != null) _infoLabel.Text = pictureBox.Tag.ToString();
-            _infoLabel.Location = new Point(PointToClient(MousePosition).X, PointToClient(MousePosition).Y + 20);
-            _infoLabel.Visible = true;
-            _infoLabel.BringToFront();
+            if (pictureBox != null) nInfoLabel.Text = pictureBox.Tag.ToString();
+            nInfoLabel.Location = new Point(PointToClient(MousePosition).X, PointToClient(MousePosition).Y + 20);
+            nInfoLabel.Visible = true;
+            nInfoLabel.BringToFront();
         }
 
         private void picboxScan_Click(object sender, EventArgs e)
@@ -762,7 +710,7 @@ namespace Barcode_Reader_Demo
         private void picboxClose_MouseClick(object sender, MouseEventArgs e)
         {
             this.Visible = false;
-            m_TwainManager.Dispose();
+            mTwainManager.Dispose();
             Application.Exit();
         }
 
@@ -790,40 +738,40 @@ namespace Barcode_Reader_Demo
             {
                 // Select the source for TWAIN
                 var srcIndex = -1;
-                for (short i = 0; i < m_TwainManager.SourceCount; i++)
+                for (short i = 0; i < mTwainManager.SourceCount; i++)
                 {
-                    if (m_TwainManager.SourceNameItems(i) != cbxSource.Text) continue;
+                    if (mTwainManager.SourceNameItems(i) != cbxSource.Text) continue;
                     srcIndex = i;
                     break;
                 }
 
-                m_TwainManager.SelectSourceByIndex(srcIndex == -1 ? cbxSource.SelectedIndex : srcIndex);
-                m_TwainManager.OpenSource();
-                m_TwainManager.IfShowUI = false;
-                m_TwainManager.IfDisableSourceAfterAcquire = true;
+                mTwainManager.SelectSourceByIndex(srcIndex == -1 ? cbxSource.SelectedIndex : srcIndex);
+                mTwainManager.OpenSource();
+                mTwainManager.IfShowUI = false;
+                mTwainManager.IfDisableSourceAfterAcquire = true;
 
                 if (rdbtnBW.Checked)
                 {
-                    m_TwainManager.PixelType = TWICapPixelType.TWPT_BW;
-                    m_TwainManager.BitDepth = 1;
+                    mTwainManager.PixelType = TWICapPixelType.TWPT_BW;
+                    mTwainManager.BitDepth = 1;
                 }
                 else if (rdbtnGray.Checked)
                 {
-                    m_TwainManager.PixelType = TWICapPixelType.TWPT_GRAY;
-                    m_TwainManager.BitDepth = 8;
+                    mTwainManager.PixelType = TWICapPixelType.TWPT_GRAY;
+                    mTwainManager.BitDepth = 8;
                 }
                 else
                 {
-                    m_TwainManager.PixelType = TWICapPixelType.TWPT_RGB;
-                    m_TwainManager.BitDepth = 24;
+                    mTwainManager.PixelType = TWICapPixelType.TWPT_RGB;
+                    mTwainManager.BitDepth = 24;
                 }
 
 
-                m_TwainManager.Resolution = int.Parse(cbxResolution.Text);
+                mTwainManager.Resolution = int.Parse(cbxResolution.Text);
 
                 
                 
-                bRet = m_TwainManager.AcquireImage(this as Dynamsoft.TWAIN.Interface.IAcquireCallback);
+                bRet = mTwainManager.AcquireImage(this as Dynamsoft.TWAIN.Interface.IAcquireCallback);
                 if (!bRet)
                 {
                     MessageBox.Show("An error occurred while scanning.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -870,7 +818,7 @@ namespace Barcode_Reader_Demo
 
         private void CropPicture(int imageIndex, Rectangle rc)
         {
-            m_ImageCore.ImageProcesser.Crop((short)imageIndex,rc.X,rc.Y,rc.X + rc.Width,rc.Y + rc.Height);
+            mImageCore.ImageProcesser.Crop((short)imageIndex,rc.X,rc.Y,rc.X + rc.Width,rc.Y + rc.Height);
         }
 
         private void picboxZoomIn_Click(object sender, EventArgs e)
@@ -891,7 +839,7 @@ namespace Barcode_Reader_Demo
 
         private void CheckZoom()
         {
-            if (cbxViewMode.SelectedIndex != 0 || m_ImageCore.ImageBuffer.HowManyImagesInBuffer == 0 )
+            if (cbxViewMode.SelectedIndex != 0 || mImageCore.ImageBuffer.HowManyImagesInBuffer == 0 )
             {
                 DisableControls(picboxZoomIn);
                 DisableControls(picboxZoomOut);
@@ -927,13 +875,13 @@ namespace Barcode_Reader_Demo
 
         private void picboxDelete_Click(object sender, EventArgs e)
         {
-            m_ImageCore.ImageBuffer.RemoveImage(m_ImageCore.ImageBuffer.CurrentImageIndexInBuffer);
+            mImageCore.ImageBuffer.RemoveImage(mImageCore.ImageBuffer.CurrentImageIndexInBuffer);
             CheckImageCount();
         }
 
         private void picboxDeleteAll_Click(object sender, EventArgs e)
         {
-            m_ImageCore.ImageBuffer.RemoveAllImages();
+            mImageCore.ImageBuffer.RemoveAllImages();
             CheckImageCount();
         }
 
@@ -947,9 +895,9 @@ namespace Barcode_Reader_Demo
         /// </summary>
         private void CheckImageCount()
         {
-            _currentImageIndex = m_ImageCore.ImageBuffer.CurrentImageIndexInBuffer;
+            _currentImageIndex = mImageCore.ImageBuffer.CurrentImageIndexInBuffer;
             var currentIndex = _currentImageIndex + 1;
-            int imageCount = m_ImageCore.ImageBuffer.HowManyImagesInBuffer;
+            int imageCount = mImageCore.ImageBuffer.HowManyImagesInBuffer;
             if (imageCount == 0)
                 currentIndex = 0;
 
@@ -959,13 +907,15 @@ namespace Barcode_Reader_Demo
             if (imageCount > 0)
             {
                 EnableAllFunctionButtons();
-                EnableControls(picboxReadBarcode); 
+                EnableControls(picboxReadBarcode);
+                EnableControls(pictureBoxCustomize);
             }
             else
             {
                 DisableAllFunctionButtons();
                 dsViewer.Visible = false;
                 DisableControls(picboxReadBarcode);
+                DisableControls(pictureBoxCustomize);
             }
 
             if (imageCount > 1)
@@ -1025,30 +975,30 @@ namespace Barcode_Reader_Demo
 
         private void picboxFirst_Click(object sender, EventArgs e)
         {
-            if(m_ImageCore.ImageBuffer.HowManyImagesInBuffer > 0)
-                m_ImageCore.ImageBuffer.CurrentImageIndexInBuffer = 0;
+            if(mImageCore.ImageBuffer.HowManyImagesInBuffer > 0)
+                mImageCore.ImageBuffer.CurrentImageIndexInBuffer = 0;
             CheckImageCount();
         }
 
         private void picboxLast_Click(object sender, EventArgs e)
         {
-            if (m_ImageCore.ImageBuffer.HowManyImagesInBuffer > 0)
-                m_ImageCore.ImageBuffer.CurrentImageIndexInBuffer = (short)(m_ImageCore.ImageBuffer.HowManyImagesInBuffer - 1);
+            if (mImageCore.ImageBuffer.HowManyImagesInBuffer > 0)
+                mImageCore.ImageBuffer.CurrentImageIndexInBuffer = (short)(mImageCore.ImageBuffer.HowManyImagesInBuffer - 1);
             CheckImageCount();
         }
 
         private void picboxPrevious_Click(object sender, EventArgs e)
         {
-            if (m_ImageCore.ImageBuffer.HowManyImagesInBuffer > 0 && m_ImageCore.ImageBuffer.CurrentImageIndexInBuffer > 0)
-                --m_ImageCore.ImageBuffer.CurrentImageIndexInBuffer;
+            if (mImageCore.ImageBuffer.HowManyImagesInBuffer > 0 && mImageCore.ImageBuffer.CurrentImageIndexInBuffer > 0)
+                --mImageCore.ImageBuffer.CurrentImageIndexInBuffer;
             CheckImageCount();
         }
 
         private void picboxNext_Click(object sender, EventArgs e)
         {
-            if (m_ImageCore.ImageBuffer.HowManyImagesInBuffer > 0 &&
-                m_ImageCore.ImageBuffer.CurrentImageIndexInBuffer < m_ImageCore.ImageBuffer.HowManyImagesInBuffer - 1)
-                ++m_ImageCore.ImageBuffer.CurrentImageIndexInBuffer;
+            if (mImageCore.ImageBuffer.HowManyImagesInBuffer > 0 &&
+                mImageCore.ImageBuffer.CurrentImageIndexInBuffer < mImageCore.ImageBuffer.HowManyImagesInBuffer - 1)
+                ++mImageCore.ImageBuffer.CurrentImageIndexInBuffer;
             CheckImageCount();
         }
 
@@ -1057,13 +1007,13 @@ namespace Barcode_Reader_Demo
             openFileDialog.Filter = "All Support Files|*.JPG;*.JPEG;*.JPE;*.JFIF;*.BMP;*.PNG;*.TIF;*.TIFF;*GIF;*.PDF|JPEG|*.JPG;*.JPEG;*.JPE;*.Jfif|BMP|*.BMP|PNG|*.PNG|TIFF|*.TIF;*.TIFF|GIF|*.GIF|PDF|*.PDF";
             openFileDialog.FilterIndex = 0;
             openFileDialog.Multiselect = true;
-            openFileDialog.InitialDirectory = _lastOpenedDirectory;
+            openFileDialog.InitialDirectory = mLastOpenedDirectory;
 
-            m_ImageCore.ImageBuffer.IfAppendImage = true;
+            mImageCore.ImageBuffer.IfAppendImage = true;
 
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
-                _lastOpenedDirectory = System.IO.Directory.GetParent(openFileDialog.FileName).FullName;
+                mLastOpenedDirectory = System.IO.Directory.GetParent(openFileDialog.FileName).FullName;
 
                 foreach (var strFileName in openFileDialog.FileNames)
                 {
@@ -1075,8 +1025,8 @@ namespace Barcode_Reader_Demo
                         {
                             try
                             {
-                                m_PDFRasterizer.ConvertMode = Dynamsoft.PDF.Enums.EnumConvertMode.enumCM_RENDERALL;
-                                m_PDFRasterizer.ConvertToImage(strFileName, "", 300, this as IConvertCallback);
+                                mPDFRasterizer.ConvertMode = Dynamsoft.PDF.Enums.EnumConvertMode.enumCM_RENDERALL;
+                                mPDFRasterizer.ConvertToImage(strFileName, "", 300, this as IConvertCallback);
                             }
                             catch (Exception exp)
                             {
@@ -1085,10 +1035,10 @@ namespace Barcode_Reader_Demo
 
                         }
                         else
-                            m_ImageCore.IO.LoadImage(strFileName);
+                            mImageCore.IO.LoadImage(strFileName);
                     }
                     else
-                        m_ImageCore.IO.LoadImage(strFileName);
+                        mImageCore.IO.LoadImage(strFileName);
                 }
                 dsViewer.Visible = true;
             }
@@ -1101,7 +1051,7 @@ namespace Barcode_Reader_Demo
 
         private void dynamicDotNetTwain_OnMouseClick(short sImageIndex)
         {
-            if (m_ImageCore.ImageBuffer.CurrentImageIndexInBuffer != _currentImageIndex)
+            if (mImageCore.ImageBuffer.CurrentImageIndexInBuffer != _currentImageIndex)
                 CheckImageCount();
         }
 
@@ -1125,11 +1075,11 @@ namespace Barcode_Reader_Demo
             {
                 var rc = dsViewer.GetSelectionRect(sImageIndex);
 
-                if (_isToCrop && !rc.IsEmpty)
+                if (mIsToCrop && !rc.IsEmpty)
                 {
                     CropPicture(sImageIndex, rc);
                 }
-                _isToCrop = false;
+                mIsToCrop = false;
             }
             catch
             {
@@ -1139,14 +1089,14 @@ namespace Barcode_Reader_Demo
 
         private void dynamicDotNetTwain_OnMouseRightClick(short sImageIndex)
         {
-            if (_isToCrop) _isToCrop = false;
+            if (mIsToCrop) mIsToCrop = false;
             dsViewer.ClearSelectionRect(sImageIndex);
             EnableAllFunctionButtons();
         }
 
         private void dynamicDotNetTwain_OnImageAreaDeselected(short sImageIndex)
         {
-            if (_isToCrop) _isToCrop = false;
+            if (mIsToCrop) mIsToCrop = false;
             EnableAllFunctionButtons();
             ShowSelectedImageArea();
         }
@@ -1196,13 +1146,13 @@ namespace Barcode_Reader_Demo
             switch (thHead.Name)
             {
                 case "_thLoadImage":
-                    if(m_CameraManager.GetCameraNames()!=null)
+                    if(mCameraManager.GetCameraNames()!=null)
                     {
-                        m_CameraManager.SelectCamera(m_CameraManager.CurrentSourceName).Close();
+                        mCameraManager.SelectCamera(mCameraManager.CurrentSourceName).Close();
                     }
                    
                     CheckImageCount();
-                    _bTurnOnReading = false;
+                    mIsTurnOnReading = false;
                     picBoxWebCam.Visible = false;
                     this.SwitchButtonState(false);
                     break;
@@ -1214,10 +1164,10 @@ namespace Barcode_Reader_Demo
                         cbxSource.Items.Clear();
                     }
 
-                    for (var i = 0; i < m_TwainManager.SourceCount; i++)
+                    for (var i = 0; i < mTwainManager.SourceCount; i++)
                     {
                         hasTwainSource = true;
-                        cbxSource.Items.Add(m_TwainManager.SourceNameItems((short)i));
+                        cbxSource.Items.Add(mTwainManager.SourceNameItems((short)i));
                     }
                     if (cbxSource.Items.Count > 0)
                     {
@@ -1229,15 +1179,15 @@ namespace Barcode_Reader_Demo
                     }
                     
 
-                    if(m_CameraManager.GetCameraNames()!=null)
+                    if(mCameraManager.GetCameraNames()!=null)
                     {
-                        m_CameraManager.SelectCamera(m_CameraManager.CurrentSourceName).Close();
+                        mCameraManager.SelectCamera(mCameraManager.CurrentSourceName).Close();
                     }
                    
                     CheckImageCount();
-                    m_TwainManager.CloseSource();
+                    mTwainManager.CloseSource();
                     
-                    _bTurnOnReading = false;
+                    mIsTurnOnReading = false;
                     picBoxWebCam.Visible = false;
                     this.SwitchButtonState(false);
 
@@ -1245,20 +1195,21 @@ namespace Barcode_Reader_Demo
 
                 case "_thWebCamImage":
                     cbxWebCamSrc.Focus();
-                    if (_webCamErrorOccur)
+                    if (mIsWebCamErrorOccur)
                     {
                         DisableControls(picboxReadBarcode);
+                        DisableControls(pictureBoxCustomize);
                         break;
                     }
 
 
                     InitWebCamControls();
 
-                    if(m_CameraManager.GetCameraNames()!=null&& m_CameraManager.GetCameraNames().Count!=0)
+                    if(mCameraManager.GetCameraNames()!=null&& mCameraManager.GetCameraNames().Count!=0)
                     {
-                        if(cbxWebCamSrc.SelectedIndex>=0 && cbxWebCamSrc.SelectedIndex<m_CameraManager.GetCameraNames().Count)
+                        if(cbxWebCamSrc.SelectedIndex>=0 && cbxWebCamSrc.SelectedIndex<mCameraManager.GetCameraNames().Count)
                         {
-                            Camera tempCamera = m_CameraManager.SelectCamera((short)cbxWebCamSrc.SelectedIndex);
+                            Camera tempCamera = mCameraManager.SelectCamera((short)cbxWebCamSrc.SelectedIndex);
                             if (tempCamera == null)
                             {
                                 return;
@@ -1272,8 +1223,16 @@ namespace Barcode_Reader_Demo
                         }
                     }
 
-                    if (ExistWebCam && !string.IsNullOrEmpty(cbxWebCamSrc.Text) && !string.IsNullOrEmpty(cbxWebCamRes.Text)) EnableControls(picboxReadBarcode);
-                    else DisableControls(picboxReadBarcode);
+                    if (ExistWebCam && !string.IsNullOrEmpty(cbxWebCamSrc.Text) && !string.IsNullOrEmpty(cbxWebCamRes.Text))
+                    {
+                        EnableControls(picboxReadBarcode);
+                        EnableControls(pictureBoxCustomize);
+                    }
+                    else
+                    {
+                        DisableControls(picboxReadBarcode);
+                        DisableControls(pictureBoxCustomize);
+                    }
                     break;
                     default:
                     break;
@@ -1302,6 +1261,12 @@ namespace Barcode_Reader_Demo
 
         private void picboxReadBarcode_Click(object sender, EventArgs e)
         {
+            UpdateBarcodeFormat();
+            if (mbCustom)
+            {
+                mCustomRuntimeSettings = GetPublicRuntimeSettingsFromCustomizePanelValuse();
+            }
+               
             if (picBoxWebCam.Visible)
             {
                 picBoxWebCam.Image = null;
@@ -1311,7 +1276,7 @@ namespace Barcode_Reader_Demo
                                           "Please ensure that at least one (virtual) WebCam is installed.", "Information");
                     return;
                 }
-
+               
                 TurnOnReading(true);
             }
             else
@@ -1328,30 +1293,30 @@ namespace Barcode_Reader_Demo
             }
         }
 		
-        private void postShowFrameResults(Bitmap _bitmap, TextResult[] _bars, int timeElapsed,Exception ex)
+        private void postShowFrameResults(Bitmap bitmap, TextResult[] textResults, int timeElapsed,Exception ex)
         {
             this.TurnOnReading(false);
 
-            if (_bars != null)
+            if (textResults != null)
             {
                 picBoxWebCam.Image = null;
 
-                var tempBitmap = new Bitmap(_bitmap.Width, _bitmap.Height);
+                var tempBitmap = new Bitmap(bitmap.Width, bitmap.Height);
                 using (var g = Graphics.FromImage(tempBitmap))
                 {
-                    g.DrawImage(_bitmap, 0, 0);
-                    for (int i = 0; i < _bars.Length;i++)
+                    g.DrawImage(bitmap, 0, 0);
+                    for (int i = 0; i < textResults.Length;i++)
                     {
-                        Rectangle tempRectangle = ConvertLocationPointToRect(_bars[i].LocalizationResult.ResultPoints);
+                        Rectangle tempRectangle = ConvertLocationPointToRect(textResults[i].LocalizationResult.ResultPoints);
                         g.DrawRectangle(new Pen(Color.FromArgb(255, 0, 0), 2), tempRectangle);
                     }
                 }
 
-                Camera tempCamera = m_CameraManager.SelectCamera((short)cbxWebCamSrc.SelectedIndex);
+                Camera tempCamera = mCameraManager.SelectCamera((short)cbxWebCamSrc.SelectedIndex);
                 tempCamera.Close();
                 tempCamera.Dispose();
                 picBoxWebCam.Image = tempBitmap;
-                this.ShowResult(_bars, timeElapsed);
+                this.ShowResult(textResults, timeElapsed);
             }
             if(ex !=null)
             {
@@ -1359,7 +1324,7 @@ namespace Barcode_Reader_Demo
             }
         }
 
-        int imageindex = 0;
+        //int imageindex = 0;
         private void ReadFromFrame(Bitmap bitmap)
         {
             TextResult[] bars = null;
@@ -1372,33 +1337,53 @@ namespace Barcode_Reader_Demo
 
                 //int iRecognitionMode = cbxRecognitionMode.SelectedIndex;
                 // 0 Best Speed. 1 Balance. 2 Best Coverage.
-                switch(iRecognitionMode)
+                if (mbCustom)
                 {
-                    case 0:
-                       PublicRuntimeSettings tempBestSpeed = _br.GetRuntimeSettings();
-                       tempBestSpeed.mBarcodeFormatIds = mBarcodeFormat;
-                       tempBestSpeed.mAntiDamageLevel = 3;
-                       tempBestSpeed.mTextFilterMode = TextFilterMode.TFM_Disable;
-                       _br.UpdateRuntimeSettings(tempBestSpeed);
-                        break;
-                    case 1:
-                        PublicRuntimeSettings tempBalance = _br.GetRuntimeSettings();
-                        tempBalance.mBarcodeFormatIds = mBarcodeFormat;
-                        tempBalance.mAntiDamageLevel = 5;
-                        tempBalance.mTextFilterMode = TextFilterMode.TFM_Enable;
-                        _br.UpdateRuntimeSettings(tempBalance);
-                        break;
-                    case 2:
-                        PublicRuntimeSettings tempCoverage = _br.GetRuntimeSettings();
-                        tempCoverage.mBarcodeFormatIds = mBarcodeFormat;
-                        tempCoverage.mAntiDamageLevel = 9;
-                        tempCoverage.mTextFilterMode = TextFilterMode.TFM_Enable;
-                        _br.UpdateRuntimeSettings(tempCoverage);
-                        break;
+                    PublicRuntimeSettings runtimeSettings = mCustomRuntimeSettings;// GetPublicRuntimeSettingsFromCustomizePanelValuse();
+                    runtimeSettings.mBarcodeFormatIds = (int)this.mEmBarcodeFormat;                  
+                    mBarcodeReader.UpdateRuntimeSettings(runtimeSettings);
+                }
+                else
+                {
+
+                    switch (miRecognitionMode)
+
+                    {
+                        case 0:
+                            PublicRuntimeSettings tempBestSpeed = mNormalRuntimeSettings;// mBarcodeReader.GetRuntimeSettings();
+                            tempBestSpeed.mBarcodeFormatIds = (int)this.mEmBarcodeFormat;
+                            tempBestSpeed.mAntiDamageLevel = 3;
+                            tempBestSpeed.mDeblurLevel = 3;
+                            tempBestSpeed.mExpectedBarcodesCount = 512;
+                            tempBestSpeed.mScaleDownThreshold = 2300;
+                            tempBestSpeed.mTextFilterMode = TextFilterMode.TFM_Disable;
+                            mBarcodeReader.UpdateRuntimeSettings(tempBestSpeed);
+                            break;
+                        case 1:
+                            PublicRuntimeSettings tempBalance = mBarcodeReader.GetRuntimeSettings();
+                            tempBalance.mBarcodeFormatIds = (int)this.mEmBarcodeFormat;
+                            tempBalance.mAntiDamageLevel = 5;
+                            tempBalance.mDeblurLevel = 5;
+                            tempBalance.mExpectedBarcodesCount = 512;
+                            tempBalance.mScaleDownThreshold = 2300;
+                            tempBalance.mTextFilterMode = TextFilterMode.TFM_Enable;
+                            mBarcodeReader.UpdateRuntimeSettings(tempBalance);
+                            break;
+                        case 2:
+                            PublicRuntimeSettings tempCoverage = mBarcodeReader.GetRuntimeSettings();
+                            tempCoverage.mBarcodeFormatIds = (int)this.mEmBarcodeFormat;
+                            tempCoverage.mAntiDamageLevel = 9;
+                            tempCoverage.mDeblurLevel = 9;
+                            tempCoverage.mExpectedBarcodesCount = 512;
+                            tempCoverage.mScaleDownThreshold = 214748347;
+                            tempCoverage.mTextFilterMode = TextFilterMode.TFM_Enable;
+                            mBarcodeReader.UpdateRuntimeSettings(tempCoverage);
+                            break;
+                    }
                 }
 
-                bars = _br.DecodeBitmap(bitmap,"");
-                
+                bars = mBarcodeReader.DecodeBitmap(bitmap,"");
+               
                 DateTime afterRead = DateTime.Now;
                 timeElapsed = (int)(afterRead - beforeRead).TotalMilliseconds;
 
@@ -1407,11 +1392,11 @@ namespace Barcode_Reader_Demo
                     return;
                 }
 
-                this.BeginInvoke(_postShowFrameResults, tempBitmap,bars, timeElapsed,null);
+                this.BeginInvoke(mPostShowFrameResults, tempBitmap,bars, timeElapsed,null);
             }
             catch (Exception ex)
             {
-                this.Invoke(_postShowFrameResults, new object[] { bitmap, bars, timeElapsed,ex});
+                this.Invoke(mPostShowFrameResults, new object[] { bitmap, bars, timeElapsed,ex});
             }
         }
 		        
@@ -1437,9 +1422,10 @@ namespace Barcode_Reader_Demo
 
         private void ReadFromImage()
         {
+            
             ShowSelectedImageArea();
 
-            if (m_ImageCore.ImageBuffer.CurrentImageIndexInBuffer < 0)
+            if (mImageCore.ImageBuffer.CurrentImageIndexInBuffer < 0)
             {
                 MessageBox.Show("Please load an image before reading barcode!", "Index out of bounds", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
@@ -1448,101 +1434,61 @@ namespace Barcode_Reader_Demo
             try
             {
 
-                Bitmap bmp = (Bitmap)(m_ImageCore.ImageBuffer.GetBitmap(m_ImageCore.ImageBuffer.CurrentImageIndexInBuffer));
+                Bitmap bmp = (Bitmap)(mImageCore.ImageBuffer.GetBitmap(mImageCore.ImageBuffer.CurrentImageIndexInBuffer));
                 DateTime beforeRead = DateTime.Now;
 
 
-                int iRecognitionMode = cbxRecognitionMode.SelectedIndex;
-                // 0 Best Speed. 1 Balance. 2 Best Coverage.
-                switch(iRecognitionMode)
+                if(mbCustom)
                 {
-                    case 0:
-                        PublicRuntimeSettings tempBestSpeed = _br.GetRuntimeSettings();
-                       tempBestSpeed.mBarcodeFormatIds = mBarcodeFormat;
-                       tempBestSpeed.mAntiDamageLevel = 3;
-                       tempBestSpeed.mTextFilterMode = TextFilterMode.TFM_Disable;
-                       _br.UpdateRuntimeSettings(tempBestSpeed);
-                        break;
-                    case 1:
-                        PublicRuntimeSettings tempBalance = _br.GetRuntimeSettings();
-                        tempBalance.mBarcodeFormatIds = mBarcodeFormat;
-                        tempBalance.mAntiDamageLevel = 5;
-                        tempBalance.mTextFilterMode = TextFilterMode.TFM_Enable;
-                        _br.UpdateRuntimeSettings(tempBalance);
-                        break;
-                    case 2:
-                        PublicRuntimeSettings tempCoverage = _br.GetRuntimeSettings();
-                        tempCoverage.mBarcodeFormatIds = mBarcodeFormat;
-                        tempCoverage.mAntiDamageLevel = 9;
-                        tempCoverage.mTextFilterMode = TextFilterMode.TFM_Enable;
-                        _br.UpdateRuntimeSettings(tempCoverage);
-                        break;
+                    PublicRuntimeSettings runtimeSettings = mCustomRuntimeSettings;// GetPublicRuntimeSettingsFromCustomizePanelValuse();
+                    runtimeSettings.mBarcodeFormatIds = (int)this.mEmBarcodeFormat;
+                    mBarcodeReader.UpdateRuntimeSettings(runtimeSettings);
                 }
+                else
+                {
+                    
+                    switch (miRecognitionMode)
+                    {
+                        case 0:
+                            PublicRuntimeSettings tempBestSpeed = mNormalRuntimeSettings;// _br.GetRuntimeSettings();
+                            tempBestSpeed.mBarcodeFormatIds = (int)this.mEmBarcodeFormat;
+                            tempBestSpeed.mAntiDamageLevel = 3;
+                            tempBestSpeed.mDeblurLevel = 3;
+                            tempBestSpeed.mExpectedBarcodesCount = 512;
+                            tempBestSpeed.mScaleDownThreshold = 2300;
+                            tempBestSpeed.mTextFilterMode = TextFilterMode.TFM_Disable;
+                            mBarcodeReader.UpdateRuntimeSettings(tempBestSpeed);
+                            break;
+                        case 1:
+                            PublicRuntimeSettings tempBalance = mBarcodeReader.GetRuntimeSettings();
+                            tempBalance.mBarcodeFormatIds = (int)this.mEmBarcodeFormat;
+                            tempBalance.mAntiDamageLevel = 5;
+                            tempBalance.mDeblurLevel = 5;
+                            tempBalance.mExpectedBarcodesCount = 512;
+                            tempBalance.mScaleDownThreshold = 2300;
+                            tempBalance.mTextFilterMode = TextFilterMode.TFM_Enable;
+                            mBarcodeReader.UpdateRuntimeSettings(tempBalance);
+                            break;
+                        case 2:
+                            PublicRuntimeSettings tempCoverage = mBarcodeReader.GetRuntimeSettings();
+                            tempCoverage.mBarcodeFormatIds = (int)this.mEmBarcodeFormat;
+                            tempCoverage.mAntiDamageLevel = 9;
+                            tempCoverage.mDeblurLevel = 9;
+                            tempCoverage.mExpectedBarcodesCount = 512;
+                            tempCoverage.mScaleDownThreshold = 214748347;
+                            tempCoverage.mTextFilterMode = TextFilterMode.TFM_Enable;
+                            mBarcodeReader.UpdateRuntimeSettings(tempCoverage);
+                            break;
+                    }
+                }             
    
-                TextResult[] aryResult = _br.DecodeBitmap(bmp, "");
-                
+                TextResult[] textResults = mBarcodeReader.DecodeBitmap(bmp, "");
+                LocalizationResult[] localizationResults =  mBarcodeReader.GetAllLocalizationResults();
+               
                 DateTime afterRead = DateTime.Now;
                 int timeElapsed = (int)(afterRead - beforeRead).TotalMilliseconds;
-                m_ImageCore.ImageBuffer.SetMetaData(m_ImageCore.ImageBuffer.CurrentImageIndexInBuffer, EnumMetaDataType.enumAnnotation, null, true);
-                if(aryResult != null)
-                {
-                    List<AnnotationData> tempListAnnotation = new List<AnnotationData>();
-                    for (var i = 0; i < aryResult.Length; i++)
-                    {
-                        //add rect annotation
-                        var penColor = Color.Red;
-                        //if (aryResult[i].IsUnrecognized)
-                        //    penColor = Color.Blue;
-
-                        var rectAnnotation = new AnnotationData();
-                        rectAnnotation.AnnotationType = AnnotationType.enumRectangle;
-                        Rectangle boundingrect = ConvertLocationPointToRect(aryResult[i].LocalizationResult.ResultPoints);
-                        rectAnnotation.StartPoint = new Point(boundingrect.Left,boundingrect.Top);
-                        rectAnnotation.EndPoint = new Point((boundingrect.Left + boundingrect.Size.Width),(boundingrect.Top + boundingrect.Size.Height));
-                        rectAnnotation.FillColor = Color.Transparent.ToArgb();
-                        rectAnnotation.PenColor = penColor.ToArgb();
-                        rectAnnotation.PenWidth = 3;
-                        rectAnnotation.GUID = Guid.NewGuid();
-
-                        float fsize = bmp.Width / 48.0f;
-                        if (fsize < 25)
-                            fsize = 25;
-
-                        Font textFont = new Font("Times New Roman", fsize, FontStyle.Bold);
-
-                        string strNo = "[" + (i + 1) + "]";
-                        SizeF textSize = Graphics.FromHwnd(IntPtr.Zero).MeasureString(strNo, textFont);
-
-                        var textAnnotation = new AnnotationData();
-                        textAnnotation.AnnotationType = AnnotationType.enumText;
-                        textAnnotation.StartPoint = new Point(boundingrect.Left,(int)(boundingrect.Top - textSize.Height*1.25f));
-                        textAnnotation.EndPoint = new Point((textAnnotation.StartPoint.X + (int)textSize.Width * 2), (int)(textAnnotation.StartPoint.Y + textSize.Height * 1.25f));
-                        if(textAnnotation.StartPoint.X<0)
-                        {
-                            textAnnotation.EndPoint = new Point((textAnnotation.EndPoint.X + textAnnotation.StartPoint.X),textAnnotation.EndPoint.Y);
-                            textAnnotation.StartPoint = new Point(0,textAnnotation.StartPoint.Y);
-                        }
-                        if(textAnnotation.StartPoint.Y<0)
-                        {
-                            textAnnotation.EndPoint = new Point(textAnnotation.EndPoint.X,(textAnnotation.EndPoint.Y - textAnnotation.StartPoint.Y));
-                            textAnnotation.StartPoint = new Point(textAnnotation.StartPoint.X,0);
-                        }
-
-                        textAnnotation.TextContent = strNo;
-                        AnnoTextFont tempFont = new AnnoTextFont();
-                        tempFont.TextColor = Color.Blue.ToArgb();
-                        tempFont.Size = (int)fsize;
-                        tempFont.Name = "Times New Roman";
-                        textAnnotation.FontType = tempFont;
-                        textAnnotation.GUID = Guid.NewGuid();
-                        
-                        tempListAnnotation.Add(rectAnnotation);
-                        tempListAnnotation.Add(textAnnotation);
-                    }
-                    m_ImageCore.ImageBuffer.SetMetaData(m_ImageCore.ImageBuffer.CurrentImageIndexInBuffer, EnumMetaDataType.enumAnnotation, tempListAnnotation, true);
-                }
-
-                this.ShowResult(aryResult, timeElapsed);
+                this.ShowResultOnImage(bmp, textResults, localizationResults);
+                this.ShowResult(textResults, timeElapsed);
 
             }
             catch (Exception exp)
@@ -1550,33 +1496,115 @@ namespace Barcode_Reader_Demo
                 MessageBox.Show(exp.Message, "Decoding error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        private void ShowResultOnImage(Bitmap bitmap,TextResult[] textResults, LocalizationResult[] localizationResults)
+        {
+            mImageCore.ImageBuffer.SetMetaData(mImageCore.ImageBuffer.CurrentImageIndexInBuffer, EnumMetaDataType.enumAnnotation, null, true);
+            if (localizationResults != null)
+            {
+                List<TextResult> textResultList = new List<TextResult>(textResults);
+                List<AnnotationData> tempListAnnotation = new List<AnnotationData>();
+                int nUnrecognizedIndex = textResults.Length;
+                int nTextResultIndex = 0;
+                for (var i = 0; i < localizationResults.Length; i++)
+                {
+                    var penColor = Color.Red;                    
+                    TextResult result = textResultList.Find(a => IsEqualPointsArray(a.LocalizationResult.ResultPoints, localizationResults[i].ResultPoints));
+                    if(result==null)
+                    {
+                        continue;
+                    }
 
-        private void ShowResult(TextResult[] aryResult, int timeElapsed)
+                    var rectAnnotation = new AnnotationData();
+                    rectAnnotation.AnnotationType = AnnotationType.enumRectangle;
+                    Rectangle boundingrect = ConvertLocationPointToRect(localizationResults[i].ResultPoints);
+                    rectAnnotation.StartPoint = new Point(boundingrect.Left, boundingrect.Top);
+                    rectAnnotation.EndPoint = new Point((boundingrect.Left + boundingrect.Size.Width), (boundingrect.Top + boundingrect.Size.Height));
+                    rectAnnotation.FillColor = Color.Transparent.ToArgb();
+                    rectAnnotation.PenColor = penColor.ToArgb();
+                    rectAnnotation.PenWidth = 3;
+                    rectAnnotation.GUID = Guid.NewGuid();
+
+                    float fsize = bitmap.Width / 48.0f;
+                    if (fsize < 25)
+                        fsize = 25;
+
+                    Font textFont = new Font("Times New Roman", fsize, FontStyle.Bold);
+
+                    string strNo = (result!=null)?"[" + (nTextResultIndex++ + 1) + "]":"";
+                    SizeF textSize = Graphics.FromHwnd(IntPtr.Zero).MeasureString(strNo, textFont);
+
+                    var textAnnotation = new AnnotationData();
+                    textAnnotation.AnnotationType = AnnotationType.enumText;
+                    textAnnotation.StartPoint = new Point(boundingrect.Left, (int)(boundingrect.Top - textSize.Height * 1.25f));
+                    textAnnotation.EndPoint = new Point((textAnnotation.StartPoint.X + (int)textSize.Width * 2), (int)(textAnnotation.StartPoint.Y + textSize.Height * 1.25f));
+                    if (textAnnotation.StartPoint.X < 0)
+                    {
+                        textAnnotation.EndPoint = new Point((textAnnotation.EndPoint.X + textAnnotation.StartPoint.X), textAnnotation.EndPoint.Y);
+                        textAnnotation.StartPoint = new Point(0, textAnnotation.StartPoint.Y);
+                    }
+                    if (textAnnotation.StartPoint.Y < 0)
+                    {
+                        textAnnotation.EndPoint = new Point(textAnnotation.EndPoint.X, (textAnnotation.EndPoint.Y - textAnnotation.StartPoint.Y));
+                        textAnnotation.StartPoint = new Point(textAnnotation.StartPoint.X, 0);
+                    }
+
+                    textAnnotation.TextContent = strNo;
+                    AnnoTextFont tempFont = new AnnoTextFont();
+                    tempFont.TextColor = Color.Red.ToArgb();
+                    tempFont.Size = (int)fsize;
+                    tempFont.Name = "Times New Roman";
+                    textAnnotation.FontType = tempFont;
+                    textAnnotation.GUID = Guid.NewGuid();
+
+                    tempListAnnotation.Add(rectAnnotation);
+                    tempListAnnotation.Add(textAnnotation);
+                }
+                mImageCore.ImageBuffer.SetMetaData(mImageCore.ImageBuffer.CurrentImageIndexInBuffer, EnumMetaDataType.enumAnnotation, tempListAnnotation, true);
+            }
+        }
+        private bool IsEqualPointsArray(Point []ptArrayA,Point []ptArrayB)
+        {
+            if (ptArrayA == ptArrayB)
+                return true;
+           
+            if (ptArrayA!=null && ptArrayB!=null && (ptArrayA.Length == ptArrayB.Length))
+            {
+                for(int i=0;i<ptArrayA.Length;i++)
+                {
+                    if(ptArrayA[i].X != ptArrayB[i].X || ptArrayA[i].Y != ptArrayB[i].Y)
+                    {
+                        return false;
+                    }
+                }
+                return true;
+            }
+            return false;
+        }
+
+        private void ShowResult(TextResult[] textResult, int timeElapsed)
         {
             string strResult;
 
-            if (aryResult == null)
+            if (textResult == null)
             {
                 strResult = "No barcode found. Total time spent: " + timeElapsed + " ms\r\n";
             }
             else
             {
-                strResult = "Total barcode(s) found: " + aryResult.Length + ". Total time spent: " + timeElapsed + " ms\r\n";
+                strResult = "Total barcode(s) found: " + textResult.Length + ". Total time spent: " + timeElapsed + " ms\r\n";
 
 
-                for (var i = 0; i < aryResult.Length; i++)
+                for (var i = 0; i < textResult.Length; i++)
                 {
-                    Rectangle tempRectangle = ConvertLocationPointToRect(aryResult[i].LocalizationResult.ResultPoints);
+                    Rectangle tempRectangle = ConvertLocationPointToRect(textResult[i].LocalizationResult.ResultPoints);
                     strResult += string.Format("  Barcode: {0}\r\n", (i + 1));
-                    strResult += string.Format("    Type: {0}\r\n", aryResult[i].BarcodeFormat.ToString());
-                    strResult = AddBarcodeText(strResult, aryResult[i].BarcodeText);
-                    //string[] res = aryResult[i].BarcodeText.Split(new char[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
-                    strResult += string.Format("    Hex Data: {0}\r\n", ToHexString(aryResult[i].BarcodeBytes));
+                    strResult += string.Format("    Type: {0}\r\n", textResult[i].BarcodeFormat.ToString());
+                    strResult = AddBarcodeText(strResult, textResult[i].BarcodeText);
+                    strResult += string.Format("    Hex Data: {0}\r\n", ToHexString(textResult[i].BarcodeBytes));
                     strResult += string.Format("    Region: {{Left: {0}, Top: {1}, Width: {2}, Height: {3}}}\r\n", tempRectangle.Left.ToString(),
                                                    tempRectangle.Top.ToString(), tempRectangle.Width.ToString(), tempRectangle.Height.ToString());
-                    strResult += string.Format("    Module Size: {0}\r\n", aryResult[i].LocalizationResult.ModuleSize);
-                    strResult += string.Format("    Angle: {0}\r\n", aryResult[i].LocalizationResult.Angle);
-                    //strResult += string.Format("    Is Recognized: {0}\r\n", !aryResult[i].IsUnrecognized);
+                    strResult += string.Format("    Module Size: {0}\r\n", textResult[i].LocalizationResult.ModuleSize);
+                    strResult += string.Format("    Angle: {0}\r\n", textResult[i].LocalizationResult.Angle);
                     strResult += "\r\n";
                 }
             }
@@ -1606,70 +1634,10 @@ namespace Barcode_Reader_Demo
 
         private void ShowSelectedImageArea()
         {
-            if (m_ImageCore.ImageBuffer.CurrentImageIndexInBuffer >= 0)
+            if (mImageCore.ImageBuffer.CurrentImageIndexInBuffer >= 0)
             {
-                var recSelArea = dsViewer.GetSelectionRect(m_ImageCore.ImageBuffer.CurrentImageIndexInBuffer);
-                var imgCurrent =  m_ImageCore.ImageBuffer.GetBitmap(m_ImageCore.ImageBuffer.CurrentImageIndexInBuffer);
-            }
-        }
-
-        private void cbxBarcodeFormat_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            //private string[] mBarcodeType = { "All_DEFAULT", "OneD_DEFAULT", "QR_CODE_DEFAULT", "PDF417_DEFAULT", "DATAMATRIX_DEFAULT", "CODE_39_DEFAULT", "CODE_128_DEFAULT", "CODE_93_DEFAULT", "CODABAR_DEFAULT", "ITF_DEFAULT", "INDUSTRIAL_25_DEFAULT", "EAN_13_DEFAULT", "EAN_8_DEFAULT", "UPC_A_DEFAULT", "UPC_E_DEFAULT" };
-            int index = cbxBarcodeFormat.SelectedIndex;
-            switch(index)
-            {
-                case 0:
-                    mBarcodeFormat = (int)EnumBarcodeFormat.All;
-                    break;
-                case 1:
-                    mBarcodeFormat = (int)EnumBarcodeFormat.OneD;
-                    break;
-                case 2:
-                    mBarcodeFormat = (int)EnumBarcodeFormat.QR_CODE;
-                    break;
-                case 3:
-                    mBarcodeFormat = (int)EnumBarcodeFormat.PDF417;
-                    break;
-                case 4:
-                    mBarcodeFormat = (int)EnumBarcodeFormat.DATAMATRIX;
-                    break;
-                case 5:
-                    mBarcodeFormat = (int)EnumBarcodeFormat.CODE_39;
-                    break;
-                case 6:
-                    mBarcodeFormat = (int)EnumBarcodeFormat.CODE_128;
-                    break;
-                case 7:
-                    mBarcodeFormat = (int)EnumBarcodeFormat.CODE_93;
-                    break;
-                case 8:
-                    mBarcodeFormat = (int)EnumBarcodeFormat.CODABAR;
-                    break;
-                case 9:
-                    mBarcodeFormat = (int)EnumBarcodeFormat.ITF;
-                    break;
-                case 10:
-                    mBarcodeFormat = (int)EnumBarcodeFormat.INDUSTRIAL_25;
-                    break;
-                case 11:
-                    mBarcodeFormat = (int)EnumBarcodeFormat.EAN_13;
-                    break;
-                case 12:
-                    mBarcodeFormat = (int)EnumBarcodeFormat.EAN_8;
-                    break;
-                case 13:
-                    mBarcodeFormat = (int)EnumBarcodeFormat.UPC_A;
-                    break;
-                case 14:
-                    mBarcodeFormat = (int)EnumBarcodeFormat.UPC_E;
-                    break;
-                case 15:
-                    mBarcodeFormat = (int)EnumBarcodeFormat.AZTEC;
-                    break;
-                default:
-                    mBarcodeFormat = (int)EnumBarcodeFormat.All;
-                    break;
+                var recSelArea = dsViewer.GetSelectionRect(mImageCore.ImageBuffer.CurrentImageIndexInBuffer);
+                var imgCurrent =  mImageCore.ImageBuffer.GetBitmap(mImageCore.ImageBuffer.CurrentImageIndexInBuffer);
             }
         }
 
@@ -1686,37 +1654,37 @@ namespace Barcode_Reader_Demo
 
         private void TurnOnReading(bool isOn)
         {
-           _bTurnOnReading = isOn;
+           mIsTurnOnReading = isOn;
 
-            if (_bTurnOnReading)
+            if (mIsTurnOnReading)
             {
-                Camera tempCamera = m_CameraManager.SelectCamera((short)cbxWebCamSrc.SelectedIndex);
-                if (!m_IfHasAddedOnFrameCaptureEvent)
+                Camera tempCamera = mCameraManager.SelectCamera((short)cbxWebCamSrc.SelectedIndex);
+                if (!mIfHasAddedOnFrameCaptureEvent)
                 {
                     tempCamera.Open();
                     tempCamera.SetVideoContainer(picBoxWebCam.Handle);
                     tempCamera.CurrentResolution = GetCamResolution();
                     ResizeVideoWindow(0);
                     tempCamera.OnFrameCaptrue +=tempCamera_OnFrameCaptrue;
-                    m_IfHasAddedOnFrameCaptureEvent = true;
+                    mIfHasAddedOnFrameCaptureEvent = true;
                 }
                 this.SwitchButtonState(true);
             }
             else
             {
-                if (m_IfHasAddedOnFrameCaptureEvent)
+                if (mIfHasAddedOnFrameCaptureEvent)
                 {
-                    Camera tempCamera = m_CameraManager.SelectCamera((short)cbxWebCamSrc.SelectedIndex);
+                    Camera tempCamera = mCameraManager.SelectCamera((short)cbxWebCamSrc.SelectedIndex);
                     tempCamera.OnFrameCaptrue -= tempCamera_OnFrameCaptrue;
                 }
-                m_IfHasAddedOnFrameCaptureEvent = false;
+                mIfHasAddedOnFrameCaptureEvent = false;
                 this.SwitchButtonState(false);
             }
         }
 
         void tempCamera_OnFrameCaptrue(Bitmap bitmap)
         {
-            if (_bTurnOnReading)
+            if (mIsTurnOnReading)
             {
                 ReadFromFrame(bitmap);
             }
@@ -1727,7 +1695,7 @@ namespace Barcode_Reader_Demo
             var resAry = cbxWebCamRes.Text.Split('x');
             int width, height;
             return resAry.Length > 1 && int.TryParse(resAry[0],out width) && int.TryParse(resAry[1],out 
-                height)?new CamResolution(width,height):m_CameraManager.SelectCamera((short)cbxWebCamSrc.SelectedIndex).CurrentResolution; 
+                height)?new CamResolution(width,height):mCameraManager.SelectCamera((short)cbxWebCamSrc.SelectedIndex).CurrentResolution; 
         }
 
         private void InitWebCamControls()
@@ -1746,7 +1714,7 @@ namespace Barcode_Reader_Demo
 
         private void ResizeVideoWindow(int iRotate)
         {
-            Camera tempCamera = m_CameraManager.SelectCamera((short)cbxWebCamSrc.SelectedIndex);
+            Camera tempCamera = mCameraManager.SelectCamera((short)cbxWebCamSrc.SelectedIndex);
             var camResolution = tempCamera.CurrentResolution;
             if (camResolution == null || camResolution.Width <= 0 || camResolution.Height <= 0) return;
 
@@ -1780,29 +1748,29 @@ namespace Barcode_Reader_Demo
             if (m_bIfCameraSourceUpdated)
             {
                 CameraManager tempCameraManager = new CameraManager(dntLicenseKeys);
-                if(m_CameraManager.GetCameraNames()!=null)
+                if(mCameraManager.GetCameraNames()!=null)
                 {
-                    foreach (string temp in m_CameraManager.GetCameraNames())
+                    foreach (string temp in mCameraManager.GetCameraNames())
                     {
-                        m_CameraManager.SelectCamera(temp).Dispose();
+                        mCameraManager.SelectCamera(temp).Dispose();
                     }
                 }
 
-                m_CameraManager = null;
-                m_CameraManager = tempCameraManager;
+                mCameraManager = null;
+                mCameraManager = tempCameraManager;
             }
             else
             {
                 TurnOnReading(false);
             }
 
-            Camera tempCamera = m_CameraManager.SelectCamera(m_CameraManager.CurrentSourceName);
+            Camera tempCamera = mCameraManager.SelectCamera(mCameraManager.CurrentSourceName);
             tempCamera.Close();
             tempCamera.Dispose();
-            tempCamera = m_CameraManager.SelectCamera((short)cbxWebCamSrc.SelectedIndex);
+            tempCamera = mCameraManager.SelectCamera((short)cbxWebCamSrc.SelectedIndex);
             picBoxWebCam.Image = null;
             InitCbxWebCamRes();
-            if (_webCamErrorOccur) return;
+            if (mIsWebCamErrorOccur) return;
 
             tempCamera.SetVideoContainer(picBoxWebCam.Handle);
             tempCamera.Open();
@@ -1816,34 +1784,34 @@ namespace Barcode_Reader_Demo
         {
             TurnOnReading(false);
             m_bIfCameraSourceUpdated = false;
-            m_CurrentCameraName = m_CameraManager.CurrentSourceName;
+            m_CurrentCameraName = mCameraManager.CurrentSourceName;
 
             CameraManager tempCameraManager = new CameraManager(dntLicenseKeys);
 
-            if (m_CameraManager.GetCameraNames() == null && tempCameraManager.GetCameraNames()!=null)
+            if (mCameraManager.GetCameraNames() == null && tempCameraManager.GetCameraNames()!=null)
             {
                 m_bIfCameraSourceUpdated = true;
                 picBoxWebCam.Visible = true;
                 picBoxWebCam.BringToFront();
             }
 
-            if (m_CameraManager.GetCameraNames() != null && tempCameraManager.GetCameraNames() == null)
+            if (mCameraManager.GetCameraNames() != null && tempCameraManager.GetCameraNames() == null)
             {
                 m_bIfCameraSourceUpdated = true;
             }
 
 
-            if(tempCameraManager.GetCameraNames()!=null && m_CameraManager.GetCameraNames()!=null)
+            if(tempCameraManager.GetCameraNames()!=null && mCameraManager.GetCameraNames()!=null)
             {
-                if (tempCameraManager.GetCameraNames().Count != m_CameraManager.GetCameraNames().Count)
+                if (tempCameraManager.GetCameraNames().Count != mCameraManager.GetCameraNames().Count)
                 {
                     m_bIfCameraSourceUpdated = true;
                 }
                 else
                 {
                     List<string> temp1 = tempCameraManager.GetCameraNames();
-                    List<string> temp2 = m_CameraManager.GetCameraNames();
-                    for (short i = 0; i < m_CameraManager.GetCameraNames().Count; i++)
+                    List<string> temp2 = mCameraManager.GetCameraNames();
+                    for (short i = 0; i < mCameraManager.GetCameraNames().Count; i++)
                     {
                         if(temp1[i]!=temp2[i])
                         {
@@ -1875,7 +1843,7 @@ namespace Barcode_Reader_Demo
             TurnOnReading(false);
 
             picBoxWebCam.Image = null;
-            Camera tempCamera = m_CameraManager.SelectCamera((short)cbxWebCamSrc.SelectedIndex);
+            Camera tempCamera = mCameraManager.SelectCamera((short)cbxWebCamSrc.SelectedIndex);
             tempCamera.CurrentResolution = GetCamResolution();
             ResizeVideoWindow(0);
         }
@@ -1913,17 +1881,17 @@ namespace Barcode_Reader_Demo
         {
             if (bVisible)
             {
-                _panelResult.Visible = true;
-                _panelResult.Focus();
-                this._roundedRectanglePanelAcquireLoad.Visible = false;
-                this._roundedRectanglePanelBarcode.Visible = false;
+                mPanelResult.Visible = true;
+                mPanelResult.Focus();
+                this.mRoundedRectanglePanelAcquireLoad.Visible = false;
+                this.mRoundedRectanglePanelBarcode.Visible = false;
                 this.panelReadBarcode.Visible = false;
             }
             else
             {
-                _panelResult.Visible = false;
-                this._roundedRectanglePanelAcquireLoad.Visible = true;
-                this._roundedRectanglePanelBarcode.Visible = true;
+                mPanelResult.Visible = false;
+                this.mRoundedRectanglePanelAcquireLoad.Visible = true;
+                this.mRoundedRectanglePanelBarcode.Visible = true;
                 this.panelReadBarcode.Visible = true;
             }
         }
@@ -1944,7 +1912,7 @@ namespace Barcode_Reader_Demo
 
         public bool OnPostTransfer(Bitmap bit)
         {
-            m_ImageCore.IO.LoadImage(bit);
+            mImageCore.IO.LoadImage(bit);
             return true;
         }
 
@@ -1974,8 +1942,8 @@ namespace Barcode_Reader_Demo
         #region
         public void LoadConvertResult(ConvertResult result)
         {
-            m_ImageCore.IO.LoadImage(result.Image);
-            m_ImageCore.ImageBuffer.SetMetaData(m_ImageCore.ImageBuffer.CurrentImageIndexInBuffer, EnumMetaDataType.enumAnnotation, result.Annotations, true);
+            mImageCore.IO.LoadImage(result.Image);
+            mImageCore.ImageBuffer.SetMetaData(mImageCore.ImageBuffer.CurrentImageIndexInBuffer, EnumMetaDataType.enumAnnotation, result.Annotations, true);
 
         }
         #endregion
@@ -1999,9 +1967,9 @@ namespace Barcode_Reader_Demo
 
         private void BarcodeReaderDemo_FormClosed(object sender, FormClosedEventArgs e)
         {
-            if(m_TwainManager!=null)
+            if(mTwainManager!=null)
             {
-                m_TwainManager.Dispose();
+                mTwainManager.Dispose();
             }
         }
         private void BarcodeReaderDemo_FormClosing(object sender, FormClosingEventArgs e)
@@ -2036,6 +2004,305 @@ namespace Barcode_Reader_Demo
             }
             Rectangle temp =new Rectangle(left, top, (right - left), (bottom - top));
             return temp;
+        }
+
+        private void btnShowAllOneD_Click(object sender, EventArgs e)
+        {
+            if (this.panelOneDetail.Visible)
+            {
+                this.panelOneDetail.Visible = false;
+                btnShowAllOneD.Text = "show all";
+                this.btnShowAllOneD.Image = global::Barcode_Reader_Demo.Properties.Resources.arrow_down;
+            }
+            else
+            {
+                this.panelOneDetail.Visible = true;
+                btnShowAllOneD.Text = "hide all";
+                this.btnShowAllOneD.Image = global::Barcode_Reader_Demo.Properties.Resources.arrow_up;
+                panelOneDetail.BringToFront();
+            }
+
+
+        }
+
+        private void btnEditSettings_Click(object sender, EventArgs e)
+        {
+            SwitchCustomControls(true);
+        }
+
+        private void SwitchCustomControls(bool bCustomizeSettings)
+        {
+            this.panelOneDetail.Visible = false;
+            btnShowAllOneD.Text = "show all";
+            this.btnShowAllOneD.Image = global::Barcode_Reader_Demo.Properties.Resources.arrow_down;
+            if (bCustomizeSettings)
+            {
+                btnExportSettings.Visible = true;
+                mbCustom = true;
+                SetCustomizePanelValuseFromPublicRuntimeSettings();
+                mRoundedRectanglePanelBarcode.Controls.Remove(panelNormalSettings);
+
+
+                this.panelReadBarcode.Location = new System.Drawing.Point(0, 0);
+                panelReadBarcode.Dock = DockStyle.Fill;
+                this.panelBarcodeReaderParent.Controls.Add(panelReadBarcode);
+
+
+                this.panelFormat.Location = new System.Drawing.Point(0, 0);
+                this.panelFormatParent.Controls.Add(this.panelFormat);
+                this.panelOneDetail.Location = new System.Drawing.Point(0, 65);
+               
+                panelCustomSettings.Controls.Add(this.panelOneDetail);
+                mRoundedRectanglePanelBarcode.AutoSize = false;
+                mRoundedRectanglePanelBarcode.Size = new Size(311, 376);
+                mRoundedRectanglePanelBarcode.Controls.Add(this.panelCustom);
+            }
+            else
+            {
+                btnExportSettings.Visible = false;
+                mbCustom = false;
+                mRoundedRectanglePanelBarcode.Controls.Remove(this.panelCustom);             
+
+                this.panelOneDetail.Location = new System.Drawing.Point(0, 109);
+                this.panelNormalSettings.Controls.Add(this.panelOneDetail);
+
+                this.panelFormat.Location = new System.Drawing.Point(0, 44);
+                this.panelNormalSettings.Controls.Add(this.panelFormat);
+                //this.panelNormalSettings.Visible = true;
+                this.panelReadBarcode.Location = new System.Drawing.Point(20, 111);
+                panelReadBarcode.Dock = DockStyle.None;
+                this.panelRecognitionMode.Controls.Add(this.panelReadBarcode);
+
+                mRoundedRectanglePanelBarcode.Location = new Point(12, 294);
+                mRoundedRectanglePanelBarcode.Size = new Size(310, 376);
+                mRoundedRectanglePanelBarcode.AutoSize = false;
+
+                mRoundedRectanglePanelBarcode.Controls.Add(this.panelNormalSettings);
+               
+            }
+           
+        }
+
+        private void pbCloseCustomPanel_Click(object sender, EventArgs e)
+        {
+            SwitchCustomControls(false);
+        }
+
+        private void rbMode_CheckedChanged(object sender, EventArgs e)
+        {
+            // 0 Best Speed. 1 Balance. 2 Best Coverage.
+            if (!(sender is RadioButton)) return;
+            if((sender as RadioButton).Name.CompareTo(this.rbBalance.Name)==0 && this.rbBalance.Checked)
+            {
+                miRecognitionMode = 1;
+               
+            }
+            else if((sender as RadioButton).Name.CompareTo(this.rbBestCoverage.Name) == 0 && this.rbBestCoverage.Checked)
+            {
+                miRecognitionMode = 2;
+            }
+            else if((sender as RadioButton).Name.CompareTo(this.rbBestSpeed.Name) == 0 && this.rbBestSpeed.Checked)
+            {
+                miRecognitionMode = 0;
+            }
+        }
+
+        private void cbOneD_CheckStateChanged(object sender, EventArgs e)
+        {
+            if(cbOneD.CheckState == CheckState.Unchecked)
+            {
+                cbUPCE.Checked = cbEAN8.Checked = cbEAN13.Checked = cbCODABAR.Checked = cbITF.Checked =
+                cbCODE93.Checked = cbCODE128.Checked = cbCOD39.Checked = cbUPCA.Checked = cbINDUSTRIAL25.Checked =false;
+            }
+            else if (cbOneD.CheckState == CheckState.Checked)
+            {
+                cbUPCE.Checked = cbEAN8.Checked = cbEAN13.Checked = cbCODABAR.Checked = cbITF.Checked =
+                cbCODE93.Checked = cbCODE128.Checked = cbCOD39.Checked = cbUPCA.Checked = cbINDUSTRIAL25.Checked = true;
+            }
+        }
+        private void rbOneMode_CheckedChanged(object sender, EventArgs e)
+        {
+            if(cbUPCE.Checked   && cbEAN8.Checked    && cbEAN13.Checked && cbCODABAR.Checked      && cbITF.Checked &&
+               cbCODE93.Checked && cbCODE128.Checked && cbCOD39.Checked && cbINDUSTRIAL25.Checked && cbUPCA.Checked)
+            {
+                cbOneD.CheckState = CheckState.Checked;
+            }else if(!cbUPCE.Checked &&   !cbEAN8.Checked &&    !cbEAN13.Checked && !cbCODABAR.Checked &&      !cbITF.Checked &&
+                     !cbCODE93.Checked && !cbCODE128.Checked && !cbCOD39.Checked && !cbINDUSTRIAL25.Checked && !cbUPCA.Checked)
+            {
+                cbOneD.CheckState = CheckState.Unchecked;
+            }
+            else
+            {
+                cbOneD.CheckState = CheckState.Indeterminate;
+            }
+            UpdateBarcodeFormat();
+        }
+        
+        private void cbBarcodeFormat_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateBarcodeFormat();
+        }
+        private void UpdateBarcodeFormat()
+        {
+            mEmBarcodeFormat = 0;
+            mEmBarcodeFormat = this.cbAZTEC.Checked ? (mEmBarcodeFormat | EnumBarcodeFormat.AZTEC) : mEmBarcodeFormat;
+            mEmBarcodeFormat = this.cbDataMatrix.Checked ? (mEmBarcodeFormat | EnumBarcodeFormat.DATAMATRIX) : mEmBarcodeFormat;
+            mEmBarcodeFormat = this.cbQRcode.Checked ? (mEmBarcodeFormat | EnumBarcodeFormat.QR_CODE) : mEmBarcodeFormat;
+            mEmBarcodeFormat = this.cbPDF417.Checked ? (mEmBarcodeFormat | EnumBarcodeFormat.PDF417) : mEmBarcodeFormat;
+
+            mEmBarcodeFormat = this.cbINDUSTRIAL25.Checked ? (mEmBarcodeFormat | EnumBarcodeFormat.INDUSTRIAL_25) : mEmBarcodeFormat;
+            mEmBarcodeFormat = this.cbUPCE.Checked ? (mEmBarcodeFormat | EnumBarcodeFormat.UPC_E) : mEmBarcodeFormat;
+            mEmBarcodeFormat = this.cbUPCA.Checked ? (mEmBarcodeFormat | EnumBarcodeFormat.UPC_A) : mEmBarcodeFormat;
+
+            mEmBarcodeFormat = this.cbEAN8.Checked ? (mEmBarcodeFormat | EnumBarcodeFormat.EAN_8) : mEmBarcodeFormat;
+            mEmBarcodeFormat = this.cbEAN13.Checked ? (mEmBarcodeFormat | EnumBarcodeFormat.EAN_13) : mEmBarcodeFormat;
+            mEmBarcodeFormat = this.cbCODABAR.Checked ? (mEmBarcodeFormat | EnumBarcodeFormat.CODABAR) : mEmBarcodeFormat;
+            mEmBarcodeFormat = this.cbITF.Checked ? (mEmBarcodeFormat | EnumBarcodeFormat.ITF) : mEmBarcodeFormat;
+
+            mEmBarcodeFormat = this.cbCODE93.Checked ? (mEmBarcodeFormat | EnumBarcodeFormat.CODE_93) : mEmBarcodeFormat;
+            mEmBarcodeFormat = this.cbCODE128.Checked ? (mEmBarcodeFormat | EnumBarcodeFormat.CODE_128) : mEmBarcodeFormat;
+            mEmBarcodeFormat = this.cbCOD39.Checked ? (mEmBarcodeFormat | EnumBarcodeFormat.CODE_39) : mEmBarcodeFormat;
+        }
+
+        private void SetCustomizePanelValuseFromPublicRuntimeSettings()
+        {
+            PublicRuntimeSettings runtimeSettings = mBarcodeReader.GetRuntimeSettings();
+            this.tbExpectedBarcodesCount.Text = runtimeSettings.mExpectedBarcodesCount.ToString();
+            this.cmbDeblurLevel.SelectedIndex = runtimeSettings.mDeblurLevel;
+           
+            switch (miRecognitionMode)
+            {
+                case 0:                   
+                    this.cmbAntiDamageLevel.SelectedIndex = 3;
+                    this.cmbDeblurLevel.SelectedIndex = 3;
+                    this.tbExpectedBarcodesCount.Text ="512";
+                    this.cbTextFilterMode.CheckState = CheckState.Unchecked;
+                    this.tbScaleDownThreshold.Text = "2300";
+                    break;
+                case 1:                    
+                    this.cmbAntiDamageLevel.SelectedIndex = 5;
+                    this.cmbDeblurLevel.SelectedIndex = 5;
+                    this.tbExpectedBarcodesCount.Text = "512";
+                    this.cbTextFilterMode.CheckState = CheckState.Checked;
+                    this.tbScaleDownThreshold.Text = "2300";
+                    break;
+                case 2:
+                    this.cmbAntiDamageLevel.SelectedIndex = 9;
+                    this.cmbDeblurLevel.SelectedIndex = 9;
+                    this.tbExpectedBarcodesCount.Text = "512";
+                    this.cbTextFilterMode.CheckState = CheckState.Checked;
+                    this.tbScaleDownThreshold.Text = "214748347";
+                    break;
+            }
+            this.cbRegionPredetectionMode.CheckState = (runtimeSettings.mRegionPredetectionMode == RegionPredetectionMode.RPM_Enable)?CheckState.Checked:CheckState.Unchecked;
+            this.tbScaleDownThreshold.Text = runtimeSettings.mScaleDownThreshold.ToString();
+            this.cmbColorImageConvertMode.SelectedIndex = (runtimeSettings.mColourImageConvertMode == ColourImageConvertMode.CICM_Auto) ? 0 : 1;
+            this.cmbBarcodeInvertMode.SelectedIndex = (runtimeSettings.mBarcodeInvertMode == BarcodeInvertMode.BIM_DarkOnLight) ? 0 : 1;
+            this.cmbGrayEqualizationSensitivity.SelectedIndex = runtimeSettings.mGrayEqualizationSensitivity;
+            this.cmbTextureDetectionSensitivity.SelectedIndex = runtimeSettings.mTextureDetectionSensitivity;
+            this.tbBinarizationBlockSize.Text = runtimeSettings.mBinarizationBlockSize.ToString();
+            
+        }
+        private PublicRuntimeSettings GetPublicRuntimeSettingsFromCustomizePanelValuse()
+        {
+            PublicRuntimeSettings runtimeSettings = mBarcodeReader.GetRuntimeSettings();
+            if (!this.tbExpectedBarcodesCount.Text.Equals(""))
+                runtimeSettings.mExpectedBarcodesCount = Int32.Parse(this.tbExpectedBarcodesCount.Text);
+            runtimeSettings.mDeblurLevel = this.cmbDeblurLevel.SelectedIndex;
+            runtimeSettings.mAntiDamageLevel = this.cmbAntiDamageLevel.SelectedIndex;
+           
+
+            runtimeSettings.mRegionPredetectionMode = (this.cbRegionPredetectionMode.CheckState == CheckState.Checked)? RegionPredetectionMode.RPM_Enable: RegionPredetectionMode.RPM_Disable;
+           
+            if (!this.tbScaleDownThreshold.Text.Equals(""))
+                runtimeSettings.mScaleDownThreshold = Int32.Parse(this.tbScaleDownThreshold.Text);
+
+            runtimeSettings.mColourImageConvertMode = (this.cmbColorImageConvertMode.SelectedIndex ==0)?ColourImageConvertMode.CICM_Auto: ColourImageConvertMode.CICM_Grayscale;
+            runtimeSettings.mBarcodeInvertMode = (this.cmbBarcodeInvertMode.SelectedIndex == 0) ? BarcodeInvertMode.BIM_DarkOnLight : BarcodeInvertMode.BIM_LightOnDark;
+            
+            runtimeSettings.mGrayEqualizationSensitivity= this.cmbGrayEqualizationSensitivity.SelectedIndex;
+            runtimeSettings.mTextureDetectionSensitivity = this.cmbTextureDetectionSensitivity.SelectedIndex;
+            if (!this.tbBinarizationBlockSize.Text.Equals(""))
+                runtimeSettings.mBinarizationBlockSize = Int32.Parse(this.tbBinarizationBlockSize.Text);
+            return runtimeSettings;
+        }
+
+        private void textBoxNumberOnly_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if(!(Char.IsNumber(e.KeyChar)) &&e.KeyChar !=(char)8)
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void labelWebcamNote_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnExportSettings_Click(object sender, EventArgs e)
+        {
+           
+            this.saveRuntimeSettingsFileDialog.ShowDialog();            
+            saveRuntimeSettingsFileDialog.Filter = "|*.json";     
+        }
+
+        private void saveRuntimeSettingsFileDialog_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            string path = saveRuntimeSettingsFileDialog.FileName;
+            if (path == "")
+            {
+                return;
+            }
+            UpdateBarcodeFormat();
+            PublicRuntimeSettings runtimeSettings = GetPublicRuntimeSettingsFromCustomizePanelValuse();
+            
+            runtimeSettings.mBarcodeFormatIds = (int)this.mEmBarcodeFormat;
+            mBarcodeReader.UpdateRuntimeSettings(runtimeSettings);
+            mBarcodeReader.OutputSettingsToFile(path, "customsettings");
+            
+
+        }
+
+        private void lbCustomPanelClose_MouseHover(object sender, EventArgs e)
+        {
+            this.lbCustomPanelClose.Image = global::Barcode_Reader_Demo.Properties.Resources.icon_closed_hover;
+        }
+
+        private void lbCustomPanelClose_MouseLeave(object sender, EventArgs e)
+        {
+            this.lbCustomPanelClose.Image = global::Barcode_Reader_Demo.Properties.Resources.icon_closed;
+        }
+
+        private void btnExportSettings_DragLeave(object sender, EventArgs e)
+        {
+            this.btnExportSettings.Image = global::Barcode_Reader_Demo.Properties.Resources.icon_output;
+        }
+
+        private void btnExportSettings_DragEnter(object sender, DragEventArgs e)
+        {
+            this.btnExportSettings.Image = global::Barcode_Reader_Demo.Properties.Resources.icon_output_hover;
+        }
+
+        private void pictureBoxCustomize_MouseDown(object sender, MouseEventArgs e)
+        {            
+
+            pictureBoxCustomize.Image = (Image)Resources.ResourceManager.GetObject("pictureBoxCustomize_Leave");
+        }
+
+        private void pictureBoxCustomize_MouseEnter(object sender, EventArgs e)
+        {
+            pictureBoxCustomize.Image = (Image)Resources.ResourceManager.GetObject("pictureBoxCustomize_hover");
+        }
+
+        private void pictureBoxCustomize_MouseLeave(object sender, EventArgs e)
+        {
+            pictureBoxCustomize.Image = (Image)Resources.ResourceManager.GetObject("pictureBoxCustomize_Leave");
+        }
+
+        private void pictureBoxCustomize_MouseUp(object sender, MouseEventArgs e)
+        {
+            pictureBoxCustomize.Image = (Image)Resources.ResourceManager.GetObject("pictureBoxCustomize_Leave");
         }
     }
 }

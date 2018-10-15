@@ -112,242 +112,83 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="dnt_demo_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\dnt_demo_icon.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="picboxClose_Down" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\picboxClose_Down.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="picboxClose_Enter" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\picboxClose_Enter.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="picboxClose_Leave" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\picboxClose_Leave.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="picboxCurrentImage_Leave" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\picboxCurrentImage_Leave.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="picboxDeleteAll_Disabled" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\picboxDeleteAll_Disabled.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="picboxDeleteAll_Down" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\picboxDeleteAll_Down.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="picboxDeleteAll_Enter" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\picboxDeleteAll_Enter.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="picboxDeleteAll_Leave" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\picboxDeleteAll_Leave.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="picboxDeleteAnnotationA_Disabled" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\picboxDeleteAnnotationA_Disabled.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="picboxDeleteAnnotationA_Down" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\picboxDeleteAnnotationA_Down.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="picboxDeleteAnnotationA_Enter" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\picboxDeleteAnnotationA_Enter.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="picboxDeleteAnnotationA_Leave" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\picboxDeleteAnnotationA_Leave.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="picboxDelete_Disabled" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\picboxDelete_Disabled.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="picboxDelete_Down" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\picboxDelete_Down.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="picboxDelete_Enter" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\picboxDelete_Enter.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="picboxDelete_Leave" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\picboxDelete_Leave.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="picboxFirst_Disabled" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\picboxFirst_Disabled.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="picboxFirst_Down" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\picboxFirst_Down.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="picboxFirst_Enter" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\picboxFirst_Enter.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="picboxFirst_Leave" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\picboxFirst_Leave.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="picboxHand_Disabled" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\picboxHand_Disabled.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="picboxHand_Down" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\picboxHand_Down.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="picboxHand_Enter" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\picboxHand_Enter.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="picboxHand_Leave" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\picboxHand_Leave.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="picboxLast_Disabled" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\picboxLast_Disabled.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="picboxLast_Down" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\picboxLast_Down.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="picboxLast_Enter" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\picboxLast_Enter.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="picboxLast_Leave" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\picboxLast_Leave.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="picboxMax_Down" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\picboxMax_Down.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="picboxMax_Enter" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\picboxMax_Enter.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="picboxMax_Leave" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\picboxMax_Leave.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="picboxMin_Down" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\picboxMin_Down.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="picboxMin_Enter" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\picboxMin_Enter.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="picboxMin_Leave" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\picboxMin_Leave.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="picboxNext_Disabled" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\picboxNext_Disabled.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="picboxNext_Down" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\picboxNext_Down.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="picboxNext_Enter" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\picboxNext_Enter.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="picboxNext_Leave" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\picboxNext_Leave.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="picboxPoint_Disabled" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\picboxPoint_Disabled.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="picboxPoint_Down" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\picboxPoint_Down.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="picboxPoint_Enter" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\picboxPoint_Enter.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="picboxPoint_Leave" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\picboxPoint_Leave.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="picboxPrevious_Disabled" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\picboxPrevious_Disabled.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="picboxPrevious_Down" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\picboxPrevious_Down.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="picboxPrevious_Enter" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\picboxPrevious_Enter.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="picboxPrevious_Leave" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\picboxPrevious_Leave.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="picboxTotalImage_Leave" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\picboxTotalImage_Leave.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="picboxZoomIn_Disabled" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\picboxZoomIn_Disabled.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="picboxZoomIn_Down" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\picboxZoomIn_Down.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="picboxZoomIn_Enter" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\picboxZoomIn_Enter.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="picboxZoomIn_Leave" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\picboxZoomIn_Leave.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="picboxZoomOut_Disabled" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\picboxZoomOut_Disabled.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="picboxZoomOut_Down" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\picboxZoomOut_Down.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="picboxZoomOut_Enter" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\picboxZoomOut_Enter.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="picboxZoomOut_Leave" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\picboxZoomOut_Leave.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="picboxAnnotationBar" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\picboxAnnotationBar.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="picboxLoadImage_Disabled" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\picboxLoadImage_Disabled.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="picboxLoadImage_Down" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\picboxLoadImage_Down.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="picboxLoadImage_Enter" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\picboxLoadImage_Enter.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="picboxLoadImage_Leave" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\picboxLoadImage_Leave.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="picboxOCR_Disabled" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\picboxOCR_Disabled.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="picboxOCR_Down" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\picboxOCR_Down.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="picboxOCR_Enter" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\picboxOCR_Enter.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="picboxOCR_Leave" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\picboxOCR_Leave.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="picboxOriginalSize_Disabled" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\picboxOriginalSize_Disabled.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="picboxReadBarcode_Disabled" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\picboxReadBarcode_Disabled.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="picboxZoomOut_Disabled" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\picboxZoomOut_Disabled.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="picboxReadBarcode_Down" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\picboxReadBarcode_Down.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="picboxPoint_Enter" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\picboxPoint_Enter.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="picboxReadBarcode_Enter" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\picboxReadBarcode_Enter.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="picboxDelete_Disabled" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\picboxDelete_Disabled.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="picboxReadBarcode_Leave" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\picboxReadBarcode_Leave.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="picboxNext_Down" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\picboxNext_Down.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="picboxSave_Disabled" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\picboxSave_Disabled.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="picboxSave_Down" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\picboxSave_Down.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="picboxSave_Enter" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\picboxSave_Enter.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="picboxSave_Leave" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\picboxSave_Leave.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="picboxScan_Disabled" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\picboxScan_Disabled.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="picboxScan_Down" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\picboxScan_Down.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="icon_closed_hover" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icon_closed_hover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="picboxScan_Enter" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\picboxScan_Enter.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="picboxScan_Leave" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\picboxScan_Leave.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="picboxPrevious_Enter" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\picboxPrevious_Enter.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="picboxDeleteAll_Leave" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\picboxDeleteAll_Leave.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="picboxOriginalSize_Enter" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\picboxOriginalSize_Enter.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="picboxFit_Leave" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\picboxFit_Leave.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="picboxOCR_Down" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\picboxOCR_Down.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="picboxReadBarcode_Leave" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\picboxReadBarcode_Leave.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="picboxFirst_Leave" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\picboxFirst_Leave.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="picboxMax_Enter" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\picboxMax_Enter.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="picboxScan_Down" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\picboxScan_Down.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="picboxSave_Leave" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\picboxSave_Leave.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="picboxPrevious_Leave" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\picboxPrevious_Leave.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="picboxPoint_Leave" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\picboxPoint_Leave.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="picboxLoadImage_Disabled" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\picboxLoadImage_Disabled.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="picboxZoomOut_Down" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\picboxZoomOut_Down.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="picboxDelete_Down" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\picboxDelete_Down.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="picboxFit_Disabled" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\picboxFit_Disabled.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -355,55 +196,241 @@
   <data name="picboxFit_Down" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\picboxFit_Down.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="picboxOriginalSize_Down" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\picboxOriginalSize_Down.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="picboxOriginalSize_Enter" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\picboxOriginalSize_Enter.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="picboxOriginalSize_Leave" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\picboxOriginalSize_Leave.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="picboxFit_Enter" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\picboxFit_Enter.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="picboxFit_Leave" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\picboxFit_Leave.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="picboxOriginalSize_Disabled" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\picboxOriginalSize_Disabled.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="picboxReadBarcode_Enter" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\picboxReadBarcode_Enter.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="main_bg" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\main_bg.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="picboxReadBarcode_Reading" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\picboxReadBarcode_Reading.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="dnt_demo_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\dnt_demo_icon.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="icn_star" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icn_star.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="picboxHand_Down" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\picboxHand_Down.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="tab_file" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\tab_file.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="picboxSave_Down" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\picboxSave_Down.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="tab_scanner" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\tab_scanner.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="picboxDeleteAnnotationA_Down" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\picboxDeleteAnnotationA_Down.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="tab_webcam" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\tab_webcam.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="picboxZoomIn_Enter" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\picboxZoomIn_Enter.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="picboxZoomOut_Enter" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\picboxZoomOut_Enter.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="picboxFirst_Down" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\picboxFirst_Down.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="picboxFirst_Enter" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\picboxFirst_Enter.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="barcode_Result" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Barcode_Result.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="picboxStopBarcode_Disabled" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\picboxStopBarcode_Disabled.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="picboxLast_Enter" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\picboxLast_Enter.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="picboxClose_Down" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\picboxClose_Down.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="picboxTotalImage_Leave" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\picboxTotalImage_Leave.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="picboxDeleteAnnotationA_Enter" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\picboxDeleteAnnotationA_Enter.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="picboxFit_Enter" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\picboxFit_Enter.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="icon_output" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icon_output.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="picboxOriginalSize_Down" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\picboxOriginalSize_Down.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="picboxZoomIn_Disabled" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\picboxZoomIn_Disabled.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="picboxMax_Down" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\picboxMax_Down.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="picboxNext_Leave" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\picboxNext_Leave.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="picboxHand_Enter" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\picboxHand_Enter.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="picboxStopBarcode_Leave" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\picboxStopBarcode_Leave.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="picboxDeleteAll_Down" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\picboxDeleteAll_Down.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="icn_star" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icn_star.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="icon_closed" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icon_closed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="picboxMax_Leave" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\picboxMax_Leave.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="picboxOCR_Disabled" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\picboxOCR_Disabled.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="tab_webcam" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\tab_webcam.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="picboxDeleteAll_Enter" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\picboxDeleteAll_Enter.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="picboxMin_Enter" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\picboxMin_Enter.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="picboxScan_Leave" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\picboxScan_Leave.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="picboxLast_Down" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\picboxLast_Down.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="picboxAnnotationBar" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\picboxAnnotationBar.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="picboxStopBarcode_Down" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\picboxStopBarcode_Down.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="arrow_down" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\arrow_down.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="icon_output_hover" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icon_output_hover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="picboxLast_Disabled" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\picboxLast_Disabled.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="picboxFirst_Disabled" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\picboxFirst_Disabled.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="picboxStopBarcode_Enter" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\picboxStopBarcode_Enter.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="picboxStopBarcode_Leave" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\picboxStopBarcode_Leave.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="picboxDelete_Leave" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\picboxDelete_Leave.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="picboxDeleteAnnotationA_Disabled" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\picboxDeleteAnnotationA_Disabled.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="picboxLoadImage_Enter" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\picboxLoadImage_Enter.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="picboxZoomIn_Leave" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\picboxZoomIn_Leave.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="picboxPrevious_Disabled" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\picboxPrevious_Disabled.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="picboxDeleteAnnotationA_Leave" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\picboxDeleteAnnotationA_Leave.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="picboxClose_Leave" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\picboxClose_Leave.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="tab_scanner" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\tab_scanner.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="arrow_up" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\arrow_up.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="picboxSave_Enter" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\picboxSave_Enter.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="picboxPrevious_Down" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\picboxPrevious_Down.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="picboxReadBarcode_Down" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\picboxReadBarcode_Down.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="tab_file" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\tab_file.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="picboxStopBarcode_Disabled" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\picboxStopBarcode_Disabled.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="picboxHand_Disabled" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\picboxHand_Disabled.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="picboxNext_Enter" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\picboxNext_Enter.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="picboxLast_Leave" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\picboxLast_Leave.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="picboxSave_Disabled" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\picboxSave_Disabled.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="picboxLoadImage_Down" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\picboxLoadImage_Down.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="picboxScan_Disabled" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\picboxScan_Disabled.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="picboxClose_Enter" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\picboxClose_Enter.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="picboxOCR_Leave" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\picboxOCR_Leave.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="picboxHand_Leave" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\picboxHand_Leave.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="picboxPoint_Down" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\picboxPoint_Down.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="picboxCurrentImage_Leave" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\picboxCurrentImage_Leave.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="picboxNext_Disabled" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\picboxNext_Disabled.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="picboxDeleteAll_Disabled" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\picboxDeleteAll_Disabled.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="picboxMin_Down" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\picboxMin_Down.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="picboxZoomOut_Leave" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\picboxZoomOut_Leave.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="picboxZoomIn_Down" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\picboxZoomIn_Down.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="picboxMin_Leave" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\picboxMin_Leave.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="picboxReadBarcode_Reading" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\picboxReadBarcode_Reading.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="picboxPoint_Disabled" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\picboxPoint_Disabled.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="picboxReadBarcode_Disabled" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\picboxReadBarcode_Disabled.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="picboxOriginalSize_Leave" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\picboxOriginalSize_Leave.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="picboxLoadImage_Leave" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\picboxLoadImage_Leave.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pictureBoxCustomize_Disabled" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\pictureBoxCustomize_Disabled.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pictureBoxCustomize_hover" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\pictureBoxCustomize_hover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pictureBoxCustomize_Leave" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\pictureBoxCustomize_Leave.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

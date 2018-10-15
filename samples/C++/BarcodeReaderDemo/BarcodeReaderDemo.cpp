@@ -168,7 +168,7 @@ void OutputResult(CBarcodeReader& reader,int errorcode,float time)
 		sprintf_s(pszTemp, 4096, "Failed to read barcode: %s\r\n", CBarcodeReader::GetErrorString(iRet));
 		printf(pszTemp);
 		free(pszTemp);
-		//continue;
+		return;
 	}
 
 	STextResultArray *paryResult = NULL;
@@ -229,7 +229,7 @@ int main(int argc, const char* argv[])
 	printf("Hints: Please input 'Q'or 'q' to quit the application.\r\n");
 	
 	CBarcodeReader reader;
-	reader.InitLicense("t0068MgAAAGTcD3/UEt+AMn7RN1iiqcAcVlpCTQ4Kv33Xv1sLQNylV6AA/P2iq4JRxPuN6V9NzQ7mDhZti9661K0JRw2wUMI=");
+	reader.InitLicense("t0068MgAAAHpXHm20GKgsFjQtxei4HQATUZwDxkkTCVXINan1sjFRH/AlwU5i7COEVsEIqAf2nN9bJFoK+S3+LIXsjN68YNU=");
 	
 
 	while(1)

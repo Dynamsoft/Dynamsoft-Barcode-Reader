@@ -1244,5 +1244,79 @@ namespace Barcode_Reader_Demo.Properties
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+        internal static System.Drawing.Bitmap arrow_down
+        {
+            get
+            {
+                object obj = ResourceManager.GetObject("arrow_down", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+		 internal static System.Drawing.Bitmap arrow_up
+        {
+            get
+            {
+                object obj = ResourceManager.GetObject("arrow_up", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+
+        internal static System.Drawing.Bitmap icon_closed
+        {
+            get
+            {
+                object obj = ResourceManager.GetObject("icon_closed", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        internal static System.Drawing.Bitmap icon_closed_hover
+        {
+            get
+            {
+                object obj = ResourceManager.GetObject("icon_closed_hover", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        internal static System.Drawing.Bitmap icon_output_hover
+        {
+            get
+            {
+                object obj = ResourceManager.GetObject("icon_output_hover", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        internal static System.Drawing.Bitmap icon_output
+        {
+            get
+            {
+                object obj = ResourceManager.GetObject("icon_output", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+
+        internal static System.Drawing.Bitmap pictureBoxCustomize_Disabled
+        {
+            get
+            {
+                object obj = ResourceManager.GetObject("pictureBoxCustomize_Disabled", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        internal static System.Drawing.Bitmap pictureBoxCustomize_hover
+        {
+            get
+            {
+                object obj = ResourceManager.GetObject("pictureBoxCustomize_hover", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        internal static System.Drawing.Bitmap pictureBoxCustomize_Leave
+        {
+            get
+            {
+                object obj = ResourceManager.GetObject("pictureBoxCustomize_Leave", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }

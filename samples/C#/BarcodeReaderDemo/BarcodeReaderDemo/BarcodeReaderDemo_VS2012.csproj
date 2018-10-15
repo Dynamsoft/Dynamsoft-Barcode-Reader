@@ -191,6 +191,12 @@
     <None Include="Resources\Barcode_Result.png" />
   </ItemGroup>
   <ItemGroup>
+      <Content Include="Resources\icon_closed.png" />
+    <Content Include="Resources\icon_closed_hover.png" />
+    <None Include="Resources\icon_output.png" />
+    <None Include="Resources\icon_output_hover.png" />
+	<Content Include="Resources\arrow_down.png" />
+    <Content Include="Resources\arrow_up.png" />
     <Content Include="Resources\big_arrow_down.png" />
     <Content Include="Resources\big_arrow_up.png" />
     <Content Include="Resources\dnt_demo_icon.ico" />
@@ -356,6 +362,9 @@
     <Content Include="Resources\picboxZoom_Down.png" />
     <Content Include="Resources\picboxZoom_Enter.png" />
     <Content Include="Resources\picboxZoom_Leave.png" />
+    <Content Include="Resources\pictureBoxCustomize_Disabled.png" />
+    <Content Include="Resources\pictureBoxCustomize_hover.png" />
+    <Content Include="Resources\pictureBoxCustomize_Leave.png" />
     <Content Include="Resources\small_arrow_down.png" />
     <Content Include="Resources\small_arrow_up.png" />
   </ItemGroup>
