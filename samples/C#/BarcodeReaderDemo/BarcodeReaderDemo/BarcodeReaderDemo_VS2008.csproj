@@ -2,7 +2,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.30729</ProductVersion>
+    <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{BECBB563-8BFD-4C68-9F62-A82BD88357D5}</ProjectGuid>
     <OutputType>WinExe</OutputType>
@@ -99,6 +99,7 @@
       <HintPath>Lib\dotNet2_0\Dynamsoft.Twain.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
@@ -170,11 +171,11 @@
     <None Include="Resources\Barcode_Result.png" />
   </ItemGroup>
   <ItemGroup>
-      <Content Include="Resources\icon_closed.png" />
+    <Content Include="Resources\icon_closed.png" />
     <Content Include="Resources\icon_closed_hover.png" />
     <None Include="Resources\icon_output.png" />
     <None Include="Resources\icon_output_hover.png" />
-	<Content Include="Resources\arrow_down.png" />
+    <Content Include="Resources\arrow_down.png" />
     <Content Include="Resources\arrow_up.png" />
     <Content Include="Resources\big_arrow_down.png" />
     <Content Include="Resources\big_arrow_up.png" />

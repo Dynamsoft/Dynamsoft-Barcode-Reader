@@ -57,8 +57,8 @@ namespace Barcode_Reader_Demo
         private CameraManager mCameraManager = null;
         private ImageCore mImageCore = null;
         private PDFRasterizer mPDFRasterizer = null;
-        string dbrLicenseKeys = "t0068MgAAAHpXHm20GKgsFjQtxei4HQATUZwDxkkTCVXINan1sjFRH/AlwU5i7COEVsEIqAf2nN9bJFoK+S3+LIXsjN68YNU=";
-        string dntLicenseKeys = "t0068MgAAAIRksvsrcYAAgrnU2oCYSGBvdjee/Q6HxPammDJl2gYjrBy31psm6FMBdi/4wZ2H+g/3BkWL/jUvisndS1FsiCQ=";
+        string dbrLicenseKeys = System.Configuration.ConfigurationManager.AppSettings["DBRLicense"];
+        string dntLicenseKeys = System.Configuration.ConfigurationManager.AppSettings["DNTLicense"];
         private bool mIfHasAddedOnFrameCaptureEvent = false;
 
         private int miRecognitionMode = 2;//best converage
@@ -98,8 +98,7 @@ namespace Barcode_Reader_Demo
 
             dsViewer.MouseShape = true;
             dsViewer.Annotation.Type = Dynamsoft.Forms.Enums.EnumAnnotationType.enumNone;
-
-            mBarcodeReader = new BarcodeReader(dbrLicenseKeys);           
+            mBarcodeReader = new BarcodeReader(dbrLicenseKeys);
             mPostShowFrameResults = new PostShowFrameResultsHandler(this.postShowFrameResults);
             mNormalRuntimeSettings = mBarcodeReader.GetRuntimeSettings();
             UpdateBarcodeFormat();

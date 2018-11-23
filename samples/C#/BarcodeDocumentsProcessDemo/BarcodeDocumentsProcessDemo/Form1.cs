@@ -44,7 +44,7 @@ namespace BarcodeDocumentsProcessDemo
         {
             InitializeComponent();
             InitialDefaultValue();
-            barcodeReader.LicenseKeys = "t0068MgAAAHpXHm20GKgsFjQtxei4HQATUZwDxkkTCVXINan1sjFRH/AlwU5i7COEVsEIqAf2nN9bJFoK+S3+LIXsjN68YNU=";
+            barcodeReader.LicenseKeys = "t0068MgAAAG8tqGMc8U9RyTI1vI/5xuzcYNWKDOdxczgOzaB0WtctPt2yo+7T6HD+jVdT2itiLYtpA1pFpPD4C16BWBDTsMI=";
 
 
             if (!Directory.Exists(_lastOpenedDirectory))

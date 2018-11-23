@@ -105,6 +105,7 @@
       <HintPath>Lib\dotNet4_0\Dynamsoft.Twain.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
@@ -187,12 +188,11 @@
     <None Include="Resources\Barcode_Result.png" />
   </ItemGroup>
   <ItemGroup>
-      
-	<Content Include="Resources\icon_closed.png" />
+    <Content Include="Resources\icon_closed.png" />
     <Content Include="Resources\icon_closed_hover.png" />
     <None Include="Resources\icon_output.png" />
     <None Include="Resources\icon_output_hover.png" />
-	<Content Include="Resources\arrow_down.png" />
+    <Content Include="Resources\arrow_down.png" />
     <Content Include="Resources\arrow_up.png" />
     <Content Include="Resources\big_arrow_down.png" />
     <Content Include="Resources\big_arrow_up.png" />

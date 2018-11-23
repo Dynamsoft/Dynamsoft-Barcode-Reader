@@ -105,6 +105,7 @@
       <HintPath>Lib\dotNet4_0\Dynamsoft.Twain.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
@@ -130,8 +131,7 @@
       <DependentUpon>BarcodeReaderDemo.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
-    <EmbeddedResource Include="Properties\Resources.resx"/>
-
+    <EmbeddedResource Include="Properties\Resources.resx" />
     <EmbeddedResource Include="BarcodeReaderDemo.resx">
       <SubType>Designer</SubType>
       <DependentUpon>BarcodeReaderDemo.cs</DependentUpon>

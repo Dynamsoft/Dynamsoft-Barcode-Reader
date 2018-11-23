@@ -2,7 +2,7 @@
 #include <iostream>
 #include <io.h>
 #include <direct.h>
-#include<iomanip>
+#include <iomanip>
 #include <ctime>
 #include "BarcodeFileReader.h"
 
@@ -10,9 +10,9 @@
 CBarcodeFileReader::CBarcodeFileReader()
 {
 
-	m_barcodeFilesDir		= ".";
+	m_barcodeFilesDir = ".";
 	m_decodeResultOutputDir = ".";
-	m_outputType	 = OUTPUT_FILE;
+	m_outputType = OUTPUT_FILE;
 	m_readerState = READER_STOPPED;
 	m_pBarcodeStatisticsRecorder = new CBarcodeStatisticsRecorder();
 }
@@ -20,7 +20,7 @@ CBarcodeFileReader::CBarcodeFileReader()
 CBarcodeFileReader::~CBarcodeFileReader()
 {
 	SAFE_DELETE(m_pBarcodeStatisticsRecorder);
-	
+
 }
 
 void CBarcodeFileReader::LoadBarcodeFiles(const char *strBarcodeFilesDir)
@@ -36,13 +36,13 @@ void CBarcodeFileReader::SetOutputType(OUTPUT_TYPE outputType)
 void CBarcodeFileReader::SetOutputFileDir(const char *strOutputDir)
 {
 	m_decodeResultOutputDir = strOutputDir == NULL ? ".\\" : strOutputDir;
-	
+
 }
 
 
 void CBarcodeFileReader::Run()
 {
-	ProcessBarcodeFileRead();	
+	ProcessBarcodeFileRead();
 }
 void CBarcodeFileReader::Pause()
 {
@@ -56,13 +56,13 @@ void CBarcodeFileReader::Stop()
 
 void CBarcodeFileReader::ProcessBarcodeFileRead()
 {
-	ostream *pResultofStream = NULL,*pResultContentStream = NULL;
-	string lastBarcodeFilesDir, lastDecodeBarcodeOutputFilePath;
+	ostream *pResultofStream = NULL, *pResultContentStream = NULL;
+	string lastBarcodeFilesDir, lastDecodeBarcodeOutputFilePath, strOutputFilePath;
 	m_pBarcodeStatisticsRecorder->Initialization(lastBarcodeFilesDir, lastDecodeBarcodeOutputFilePath);
 	if (m_outputType == OUTPUT_FILE)
 	{
-		string strSubffix = ".csv" ;
-		string strOutputFilePath = m_decodeResultOutputDir + "\\"+m_currentOutputFileName + strSubffix;
+		string strSubffix = ".csv";
+		strOutputFilePath = m_decodeResultOutputDir + "\\" + m_currentOutputFileName + strSubffix;
 		if (!lastBarcodeFilesDir.empty())
 		{
 			m_barcodeFilesDir = lastBarcodeFilesDir;
@@ -73,23 +73,22 @@ void CBarcodeFileReader::ProcessBarcodeFileRead()
 		CreateOutputFileDir(strOutputContentFilePath);
 		CreateOutputFileDir(strOutputFilePath);
 
-		cout <<"The output file:"<< strOutputFilePath <<"\n"<< endl;
-		pResultofStream = new ofstream(strOutputFilePath.c_str(), ios::app);	
+		cout << "The output file:" << strOutputFilePath << "\n" << endl;
+		pResultofStream = new ofstream(strOutputFilePath.c_str(), ios::app);
 		pResultContentStream = new ofstream(strOutputContentFilePath.c_str(), ios::app);
 		m_pBarcodeStatisticsRecorder->StartRecord(pResultofStream, pResultContentStream, m_barcodeFilesDir, strOutputFilePath);
-		
 
 	}
 	else
 	{
 		pResultofStream = &cout;
-		m_pBarcodeStatisticsRecorder->StartRecord(&cout, &cout,"","");
+		m_pBarcodeStatisticsRecorder->StartRecord(&cout, &cout, "", "");
 		//pErrorOfstream = &cout;
 	}
 
 	/////////////////////////////////////////////////
 	m_readerState = READER_RUNNING;
-	
+
 	ScanBarcodeFilesDir(m_barcodeFilesDir);
 
 	m_readerState = READER_STOPPED;
@@ -101,14 +100,31 @@ void CBarcodeFileReader::ProcessBarcodeFileRead()
 		pResultofStream->flush();
 		((ofstream*)pResultofStream)->close();
 		SAFE_DELETE(pResultofStream);
+		pResultContentStream->flush();
+		((ofstream*)pResultContentStream)->close();
+		SAFE_DELETE(pResultContentStream);
+
+		ifstream ifFile(strOutputFilePath.c_str(), ios::binary);
+		stringstream ssStringStream;
+		ssStringStream << ifFile.rdbuf();
+		ifFile.close();
+		string strFileContent = ssStringStream.str();
+		string strPart1_ImageDataList, strPart2_StatisticsInfo;
+		int iIndex = strFileContent.find("\nTotal Image Count", 0);
+		strPart1_ImageDataList = strFileContent.substr(0, iIndex);
+		strPart2_StatisticsInfo = strFileContent.substr(iIndex + 1);
+		ofstream ofFile(strOutputFilePath.c_str(), ios::trunc | ios::binary);
+		ofFile << strPart2_StatisticsInfo << "\n" << strPart1_ImageDataList;
+		ofFile.flush();
+		ofFile.close();
 	}
-	
+
 }
 
 
 void CBarcodeFileReader::ScanBarcodeFilesDir(const string strDir)
 {
-	string		   strTmpDir = strDir+ "\\*.*";
+	string		   strTmpDir = strDir + "\\*.*";
 	vector<string> listDir;
 	_finddata_t    findData;
 	intptr_t	   handle;
@@ -129,11 +145,11 @@ void CBarcodeFileReader::ScanBarcodeFilesDir(const string strDir)
 			_sleep(2000);
 			continue;
 		}
-			break;
+		break;
 		default:
 			break;
 		}
-	
+
 		if (findData.attrib & _A_SUBDIR)
 		{
 			if (strcmp(findData.name, ".") == 0 || strcmp(findData.name, "..") == 0)
@@ -162,25 +178,27 @@ void CBarcodeFileReader::ScanBarcodeFilesDir(const string strDir)
 			if (!m_pBarcodeStatisticsRecorder->FindLastScanPoint(strCurrentFilePath))
 				continue;
 
-			
-			
+
+
 			CBarcodeStatisticsRecorder::DecodeResultInfo decodeResult;
 			decodeResult.strFileName = strCurrentFilePath;
 			decodeResult.state = CBarcodeStatisticsRecorder::STATE_INVALID;
 			m_pBarcodeStatisticsRecorder->RecordStatisticsData(decodeResult);
 
+			///show the print progress
+			cout << strCurrentFilePath << endl;
 			bool bRet = ReadFileBarcodes(strCurrentFilePath, decodeResult);
-			decodeResult.state = bRet ? CBarcodeStatisticsRecorder::STATE_OK : CBarcodeStatisticsRecorder::STATE_FAILED;	
+			decodeResult.state = bRet ? CBarcodeStatisticsRecorder::STATE_OK : CBarcodeStatisticsRecorder::STATE_FAILED;
 			m_pBarcodeStatisticsRecorder->RecordStatisticsData(decodeResult);
 		}
-			
+
 	} while (_findnext(handle, &findData) == 0);
 
 	for (size_t i = 0; i < listDir.size(); i++)
-	{		
+	{
 		ScanBarcodeFilesDir(listDir.at(i));
 	}
-	_findclose(handle);  	
+	_findclose(handle);
 }
 
 
@@ -219,14 +237,14 @@ string CBarcodeFileReader::ToHexString(unsigned char* bytes, const int byteLengt
 void CBarcodeFileReader::CreateOutputFileDir(string strOutputFilePath) {
 	char *fileName = (char*)strOutputFilePath.c_str(), *pDir;
 	int pos = 0;
-	while ((pos = strOutputFilePath.find('\\', pos))!=string::npos)
+	while ((pos = strOutputFilePath.find('\\', pos)) != string::npos)
 	{
-		string subStr = strOutputFilePath.substr(0, pos);		
+		string subStr = strOutputFilePath.substr(0, pos);
 		if (access(subStr.c_str(), 6) == -1)
 		{
 			mkdir(subStr.c_str());
 		}
 		pos++;
 	}
-	
+
 }

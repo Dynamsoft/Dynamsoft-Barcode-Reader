@@ -259,7 +259,7 @@ Public Class Form1
         If (Not imageViewer.Image Is Nothing) Then
 
             Try
-                reader.LicenseKeys = "t0068MgAAAHpXHm20GKgsFjQtxei4HQATUZwDxkkTCVXINan1sjFRH/AlwU5i7COEVsEIqAf2nN9bJFoK+S3+LIXsjN68YNU="
+                reader.LicenseKeys = "t0068MgAAAG8tqGMc8U9RyTI1vI/5xuzcYNWKDOdxczgOzaB0WtctPt2yo+7T6HD+jVdT2itiLYtpA1pFpPD4C16BWBDTsMI="
                 Dim beforeRead As DateTime = DateTime.Now
                 Dim tempPublicParameterSettings As PublicRuntimeSettings = reader.GetRuntimeSettings()
                 tempPublicParameterSettings.mBarcodeFormatIds = mBarcodeFormat

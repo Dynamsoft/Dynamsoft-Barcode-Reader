@@ -7,7 +7,7 @@
 CDbrBarcodeFileReader::CDbrBarcodeFileReader()
 {
 	m_pBarcodeReader = new CBarcodeReader();
-	m_pBarcodeReader->InitLicense("t0068MgAAAHpXHm20GKgsFjQtxei4HQATUZwDxkkTCVXINan1sjFRH/AlwU5i7COEVsEIqAf2nN9bJFoK+S3+LIXsjN68YNU=");
+	m_pBarcodeReader->InitLicense("t0068MgAAAG8tqGMc8U9RyTI1vI/5xuzcYNWKDOdxczgOzaB0WtctPt2yo+7T6HD+jVdT2itiLYtpA1pFpPD4C16BWBDTsMI=");
 }
 
 CDbrBarcodeFileReader::~CDbrBarcodeFileReader()
@@ -116,8 +116,6 @@ void CDbrBarcodeFileReader::RunWithRuntimeSettings()
 
 bool CDbrBarcodeFileReader::ReadFileBarcodes( const string strFilePath, CBarcodeStatisticsRecorder::DecodeResultInfo &decodeResultInfo)
 {
-	///show the print progress
-	cout << strFilePath<<endl;
 	bool bret = true;
 	clock_t start, end;
 
