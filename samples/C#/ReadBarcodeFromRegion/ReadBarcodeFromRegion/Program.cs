@@ -13,7 +13,7 @@ namespace ReadBarcodeFromRegion
         {
 
             BarcodeReader _br = new BarcodeReader();
-            _br.LicenseKeys = "t0068MgAAAG8tqGMc8U9RyTI1vI/5xuzcYNWKDOdxczgOzaB0WtctPt2yo+7T6HD+jVdT2itiLYtpA1pFpPD4C16BWBDTsMI=";
+            _br.LicenseKeys = "t0068MgAAAG6SGWXnlIgHn4EBv9vZgfsft0bZesR4aSXOunXf9TJ5ZuDUPH6NrtdDqYwEx27oIGO/+AYFKr93WaTyNAKhjw4=";
             string[] strTemplateNameArray = { "All_DEFAULT", "All_DEFAULT_WITHREGION" };
             string tempDefaultTemplateJson = "{\"Version\": \"2.0\",\"ImageParameter\": {\"Name\": \"" + strTemplateNameArray[0] + "\",\"BarcodeFormatIds\": [\"All\"],\"RegionPredetectionMode\": \"Enable\"}}";
             string tempTemplateJsonWithRegion = "{\"Version\": \"2.0\",\"ImageParameter\": {\"Name\": \"" + strTemplateNameArray[1] + "\",\"BarcodeFormatIds\": [\"All\"],\"RegionPredetectionMode\": \"Disable\",\"RegionDefinitionNameArray\": [\"Region\"]},\"RegionDefinitionArray\": [{\"Name\": \"Region\",\"MeasuredByPercentage\": true" + ",\"Left\":" + iLeft.ToString() + ",\"Top\":" + iTop.ToString() + ",\"Right\":" + iRight.ToString() + ",\"Bottom\":" + iBottom.ToString() + "}]}";
