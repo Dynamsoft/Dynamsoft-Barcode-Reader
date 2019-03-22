@@ -69,6 +69,8 @@ Specifications
 
 [More][2]
 
+## License Agreement
+https://www.dynamsoft.com/Products/barcode-reader-license-agreement.aspx
 
 [1]:https://www.dynamsoft.com/Products/Dynamic-Barcode-Reader.aspx
 [2]:https://www.dynamsoft.com/Products/Dynamic-Barcode-Reader-Feature.aspx
