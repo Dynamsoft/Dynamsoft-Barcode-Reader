@@ -8,6 +8,13 @@ namespace Barcode_Reader_Demo
 {
     partial class BarcodeReaderDemo
     {
+        private int cmbDeblurLevel_SelectedIndex = 0;
+        private int cmbLocalizationModes_SelectedIndex = 0;
+        private int cmbGrayscaleTransformationModes_SelectedIndex = 0;
+        private int cmbImagePreprocessingModes_SelectedIndex = 0;
+        private int cmbMinResultConfidence_SelectedIndex = 0;
+        private int cmbTextureDetectionSensitivity_SelectedIndex = 0;       
+            
         /// <summary>
         /// Required designer variable.
         /// </summary>
@@ -100,9 +107,9 @@ namespace Barcode_Reader_Demo
             this.label11 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.cmbTextureDetectionSensitivity = new System.Windows.Forms.ComboBox();
-            this.cmbGrayEqualizationSensitivity = new System.Windows.Forms.ComboBox();
-            this.cmbBarcodeInvertMode = new System.Windows.Forms.ComboBox();
-            this.cmbColorImageConvertMode = new System.Windows.Forms.ComboBox();
+            this.cmbMinResultConfidence = new System.Windows.Forms.ComboBox();
+            this.cmbImagePreprocessingModes = new System.Windows.Forms.ComboBox();
+            this.cmbGrayscaleTransformationModes = new System.Windows.Forms.ComboBox();
             this.label9 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.tbBinarizationBlockSize = new System.Windows.Forms.TextBox();
@@ -110,7 +117,7 @@ namespace Barcode_Reader_Demo
             this.label7 = new System.Windows.Forms.Label();
             this.cbRegionPredetectionMode = new System.Windows.Forms.CheckBox();
             this.cbTextFilterMode = new System.Windows.Forms.CheckBox();
-            this.cmbAntiDamageLevel = new System.Windows.Forms.ComboBox();
+            this.cmbLocalizationModes = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
             this.cmbDeblurLevel = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
@@ -971,9 +978,9 @@ namespace Barcode_Reader_Demo
             this.panelSettings.Controls.Add(this.label11);
             this.panelSettings.Controls.Add(this.label10);
             this.panelSettings.Controls.Add(this.cmbTextureDetectionSensitivity);
-            this.panelSettings.Controls.Add(this.cmbGrayEqualizationSensitivity);
-            this.panelSettings.Controls.Add(this.cmbBarcodeInvertMode);
-            this.panelSettings.Controls.Add(this.cmbColorImageConvertMode);
+            this.panelSettings.Controls.Add(this.cmbMinResultConfidence);
+            this.panelSettings.Controls.Add(this.cmbImagePreprocessingModes);
+            this.panelSettings.Controls.Add(this.cmbGrayscaleTransformationModes);
             this.panelSettings.Controls.Add(this.label9);
             this.panelSettings.Controls.Add(this.label8);
             this.panelSettings.Controls.Add(this.tbBinarizationBlockSize);
@@ -981,7 +988,7 @@ namespace Barcode_Reader_Demo
             this.panelSettings.Controls.Add(this.label7);
             this.panelSettings.Controls.Add(this.cbRegionPredetectionMode);
             this.panelSettings.Controls.Add(this.cbTextFilterMode);
-            this.panelSettings.Controls.Add(this.cmbAntiDamageLevel);
+            this.panelSettings.Controls.Add(this.cmbLocalizationModes);
             this.panelSettings.Controls.Add(this.label5);
             this.panelSettings.Controls.Add(this.cmbDeblurLevel);
             this.panelSettings.Controls.Add(this.label4);
@@ -1023,7 +1030,7 @@ namespace Barcode_Reader_Demo
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(207, 19);
             this.label10.TabIndex = 13;
-            this.label10.Text = "Gray Equalization Sensitivity: ";
+            this.label10.Text = "Min Result Confidence: ";
             // 
             // cmbTextureDetectionSensitivity
             // 
@@ -1045,56 +1052,63 @@ namespace Barcode_Reader_Demo
             this.cmbTextureDetectionSensitivity.Name = "cmbTextureDetectionSensitivity";
             this.cmbTextureDetectionSensitivity.Size = new System.Drawing.Size(258, 27);
             this.cmbTextureDetectionSensitivity.TabIndex = 12;
+            this.cmbTextureDetectionSensitivity.SelectedIndexChanged+=cmbTextureDetectionSensitivity_SelectedIndexChanged;
             // 
-            // cmbGrayEqualizationSensitivity
+            // cmbMinResultConfidence
             // 
-            this.cmbGrayEqualizationSensitivity.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbGrayEqualizationSensitivity.Font = new System.Drawing.Font("Open Sans", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
-            this.cmbGrayEqualizationSensitivity.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(96)))), ((int)(((byte)(96)))), ((int)(((byte)(96)))));
-            this.cmbGrayEqualizationSensitivity.FormattingEnabled = true;
-            this.cmbGrayEqualizationSensitivity.Items.AddRange(new object[] {
-            "0",
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9"});
-            this.cmbGrayEqualizationSensitivity.Location = new System.Drawing.Point(19, 501);
-            this.cmbGrayEqualizationSensitivity.Name = "cmbGrayEqualizationSensitivity";
-            this.cmbGrayEqualizationSensitivity.Size = new System.Drawing.Size(258, 27);
-            this.cmbGrayEqualizationSensitivity.TabIndex = 12;
+            this.cmbMinResultConfidence.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbMinResultConfidence.Font = new System.Drawing.Font("Open Sans", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.cmbMinResultConfidence.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(96)))), ((int)(((byte)(96)))), ((int)(((byte)(96)))));
+            this.cmbMinResultConfidence.FormattingEnabled = true;
+            this.cmbMinResultConfidence.Items.AddRange(new object[] {
+            "0 - No limitation",
+            "10",
+            "20",
+            "30",
+            "40",
+            "50",
+            "60",
+            "70",
+            "80",
+            "90"});
+            this.cmbMinResultConfidence.Location = new System.Drawing.Point(19, 501);
+            this.cmbMinResultConfidence.Name = "cmbMinResultConfidence";
+            this.cmbMinResultConfidence.Size = new System.Drawing.Size(258, 27);
+            this.cmbMinResultConfidence.TabIndex = 12;
+            this.cmbMinResultConfidence.SelectedIndexChanged+=cmbMinResultConfidence_SelectedIndexChanged;
             // 
-            // cmbBarcodeInvertMode
+            // cmbImagePreprocessingModes
             // 
-            this.cmbBarcodeInvertMode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbBarcodeInvertMode.Font = new System.Drawing.Font("Open Sans", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
-            this.cmbBarcodeInvertMode.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(96)))), ((int)(((byte)(96)))), ((int)(((byte)(96)))));
-            this.cmbBarcodeInvertMode.FormattingEnabled = true;
-            this.cmbBarcodeInvertMode.Items.AddRange(new object[] {
-            "Dark On Light",
-            "Light On Dark"});
-            this.cmbBarcodeInvertMode.Location = new System.Drawing.Point(19, 432);
-            this.cmbBarcodeInvertMode.Name = "cmbBarcodeInvertMode";
-            this.cmbBarcodeInvertMode.Size = new System.Drawing.Size(258, 27);
-            this.cmbBarcodeInvertMode.TabIndex = 12;
+            this.cmbImagePreprocessingModes.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbImagePreprocessingModes.Font = new System.Drawing.Font("Open Sans", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.cmbImagePreprocessingModes.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(96)))), ((int)(((byte)(96)))), ((int)(((byte)(96)))));
+            this.cmbImagePreprocessingModes.FormattingEnabled = true;
+            this.cmbImagePreprocessingModes.Items.AddRange(new object[] {
+            "General",
+            "Gray Equalization",
+            "Gray Smoothing",
+            "Sharpening and Smoothing"});
+            this.cmbImagePreprocessingModes.Location = new System.Drawing.Point(19, 432);
+            this.cmbImagePreprocessingModes.Name = "cmbImagePreprocessingModes";
+            this.cmbImagePreprocessingModes.Size = new System.Drawing.Size(258, 27);
+            this.cmbImagePreprocessingModes.TabIndex = 12;
+            this.cmbImagePreprocessingModes.SelectedIndexChanged+=cmbImagePreprocessingModes_SelectedIndexChanged;
             // 
-            // cmbColorImageConvertMode
+            // cmbGrayscaleTransformationModes
             // 
-            this.cmbColorImageConvertMode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbColorImageConvertMode.Font = new System.Drawing.Font("Open Sans", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
-            this.cmbColorImageConvertMode.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(96)))), ((int)(((byte)(96)))), ((int)(((byte)(96)))));
-            this.cmbColorImageConvertMode.FormattingEnabled = true;
-            this.cmbColorImageConvertMode.Items.AddRange(new object[] {
-            "Auto",
-            "Grayscale"});
-            this.cmbColorImageConvertMode.Location = new System.Drawing.Point(19, 366);
-            this.cmbColorImageConvertMode.Name = "cmbColorImageConvertMode";
-            this.cmbColorImageConvertMode.Size = new System.Drawing.Size(258, 27);
-            this.cmbColorImageConvertMode.TabIndex = 12;
+            this.cmbGrayscaleTransformationModes.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbGrayscaleTransformationModes.Font = new System.Drawing.Font("Open Sans", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.cmbGrayscaleTransformationModes.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(96)))), ((int)(((byte)(96)))), ((int)(((byte)(96)))));
+            this.cmbGrayscaleTransformationModes.FormattingEnabled = true;
+            this.cmbGrayscaleTransformationModes.Items.AddRange(new object[] {
+            "1.Original, 2.Inverted",
+            "Inverted",
+            "Original"});
+            this.cmbGrayscaleTransformationModes.Location = new System.Drawing.Point(19, 366);
+            this.cmbGrayscaleTransformationModes.Name = "cmbGrayscaleTransformationModes";
+            this.cmbGrayscaleTransformationModes.Size = new System.Drawing.Size(258, 27);
+            this.cmbGrayscaleTransformationModes.TabIndex = 12;
+            this.cmbGrayscaleTransformationModes.SelectedIndexChanged+=cmbGrayscaleTransformationModes_SelectedIndexChanged;
             // 
             // label9
             // 
@@ -1105,7 +1119,7 @@ namespace Barcode_Reader_Demo
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(157, 19);
             this.label9.TabIndex = 11;
-            this.label9.Text = "Barcode Invert Mode: ";
+            this.label9.Text = "Image Preprocess Modes: ";
             // 
             // label8
             // 
@@ -1116,14 +1130,14 @@ namespace Barcode_Reader_Demo
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(211, 20);
             this.label8.TabIndex = 11;
-            this.label8.Text = "Colour Image Convert Mode: ";
+            this.label8.Text = "Grayscale Transformation Modes: ";
             // 
             // tbBinarizationBlockSize
             // 
             this.tbBinarizationBlockSize.Font = new System.Drawing.Font("Open Sans", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.tbBinarizationBlockSize.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(96)))), ((int)(((byte)(96)))), ((int)(((byte)(96)))));
             this.tbBinarizationBlockSize.Location = new System.Drawing.Point(21, 645);
-            this.tbBinarizationBlockSize.MaxLength = 11;
+            this.tbBinarizationBlockSize.MaxLength = 10;
             this.tbBinarizationBlockSize.Name = "tbBinarizationBlockSize";
             this.tbBinarizationBlockSize.Size = new System.Drawing.Size(258, 27);
             this.tbBinarizationBlockSize.TabIndex = 10;
@@ -1134,11 +1148,12 @@ namespace Barcode_Reader_Demo
             this.tbScaleDownThreshold.Font = new System.Drawing.Font("Open Sans", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.tbScaleDownThreshold.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(96)))), ((int)(((byte)(96)))), ((int)(((byte)(96)))));
             this.tbScaleDownThreshold.Location = new System.Drawing.Point(19, 300);
-            this.tbScaleDownThreshold.MaxLength = 11;
+            this.tbScaleDownThreshold.MaxLength = 10;
             this.tbScaleDownThreshold.Name = "tbScaleDownThreshold";
             this.tbScaleDownThreshold.Size = new System.Drawing.Size(258, 27);
             this.tbScaleDownThreshold.TabIndex = 10;
             this.tbScaleDownThreshold.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxNumberOnly_KeyPress);
+            this.tbScaleDownThreshold.Leave += new System.EventHandler(this.tbScaleDownThreshold_OnLeave);
             // 
             // label7
             // 
@@ -1176,27 +1191,24 @@ namespace Barcode_Reader_Demo
             this.cbTextFilterMode.Text = "Use Text Filter Mode";
             this.cbTextFilterMode.UseVisualStyleBackColor = true;
             // 
-            // cmbAntiDamageLevel
+            // cmbLocalizationModes
             // 
-            this.cmbAntiDamageLevel.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbAntiDamageLevel.Font = new System.Drawing.Font("Open Sans", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
-            this.cmbAntiDamageLevel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(96)))), ((int)(((byte)(96)))), ((int)(((byte)(96)))));
-            this.cmbAntiDamageLevel.FormattingEnabled = true;
-            this.cmbAntiDamageLevel.Items.AddRange(new object[] {
-            "0",
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9"});
-            this.cmbAntiDamageLevel.Location = new System.Drawing.Point(19, 169);
-            this.cmbAntiDamageLevel.Name = "cmbAntiDamageLevel";
-            this.cmbAntiDamageLevel.Size = new System.Drawing.Size(258, 27);
-            this.cmbAntiDamageLevel.TabIndex = 5;
+            this.cmbLocalizationModes.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbLocalizationModes.Font = new System.Drawing.Font("Open Sans", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.cmbLocalizationModes.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(96)))), ((int)(((byte)(96)))), ((int)(((byte)(96)))));
+            this.cmbLocalizationModes.FormattingEnabled = true;
+            this.cmbLocalizationModes.Items.AddRange(new object[] {
+            "Default",
+            "Connected blocks",
+            "Statistics",
+            "Lines",
+            "Scan directly",
+            "1.Connected blocks, 2.Statistics"});
+            this.cmbLocalizationModes.Location = new System.Drawing.Point(19, 169);
+            this.cmbLocalizationModes.Name = "cmbLocalizationModes";
+            this.cmbLocalizationModes.Size = new System.Drawing.Size(258, 27);
+            this.cmbLocalizationModes.TabIndex = 5;
+            this.cmbLocalizationModes.SelectedIndexChanged+=cmbLocalizationModes_SelectedIndexChanged;
             // 
             // label5
             // 
@@ -1207,7 +1219,7 @@ namespace Barcode_Reader_Demo
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(142, 20);
             this.label5.TabIndex = 4;
-            this.label5.Text = "Anti-Damage Level:";
+            this.label5.Text = "Localization Mode:";
             // 
             // cmbDeblurLevel
             // 
@@ -1231,6 +1243,7 @@ namespace Barcode_Reader_Demo
             this.cmbDeblurLevel.Name = "cmbDeblurLevel";
             this.cmbDeblurLevel.Size = new System.Drawing.Size(258, 27);
             this.cmbDeblurLevel.TabIndex = 3;
+            this.cmbDeblurLevel.SelectedIndexChanged += cmbDeblurLevel_SelectedIndexChanged;
             // 
             // label4
             // 
@@ -1249,7 +1262,7 @@ namespace Barcode_Reader_Demo
             this.tbExpectedBarcodesCount.Font = new System.Drawing.Font("Open Sans", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.tbExpectedBarcodesCount.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(96)))), ((int)(((byte)(96)))), ((int)(((byte)(96)))));
             this.tbExpectedBarcodesCount.Location = new System.Drawing.Point(19, 39);
-            this.tbExpectedBarcodesCount.MaxLength = 11;
+            this.tbExpectedBarcodesCount.MaxLength = 10;
             this.tbExpectedBarcodesCount.Name = "tbExpectedBarcodesCount";
             this.tbExpectedBarcodesCount.Size = new System.Drawing.Size(258, 27);
             this.tbExpectedBarcodesCount.TabIndex = 1;
@@ -1629,8 +1642,8 @@ namespace Barcode_Reader_Demo
             // 
             // saveRuntimeSettingsFileDialog
             // 
-            this.saveRuntimeSettingsFileDialog.FileOk += new System.ComponentModel.CancelEventHandler(this.saveRuntimeSettingsFileDialog_FileOk);
             this.saveRuntimeSettingsFileDialog.Filter = "|*.json";
+            this.saveRuntimeSettingsFileDialog.FileOk += new System.ComponentModel.CancelEventHandler(this.saveRuntimeSettingsFileDialog_FileOk);
             // 
             // BarcodeReaderDemo
             // 
@@ -1715,6 +1728,33 @@ namespace Barcode_Reader_Demo
 
         }
 
+        void cmbDeblurLevel_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.cmbDeblurLevel_SelectedIndex = this.cmbDeblurLevel.SelectedIndex;
+        }
+
+        void cmbLocalizationModes_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.cmbLocalizationModes_SelectedIndex = this.cmbLocalizationModes.SelectedIndex;
+        }
+        void cmbGrayscaleTransformationModes_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.cmbGrayscaleTransformationModes_SelectedIndex = this.cmbGrayscaleTransformationModes.SelectedIndex;
+        }
+
+        void cmbImagePreprocessingModes_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.cmbImagePreprocessingModes_SelectedIndex = this.cmbImagePreprocessingModes.SelectedIndex;
+        }
+        void cmbMinResultConfidence_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.cmbMinResultConfidence_SelectedIndex = this.cmbMinResultConfidence.SelectedIndex;
+        }
+
+        void cmbTextureDetectionSensitivity_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.cmbTextureDetectionSensitivity_SelectedIndex = this.cmbTextureDetectionSensitivity.SelectedIndex;
+        }
 
         void dsViewer_OnMouseClick(short sImageIndex)
         {
@@ -1808,9 +1848,9 @@ namespace Barcode_Reader_Demo
         private Label label11;
         private Label label10;
         private ComboBox cmbTextureDetectionSensitivity;
-        private ComboBox cmbGrayEqualizationSensitivity;
-        private ComboBox cmbBarcodeInvertMode;
-        private ComboBox cmbColorImageConvertMode;
+        private ComboBox cmbMinResultConfidence;
+        private ComboBox cmbImagePreprocessingModes;
+        private ComboBox cmbGrayscaleTransformationModes;
         private Label label9;
         private Label label8;
         private TextBox tbBinarizationBlockSize;
@@ -1818,7 +1858,7 @@ namespace Barcode_Reader_Demo
         private Label label7;
         private CheckBox cbRegionPredetectionMode;
         private CheckBox cbTextFilterMode;
-        private ComboBox cmbAntiDamageLevel;
+        private ComboBox cmbLocalizationModes;
         private Label label5;
         private ComboBox cmbDeblurLevel;
         private Label label4;

@@ -14,7 +14,7 @@ namespace DecodeSingleBarcode
             //modifiy the default template and decode file.
             PublicRuntimeSettings settings = _br.GetRuntimeSettings();
             //set max barcode count.
-            settings.mMaxBarcodesCount = 1;
+            settings.ExpectedBarcodesCount = 1;
             _br.UpdateRuntimeSettings(settings);
             TextResult[] result = _br.DecodeFile(strImagePath, "");
             return result;
@@ -98,7 +98,7 @@ namespace DecodeSingleBarcode
             Console.WriteLine("Hints: Please input 'Q'or 'q' to quit the application.\r\n");
             bool bExitFlag = false;
             BarcodeReader _br = new BarcodeReader();
-            _br.LicenseKeys = "t0068MgAAAJbpvFwUvsodF81FjWojDo91ZYmDf3+aNdOGPOBOygS6Yte0JFqPMt/DnNMdfGS4gInUd+5RYOCX6IramuO+m4A=";
+            _br.ProductKeys = "t0068MgAAAGULjuE8kaXvjroaEl2wrJH8t74pon1WyqsBoFiChDCds9YW4U2y3bNdGu/n04/lbzbhkXIH635/POaNi2SG5aE=";
             while (true)
             {
 

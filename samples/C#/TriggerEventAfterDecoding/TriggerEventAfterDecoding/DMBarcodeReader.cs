@@ -16,7 +16,7 @@ namespace TriggerEventAfterDecoding
         public DMBarcodeReader(string license)
         {
             mBarcodeRader = new BarcodeReader();
-            mBarcodeRader.LicenseKeys = license;
+            mBarcodeRader.ProductKeys = license;
         }
 
         public void DecodeFile(string file)

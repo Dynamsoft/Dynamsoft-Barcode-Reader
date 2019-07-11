@@ -325,12 +325,14 @@ namespace Barcode_Reader_Demo
 
                         }
                         cbxWebCamRes.SelectedIndex = 0;
+                        mIsWebCamErrorOccur = false;
                     }
 
                 }
                 catch (Exception exp)
                 {
                     MessageBox.Show(exp.Message, "Webcam error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    mIsWebCamErrorOccur = true;
                 }
             }
 
@@ -1201,8 +1203,14 @@ namespace Barcode_Reader_Demo
                         break;
                     }
 
-
                     InitWebCamControls();
+
+                    if (mIsWebCamErrorOccur)
+                    {
+                        DisableControls(picboxReadBarcode);
+                        DisableControls(pictureBoxCustomize);
+                        break;
+                    }
 
                     if(mCameraManager.GetCameraNames()!=null&& mCameraManager.GetCameraNames().Count!=0)
                     {
@@ -1260,11 +1268,6 @@ namespace Barcode_Reader_Demo
 
         private void picboxReadBarcode_Click(object sender, EventArgs e)
         {
-            UpdateBarcodeFormat();
-            if (mbCustom)
-            {
-                mCustomRuntimeSettings = GetPublicRuntimeSettingsFromCustomizePanelValuse();
-            }
                
             if (picBoxWebCam.Visible)
             {
@@ -1326,6 +1329,7 @@ namespace Barcode_Reader_Demo
         //int imageindex = 0;
         private void ReadFromFrame(Bitmap bitmap)
         {
+            UpdateRuntimeSettingsWithUISetting();
             TextResult[] bars = null;
             Bitmap tempBitmap = ((Bitmap)(bitmap)).Clone(new Rectangle(0, 0, bitmap.Width, bitmap.Height), bitmap.PixelFormat);
             int timeElapsed = 0;
@@ -1333,53 +1337,6 @@ namespace Barcode_Reader_Demo
             try
             {
                 DateTime beforeRead = DateTime.Now;
-
-                //int iRecognitionMode = cbxRecognitionMode.SelectedIndex;
-                // 0 Best Speed. 1 Balance. 2 Best Coverage.
-                if (mbCustom)
-                {
-                    PublicRuntimeSettings runtimeSettings = mCustomRuntimeSettings;// GetPublicRuntimeSettingsFromCustomizePanelValuse();
-                    runtimeSettings.mBarcodeFormatIds = (int)this.mEmBarcodeFormat;                  
-                    mBarcodeReader.UpdateRuntimeSettings(runtimeSettings);
-                }
-                else
-                {
-
-                    switch (miRecognitionMode)
-
-                    {
-                        case 0:
-                            PublicRuntimeSettings tempBestSpeed = mNormalRuntimeSettings;// mBarcodeReader.GetRuntimeSettings();
-                            tempBestSpeed.mBarcodeFormatIds = (int)this.mEmBarcodeFormat;
-                            tempBestSpeed.mAntiDamageLevel = 3;
-                            tempBestSpeed.mDeblurLevel = 3;
-                            tempBestSpeed.mExpectedBarcodesCount = 512;
-                            tempBestSpeed.mScaleDownThreshold = 2300;
-                            tempBestSpeed.mTextFilterMode = TextFilterMode.TFM_Disable;
-                            mBarcodeReader.UpdateRuntimeSettings(tempBestSpeed);
-                            break;
-                        case 1:
-                            PublicRuntimeSettings tempBalance = mBarcodeReader.GetRuntimeSettings();
-                            tempBalance.mBarcodeFormatIds = (int)this.mEmBarcodeFormat;
-                            tempBalance.mAntiDamageLevel = 5;
-                            tempBalance.mDeblurLevel = 5;
-                            tempBalance.mExpectedBarcodesCount = 512;
-                            tempBalance.mScaleDownThreshold = 2300;
-                            tempBalance.mTextFilterMode = TextFilterMode.TFM_Enable;
-                            mBarcodeReader.UpdateRuntimeSettings(tempBalance);
-                            break;
-                        case 2:
-                            PublicRuntimeSettings tempCoverage = mBarcodeReader.GetRuntimeSettings();
-                            tempCoverage.mBarcodeFormatIds = (int)this.mEmBarcodeFormat;
-                            tempCoverage.mAntiDamageLevel = 9;
-                            tempCoverage.mDeblurLevel = 9;
-                            tempCoverage.mExpectedBarcodesCount = 512;
-                            tempCoverage.mScaleDownThreshold = 214748347;
-                            tempCoverage.mTextFilterMode = TextFilterMode.TFM_Enable;
-                            mBarcodeReader.UpdateRuntimeSettings(tempCoverage);
-                            break;
-                    }
-                }
 
                 bars = mBarcodeReader.DecodeBitmap(bitmap,"");
                
@@ -1418,7 +1375,138 @@ namespace Barcode_Reader_Demo
 
             return hexString;
         }
+        private void UpdateRuntimeSettingsWithUISetting()
+        {
+            mBarcodeReader.ResetRuntimeSettings();
+            UpdateBarcodeFormat();
+            if (mbCustom)
+            {
+                PublicRuntimeSettings runtimeSettings = mBarcodeReader.GetRuntimeSettings();
+                runtimeSettings.BarcodeFormatIds = (int)this.mEmBarcodeFormat;
+                if (!this.tbExpectedBarcodesCount.Text.Equals(""))
+                    runtimeSettings.ExpectedBarcodesCount = Int32.Parse(this.tbExpectedBarcodesCount.Text);
+                runtimeSettings.DeblurLevel = cmbDeblurLevel_SelectedIndex;// this.cmbDeblurLevel.SelectedIndex;
+                for (int i = 0; i < runtimeSettings.LocalizationModes.Length; i++)
+                    runtimeSettings.LocalizationModes[i] = EnumLocalizationMode.LM_SKIP;
+                switch (this.cmbLocalizationModes_SelectedIndex)
+                {
+                    case 0:
+                        runtimeSettings.LocalizationModes = mNormalRuntimeSettings.LocalizationModes;
+                        break;
+                    case 1:
+                        runtimeSettings.LocalizationModes[0] = EnumLocalizationMode.LM_CONNECTED_BLOCKS;
+                        break;
+                    case 2:
+                        runtimeSettings.LocalizationModes[0] = EnumLocalizationMode.LM_STATISTICS;
+                        break;
+                    case 3:
+                        runtimeSettings.LocalizationModes[0] = EnumLocalizationMode.LM_LINES;
+                        break;
+                    case 4:
+                        runtimeSettings.LocalizationModes[0] = EnumLocalizationMode.LM_SCAN_DIRECTLY;
+                        break;
+                    case 5:
+                        runtimeSettings.LocalizationModes[0] = EnumLocalizationMode.LM_CONNECTED_BLOCKS;
+                        runtimeSettings.LocalizationModes[1] = EnumLocalizationMode.LM_STATISTICS;
+                        break;
+                }
 
+                runtimeSettings.FurtherModes.TextFilterModes[0] = (this.cbTextFilterMode.CheckState == CheckState.Checked) ? EnumTextFilterMode.TFM_GENERAL_CONTOUR : EnumTextFilterMode.TFM_SKIP;
+                runtimeSettings.FurtherModes.RegionPredetectionModes[0] = (this.cbRegionPredetectionMode.CheckState == CheckState.Checked) ? EnumRegionPredetectionMode.RPM_GENERAL_RGB_CONTRAST : EnumRegionPredetectionMode.RPM_SKIP;
+
+                runtimeSettings.ScaleDownThreshold = (Int32.Parse(this.tbScaleDownThreshold.Text) < 512) ? 512 : Int32.Parse(this.tbScaleDownThreshold.Text);
+                switch (this.cmbGrayscaleTransformationModes_SelectedIndex)
+                {
+                    case 0:
+                        runtimeSettings.FurtherModes.GrayscaleTransformationModes[0] = EnumGrayscaleTransformationMode.GTM_ORIGINAL;
+                        runtimeSettings.FurtherModes.GrayscaleTransformationModes[1] = EnumGrayscaleTransformationMode.GTM_INVERTED;
+                        break;
+                    case 1:
+                        runtimeSettings.FurtherModes.GrayscaleTransformationModes[0] = EnumGrayscaleTransformationMode.GTM_INVERTED;
+                        runtimeSettings.FurtherModes.GrayscaleTransformationModes[1] = EnumGrayscaleTransformationMode.GTM_SKIP;
+                        break;
+                    case 2:
+                        runtimeSettings.FurtherModes.GrayscaleTransformationModes[0] = EnumGrayscaleTransformationMode.GTM_ORIGINAL;
+                        runtimeSettings.FurtherModes.GrayscaleTransformationModes[1] = EnumGrayscaleTransformationMode.GTM_SKIP;
+                        break;
+                }
+
+                switch (this.cmbImagePreprocessingModes_SelectedIndex)
+                {
+                    case 0:
+                        runtimeSettings.FurtherModes.ImagePreprocessingModes[0] = EnumImagePreprocessingMode.IPM_GENERAL;
+                        break;
+                    case 1:
+                        runtimeSettings.FurtherModes.ImagePreprocessingModes[0] = EnumImagePreprocessingMode.IPM_GRAY_EQUALIZE;
+                        break;
+                    case 2:
+                        runtimeSettings.FurtherModes.ImagePreprocessingModes[0] = EnumImagePreprocessingMode.IPM_GRAY_SMOOTH;
+                        break;
+                    case 3:
+                        runtimeSettings.FurtherModes.ImagePreprocessingModes[0] = EnumImagePreprocessingMode.IPM_SHARPEN_SMOOTH;
+                        break;
+                }
+
+                runtimeSettings.MinResultConfidence = this.cmbMinResultConfidence_SelectedIndex * 10;
+
+                runtimeSettings.FurtherModes.TextureDetectionModes[0] = (this.cmbTextureDetectionSensitivity_SelectedIndex == 0) ? EnumTextureDetectionMode.TDM_SKIP : EnumTextureDetectionMode.TDM_GENERAL_WIDTH_CONCENTRATION;
+
+                mBarcodeReader.UpdateRuntimeSettings(runtimeSettings);
+
+                string strErrorMessage;
+                if(this.cmbTextureDetectionSensitivity_SelectedIndex != 0)
+                    mBarcodeReader.SetModeArgument("TextureDetectionModes", 0, "Sensitivity", this.cmbTextureDetectionSensitivity_SelectedIndex.ToString(), out strErrorMessage);
+                if (!this.tbBinarizationBlockSize.Text.Equals(""))
+                    mBarcodeReader.SetModeArgument("BinarizationModes", 0, "BlockSizeX", this.tbBinarizationBlockSize.Text, out strErrorMessage);
+            }
+            else
+            {
+                // 0 Best Speed. 1 Balance. 2 Best Coverage.
+                switch (miRecognitionMode)
+                {
+                    case 0:
+                        PublicRuntimeSettings tempBestSpeed = mBarcodeReader.GetRuntimeSettings();
+                            tempBestSpeed.BarcodeFormatIds = (int)this.mEmBarcodeFormat;
+                            tempBestSpeed.LocalizationModes[0] = EnumLocalizationMode.LM_SCAN_DIRECTLY;
+                            for (int i = 1; i < tempBestSpeed.LocalizationModes.Length; i++)
+                                tempBestSpeed.LocalizationModes[i] = EnumLocalizationMode.LM_SKIP;
+                            tempBestSpeed.DeblurLevel = 3;
+                            tempBestSpeed.ExpectedBarcodesCount = 512;
+                            tempBestSpeed.ScaleDownThreshold = 2300;
+                            for (int i = 0; i < tempBestSpeed.FurtherModes.TextFilterModes.Length;i++ )
+                                tempBestSpeed.FurtherModes.TextFilterModes[i] = EnumTextFilterMode.TFM_SKIP;
+                            mBarcodeReader.UpdateRuntimeSettings(tempBestSpeed);
+                            break;
+                    case 1:
+                        PublicRuntimeSettings tempBalance = mBarcodeReader.GetRuntimeSettings();
+                        tempBalance.BarcodeFormatIds = (int)this.mEmBarcodeFormat;
+                        tempBalance.LocalizationModes[0] = EnumLocalizationMode.LM_CONNECTED_BLOCKS;
+                        tempBalance.LocalizationModes[1] = EnumLocalizationMode.LM_STATISTICS;
+                        for (int i = 2; i < tempBalance.LocalizationModes.Length; i++)
+                            tempBalance.LocalizationModes[i] = EnumLocalizationMode.LM_SKIP;
+                        tempBalance.DeblurLevel = 5;
+                        tempBalance.ExpectedBarcodesCount = 512;
+                        tempBalance.ScaleDownThreshold = 2300;
+                        tempBalance.FurtherModes.TextFilterModes[0] = EnumTextFilterMode.TFM_GENERAL_CONTOUR;
+                        for (int i = 1; i < tempBalance.FurtherModes.TextFilterModes.Length; i++)
+                            tempBalance.FurtherModes.TextFilterModes[i] = EnumTextFilterMode.TFM_SKIP;
+                        mBarcodeReader.UpdateRuntimeSettings(tempBalance);
+                        break;
+                    case 2:
+                        PublicRuntimeSettings tempCoverage = mBarcodeReader.GetRuntimeSettings();
+                        tempCoverage.BarcodeFormatIds = (int)this.mEmBarcodeFormat;
+                        // use default value of LocalizationModes
+                        tempCoverage.DeblurLevel = 9;
+                        tempCoverage.ExpectedBarcodesCount = 512;
+                        tempCoverage.ScaleDownThreshold = 214748347;
+                        tempCoverage.FurtherModes.TextFilterModes[0] = EnumTextFilterMode.TFM_GENERAL_CONTOUR;
+                        for (int i = 1; i < tempCoverage.FurtherModes.TextFilterModes.Length; i++)
+                            tempCoverage.FurtherModes.TextFilterModes[i] = EnumTextFilterMode.TFM_SKIP;
+                        mBarcodeReader.UpdateRuntimeSettings(tempCoverage);
+                        break;
+                }
+            }
+        }
         private void ReadFromImage()
         {
             
@@ -1432,61 +1520,16 @@ namespace Barcode_Reader_Demo
 
             try
             {
+                UpdateRuntimeSettingsWithUISetting();            
 
                 Bitmap bmp = (Bitmap)(mImageCore.ImageBuffer.GetBitmap(mImageCore.ImageBuffer.CurrentImageIndexInBuffer));
                 DateTime beforeRead = DateTime.Now;
-
-
-                if(mbCustom)
-                {
-                    PublicRuntimeSettings runtimeSettings = mCustomRuntimeSettings;// GetPublicRuntimeSettingsFromCustomizePanelValuse();
-                    runtimeSettings.mBarcodeFormatIds = (int)this.mEmBarcodeFormat;
-                    mBarcodeReader.UpdateRuntimeSettings(runtimeSettings);
-                }
-                else
-                {
-                    
-                    switch (miRecognitionMode)
-                    {
-                        case 0:
-                            PublicRuntimeSettings tempBestSpeed = mNormalRuntimeSettings;// _br.GetRuntimeSettings();
-                            tempBestSpeed.mBarcodeFormatIds = (int)this.mEmBarcodeFormat;
-                            tempBestSpeed.mAntiDamageLevel = 3;
-                            tempBestSpeed.mDeblurLevel = 3;
-                            tempBestSpeed.mExpectedBarcodesCount = 512;
-                            tempBestSpeed.mScaleDownThreshold = 2300;
-                            tempBestSpeed.mTextFilterMode = TextFilterMode.TFM_Disable;
-                            mBarcodeReader.UpdateRuntimeSettings(tempBestSpeed);
-                            break;
-                        case 1:
-                            PublicRuntimeSettings tempBalance = mBarcodeReader.GetRuntimeSettings();
-                            tempBalance.mBarcodeFormatIds = (int)this.mEmBarcodeFormat;
-                            tempBalance.mAntiDamageLevel = 5;
-                            tempBalance.mDeblurLevel = 5;
-                            tempBalance.mExpectedBarcodesCount = 512;
-                            tempBalance.mScaleDownThreshold = 2300;
-                            tempBalance.mTextFilterMode = TextFilterMode.TFM_Enable;
-                            mBarcodeReader.UpdateRuntimeSettings(tempBalance);
-                            break;
-                        case 2:
-                            PublicRuntimeSettings tempCoverage = mBarcodeReader.GetRuntimeSettings();
-                            tempCoverage.mBarcodeFormatIds = (int)this.mEmBarcodeFormat;
-                            tempCoverage.mAntiDamageLevel = 9;
-                            tempCoverage.mDeblurLevel = 9;
-                            tempCoverage.mExpectedBarcodesCount = 512;
-                            tempCoverage.mScaleDownThreshold = 214748347;
-                            tempCoverage.mTextFilterMode = TextFilterMode.TFM_Enable;
-                            mBarcodeReader.UpdateRuntimeSettings(tempCoverage);
-                            break;
-                    }
-                }             
    
                 TextResult[] textResults = mBarcodeReader.DecodeBitmap(bmp, "");
-                LocalizationResult[] localizationResults =  mBarcodeReader.GetAllLocalizationResults();
                
                 DateTime afterRead = DateTime.Now;
                 int timeElapsed = (int)(afterRead - beforeRead).TotalMilliseconds;
-                this.ShowResultOnImage(bmp, textResults, localizationResults);
+                this.ShowResultOnImage(bmp, textResults);
                 this.ShowResult(textResults, timeElapsed);
 
             }
@@ -1495,27 +1538,21 @@ namespace Barcode_Reader_Demo
                 MessageBox.Show(exp.Message, "Decoding error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        private void ShowResultOnImage(Bitmap bitmap,TextResult[] textResults, LocalizationResult[] localizationResults)
+        private void ShowResultOnImage(Bitmap bitmap,TextResult[] textResults)
         {
             mImageCore.ImageBuffer.SetMetaData(mImageCore.ImageBuffer.CurrentImageIndexInBuffer, EnumMetaDataType.enumAnnotation, null, true);
-            if (localizationResults != null)
+            if (textResults != null)
             {
-                List<TextResult> textResultList = new List<TextResult>(textResults);
                 List<AnnotationData> tempListAnnotation = new List<AnnotationData>();
-                int nUnrecognizedIndex = textResults.Length;
                 int nTextResultIndex = 0;
-                for (var i = 0; i < localizationResults.Length; i++)
+                for (var i = 0; i < textResults.Length; i++)
                 {
-                    var penColor = Color.Red;                    
-                    TextResult result = textResultList.Find(a => IsEqualPointsArray(a.LocalizationResult.ResultPoints, localizationResults[i].ResultPoints));
-                    if(result==null)
-                    {
-                        continue;
-                    }
+                    var penColor = Color.Red;
+                    TextResult result = textResults[i];
 
                     var rectAnnotation = new AnnotationData();
                     rectAnnotation.AnnotationType = AnnotationType.enumRectangle;
-                    Rectangle boundingrect = ConvertLocationPointToRect(localizationResults[i].ResultPoints);
+                    Rectangle boundingrect = ConvertLocationPointToRect(result.LocalizationResult.ResultPoints);
                     rectAnnotation.StartPoint = new Point(boundingrect.Left, boundingrect.Top);
                     rectAnnotation.EndPoint = new Point((boundingrect.Left + boundingrect.Size.Width), (boundingrect.Top + boundingrect.Size.Height));
                     rectAnnotation.FillColor = Color.Transparent.ToArgb();
@@ -1702,7 +1739,7 @@ namespace Barcode_Reader_Demo
             try
             {
                 InitCbxWebCamSrc();
-                InitCbxWebCamRes();
+                //InitCbxWebCamRes();
                 picBoxWebCam.Image = null;
             }
             catch(Exception ex)
@@ -1775,6 +1812,10 @@ namespace Barcode_Reader_Demo
             tempCamera.Open();
             tempCamera.CurrentResolution = GetCamResolution();
             ResizeVideoWindow(0);
+            picBoxWebCam.Visible = true;
+            picBoxWebCam.BringToFront();
+            EnableControls(picboxReadBarcode);
+            EnableControls(pictureBoxCustomize);
         }
 
         private string m_CurrentCameraName = null;
@@ -2144,96 +2185,146 @@ namespace Barcode_Reader_Demo
         private void UpdateBarcodeFormat()
         {
             mEmBarcodeFormat = 0;
-            mEmBarcodeFormat = this.cbAZTEC.Checked ? (mEmBarcodeFormat | EnumBarcodeFormat.AZTEC) : mEmBarcodeFormat;
-            mEmBarcodeFormat = this.cbDataMatrix.Checked ? (mEmBarcodeFormat | EnumBarcodeFormat.DATAMATRIX) : mEmBarcodeFormat;
-            mEmBarcodeFormat = this.cbQRcode.Checked ? (mEmBarcodeFormat | EnumBarcodeFormat.QR_CODE) : mEmBarcodeFormat;
-            mEmBarcodeFormat = this.cbPDF417.Checked ? (mEmBarcodeFormat | EnumBarcodeFormat.PDF417) : mEmBarcodeFormat;
+            mEmBarcodeFormat = this.cbAZTEC.Checked ? (mEmBarcodeFormat | EnumBarcodeFormat.BF_AZTEC) : mEmBarcodeFormat;
+            mEmBarcodeFormat = this.cbDataMatrix.Checked ? (mEmBarcodeFormat | EnumBarcodeFormat.BF_DATAMATRIX) : mEmBarcodeFormat;
+            mEmBarcodeFormat = this.cbQRcode.Checked ? (mEmBarcodeFormat | EnumBarcodeFormat.BF_QR_CODE) : mEmBarcodeFormat;
+            mEmBarcodeFormat = this.cbPDF417.Checked ? (mEmBarcodeFormat | EnumBarcodeFormat.BF_PDF417) : mEmBarcodeFormat;
 
-            mEmBarcodeFormat = this.cbINDUSTRIAL25.Checked ? (mEmBarcodeFormat | EnumBarcodeFormat.INDUSTRIAL_25) : mEmBarcodeFormat;
-            mEmBarcodeFormat = this.cbUPCE.Checked ? (mEmBarcodeFormat | EnumBarcodeFormat.UPC_E) : mEmBarcodeFormat;
-            mEmBarcodeFormat = this.cbUPCA.Checked ? (mEmBarcodeFormat | EnumBarcodeFormat.UPC_A) : mEmBarcodeFormat;
+            mEmBarcodeFormat = this.cbINDUSTRIAL25.Checked ? (mEmBarcodeFormat | EnumBarcodeFormat.BF_INDUSTRIAL_25) : mEmBarcodeFormat;
+            mEmBarcodeFormat = this.cbUPCE.Checked ? (mEmBarcodeFormat | EnumBarcodeFormat.BF_UPC_E) : mEmBarcodeFormat;
+            mEmBarcodeFormat = this.cbUPCA.Checked ? (mEmBarcodeFormat | EnumBarcodeFormat.BF_UPC_A) : mEmBarcodeFormat;
 
-            mEmBarcodeFormat = this.cbEAN8.Checked ? (mEmBarcodeFormat | EnumBarcodeFormat.EAN_8) : mEmBarcodeFormat;
-            mEmBarcodeFormat = this.cbEAN13.Checked ? (mEmBarcodeFormat | EnumBarcodeFormat.EAN_13) : mEmBarcodeFormat;
-            mEmBarcodeFormat = this.cbCODABAR.Checked ? (mEmBarcodeFormat | EnumBarcodeFormat.CODABAR) : mEmBarcodeFormat;
-            mEmBarcodeFormat = this.cbITF.Checked ? (mEmBarcodeFormat | EnumBarcodeFormat.ITF) : mEmBarcodeFormat;
+            mEmBarcodeFormat = this.cbEAN8.Checked ? (mEmBarcodeFormat | EnumBarcodeFormat.BF_EAN_8) : mEmBarcodeFormat;
+            mEmBarcodeFormat = this.cbEAN13.Checked ? (mEmBarcodeFormat | EnumBarcodeFormat.BF_EAN_13) : mEmBarcodeFormat;
+            mEmBarcodeFormat = this.cbCODABAR.Checked ? (mEmBarcodeFormat | EnumBarcodeFormat.BF_CODABAR) : mEmBarcodeFormat;
+            mEmBarcodeFormat = this.cbITF.Checked ? (mEmBarcodeFormat | EnumBarcodeFormat.BF_ITF) : mEmBarcodeFormat;
 
-            mEmBarcodeFormat = this.cbCODE93.Checked ? (mEmBarcodeFormat | EnumBarcodeFormat.CODE_93) : mEmBarcodeFormat;
-            mEmBarcodeFormat = this.cbCODE128.Checked ? (mEmBarcodeFormat | EnumBarcodeFormat.CODE_128) : mEmBarcodeFormat;
-            mEmBarcodeFormat = this.cbCOD39.Checked ? (mEmBarcodeFormat | EnumBarcodeFormat.CODE_39) : mEmBarcodeFormat;
+            mEmBarcodeFormat = this.cbCODE93.Checked ? (mEmBarcodeFormat | EnumBarcodeFormat.BF_CODE_93) : mEmBarcodeFormat;
+            mEmBarcodeFormat = this.cbCODE128.Checked ? (mEmBarcodeFormat | EnumBarcodeFormat.BF_CODE_128) : mEmBarcodeFormat;
+            mEmBarcodeFormat = this.cbCOD39.Checked ? (mEmBarcodeFormat | EnumBarcodeFormat.BF_CODE_39) : mEmBarcodeFormat;
         }
 
         private void SetCustomizePanelValuseFromPublicRuntimeSettings()
         {
             PublicRuntimeSettings runtimeSettings = mBarcodeReader.GetRuntimeSettings();
-            this.tbExpectedBarcodesCount.Text = runtimeSettings.mExpectedBarcodesCount.ToString();
-            this.cmbDeblurLevel.SelectedIndex = runtimeSettings.mDeblurLevel;
-           
             switch (miRecognitionMode)
             {
-                case 0:                   
-                    this.cmbAntiDamageLevel.SelectedIndex = 3;
+                case 0:
+                    this.cmbLocalizationModes.SelectedIndex = 4;
                     this.cmbDeblurLevel.SelectedIndex = 3;
-                    this.tbExpectedBarcodesCount.Text ="512";
-                    this.cbTextFilterMode.CheckState = CheckState.Unchecked;
+                    this.tbExpectedBarcodesCount.Text = "512";
                     this.tbScaleDownThreshold.Text = "2300";
+                    this.cbTextFilterMode.CheckState = CheckState.Unchecked;
                     break;
-                case 1:                    
-                    this.cmbAntiDamageLevel.SelectedIndex = 5;
+                case 1:
+                    this.cmbLocalizationModes.SelectedIndex = 5;
                     this.cmbDeblurLevel.SelectedIndex = 5;
                     this.tbExpectedBarcodesCount.Text = "512";
-                    this.cbTextFilterMode.CheckState = CheckState.Checked;
                     this.tbScaleDownThreshold.Text = "2300";
+                    this.cbTextFilterMode.CheckState = CheckState.Checked;
                     break;
                 case 2:
-                    this.cmbAntiDamageLevel.SelectedIndex = 9;
+                    this.cmbLocalizationModes.SelectedIndex = 0;
                     this.cmbDeblurLevel.SelectedIndex = 9;
                     this.tbExpectedBarcodesCount.Text = "512";
-                    this.cbTextFilterMode.CheckState = CheckState.Checked;
                     this.tbScaleDownThreshold.Text = "214748347";
+                    this.cbTextFilterMode.CheckState = CheckState.Checked;
                     break;
             }
-            this.cbRegionPredetectionMode.CheckState = (runtimeSettings.mRegionPredetectionMode == RegionPredetectionMode.RPM_Enable)?CheckState.Checked:CheckState.Unchecked;
-            this.tbScaleDownThreshold.Text = runtimeSettings.mScaleDownThreshold.ToString();
-            this.cmbColorImageConvertMode.SelectedIndex = (runtimeSettings.mColourImageConvertMode == ColourImageConvertMode.CICM_Auto) ? 0 : 1;
-            this.cmbBarcodeInvertMode.SelectedIndex = (runtimeSettings.mBarcodeInvertMode == BarcodeInvertMode.BIM_DarkOnLight) ? 0 : 1;
-            this.cmbGrayEqualizationSensitivity.SelectedIndex = runtimeSettings.mGrayEqualizationSensitivity;
-            this.cmbTextureDetectionSensitivity.SelectedIndex = runtimeSettings.mTextureDetectionSensitivity;
-            this.tbBinarizationBlockSize.Text = runtimeSettings.mBinarizationBlockSize.ToString();
-            
+            this.cbRegionPredetectionMode.CheckState = (runtimeSettings.FurtherModes.RegionPredetectionModes[0] == EnumRegionPredetectionMode.RPM_GENERAL_RGB_CONTRAST) ? CheckState.Checked : CheckState.Unchecked;
+            if (runtimeSettings.FurtherModes.GrayscaleTransformationModes[1] != EnumGrayscaleTransformationMode.GTM_SKIP)
+                this.cmbGrayscaleTransformationModes.SelectedIndex = 0;
+            else
+                this.cmbGrayscaleTransformationModes.SelectedIndex = (int)runtimeSettings.FurtherModes.GrayscaleTransformationModes[0];
+            switch (runtimeSettings.FurtherModes.ImagePreprocessingModes[0])
+            {
+                case EnumImagePreprocessingMode.IPM_GENERAL:
+                    this.cmbImagePreprocessingModes.SelectedIndex = 0;
+                    break;
+                case EnumImagePreprocessingMode.IPM_GRAY_EQUALIZE:
+                    this.cmbImagePreprocessingModes.SelectedIndex = 1;
+                    break;
+                case EnumImagePreprocessingMode.IPM_GRAY_SMOOTH:
+                    this.cmbImagePreprocessingModes.SelectedIndex = 2;
+                    break;
+                case EnumImagePreprocessingMode.IPM_SHARPEN_SMOOTH:
+                    this.cmbImagePreprocessingModes.SelectedIndex = 3;
+                    break;
+                default:
+                    this.cmbImagePreprocessingModes.SelectedIndex = 0;
+                    break;
+            }
+            this.cmbMinResultConfidence.SelectedIndex = runtimeSettings.MinResultConfidence / 10;
+            this.cmbTextureDetectionSensitivity.SelectedIndex = (runtimeSettings.FurtherModes.TextureDetectionModes[0] == EnumTextureDetectionMode.TDM_GENERAL_WIDTH_CONCENTRATION) ? 5 : 0;
+            this.tbBinarizationBlockSize.Text = "0";
+
         }
-        private PublicRuntimeSettings GetPublicRuntimeSettingsFromCustomizePanelValuse()
+        
+        private void tbBinarizationBlockSize_OnLeave(object sender, EventArgs e)
         {
-            PublicRuntimeSettings runtimeSettings = mBarcodeReader.GetRuntimeSettings();
-            if (!this.tbExpectedBarcodesCount.Text.Equals(""))
-                runtimeSettings.mExpectedBarcodesCount = Int32.Parse(this.tbExpectedBarcodesCount.Text);
-            runtimeSettings.mDeblurLevel = this.cmbDeblurLevel.SelectedIndex;
-            runtimeSettings.mAntiDamageLevel = this.cmbAntiDamageLevel.SelectedIndex;
-           
-
-            runtimeSettings.mRegionPredetectionMode = (this.cbRegionPredetectionMode.CheckState == CheckState.Checked)? RegionPredetectionMode.RPM_Enable: RegionPredetectionMode.RPM_Disable;
-           
-            if (!this.tbScaleDownThreshold.Text.Equals(""))
-                runtimeSettings.mScaleDownThreshold = Int32.Parse(this.tbScaleDownThreshold.Text);
-
-            runtimeSettings.mColourImageConvertMode = (this.cmbColorImageConvertMode.SelectedIndex ==0)?ColourImageConvertMode.CICM_Auto: ColourImageConvertMode.CICM_Grayscale;
-            runtimeSettings.mBarcodeInvertMode = (this.cmbBarcodeInvertMode.SelectedIndex == 0) ? BarcodeInvertMode.BIM_DarkOnLight : BarcodeInvertMode.BIM_LightOnDark;
-            
-            runtimeSettings.mGrayEqualizationSensitivity= this.cmbGrayEqualizationSensitivity.SelectedIndex;
-            runtimeSettings.mTextureDetectionSensitivity = this.cmbTextureDetectionSensitivity.SelectedIndex;
-            if (!this.tbBinarizationBlockSize.Text.Equals(""))
-                runtimeSettings.mBinarizationBlockSize = Int32.Parse(this.tbBinarizationBlockSize.Text);
-            return runtimeSettings;
+            int i = 0;
         }
-
         private void textBoxNumberOnly_KeyPress(object sender, KeyPressEventArgs e)
         {
             if(!(Char.IsNumber(e.KeyChar)) &&e.KeyChar !=(char)8)
             {
                 e.Handled = true;
+                return;
+            }
+            TextBox tbCurrent = (TextBox)sender;
+            string strNewText = tbCurrent.Text;
+            if (e.KeyChar == (char)8)
+            {
+                if ((tbCurrent.SelectionLength == tbCurrent.TextLength) || (tbCurrent.TextLength == 1 && tbCurrent.SelectionStart == 1))
+                {
+                    e.Handled = true;
+                    return;
+                }
+                else
+                {
+                    if (tbCurrent.SelectedText != "")
+                        strNewText = tbCurrent.Text.Replace(tbCurrent.SelectedText, "");
+                    else
+                    {
+                        if (tbCurrent.SelectionStart != 0)
+                            strNewText = tbCurrent.Text.Remove(tbCurrent.SelectionStart - 1,1);
+                    }
+                }
+            }
+            else
+            {
+                if (tbCurrent.SelectedText != "")
+                    strNewText = tbCurrent.Text.Replace(tbCurrent.SelectedText, e.KeyChar.ToString());
+                else
+                {
+                    if (tbCurrent.TextLength < tbCurrent.MaxLength)
+                        strNewText = tbCurrent.Text.Insert(tbCurrent.SelectionStart, e.KeyChar.ToString());
+                }
+            }
+            try
+            {
+                int iValue = int.Parse(strNewText);
+                if ((tbCurrent.Name == "tbBinarizationBlockSize") && (iValue > 1000))
+                {
+                    e.Handled = true;
+                    return;
+                }
+            }
+            catch
+            {
+                e.Handled = true;
+                return;
             }
         }
-
+        private void tbScaleDownThreshold_OnLeave(object sender, EventArgs e)
+        {
+            int iValue = int.Parse(tbScaleDownThreshold.Text);
+            if (iValue < 512)
+            {
+                tbScaleDownThreshold.Text = "512";
+            }
+        }
+        
         private void labelWebcamNote_Click(object sender, EventArgs e)
         {
 
@@ -2253,11 +2344,7 @@ namespace Barcode_Reader_Demo
             {
                 return;
             }
-            UpdateBarcodeFormat();
-            PublicRuntimeSettings runtimeSettings = GetPublicRuntimeSettingsFromCustomizePanelValuse();
-            
-            runtimeSettings.mBarcodeFormatIds = (int)this.mEmBarcodeFormat;
-            mBarcodeReader.UpdateRuntimeSettings(runtimeSettings);
+            UpdateRuntimeSettingsWithUISetting();
             mBarcodeReader.OutputSettingsToFile(path, "customsettings");
             
 

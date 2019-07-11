@@ -19,7 +19,8 @@ Public Class Form1
     Private Const iFormatCount As Integer = 13
     Private reader As BarcodeReader = New Dynamsoft.Barcode.BarcodeReader()
     'Private mBarcodeType As String() = {"All_DEFAULT", "OneD_DEFAULT", "QR_CODE_DEFAULT", "PDF417_DEFAULT", "DATAMATRIX_DEFAULT", "CODE_39_DEFAULT", "CODE_128_DEFAULT", "CODE_93_DEFAULT", "CODABAR_DEFAULT", "ITF_DEFAULT", "INDUSTRIAL_25_DEFAULT", "EAN_13_DEFAULT", "EAN_8_DEFAULT", "UPC_A_DEFAULT", "UPC_E_DEFAULT"}
-    Private mBarcodeFormat As Integer = EnumBarcodeFormat.All
+    Private mBarcodeFormat As Integer = EnumBarcodeFormat.BF_ALL
+
     Public Property FitWindow() As Boolean
         Get
             Return m_bFitWindow
@@ -87,6 +88,8 @@ Public Class Form1
         ComboBox1.Items.Add("UPC-A")
         ComboBox1.Items.Add("UPC-E")
         ComboBox1.Items.Add("AZTEC")
+        ComboBox1.Items.Add("Code 39 Extended")
+
         ComboBox1.SelectedIndex = 0
     End Sub
 
@@ -259,10 +262,10 @@ Public Class Form1
         If (Not imageViewer.Image Is Nothing) Then
 
             Try
-                reader.LicenseKeys = "t0068MgAAAJbpvFwUvsodF81FjWojDo91ZYmDf3+aNdOGPOBOygS6Yte0JFqPMt/DnNMdfGS4gInUd+5RYOCX6IramuO+m4A="
+                reader.ProductKeys = "t0068MgAAAGULjuE8kaXvjroaEl2wrJH8t74pon1WyqsBoFiChDCds9YW4U2y3bNdGu/n04/lbzbhkXIH635/POaNi2SG5aE="
                 Dim beforeRead As DateTime = DateTime.Now
                 Dim tempPublicParameterSettings As PublicRuntimeSettings = reader.GetRuntimeSettings()
-                tempPublicParameterSettings.mBarcodeFormatIds = mBarcodeFormat
+                tempPublicParameterSettings.BarcodeFormatIds = mBarcodeFormat
                 reader.UpdateRuntimeSettings(tempPublicParameterSettings)
                 Dim barcodes As TextResult() = reader.DecodeFile(filePath, "")
                 Dim afterRead As DateTime = DateTime.Now
@@ -532,37 +535,39 @@ Public Class Form1
 
         'Private mBarcodeType As String() = {"All_DEFAULT", "OneD_DEFAULT", "QR_CODE_DEFAULT", "PDF417_DEFAULT", "DATAMATRIX_DEFAULT", "CODE_39_DEFAULT", "CODE_128_DEFAULT", "CODE_93_DEFAULT", "CODABAR_DEFAULT", "ITF_DEFAULT", "INDUSTRIAL_25_DEFAULT", "EAN_13_DEFAULT", "EAN_8_DEFAULT", "UPC_A_DEFAULT", "UPC_E_DEFAULT"}
         If ComboBox1.SelectedIndex = 0 Then
-            mBarcodeFormat = EnumBarcodeFormat.All
+            mBarcodeFormat = EnumBarcodeFormat.BF_ALL
         ElseIf ComboBox1.SelectedIndex = 1 Then
-            mBarcodeFormat = EnumBarcodeFormat.OneD
+            mBarcodeFormat = EnumBarcodeFormat.BF_ONED
         ElseIf ComboBox1.SelectedIndex = 2 Then
-            mBarcodeFormat = EnumBarcodeFormat.QR_CODE
+            mBarcodeFormat = EnumBarcodeFormat.BF_QR_CODE
         ElseIf ComboBox1.SelectedIndex = 3 Then
-            mBarcodeFormat = EnumBarcodeFormat.PDF417
+            mBarcodeFormat = EnumBarcodeFormat.BF_PDF417
         ElseIf ComboBox1.SelectedIndex = 4 Then
-            mBarcodeFormat = EnumBarcodeFormat.DATAMATRIX
+            mBarcodeFormat = EnumBarcodeFormat.BF_DATAMATRIX
         ElseIf ComboBox1.SelectedIndex = 5 Then
-            mBarcodeFormat = EnumBarcodeFormat.CODE_39
+            mBarcodeFormat = EnumBarcodeFormat.BF_CODE_39
         ElseIf ComboBox1.SelectedIndex = 6 Then
-            mBarcodeFormat = EnumBarcodeFormat.CODE_128
+            mBarcodeFormat = EnumBarcodeFormat.BF_CODE_128
         ElseIf ComboBox1.SelectedIndex = 7 Then
-            mBarcodeFormat = EnumBarcodeFormat.CODE_93
+            mBarcodeFormat = EnumBarcodeFormat.BF_CODE_93
         ElseIf ComboBox1.SelectedIndex = 8 Then
-            mBarcodeFormat = EnumBarcodeFormat.CODABAR
+            mBarcodeFormat = EnumBarcodeFormat.BF_CODABAR
         ElseIf ComboBox1.SelectedIndex = 9 Then
-            mBarcodeFormat = EnumBarcodeFormat.ITF
+            mBarcodeFormat = EnumBarcodeFormat.BF_ITF
         ElseIf ComboBox1.SelectedIndex = 10 Then
-            mBarcodeFormat = EnumBarcodeFormat.INDUSTRIAL_25
+            mBarcodeFormat = EnumBarcodeFormat.BF_INDUSTRIAL_25
         ElseIf ComboBox1.SelectedIndex = 11 Then
-            mBarcodeFormat = EnumBarcodeFormat.EAN_13
+            mBarcodeFormat = EnumBarcodeFormat.BF_EAN_13
         ElseIf ComboBox1.SelectedIndex = 12 Then
-            mBarcodeFormat = EnumBarcodeFormat.EAN_8
+            mBarcodeFormat = EnumBarcodeFormat.BF_EAN_8
         ElseIf ComboBox1.SelectedIndex = 13 Then
-            mBarcodeFormat = EnumBarcodeFormat.UPC_A
+            mBarcodeFormat = EnumBarcodeFormat.BF_UPC_A
         ElseIf ComboBox1.SelectedIndex = 14 Then
-            mBarcodeFormat = EnumBarcodeFormat.UPC_E
+            mBarcodeFormat = EnumBarcodeFormat.BF_UPC_E
         ElseIf ComboBox1.SelectedIndex = 15 Then
-            mBarcodeFormat = EnumBarcodeFormat.AZTEC
+            mBarcodeFormat = EnumBarcodeFormat.BF_AZTEC
+        ElseIf ComboBox1.SelectedIndex = 16 Then
+            mBarcodeFormat = EnumBarcodeFormat.BF_CODE_39_EXTENDED
         End If
 
     End Sub

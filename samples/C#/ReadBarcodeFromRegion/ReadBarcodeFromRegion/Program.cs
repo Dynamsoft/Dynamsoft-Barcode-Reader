@@ -13,22 +13,22 @@ namespace ReadBarcodeFromRegion
         {
 
             BarcodeReader _br = new BarcodeReader();
-            _br.LicenseKeys = "t0068MgAAAJbpvFwUvsodF81FjWojDo91ZYmDf3+aNdOGPOBOygS6Yte0JFqPMt/DnNMdfGS4gInUd+5RYOCX6IramuO+m4A=";
+            _br.ProductKeys = "t0068MgAAAGULjuE8kaXvjroaEl2wrJH8t74pon1WyqsBoFiChDCds9YW4U2y3bNdGu/n04/lbzbhkXIH635/POaNi2SG5aE=";
             string[] strTemplateNameArray = { "All_DEFAULT", "All_DEFAULT_WITHREGION" };
-            string tempDefaultTemplateJson = "{\"Version\": \"2.0\",\"ImageParameter\": {\"Name\": \"" + strTemplateNameArray[0] + "\",\"BarcodeFormatIds\": [\"All\"],\"RegionPredetectionMode\": \"Enable\"}}";
-            string tempTemplateJsonWithRegion = "{\"Version\": \"2.0\",\"ImageParameter\": {\"Name\": \"" + strTemplateNameArray[1] + "\",\"BarcodeFormatIds\": [\"All\"],\"RegionPredetectionMode\": \"Disable\",\"RegionDefinitionNameArray\": [\"Region\"]},\"RegionDefinitionArray\": [{\"Name\": \"Region\",\"MeasuredByPercentage\": true" + ",\"Left\":" + iLeft.ToString() + ",\"Top\":" + iTop.ToString() + ",\"Right\":" + iRight.ToString() + ",\"Bottom\":" + iBottom.ToString() + "}]}";
+            string tempDefaultTemplateJson = "{\"Version\": \"2.0\",\"ImageParameter\": {\"Name\": \"" + strTemplateNameArray[0] + "\",\"BarcodeFormatIds\": [\"BF_ALL\"],\"RegionPredetectionModes\": [{\"Mode\":\"RPM_GENERAL_RGB_CONTRAST\"}]}}";
+            string tempTemplateJsonWithRegion = "{\"Version\": \"2.0\",\"ImageParameter\": {\"Name\": \"" + strTemplateNameArray[1] + "\",\"BarcodeFormatIds\": [\"BF_ALL\"],\"RegionPredetectionModes\": [{\"Mode\":\"RPM_GENERAL\"}],\"RegionDefinitionNameArray\": [\"Region\"]},\"RegionDefinitionArray\": [{\"Name\": \"Region\",\"MeasuredByPercentage\": 1" + ",\"Left\":" + iLeft.ToString() + ",\"Top\":" + iTop.ToString() + ",\"Right\":" + iRight.ToString() + ",\"Bottom\":" + iBottom.ToString() + "}]}";
 
             if (mode == 0)
             {
                 // load template json as a string.
                 string errorstring = "";
-                EnumErrorCode temperrorcode = _br.InitRuntimeSettingsWithString(tempDefaultTemplateJson,EnumConflictMode.ECM_Overwrite,out errorstring);
+                EnumErrorCode temperrorcode = _br.InitRuntimeSettingsWithString(tempDefaultTemplateJson, EnumConflictMode.CM_OVERWRITE, out errorstring);
             }
             else
             {
                 // load template json as a string.
                 string errorstring = "";
-                EnumErrorCode temperrorcode = _br.InitRuntimeSettingsWithString(tempTemplateJsonWithRegion, EnumConflictMode.ECM_Overwrite, out errorstring);
+                EnumErrorCode temperrorcode = _br.InitRuntimeSettingsWithString(tempTemplateJsonWithRegion, EnumConflictMode.CM_OVERWRITE, out errorstring);
 
             }
             _br.DecodeFile(strImagePath, strTemplateNameArray[mode]);

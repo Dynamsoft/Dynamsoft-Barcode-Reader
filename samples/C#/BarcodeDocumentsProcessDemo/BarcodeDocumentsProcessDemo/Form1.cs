@@ -23,8 +23,7 @@ namespace BarcodeDocumentsProcessDemo
         Label lbRenameLastFormat = null;
         Label lbSplitLastFormat = null;
         Label lbClassifyLastFormat = null;
-        //private static string[] mBarcodeType = { "All_DEFAULT", "OneD_DEFAULT", "QR_CODE_DEFAULT", "PDF417_DEFAULT", "DATAMATRIX_DEFAULT", "CODE_39_DEFAULT", "CODE_128_DEFAULT", "CODE_93_DEFAULT", "CODABAR_DEFAULT", "ITF_DEFAULT", "INDUSTRIAL_25_DEFAULT", "EAN_13_DEFAULT", "EAN_8_DEFAULT", "UPC_A_DEFAULT", "UPC_E_DEFAULT" };
-        private int formatid = (int)EnumBarcodeFormat.All;
+        private int formatid = (int)EnumBarcodeFormat.BF_ALL;
         /// <summary>
         /// Click to minimize the form
         /// </summary>
@@ -44,7 +43,7 @@ namespace BarcodeDocumentsProcessDemo
         {
             InitializeComponent();
             InitialDefaultValue();
-            barcodeReader.LicenseKeys = "t0068MgAAAJbpvFwUvsodF81FjWojDo91ZYmDf3+aNdOGPOBOygS6Yte0JFqPMt/DnNMdfGS4gInUd+5RYOCX6IramuO+m4A=";
+            barcodeReader.ProductKeys = "t0068MgAAAGULjuE8kaXvjroaEl2wrJH8t74pon1WyqsBoFiChDCds9YW4U2y3bNdGu/n04/lbzbhkXIH635/POaNi2SG5aE=";
 
 
             if (!Directory.Exists(_lastOpenedDirectory))
@@ -203,48 +202,48 @@ namespace BarcodeDocumentsProcessDemo
                 switch (tag)
                 {
                     case "code 39":
-                        formatid = (int)EnumBarcodeFormat.CODE_39;
+                        formatid = (int)EnumBarcodeFormat.BF_CODE_39;
                         break;
                     case "code 93":
-                        formatid = (int)EnumBarcodeFormat.CODE_93;
+                        formatid = (int)EnumBarcodeFormat.BF_CODE_93;
                         break;
                     case "code 128":
-                        formatid = (int)EnumBarcodeFormat.CODE_128;
+                        formatid = (int)EnumBarcodeFormat.BF_CODE_128;
                         break;
                     case "codabar":
-                        formatid = (int)EnumBarcodeFormat.CODABAR;
+                        formatid = (int)EnumBarcodeFormat.BF_CODABAR;
                         break;
                     case "ean-13":
-                        formatid = (int)EnumBarcodeFormat.EAN_13;
+                        formatid = (int)EnumBarcodeFormat.BF_EAN_13;
                         break;
                     case "ean-8":
-                        formatid = (int)EnumBarcodeFormat.EAN_8;
+                        formatid = (int)EnumBarcodeFormat.BF_EAN_8;
                         break;
                     case "upc-a":
-                        formatid = (int)EnumBarcodeFormat.UPC_A;
+                        formatid = (int)EnumBarcodeFormat.BF_UPC_A;
                         break;
                     case "upc-e":
-                        formatid = (int)EnumBarcodeFormat.UPC_E;
+                        formatid = (int)EnumBarcodeFormat.BF_UPC_E;
                         break;
                     case "interleaved 2 of 5":
-                        formatid = (int)EnumBarcodeFormat.ITF;
+                        formatid = (int)EnumBarcodeFormat.BF_ITF;
                         break;
                     case "industrial 2 of 5":
-                        formatid = (int)EnumBarcodeFormat.INDUSTRIAL_25;
+                        formatid = (int)EnumBarcodeFormat.BF_INDUSTRIAL_25;
                         break;
                     case "qrcode":
-                        formatid = (int)EnumBarcodeFormat.QR_CODE;
+                        formatid = (int)EnumBarcodeFormat.BF_QR_CODE;
                         break;
                     case "pdf417":
-                        formatid = (int)EnumBarcodeFormat.PDF417;
+                        formatid = (int)EnumBarcodeFormat.BF_PDF417;
                         break;
                     case "datamatrix":
-                        formatid = (int)EnumBarcodeFormat.DATAMATRIX;
+                        formatid = (int)EnumBarcodeFormat.BF_DATAMATRIX;
                         break;
                     case "aztec":
-                        formatid = (int)EnumBarcodeFormat.AZTEC;
+                        formatid = (int)EnumBarcodeFormat.BF_AZTEC;
                         break;
-                    default: formatid = (int)EnumBarcodeFormat.All; break;
+                    default: formatid = (int)EnumBarcodeFormat.BF_ALL; break;
                 }
             }
         }
@@ -368,7 +367,7 @@ namespace BarcodeDocumentsProcessDemo
 
 
                             PublicRuntimeSettings tempParameterSettings = barcodeReader.GetRuntimeSettings();
-                            tempParameterSettings.mBarcodeFormatIds = formatid;
+                            tempParameterSettings.BarcodeFormatIds = formatid;
                             barcodeReader.UpdateRuntimeSettings(tempParameterSettings);
 
                             TextResult[] barcodes = barcodeReader.DecodeBitmap(bmp,"");//DecodeFile(strFile);
@@ -470,7 +469,7 @@ namespace BarcodeDocumentsProcessDemo
                             bool bifcontian = false;
 
                             PublicRuntimeSettings tempParameterSettings = barcodeReader.GetRuntimeSettings();
-                            tempParameterSettings.mBarcodeFormatIds = formatid;
+                            tempParameterSettings.BarcodeFormatIds = formatid;
                             barcodeReader.UpdateRuntimeSettings(tempParameterSettings);
 
                             TextResult[] barcodes = barcodeReader.DecodeFile(strFile,"");
@@ -638,7 +637,7 @@ namespace BarcodeDocumentsProcessDemo
                             string[] Templates = barcodeReader.GetAllParameterTemplateNames();
 
                             PublicRuntimeSettings tempParameterSettings = barcodeReader.GetRuntimeSettings();
-                            tempParameterSettings.mBarcodeFormatIds = formatid;
+                            tempParameterSettings.BarcodeFormatIds = formatid;
                             barcodeReader.UpdateRuntimeSettings(tempParameterSettings);
                             TextResult[] barcodes = barcodeReader.DecodeBitmap(bmp, "");
                             bmp.Dispose();

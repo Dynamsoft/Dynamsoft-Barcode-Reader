@@ -7,7 +7,7 @@
 CDbrBarcodeFileReader::CDbrBarcodeFileReader()
 {
 	m_pBarcodeReader = new CBarcodeReader();
-	m_pBarcodeReader->InitLicense("t0068MgAAAJbpvFwUvsodF81FjWojDo91ZYmDf3+aNdOGPOBOygS6Yte0JFqPMt/DnNMdfGS4gInUd+5RYOCX6IramuO+m4A=");
+	m_pBarcodeReader->InitLicense("t0068MgAAAGULjuE8kaXvjroaEl2wrJH8t74pon1WyqsBoFiChDCds9YW4U2y3bNdGu/n04/lbzbhkXIH635/POaNi2SG5aE=");
 }
 
 CDbrBarcodeFileReader::~CDbrBarcodeFileReader()
@@ -99,7 +99,7 @@ void CDbrBarcodeFileReader::RunWithRuntimeSettings()
 		string filePath = m_listSettingsFile.at(i);
 		char szErrorMsgBuffer[1024] = { 0 };
 		int nErrorCode = -1;
-		nErrorCode = m_pBarcodeReader->InitRuntimeSettingsWithFile(filePath.c_str(), ConflictMode::ECM_Overwrite, szErrorMsgBuffer, sizeof(szErrorMsgBuffer));
+		nErrorCode = m_pBarcodeReader->InitRuntimeSettingsWithFile(filePath.c_str(), ConflictMode::CM_OVERWRITE, szErrorMsgBuffer, sizeof(szErrorMsgBuffer));
 		if (nErrorCode != 0)
 		{
 			cout <<"Init runtime settings file("+ filePath+") failed:"<<string(szErrorMsgBuffer) << endl;
@@ -127,7 +127,7 @@ bool CDbrBarcodeFileReader::ReadFileBarcodes( const string strFilePath, CBarcode
 	decodeResultInfo.dDecodeTime = ((double)(end - start) / CLOCKS_PER_SEC * 1000);
 	if ((nErrorCode == 0) || (nErrorCode == -10017))
 	{
-		STextResultArray *pTextResultArray = NULL;
+		TextResultArray *pTextResultArray = NULL;
 
 		nErrorCode = m_pBarcodeReader->GetAllTextResults(&pTextResultArray);
 		if (nErrorCode != 0)
@@ -137,13 +137,13 @@ bool CDbrBarcodeFileReader::ReadFileBarcodes( const string strFilePath, CBarcode
 		}
 
 		
-		for (int i = 0; pTextResultArray != NULL && i < (pTextResultArray)->nResultsCount; i++)
+		for (int i = 0; pTextResultArray != NULL && i < (pTextResultArray)->resultsCount; i++)
 		{
 			CBarcodeStatisticsRecorder::BCODE_VALUE bcodeValue;
-			bcodeValue.strTextMessage = (pTextResultArray)->ppResults[i]->pszBarcodeText;
-			bcodeValue.strCodeFormat = (pTextResultArray)->ppResults[i]->pszBarcodeFormatString;
-			unsigned char* tempByte = (pTextResultArray)->ppResults[i]->pBarcodeBytes;
-			int byteLength = (pTextResultArray)->ppResults[i]->nBarcodeBytesLength;
+			bcodeValue.strTextMessage = (pTextResultArray)->results[i]->barcodeText;
+			bcodeValue.strCodeFormat = (pTextResultArray)->results[i]->barcodeFormatString;
+			unsigned char* tempByte = (pTextResultArray)->results[i]->barcodeBytes;
+			int byteLength = (pTextResultArray)->results[i]->barcodeBytesLength;
 			bcodeValue.strHexMessage = ToHexString(tempByte, byteLength);
 			decodeResultInfo.listCodes.push_back(bcodeValue);
 		}

@@ -15,10 +15,10 @@ public final class BarcodeReaderDemo {
 
         switch (iIndex) {
             case 1:
-                lFormat = EnumBarcodeFormat.BF_All;
+                lFormat = EnumBarcodeFormat.BF_ALL;
                 break;
             case 2:
-                lFormat = EnumBarcodeFormat.BF_OneD;
+                lFormat = EnumBarcodeFormat.BF_ONED;
                 break;
             case 3:
                 lFormat = EnumBarcodeFormat.BF_QR_CODE;
@@ -61,6 +61,10 @@ public final class BarcodeReaderDemo {
                 break;
             case 16:
                 lFormat = EnumBarcodeFormat.BF_AZTEC;
+                break;
+			case 17:
+                lFormat = EnumBarcodeFormat.BF_CODE_39_EXTENDED;
+                break;
             default:
                 break;
         }
@@ -134,7 +138,7 @@ public final class BarcodeReaderDemo {
                 System.out.println("   14: PDF417");
                 System.out.println("   15: DATAMATRIX");
                 System.out.println("   16: AZTEC");
-
+                System.out.println("   17: Code 39 Extended");
                 strLine = cin.readLine();
                 if (strLine.length() > 0) {
                     try {
@@ -172,13 +176,13 @@ public final class BarcodeReaderDemo {
             System.out.println("----------------------------------------------------------");
 
             // Set license
-            BarcodeReader br = new BarcodeReader("t0068MgAAAJbpvFwUvsodF81FjWojDo91ZYmDf3+aNdOGPOBOygS6Yte0JFqPMt/DnNMdfGS4gInUd+5RYOCX6IramuO+m4A=");
+            BarcodeReader br = new BarcodeReader("t0068MgAAAGULjuE8kaXvjroaEl2wrJH8t74pon1WyqsBoFiChDCds9YW4U2y3bNdGu/n04/lbzbhkXIH635/POaNi2SG5aE=");
             // Read barcode           
             try {
                 long ullTimeBegin = new Date().getTime();
                 PublicRuntimeSettings runtimeSettings = br.getRuntimeSettings();
-                runtimeSettings.mMaxBarcodesCount = iMaxCount;
-                runtimeSettings.mBarcodeFormatIds = lFormat;
+                runtimeSettings.expectedBarcodesCount = iMaxCount;
+                runtimeSettings.barcodeFormatIds = lFormat;
                 br.updateRuntimeSettings(runtimeSettings);
 
                 TextResult[] results = br.decodeFile(pszImageFile, "");

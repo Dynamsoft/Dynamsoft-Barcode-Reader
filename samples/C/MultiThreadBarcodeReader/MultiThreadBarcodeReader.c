@@ -44,7 +44,7 @@ void OutputResult(void* hBarcode,int errorcode/*,float time*/)
 	char * pszTemp = NULL;
 	char * pszTemp1 = NULL;
 	int iRet = errorcode;
-	STextResultArray *paryResult = NULL;
+	TextResultArray *paryResult = NULL;
 	int iIndex = 0;
 	pszTemp = (char*)malloc(4096);
 	if (iRet != DBR_OK && iRet != DBRERR_LICENSE_EXPIRED && iRet != DBRERR_QR_LICENSE_INVALID &&
@@ -58,7 +58,7 @@ void OutputResult(void* hBarcode,int errorcode/*,float time*/)
 
 
 	DBR_GetAllTextResults(hBarcode, &paryResult);
-	if (paryResult->nResultsCount == 0)
+	if (paryResult->resultsCount == 0)
 	{
 		sprintf_s(pszTemp, 4096, "No barcode found.\r\n");
 		printf(pszTemp);
@@ -67,18 +67,18 @@ void OutputResult(void* hBarcode,int errorcode/*,float time*/)
 		return;
 	}
 		
-	sprintf_s(pszTemp, 4096, "Total barcode(s) found: %d.\r\n\r\n", paryResult->nResultsCount);
+	sprintf_s(pszTemp, 4096, "Total barcode(s) found: %d.\r\n\r\n", paryResult->resultsCount);
 	printf(pszTemp);
-	//for (iIndex = 0; iIndex < paryResult->nResultsCount; iIndex++)
+	//for (iIndex = 0; iIndex < paryResult->resultsCount; iIndex++)
 	//{
 	//	sprintf_s(pszTemp, 4096, "Barcode %d:\r\n", iIndex + 1);
 	//	printf(pszTemp);
-	//	sprintf_s(pszTemp, 4096, "    Type: %s\r\n", paryResult->ppResults[iIndex]->pszBarcodeFormatString);
+	//	sprintf_s(pszTemp, 4096, "    Type: %s\r\n", paryResult->results[iIndex]->barcodeFormatString);
 	//	printf(pszTemp);
-	//	sprintf_s(pszTemp, 4096, "    Value: %s\r\n", paryResult->ppResults[iIndex]->pszBarcodeText);
+	//	sprintf_s(pszTemp, 4096, "    Value: %s\r\n", paryResult->results[iIndex]->barcodeText);
 	//	printf(pszTemp);
-	//	pszTemp1 = (char*)malloc(paryResult->ppResults[iIndex]->nBarcodeBytesLength*3 + 1);
-	//	ToHexString(paryResult->ppResults[iIndex]->pBarcodeBytes, paryResult->ppResults[iIndex]->nBarcodeBytesLength, pszTemp1);
+	//	pszTemp1 = (char*)malloc(paryResult->results[iIndex]->barcodeBytesLength*3 + 1);
+	//	ToHexString(paryResult->results[iIndex]->barcodeBytes, paryResult->results[iIndex]->barcodeBytesLength, pszTemp1);
 	//	sprintf_s(pszTemp, 4096, "    Hex Data: %s\r\n", pszTemp1);
 	//	printf(pszTemp);
 	//	free(pszTemp1);
@@ -110,7 +110,7 @@ DWORD WINAPI DecodeFile(void* pInfo)
 		pMultiThreadDecodeFileInfo->iCurrentImageCount++;
 		ReleaseMutex(pMultiThreadDecodeFileInfo->hMutex);
 		temphBarcode = DBR_CreateInstance();
-		DBR_InitLicense(temphBarcode,"t0068MgAAAJbpvFwUvsodF81FjWojDo91ZYmDf3+aNdOGPOBOygS6Yte0JFqPMt/DnNMdfGS4gInUd+5RYOCX6IramuO+m4A=");
+		DBR_InitLicense(temphBarcode,"t0068MgAAAGULjuE8kaXvjroaEl2wrJH8t74pon1WyqsBoFiChDCds9YW4U2y3bNdGu/n04/lbzbhkXIH635/POaNi2SG5aE=");
 		iRet = DBR_DecodeFile(temphBarcode,tempFileName,"");
 
 		WaitForSingleObject(pMultiThreadDecodeFileInfo->hMutex,INFINITE);
