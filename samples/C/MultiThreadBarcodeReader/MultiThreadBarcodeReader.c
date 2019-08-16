@@ -110,7 +110,7 @@ DWORD WINAPI DecodeFile(void* pInfo)
 		pMultiThreadDecodeFileInfo->iCurrentImageCount++;
 		ReleaseMutex(pMultiThreadDecodeFileInfo->hMutex);
 		temphBarcode = DBR_CreateInstance();
-		DBR_InitLicense(temphBarcode,"t0068MgAAAGULjuE8kaXvjroaEl2wrJH8t74pon1WyqsBoFiChDCds9YW4U2y3bNdGu/n04/lbzbhkXIH635/POaNi2SG5aE=");
+		DBR_InitLicense(temphBarcode,"t0068MgAAAJGtVwhcsErABPct1kxzqtLXAdtg106egxOZHtbDrg3fStyDr2YtYWVROASRVxnMXLdm7I7ljbd6qcr9o6ohkvA=");
 		iRet = DBR_DecodeFile(temphBarcode,tempFileName,"");
 
 		WaitForSingleObject(pMultiThreadDecodeFileInfo->hMutex,INFINITE);

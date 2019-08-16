@@ -1502,6 +1502,10 @@ namespace Barcode_Reader_Demo
                         tempCoverage.FurtherModes.TextFilterModes[0] = EnumTextFilterMode.TFM_GENERAL_CONTOUR;
                         for (int i = 1; i < tempCoverage.FurtherModes.TextFilterModes.Length; i++)
                             tempCoverage.FurtherModes.TextFilterModes[i] = EnumTextFilterMode.TFM_SKIP;
+                        tempCoverage.FurtherModes.GrayscaleTransformationModes[0] = EnumGrayscaleTransformationMode.GTM_ORIGINAL;
+                        tempCoverage.FurtherModes.GrayscaleTransformationModes[1] = EnumGrayscaleTransformationMode.GTM_INVERTED;
+                        for (int i = 2; i < tempCoverage.FurtherModes.GrayscaleTransformationModes.Length; i++)
+                            tempCoverage.FurtherModes.GrayscaleTransformationModes[i] = EnumGrayscaleTransformationMode.GTM_SKIP;
                         mBarcodeReader.UpdateRuntimeSettings(tempCoverage);
                         break;
                 }

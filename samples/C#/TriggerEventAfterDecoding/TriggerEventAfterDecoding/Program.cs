@@ -91,7 +91,7 @@ namespace TriggerEventAfterDecoding
             Console.WriteLine("Hints: Please input 'Q'or 'q' to quit the application.\r\n");
             bool bExitFlag = false;
 
-            string strLicenseKeys = "t0068MgAAAGULjuE8kaXvjroaEl2wrJH8t74pon1WyqsBoFiChDCds9YW4U2y3bNdGu/n04/lbzbhkXIH635/POaNi2SG5aE=";
+            string strLicenseKeys = "t0068MgAAAJGtVwhcsErABPct1kxzqtLXAdtg106egxOZHtbDrg3fStyDr2YtYWVROASRVxnMXLdm7I7ljbd6qcr9o6ohkvA=";
             DMBarcodeReader tempDMBarcode = new DMBarcodeReader(strLicenseKeys);
             tempDMBarcode.OnBarcodeRecognized += tempDMBarcode_OnBarcodeRecognized;
             while (true)
