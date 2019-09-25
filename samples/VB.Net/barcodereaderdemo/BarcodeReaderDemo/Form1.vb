@@ -89,6 +89,10 @@ Public Class Form1
         ComboBox1.Items.Add("UPC-E")
         ComboBox1.Items.Add("AZTEC")
         ComboBox1.Items.Add("Code 39 Extended")
+        ComboBox1.Items.Add("Maxicode")
+        ComboBox1.Items.Add("GS1 Databar")
+        ComboBox1.Items.Add("PatchCode")
+        ComboBox1.Items.Add("GS1 Composite")
 
         ComboBox1.SelectedIndex = 0
     End Sub
@@ -262,7 +266,7 @@ Public Class Form1
         If (Not imageViewer.Image Is Nothing) Then
 
             Try
-                reader.ProductKeys = "t0068MgAAAJGtVwhcsErABPct1kxzqtLXAdtg106egxOZHtbDrg3fStyDr2YtYWVROASRVxnMXLdm7I7ljbd6qcr9o6ohkvA="
+                reader.ProductKeys = "t0068MgAAADaH8yokXmKf3axcV99lMBDDRYEZIsBZ5PPiekmW820HqSR2tQ/VOjuXPvq1FCvla7eS6KmEMUFgHZR9X7GuR2s="
                 Dim beforeRead As DateTime = DateTime.Now
                 Dim tempPublicParameterSettings As PublicRuntimeSettings = reader.GetRuntimeSettings()
                 tempPublicParameterSettings.BarcodeFormatIds = mBarcodeFormat
@@ -304,7 +308,7 @@ Public Class Form1
                     Dim tempRectangle As Rectangle = ConvertLocationPointToRect(barcodeResults(i).LocalizationResult.ResultPoints)
                     tbResults.AppendText(String.Format("  Barcode: {0}{1}", (i + 1).ToString(), vbCrLf))
                     tbResults.AppendText(String.Format("    Page: {0}{1}", (barcodeResults(i).LocalizationResult.PageNumber).ToString(), vbCrLf))
-                    tbResults.AppendText(String.Format("    Type: {0}{1}", barcodeResults(i).BarcodeFormat.ToString(), vbCrLf))
+                    tbResults.AppendText(String.Format("    Type: {0}{1}", barcodeResults(i).BarcodeFormatString, vbCrLf))
                     'tbResults.AppendText(String.Format("    Value: {0}{1}", barcodeResults(i).BarcodeText, vbCrLf))
                     tbResults.AppendText(AddBarcodeText(barcodeResults(i).BarcodeText))
                     tbResults.AppendText(String.Format("    Hex Data: {0}{1}", ToHexString(barcodeResults(i).BarcodeBytes), vbCrLf))
@@ -568,6 +572,14 @@ Public Class Form1
             mBarcodeFormat = EnumBarcodeFormat.BF_AZTEC
         ElseIf ComboBox1.SelectedIndex = 16 Then
             mBarcodeFormat = EnumBarcodeFormat.BF_CODE_39_EXTENDED
+        ElseIf ComboBox1.SelectedIndex = 17 Then
+            mBarcodeFormat = EnumBarcodeFormat.BF_MAXICODE
+        ElseIf ComboBox1.SelectedIndex = 18 Then
+            mBarcodeFormat = EnumBarcodeFormat.BF_GS1_DATABAR
+        ElseIf ComboBox1.SelectedIndex = 19 Then
+            mBarcodeFormat = EnumBarcodeFormat.BF_PATCHCODE
+        ElseIf ComboBox1.SelectedIndex = 20 Then
+            mBarcodeFormat = EnumBarcodeFormat.BF_GS1_COMPOSITE
         End If
 
     End Sub

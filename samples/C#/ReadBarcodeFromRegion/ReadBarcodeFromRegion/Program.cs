@@ -13,7 +13,7 @@ namespace ReadBarcodeFromRegion
         {
 
             BarcodeReader _br = new BarcodeReader();
-            _br.ProductKeys = "t0068MgAAAJGtVwhcsErABPct1kxzqtLXAdtg106egxOZHtbDrg3fStyDr2YtYWVROASRVxnMXLdm7I7ljbd6qcr9o6ohkvA=";
+            _br.ProductKeys = "t0068MgAAADaH8yokXmKf3axcV99lMBDDRYEZIsBZ5PPiekmW820HqSR2tQ/VOjuXPvq1FCvla7eS6KmEMUFgHZR9X7GuR2s=";
             string[] strTemplateNameArray = { "All_DEFAULT", "All_DEFAULT_WITHREGION" };
             string tempDefaultTemplateJson = "{\"Version\": \"2.0\",\"ImageParameter\": {\"Name\": \"" + strTemplateNameArray[0] + "\",\"BarcodeFormatIds\": [\"BF_ALL\"],\"RegionPredetectionModes\": [{\"Mode\":\"RPM_GENERAL_RGB_CONTRAST\"}]}}";
             string tempTemplateJsonWithRegion = "{\"Version\": \"2.0\",\"ImageParameter\": {\"Name\": \"" + strTemplateNameArray[1] + "\",\"BarcodeFormatIds\": [\"BF_ALL\"],\"RegionPredetectionModes\": [{\"Mode\":\"RPM_GENERAL\"}],\"RegionDefinitionNameArray\": [\"Region\"]},\"RegionDefinitionArray\": [{\"Name\": \"Region\",\"MeasuredByPercentage\": 1" + ",\"Left\":" + iLeft.ToString() + ",\"Top\":" + iTop.ToString() + ",\"Right\":" + iRight.ToString() + ",\"Bottom\":" + iBottom.ToString() + "}]}";
@@ -56,7 +56,7 @@ namespace ReadBarcodeFromRegion
 
                     int iBarcodeIndex = iIndex + 1;
                     builder += "Barcode " + iBarcodeIndex.ToString() + ":\r\n";
-                    builder += "    Type: " + result[iIndex].BarcodeFormat.ToString() + "\r\n";
+                    builder += "    Type: " + result[iIndex].BarcodeFormatString + "\r\n";
                     builder += "    Value: " + result[iIndex].BarcodeText + "\r\n";
                     builder += "    Hex Data: " + ToHexString(result[iIndex].BarcodeBytes) + "\r\n";
                 }
@@ -79,9 +79,11 @@ namespace ReadBarcodeFromRegion
                     }
                 }
                 strImagePath = tempInput.Replace("\\", "\\\\");
+                strImagePath = strImagePath.Replace("\"", "");
                 if (!File.Exists(strImagePath))
                 {
                     Console.WriteLine("Please input a valid path.\r\n");
+                    continue;
                 }
                 return false;
             }
@@ -112,7 +114,7 @@ namespace ReadBarcodeFromRegion
                     }
                     else if (tempInput == "Y" || tempInput == "y")
                     {
-			mode = 1;
+			            mode = 1;
                         while (true)
                         {
                             Console.WriteLine("Set left, top, right, bottom value (in percentage) of your region rectangle (e.g:10,10,90,90):");

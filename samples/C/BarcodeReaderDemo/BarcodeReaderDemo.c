@@ -49,6 +49,14 @@ const int GetBarcodeFormatId(int iIndex)
 		return BF_AZTEC;
 	case 17:
 		return BF_CODE_39_EXTENDED;
+	case 18:
+		return BF_MAXICODE;
+	case 19:
+		return BF_GS1_DATABAR;
+	case 20:
+		return BF_PATCHCODE;
+	case 21:
+		return BF_GS1_COMPOSITE;
 	default:
 		return -1;
 	}
@@ -132,7 +140,10 @@ int SetBarcodeFormat(int* iBarcodeFormatId)
 		printf("   15: DATAMATRIX\r\n");
 		printf("   16: AZTEC\r\n");
 		printf("   17: Code 39 Extended\r\n");
-
+		printf("   18: Maxicode\r\n");
+		printf("   19: GS1 Databar\r\n");
+		printf("   20: PatchCode\r\n");
+		printf("   21: GS1 Composite\r\n");
 		gets_s(pszBuffer, 512);
 		iLen = strlen(pszBuffer);
 		if(iLen > 0)
@@ -168,12 +179,13 @@ void OutputResult(void* hBarcode,int errorcode,float time)
 	TextResultArray *paryResult = NULL;
 	int iIndex = 0;
 	pszTemp = (char*)malloc(4096);
-	if (iRet != DBR_OK && iRet != DBRERR_LICENSE_EXPIRED && iRet != DBRERR_QR_LICENSE_INVALID &&
-		iRet != DBRERR_1D_LICENSE_INVALID && iRet != DBRERR_PDF417_LICENSE_INVALID && iRet != DBRERR_DATAMATRIX_LICENSE_INVALID)
+	if (iRet != DBR_OK && iRet!=DBRERR_MAXICODE_LICENSE_INVALID && iRet!= DBRERR_GS1_COMPOSITE_LICENSE_INVALID && iRet!= DBRERR_AZTEC_LICENSE_INVALID && iRet != DBRERR_LICENSE_EXPIRED && iRet != DBRERR_QR_LICENSE_INVALID &&
+		iRet != DBRERR_1D_LICENSE_INVALID && iRet != DBRERR_PDF417_LICENSE_INVALID && iRet != DBRERR_DATAMATRIX_LICENSE_INVALID && iRet != DBRERR_GS1_DATABAR_LICENSE_INVALID && iRet != DBRERR_PATCHCODE_LICENSE_INVALID)
 	{
 		sprintf_s(pszTemp, 4096, "Failed to read barcode: %s\r\n",  DBR_GetErrorString(iRet));
 		printf(pszTemp);
 		free(pszTemp);
+		return;
 	}
 
 
@@ -236,7 +248,7 @@ int main(int argc, const char* argv[])
 	printf("Hints: Please input 'Q'or 'q' to quit the application.\r\n");
 	
 	hBarcode = DBR_CreateInstance();
-	DBR_InitLicense(hBarcode, "t0068MgAAAJGtVwhcsErABPct1kxzqtLXAdtg106egxOZHtbDrg3fStyDr2YtYWVROASRVxnMXLdm7I7ljbd6qcr9o6ohkvA=");
+	DBR_InitLicense(hBarcode, "t0068MgAAADaH8yokXmKf3axcV99lMBDDRYEZIsBZ5PPiekmW820HqSR2tQ/VOjuXPvq1FCvla7eS6KmEMUFgHZR9X7GuR2s=");
 
 
 	while(1)

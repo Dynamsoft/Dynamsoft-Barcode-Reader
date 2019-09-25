@@ -25,7 +25,7 @@ CBarcodeFileReader::~CBarcodeFileReader()
 
 void CBarcodeFileReader::LoadBarcodeFiles(const char *strBarcodeFilesDir)
 {
-	m_barcodeFilesDir = strBarcodeFilesDir == NULL ? ".\\" : strBarcodeFilesDir;
+	m_barcodeFilesDir = strlen(strBarcodeFilesDir) == NULL ? ".\\" : strBarcodeFilesDir;
 }
 
 void CBarcodeFileReader::SetOutputType(OUTPUT_TYPE outputType)
@@ -35,7 +35,7 @@ void CBarcodeFileReader::SetOutputType(OUTPUT_TYPE outputType)
 
 void CBarcodeFileReader::SetOutputFileDir(const char *strOutputDir)
 {
-	m_decodeResultOutputDir = strOutputDir == NULL ? ".\\" : strOutputDir;
+	m_decodeResultOutputDir = strlen(strOutputDir) == NULL ? ".\\" : strOutputDir;
 
 }
 

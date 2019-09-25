@@ -30,7 +30,7 @@ namespace TriggerEventAfterDecoding
                 for (int iIndex = 0; iIndex < result.Length; iIndex++)
                 {
                     builder.AppendFormat(String.Format("Barcode {0}:\r\n", iIndex + 1));
-                    builder.AppendFormat(String.Format("    Type: {0}\r\n", result[iIndex].BarcodeFormat.ToString()));
+                    builder.AppendFormat(String.Format("    Type: {0}\r\n", result[iIndex].BarcodeFormatString));
                     builder.AppendFormat(String.Format("    Value: {0}\r\n", result[iIndex].BarcodeText));
                     builder.AppendFormat(String.Format("    Hex Data: {0}\r\n", ToHexString(result[iIndex].BarcodeBytes)));
                 }
@@ -58,6 +58,7 @@ namespace TriggerEventAfterDecoding
                 if (!bIfFileExist)
                 {
                     Console.WriteLine("Please input a valid path.\r\n");
+                    continue;
                 }
                 return false;
             }
@@ -91,7 +92,7 @@ namespace TriggerEventAfterDecoding
             Console.WriteLine("Hints: Please input 'Q'or 'q' to quit the application.\r\n");
             bool bExitFlag = false;
 
-            string strLicenseKeys = "t0068MgAAAJGtVwhcsErABPct1kxzqtLXAdtg106egxOZHtbDrg3fStyDr2YtYWVROASRVxnMXLdm7I7ljbd6qcr9o6ohkvA=";
+            string strLicenseKeys = "t0068MgAAADaH8yokXmKf3axcV99lMBDDRYEZIsBZ5PPiekmW820HqSR2tQ/VOjuXPvq1FCvla7eS6KmEMUFgHZR9X7GuR2s=";
             DMBarcodeReader tempDMBarcode = new DMBarcodeReader(strLicenseKeys);
             tempDMBarcode.OnBarcodeRecognized += tempDMBarcode_OnBarcodeRecognized;
             while (true)

@@ -38,7 +38,7 @@ namespace DecodeSingleBarcode
 
                     int iBarcodeIndex = iIndex + 1;
                     builder += "Barcode " + iBarcodeIndex.ToString() + ":\r\n";
-                    builder += "    Type: " + result[iIndex].BarcodeFormat.ToString() + "\r\n";
+                    builder += "    Type: " + result[iIndex].BarcodeFormatString + "\r\n";
                     builder += "    Value: " + result[iIndex].BarcodeText + "\r\n";
                     builder += "    Hex Data: " + ToHexString(result[iIndex].BarcodeBytes) + "\r\n";
                 }
@@ -65,6 +65,7 @@ namespace DecodeSingleBarcode
                 if (!File.Exists(strImagePath))
                 {
                     Console.WriteLine("Please input a valid path.\r\n");
+                    continue;
                 }
                 return false;
             }
@@ -98,7 +99,7 @@ namespace DecodeSingleBarcode
             Console.WriteLine("Hints: Please input 'Q'or 'q' to quit the application.\r\n");
             bool bExitFlag = false;
             BarcodeReader _br = new BarcodeReader();
-            _br.ProductKeys = "t0068MgAAAJGtVwhcsErABPct1kxzqtLXAdtg106egxOZHtbDrg3fStyDr2YtYWVROASRVxnMXLdm7I7ljbd6qcr9o6ohkvA=";
+            _br.ProductKeys = "t0068MgAAADaH8yokXmKf3axcV99lMBDDRYEZIsBZ5PPiekmW820HqSR2tQ/VOjuXPvq1FCvla7eS6KmEMUFgHZR9X7GuR2s=";
             while (true)
             {
 

@@ -102,7 +102,7 @@ namespace Barcode_Reader_Demo
             mPostShowFrameResults = new PostShowFrameResultsHandler(this.postShowFrameResults);
             mNormalRuntimeSettings = mBarcodeReader.GetRuntimeSettings();
             UpdateBarcodeFormat();
-            toolTipExport.SetToolTip(btnExportSettings, "out put settings");
+            toolTipExport.SetToolTip(btnExportSettings, "output settings");
            
         }
 
@@ -1009,6 +1009,7 @@ namespace Barcode_Reader_Demo
             openFileDialog.FilterIndex = 0;
             openFileDialog.Multiselect = true;
             openFileDialog.InitialDirectory = mLastOpenedDirectory;
+            openFileDialog.FileName = "";
 
             mImageCore.ImageBuffer.IfAppendImage = true;
 
@@ -1345,6 +1346,7 @@ namespace Barcode_Reader_Demo
 
                 if (bars == null || bars.Length <= 0)
                 {
+                    tempBitmap.Dispose();
                     return;
                 }
 
@@ -1466,7 +1468,7 @@ namespace Barcode_Reader_Demo
                 {
                     case 0:
                         PublicRuntimeSettings tempBestSpeed = mBarcodeReader.GetRuntimeSettings();
-                            tempBestSpeed.BarcodeFormatIds = (int)this.mEmBarcodeFormat;
+                        tempBestSpeed.BarcodeFormatIds = (int)this.mEmBarcodeFormat;
                             tempBestSpeed.LocalizationModes[0] = EnumLocalizationMode.LM_SCAN_DIRECTLY;
                             for (int i = 1; i < tempBestSpeed.LocalizationModes.Length; i++)
                                 tempBestSpeed.LocalizationModes[i] = EnumLocalizationMode.LM_SKIP;
@@ -1638,7 +1640,7 @@ namespace Barcode_Reader_Demo
                 {
                     Rectangle tempRectangle = ConvertLocationPointToRect(textResult[i].LocalizationResult.ResultPoints);
                     strResult += string.Format("  Barcode: {0}\r\n", (i + 1));
-                    strResult += string.Format("    Type: {0}\r\n", textResult[i].BarcodeFormat.ToString());
+                    strResult += string.Format("    Type: {0}\r\n", textResult[i].BarcodeFormatString);
                     strResult = AddBarcodeText(strResult, textResult[i].BarcodeText);
                     strResult += string.Format("    Hex Data: {0}\r\n", ToHexString(textResult[i].BarcodeBytes));
                     strResult += string.Format("    Region: {{Left: {0}, Top: {1}, Width: {2}, Height: {3}}}\r\n", tempRectangle.Left.ToString(),
@@ -2055,13 +2057,13 @@ namespace Barcode_Reader_Demo
             if (this.panelOneDetail.Visible)
             {
                 this.panelOneDetail.Visible = false;
-                btnShowAllOneD.Text = "show all";
+                btnShowAllOneD.Text = "";
                 this.btnShowAllOneD.Image = global::Barcode_Reader_Demo.Properties.Resources.arrow_down;
             }
             else
             {
                 this.panelOneDetail.Visible = true;
-                btnShowAllOneD.Text = "hide all";
+                btnShowAllOneD.Text = "";
                 this.btnShowAllOneD.Image = global::Barcode_Reader_Demo.Properties.Resources.arrow_up;
                 panelOneDetail.BringToFront();
             }
@@ -2077,7 +2079,7 @@ namespace Barcode_Reader_Demo
         private void SwitchCustomControls(bool bCustomizeSettings)
         {
             this.panelOneDetail.Visible = false;
-            btnShowAllOneD.Text = "show all";
+            btnShowAllOneD.Text = "";
             this.btnShowAllOneD.Image = global::Barcode_Reader_Demo.Properties.Resources.arrow_down;
             if (bCustomizeSettings)
             {
@@ -2167,11 +2169,11 @@ namespace Barcode_Reader_Demo
         private void rbOneMode_CheckedChanged(object sender, EventArgs e)
         {
             if(cbUPCE.Checked   && cbEAN8.Checked    && cbEAN13.Checked && cbCODABAR.Checked      && cbITF.Checked &&
-               cbCODE93.Checked && cbCODE128.Checked && cbCOD39.Checked && cbINDUSTRIAL25.Checked && cbUPCA.Checked)
+               cbCODE93.Checked && cbCODE128.Checked && cbCOD39.Checked && cbINDUSTRIAL25.Checked && cbUPCA.Checked )
             {
                 cbOneD.CheckState = CheckState.Checked;
             }else if(!cbUPCE.Checked &&   !cbEAN8.Checked &&    !cbEAN13.Checked && !cbCODABAR.Checked &&      !cbITF.Checked &&
-                     !cbCODE93.Checked && !cbCODE128.Checked && !cbCOD39.Checked && !cbINDUSTRIAL25.Checked && !cbUPCA.Checked)
+                     !cbCODE93.Checked && !cbCODE128.Checked && !cbCOD39.Checked && !cbINDUSTRIAL25.Checked && !cbUPCA.Checked )
             {
                 cbOneD.CheckState = CheckState.Unchecked;
             }
@@ -2193,6 +2195,7 @@ namespace Barcode_Reader_Demo
             mEmBarcodeFormat = this.cbDataMatrix.Checked ? (mEmBarcodeFormat | EnumBarcodeFormat.BF_DATAMATRIX) : mEmBarcodeFormat;
             mEmBarcodeFormat = this.cbQRcode.Checked ? (mEmBarcodeFormat | EnumBarcodeFormat.BF_QR_CODE) : mEmBarcodeFormat;
             mEmBarcodeFormat = this.cbPDF417.Checked ? (mEmBarcodeFormat | EnumBarcodeFormat.BF_PDF417) : mEmBarcodeFormat;
+            mEmBarcodeFormat = this.cbMaxicode.Checked ? (mEmBarcodeFormat | EnumBarcodeFormat.BF_MAXICODE) : mEmBarcodeFormat;
 
             mEmBarcodeFormat = this.cbINDUSTRIAL25.Checked ? (mEmBarcodeFormat | EnumBarcodeFormat.BF_INDUSTRIAL_25) : mEmBarcodeFormat;
             mEmBarcodeFormat = this.cbUPCE.Checked ? (mEmBarcodeFormat | EnumBarcodeFormat.BF_UPC_E) : mEmBarcodeFormat;
@@ -2206,6 +2209,8 @@ namespace Barcode_Reader_Demo
             mEmBarcodeFormat = this.cbCODE93.Checked ? (mEmBarcodeFormat | EnumBarcodeFormat.BF_CODE_93) : mEmBarcodeFormat;
             mEmBarcodeFormat = this.cbCODE128.Checked ? (mEmBarcodeFormat | EnumBarcodeFormat.BF_CODE_128) : mEmBarcodeFormat;
             mEmBarcodeFormat = this.cbCOD39.Checked ? (mEmBarcodeFormat | EnumBarcodeFormat.BF_CODE_39) : mEmBarcodeFormat;
+            mEmBarcodeFormat = this.cbPATCHCODE.Checked ? (mEmBarcodeFormat | EnumBarcodeFormat.BF_PATCHCODE) : mEmBarcodeFormat;
+            mEmBarcodeFormat = this.cbDATABAR.Checked ? (mEmBarcodeFormat | EnumBarcodeFormat.BF_GS1_DATABAR) : mEmBarcodeFormat;
         }
 
         private void SetCustomizePanelValuseFromPublicRuntimeSettings()
@@ -2337,8 +2342,9 @@ namespace Barcode_Reader_Demo
         private void btnExportSettings_Click(object sender, EventArgs e)
         {
            
-            this.saveRuntimeSettingsFileDialog.ShowDialog();            
-            saveRuntimeSettingsFileDialog.Filter = "|*.json";     
+            this.saveRuntimeSettingsFileDialog.ShowDialog();
+            saveRuntimeSettingsFileDialog.FileName = "";
+            saveRuntimeSettingsFileDialog.Filter = "|*.json";
         }
 
         private void saveRuntimeSettingsFileDialog_FileOk(object sender, System.ComponentModel.CancelEventArgs e)

@@ -75,6 +75,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	char szBuffer[256] = { 0 };
 	string strGettingMessage = "";
 	char ichar=' ', iType=' ';
+	size_t iLen;
 	while (ichar!='q')
 	{
 		ichar = _getche();//need press the enter. getchar():need press the enter
@@ -87,6 +88,9 @@ int _tmain(int argc, _TCHAR* argv[])
 			std::cout << "\n Please input the barcode files directory:";
 			memset(szBuffer, 0, sizeof(szBuffer));
 			strGettingMessage = gets_s(szBuffer, 256);
+			iLen = strGettingMessage.length();
+			if (strGettingMessage[0] == '\"' && strGettingMessage[iLen - 1] == '\"')
+				strGettingMessage = strGettingMessage.substr(1, iLen - 2);
 			barcodeFileReader->LoadBarcodeFiles(strGettingMessage.c_str());
 			break;
 
@@ -97,6 +101,9 @@ int _tmain(int argc, _TCHAR* argv[])
 			std::cout << "\n Please input the output directory for decoding result:";
 			memset(szBuffer, 0, sizeof(szBuffer));
 			strGettingMessage = gets_s(szBuffer, 256);
+			iLen = strGettingMessage.length();
+			if (strGettingMessage[0] == '\"' && strGettingMessage[iLen - 1] == '\"')
+				strGettingMessage = strGettingMessage.substr(1, iLen - 2);
 			barcodeFileReader->SetOutputFileDir(strGettingMessage.c_str());			
 		}
 			break;			

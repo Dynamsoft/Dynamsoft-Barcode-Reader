@@ -65,6 +65,18 @@ public final class BarcodeReaderDemo {
 			case 17:
                 lFormat = EnumBarcodeFormat.BF_CODE_39_EXTENDED;
                 break;
+ 			case 18:
+                lFormat = EnumBarcodeFormat.BF_MAXICODE;
+                break;
+            case 19:
+                lFormat = EnumBarcodeFormat.BF_GS1_DATABAR;
+				break;
+			case 20:
+                lFormat = EnumBarcodeFormat.BF_PATCHCODE;
+				break;
+			case 21:
+				lFormat = EnumBarcodeFormat.BF_GS1_COMPOSITE;
+				break;
             default:
                 break;
         }
@@ -139,6 +151,10 @@ public final class BarcodeReaderDemo {
                 System.out.println("   15: DATAMATRIX");
                 System.out.println("   16: AZTEC");
                 System.out.println("   17: Code 39 Extended");
+				System.out.println("   18: Maxicode");
+				System.out.println("   19: GS1 Databar");
+				System.out.println("   20: PatchCode");
+				System.out.println("   21: GS1 Composite");
                 strLine = cin.readLine();
                 if (strLine.length() > 0) {
                     try {
@@ -176,7 +192,7 @@ public final class BarcodeReaderDemo {
             System.out.println("----------------------------------------------------------");
 
             // Set license
-            BarcodeReader br = new BarcodeReader("t0068MgAAAJGtVwhcsErABPct1kxzqtLXAdtg106egxOZHtbDrg3fStyDr2YtYWVROASRVxnMXLdm7I7ljbd6qcr9o6ohkvA=");
+            BarcodeReader br = new BarcodeReader("t0068MgAAADaH8yokXmKf3axcV99lMBDDRYEZIsBZ5PPiekmW820HqSR2tQ/VOjuXPvq1FCvla7eS6KmEMUFgHZR9X7GuR2s=");
             // Read barcode           
             try {
                 long ullTimeBegin = new Date().getTime();

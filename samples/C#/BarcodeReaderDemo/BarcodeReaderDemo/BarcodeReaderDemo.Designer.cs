@@ -72,6 +72,8 @@ namespace Barcode_Reader_Demo
             this.cbCODE93 = new System.Windows.Forms.CheckBox();
             this.cbCODE128 = new System.Windows.Forms.CheckBox();
             this.cbCOD39 = new System.Windows.Forms.CheckBox();
+            this.cbDATABAR = new System.Windows.Forms.CheckBox();
+            this.cbPATCHCODE = new System.Windows.Forms.CheckBox();
             this.label14 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
@@ -94,6 +96,7 @@ namespace Barcode_Reader_Demo
             this.cbQRcode = new System.Windows.Forms.CheckBox();
             this.cbDataMatrix = new System.Windows.Forms.CheckBox();
             this.cbAZTEC = new System.Windows.Forms.CheckBox();
+            this.cbMaxicode = new System.Windows.Forms.CheckBox();
             this.panelCustom = new System.Windows.Forms.Panel();
             this.panelCustomTop = new System.Windows.Forms.Panel();
             this.panelBarcodeReaderParent = new System.Windows.Forms.Panel();
@@ -608,6 +611,36 @@ namespace Barcode_Reader_Demo
             this.cbCOD39.UseVisualStyleBackColor = true;
             this.cbCOD39.CheckedChanged += new System.EventHandler(this.rbOneMode_CheckedChanged);
             // 
+            // cbDATABAR
+            // 
+            this.cbDATABAR.AutoSize = true;
+            this.cbDATABAR.Checked = true;
+            this.cbDATABAR.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbDATABAR.Font = new System.Drawing.Font("Open Sans", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.cbDATABAR.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
+            this.cbDATABAR.Location = new System.Drawing.Point(108, 39);
+            this.cbDATABAR.Name = "cbDATABAR";
+            this.cbDATABAR.Size = new System.Drawing.Size(121, 23);
+            this.cbDATABAR.TabIndex = 0;
+            this.cbDATABAR.Text = "GS1 DATABAR";
+            this.cbDATABAR.UseVisualStyleBackColor = true;
+            this.cbDATABAR.CheckedChanged += new System.EventHandler(this.rbOneMode_CheckedChanged);
+            // 
+            // cbPATCHCODE
+            // 
+            this.cbPATCHCODE.AutoSize = true;
+            this.cbPATCHCODE.Checked = true;
+            this.cbPATCHCODE.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbPATCHCODE.Font = new System.Drawing.Font("Open Sans", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.cbPATCHCODE.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
+            this.cbPATCHCODE.Location = new System.Drawing.Point(210, 72);
+            this.cbPATCHCODE.Name = "cbPATCHCODE";
+            this.cbPATCHCODE.Size = new System.Drawing.Size(97, 23);
+            this.cbPATCHCODE.TabIndex = 0;
+            this.cbPATCHCODE.Text = "Patchcode";
+            this.cbPATCHCODE.UseVisualStyleBackColor = true;
+            this.cbPATCHCODE.CheckedChanged += new System.EventHandler(this.rbOneMode_CheckedChanged);
+            // 
             // label14
             // 
             this.label14.BackColor = System.Drawing.Color.DarkGray;
@@ -773,8 +806,11 @@ namespace Barcode_Reader_Demo
             this.panelFormat.Controls.Add(this.cbOneD);
             this.panelFormat.Controls.Add(this.cbPDF417);
             this.panelFormat.Controls.Add(this.cbQRcode);
+            this.panelFormat.Controls.Add(this.cbDATABAR);
             this.panelFormat.Controls.Add(this.cbDataMatrix);
+            this.panelFormat.Controls.Add(this.cbMaxicode);
             this.panelFormat.Controls.Add(this.cbAZTEC);
+            this.panelFormat.Controls.Add(this.cbPATCHCODE);
             this.panelFormat.Location = new System.Drawing.Point(0, 44);
             this.panelFormat.Name = "panelFormat";
             this.panelFormat.Size = new System.Drawing.Size(310, 145);
@@ -804,11 +840,10 @@ namespace Barcode_Reader_Demo
             this.btnShowAllOneD.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(168)))), ((int)(((byte)(225)))));
             this.btnShowAllOneD.Image = global::Barcode_Reader_Demo.Properties.Resources.arrow_down;
             this.btnShowAllOneD.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnShowAllOneD.Location = new System.Drawing.Point(66, 36);
+            this.btnShowAllOneD.Location = new System.Drawing.Point(58, 39);
             this.btnShowAllOneD.Name = "btnShowAllOneD";
-            this.btnShowAllOneD.Size = new System.Drawing.Size(86, 24);
+            this.btnShowAllOneD.Size = new System.Drawing.Size(20, 24);
             this.btnShowAllOneD.TabIndex = 7;
-            this.btnShowAllOneD.Text = "show all";
             this.btnShowAllOneD.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
             this.btnShowAllOneD.UseVisualStyleBackColor = false;
             this.btnShowAllOneD.Click += new System.EventHandler(this.btnShowAllOneD_Click);
@@ -832,7 +867,7 @@ namespace Barcode_Reader_Demo
             this.cbOneD.CheckState = System.Windows.Forms.CheckState.Checked;
             this.cbOneD.Font = new System.Drawing.Font("Open Sans", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.cbOneD.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
-            this.cbOneD.Location = new System.Drawing.Point(19, 40);
+            this.cbOneD.Location = new System.Drawing.Point(17, 40);
             this.cbOneD.Name = "cbOneD";
             this.cbOneD.Size = new System.Drawing.Size(46, 23);
             this.cbOneD.TabIndex = 1;
@@ -847,7 +882,7 @@ namespace Barcode_Reader_Demo
             this.cbPDF417.CheckState = System.Windows.Forms.CheckState.Checked;
             this.cbPDF417.Font = new System.Drawing.Font("Open Sans", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.cbPDF417.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
-            this.cbPDF417.Location = new System.Drawing.Point(19, 72);
+            this.cbPDF417.Location = new System.Drawing.Point(17, 72);
             this.cbPDF417.Margin = new System.Windows.Forms.Padding(0);
             this.cbPDF417.Name = "cbPDF417";
             this.cbPDF417.Size = new System.Drawing.Size(81, 23);
@@ -855,6 +890,22 @@ namespace Barcode_Reader_Demo
             this.cbPDF417.Text = "PDF 417";
             this.cbPDF417.UseVisualStyleBackColor = true;
             this.cbPDF417.CheckedChanged += new System.EventHandler(this.cbBarcodeFormat_CheckedChanged);
+            //
+            //cbMaxicode
+            //
+            this.cbMaxicode.AutoSize = true;
+            this.cbMaxicode.Checked = true;
+            this.cbMaxicode.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbMaxicode.Font = new System.Drawing.Font("Open Sans", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.cbMaxicode.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
+            this.cbMaxicode.Location = new System.Drawing.Point(108, 72);
+            this.cbMaxicode.Margin = new System.Windows.Forms.Padding(0);
+            this.cbMaxicode.Name = "cbMaxicode";
+            this.cbMaxicode.Size = new System.Drawing.Size(81, 23);
+            this.cbMaxicode.TabIndex = 2;
+            this.cbMaxicode.Text = "MaxiCode";
+            this.cbMaxicode.UseVisualStyleBackColor = true;
+            this.cbMaxicode.CheckedChanged += new System.EventHandler(this.cbBarcodeFormat_CheckedChanged);
             // 
             // cbQRcode
             // 
@@ -863,7 +914,7 @@ namespace Barcode_Reader_Demo
             this.cbQRcode.CheckState = System.Windows.Forms.CheckState.Checked;
             this.cbQRcode.Font = new System.Drawing.Font("Open Sans", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.cbQRcode.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
-            this.cbQRcode.Location = new System.Drawing.Point(186, 72);
+            this.cbQRcode.Location = new System.Drawing.Point(17, 106);
             this.cbQRcode.Name = "cbQRcode";
             this.cbQRcode.Size = new System.Drawing.Size(86, 23);
             this.cbQRcode.TabIndex = 2;
@@ -878,7 +929,7 @@ namespace Barcode_Reader_Demo
             this.cbDataMatrix.CheckState = System.Windows.Forms.CheckState.Checked;
             this.cbDataMatrix.Font = new System.Drawing.Font("Open Sans", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.cbDataMatrix.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
-            this.cbDataMatrix.Location = new System.Drawing.Point(19, 106);
+            this.cbDataMatrix.Location = new System.Drawing.Point(108, 106);
             this.cbDataMatrix.Name = "cbDataMatrix";
             this.cbDataMatrix.Size = new System.Drawing.Size(102, 23);
             this.cbDataMatrix.TabIndex = 2;
@@ -891,7 +942,7 @@ namespace Barcode_Reader_Demo
             this.cbAZTEC.AutoSize = true;
             this.cbAZTEC.Font = new System.Drawing.Font("Open Sans", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.cbAZTEC.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
-            this.cbAZTEC.Location = new System.Drawing.Point(186, 106);
+            this.cbAZTEC.Location = new System.Drawing.Point(210, 106);
             this.cbAZTEC.Name = "cbAZTEC";
             this.cbAZTEC.Size = new System.Drawing.Size(70, 23);
             this.cbAZTEC.TabIndex = 2;
@@ -1052,7 +1103,7 @@ namespace Barcode_Reader_Demo
             this.cmbTextureDetectionSensitivity.Name = "cmbTextureDetectionSensitivity";
             this.cmbTextureDetectionSensitivity.Size = new System.Drawing.Size(258, 27);
             this.cmbTextureDetectionSensitivity.TabIndex = 12;
-            this.cmbTextureDetectionSensitivity.SelectedIndexChanged+=cmbTextureDetectionSensitivity_SelectedIndexChanged;
+            this.cmbTextureDetectionSensitivity.SelectedIndexChanged += new EventHandler(cmbTextureDetectionSensitivity_SelectedIndexChanged);
             // 
             // cmbMinResultConfidence
             // 
@@ -1075,7 +1126,7 @@ namespace Barcode_Reader_Demo
             this.cmbMinResultConfidence.Name = "cmbMinResultConfidence";
             this.cmbMinResultConfidence.Size = new System.Drawing.Size(258, 27);
             this.cmbMinResultConfidence.TabIndex = 12;
-            this.cmbMinResultConfidence.SelectedIndexChanged+=cmbMinResultConfidence_SelectedIndexChanged;
+            this.cmbMinResultConfidence.SelectedIndexChanged += new EventHandler(cmbMinResultConfidence_SelectedIndexChanged);
             // 
             // cmbImagePreprocessingModes
             // 
@@ -1092,7 +1143,7 @@ namespace Barcode_Reader_Demo
             this.cmbImagePreprocessingModes.Name = "cmbImagePreprocessingModes";
             this.cmbImagePreprocessingModes.Size = new System.Drawing.Size(258, 27);
             this.cmbImagePreprocessingModes.TabIndex = 12;
-            this.cmbImagePreprocessingModes.SelectedIndexChanged+=cmbImagePreprocessingModes_SelectedIndexChanged;
+            this.cmbImagePreprocessingModes.SelectedIndexChanged += new EventHandler(cmbImagePreprocessingModes_SelectedIndexChanged);
             // 
             // cmbGrayscaleTransformationModes
             // 
@@ -1108,7 +1159,7 @@ namespace Barcode_Reader_Demo
             this.cmbGrayscaleTransformationModes.Name = "cmbGrayscaleTransformationModes";
             this.cmbGrayscaleTransformationModes.Size = new System.Drawing.Size(258, 27);
             this.cmbGrayscaleTransformationModes.TabIndex = 12;
-            this.cmbGrayscaleTransformationModes.SelectedIndexChanged+=cmbGrayscaleTransformationModes_SelectedIndexChanged;
+            this.cmbGrayscaleTransformationModes.SelectedIndexChanged += new EventHandler(cmbGrayscaleTransformationModes_SelectedIndexChanged);
             // 
             // label9
             // 
@@ -1208,7 +1259,7 @@ namespace Barcode_Reader_Demo
             this.cmbLocalizationModes.Name = "cmbLocalizationModes";
             this.cmbLocalizationModes.Size = new System.Drawing.Size(258, 27);
             this.cmbLocalizationModes.TabIndex = 5;
-            this.cmbLocalizationModes.SelectedIndexChanged+=cmbLocalizationModes_SelectedIndexChanged;
+            this.cmbLocalizationModes.SelectedIndexChanged += new EventHandler(cmbLocalizationModes_SelectedIndexChanged);
             // 
             // label5
             // 
@@ -1243,7 +1294,7 @@ namespace Barcode_Reader_Demo
             this.cmbDeblurLevel.Name = "cmbDeblurLevel";
             this.cmbDeblurLevel.Size = new System.Drawing.Size(258, 27);
             this.cmbDeblurLevel.TabIndex = 3;
-            this.cmbDeblurLevel.SelectedIndexChanged += cmbDeblurLevel_SelectedIndexChanged;
+            this.cmbDeblurLevel.SelectedIndexChanged += new EventHandler(cmbDeblurLevel_SelectedIndexChanged);
             // 
             // label4
             // 
@@ -1639,6 +1690,7 @@ namespace Barcode_Reader_Demo
             this.dsViewer.SelectionRectAspectRatio = 0D;
             this.dsViewer.Size = new System.Drawing.Size(477, 586);
             this.dsViewer.TabIndex = 651;
+            this.dsViewer.OnMouseClick += new Dynamsoft.Forms.Delegate.OnMouseClickHandler(this.dsViewer_OnMouseClick);
             // 
             // saveRuntimeSettingsFileDialog
             // 
@@ -1832,6 +1884,9 @@ namespace Barcode_Reader_Demo
         private CheckBox cbCODE93;
         private CheckBox cbCODE128;
         private CheckBox cbCOD39;
+        private CheckBox cbPATCHCODE;
+        private CheckBox cbDATABAR;
+        private CheckBox cbMaxicode;
         private Button btnShowAllOneD;
         private RadioButton rbBestCoverage;
         private RadioButton rbBalance;
