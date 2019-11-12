@@ -246,7 +246,7 @@ int main(int argc, const char* argv[])
 	printf("Hints: Please input 'Q'or 'q' to quit the application.\r\n");
 	
 	CBarcodeReader reader;
-	reader.InitLicense("t0068MgAAADaH8yokXmKf3axcV99lMBDDRYEZIsBZ5PPiekmW820HqSR2tQ/VOjuXPvq1FCvla7eS6KmEMUFgHZR9X7GuR2s=");
+	reader.InitLicense("t0068MgAAAIayxMxBWSj+ffkAYg7D//ouZaOB6jb+BsbdSIRUrdt2mROVDtEmnM0RJFGY93sVWuslaISDLdQpC8moks39YrE=");
 	
 
 	while(1)
@@ -258,6 +258,13 @@ int main(int argc, const char* argv[])
 		bExit = SetBarcodeFormat(&iBarcodeFormatId);
 		if(bExit)
 			break;
+
+		//Best coverage settings
+		reader.InitRuntimeSettingsWithString("{\"ImageParameter\":{\"Name\":\"BestCoverage\",\"DeblurLevel\":9,\"ExpectedBarcodesCount\":512,\"ScaleDownThreshold\":100000,\"LocalizationModes\":[{\"Mode\":\"LM_CONNECTED_BLOCKS\"},{\"Mode\":\"LM_SCAN_DIRECTLY\"},{\"Mode\":\"LM_STATISTICS\"},{\"Mode\":\"LM_LINES\"},{\"Mode\":\"LM_STATISTICS_MARKS\"}],\"GrayscaleTransformationModes\":[{\"Mode\":\"GTM_ORIGINAL\"},{\"Mode\":\"GTM_INVERTED\"}]}}", CM_OVERWRITE, szErrorMsg, 256);
+		//Best speed settings
+		//reader.InitRuntimeSettingsWithString("{\"ImageParameter\":{\"Name\":\"BestSpeed\",\"DeblurLevel\":3,\"ExpectedBarcodesCount\":512,\"LocalizationModes\":[{\"Mode\":\"LM_SCAN_DIRECTLY\"}],\"TextFilterModes\":[{\"MinImageDimension\":262144,\"Mode\":\"TFM_GENERAL_CONTOUR\"}]}}",CM_OVERWRITE,szErrorMsg,256);
+		//Balance settings
+		//reader.InitRuntimeSettingsWithString("{\"ImageParameter\":{\"Name\":\"Balance\",\"DeblurLevel\":5,\"ExpectedBarcodesCount\":512,\"LocalizationModes\":[{\"Mode\":\"LM_CONNECTED_BLOCKS\"},{\"Mode\":\"LM_STATISTICS\"}]}}",CM_OVERWRITE,szErrorMsg,256);
 
 		reader.GetRuntimeSettings(&runtimeSettings);
 		runtimeSettings.barcodeFormatIds = iBarcodeFormatId;

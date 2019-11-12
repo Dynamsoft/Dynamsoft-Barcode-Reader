@@ -266,8 +266,17 @@ Public Class Form1
         If (Not imageViewer.Image Is Nothing) Then
 
             Try
-                reader.ProductKeys = "t0068MgAAADaH8yokXmKf3axcV99lMBDDRYEZIsBZ5PPiekmW820HqSR2tQ/VOjuXPvq1FCvla7eS6KmEMUFgHZR9X7GuR2s="
+                reader.ProductKeys = "t0068MgAAAIayxMxBWSj+ffkAYg7D//ouZaOB6jb+BsbdSIRUrdt2mROVDtEmnM0RJFGY93sVWuslaISDLdQpC8moks39YrE="
                 Dim beforeRead As DateTime = DateTime.Now
+
+                Dim szErrorMsg As String = ""
+                'Best coverage settings
+                reader.InitRuntimeSettingsWithString("{""ImageParameter"":{""Name"":""BestCoverage"",""DeblurLevel"":9,""ExpectedBarcodesCount"":512,""ScaleDownThreshold"":100000,""LocalizationModes"":[{""Mode"":""LM_CONNECTED_BLOCKS""},{""Mode"":""LM_SCAN_DIRECTLY""},{""Mode"":""LM_STATISTICS""},{""Mode"":""LM_LINES""},{""Mode"":""LM_STATISTICS_MARKS""}],""GrayscaleTransformationModes"":[{""Mode"":""GTM_ORIGINAL""},{""Mode"":""GTM_INVERTED""}]}}", EnumConflictMode.CM_OVERWRITE, szErrorMsg)
+                'Best speed settings
+                'reader.InitRuntimeSettingsWithString("{""ImageParameter"":{""Name"":""BestSpeed"",""DeblurLevel"":3,""ExpectedBarcodesCount"":512,""LocalizationModes"":[{""Mode"":""LM_SCAN_DIRECTLY""}],""TextFilterModes"":[{""MinImageDimension"":262144,""Mode"":""TFM_GENERAL_CONTOUR""}]}}",EnumConflictMode.CM_OVERWRITE,szErrorMsg);
+                'Balance settings
+                'reader.InitRuntimeSettingsWithString("{""ImageParameter"":{""Name"":""Balance"",""DeblurLevel"":5,""ExpectedBarcodesCount"":512,""LocalizationModes"":[{""Mode"":""LM_CONNECTED_BLOCKS""},{""Mode"":""LM_STATISTICS""}]}}",EnumConflictMode.CM_OVERWRITE,szErrorMsg);
+
                 Dim tempPublicParameterSettings As PublicRuntimeSettings = reader.GetRuntimeSettings()
                 tempPublicParameterSettings.BarcodeFormatIds = mBarcodeFormat
                 reader.UpdateRuntimeSettings(tempPublicParameterSettings)

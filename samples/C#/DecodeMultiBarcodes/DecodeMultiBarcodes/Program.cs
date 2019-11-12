@@ -12,6 +12,13 @@ namespace DecodeMultiBarcodes
 
         private static TextResult[] DecodeFile(BarcodeReader _br, string strImagePath)
         {
+            string strErrorMSG = "";
+            //Best coverage settings
+            _br.InitRuntimeSettingsWithString("{\"ImageParameter\":{\"Name\":\"BestCoverage\",\"DeblurLevel\":9,\"ExpectedBarcodesCount\":512,\"ScaleDownThreshold\":100000,\"LocalizationModes\":[{\"Mode\":\"LM_CONNECTED_BLOCKS\"},{\"Mode\":\"LM_SCAN_DIRECTLY\"},{\"Mode\":\"LM_STATISTICS\"},{\"Mode\":\"LM_LINES\"},{\"Mode\":\"LM_STATISTICS_MARKS\"}],\"GrayscaleTransformationModes\":[{\"Mode\":\"GTM_ORIGINAL\"},{\"Mode\":\"GTM_INVERTED\"}]}}", EnumConflictMode.CM_OVERWRITE, out strErrorMSG);
+            //Best speed settings
+            //_br.InitRuntimeSettingsWithString("{\"ImageParameter\":{\"Name\":\"BestSpeed\",\"DeblurLevel\":3,\"ExpectedBarcodesCount\":512,\"LocalizationModes\":[{\"Mode\":\"LM_SCAN_DIRECTLY\"}],\"TextFilterModes\":[{\"MinImageDimension\":262144,\"Mode\":\"TFM_GENERAL_CONTOUR\"}]}}", EnumConflictMode.CM_OVERWRITE, out strErrorMSG);
+            //Balance settings
+            //_br.InitRuntimeSettingsWithString("{\"ImageParameter\":{\"Name\":\"Balance\",\"DeblurLevel\":5,\"ExpectedBarcodesCount\":512,\"LocalizationModes\":[{\"Mode\":\"LM_CONNECTED_BLOCKS\"},{\"Mode\":\"LM_STATISTICS\"}]}}", EnumConflictMode.CM_OVERWRITE, out strErrorMSG);
             //modifiy the default template and decode file.
             PublicRuntimeSettings settings = _br.GetRuntimeSettings();
             //set excepted barcode count.
@@ -102,7 +109,7 @@ namespace DecodeMultiBarcodes
             Console.WriteLine("Hints: Please input 'Q'or 'q' to quit the application.\r\n");
             bool bExitFlag = false;
             BarcodeReader _br = new BarcodeReader();
-            _br.ProductKeys = "t0068MgAAADaH8yokXmKf3axcV99lMBDDRYEZIsBZ5PPiekmW820HqSR2tQ/VOjuXPvq1FCvla7eS6KmEMUFgHZR9X7GuR2s=";
+            _br.ProductKeys = "t0068MgAAAIayxMxBWSj+ffkAYg7D//ouZaOB6jb+BsbdSIRUrdt2mROVDtEmnM0RJFGY93sVWuslaISDLdQpC8moks39YrE=";
             while (true)
             {
                 string strImagePath = null;

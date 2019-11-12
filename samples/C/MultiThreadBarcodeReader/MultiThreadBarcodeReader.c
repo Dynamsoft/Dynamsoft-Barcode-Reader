@@ -98,7 +98,8 @@ DWORD WINAPI DecodeFile(void* pInfo)
 		int iRet = 0;
 		int iImageIndex = -1;
 		char* tempFileName;
-		void* temphBarcode;
+		void* temphBarcode = NULL;
+		char szErrorMsg[256];
 		WaitForSingleObject(pMultiThreadDecodeFileInfo->hMutex,INFINITE);
 		iImageIndex = pMultiThreadDecodeFileInfo->iCurrentImageCount;
 		tempFileName = pMultiThreadDecodeFileInfo->arrFiles[iImageIndex];
@@ -110,7 +111,15 @@ DWORD WINAPI DecodeFile(void* pInfo)
 		pMultiThreadDecodeFileInfo->iCurrentImageCount++;
 		ReleaseMutex(pMultiThreadDecodeFileInfo->hMutex);
 		temphBarcode = DBR_CreateInstance();
-		DBR_InitLicense(temphBarcode,"t0068MgAAADaH8yokXmKf3axcV99lMBDDRYEZIsBZ5PPiekmW820HqSR2tQ/VOjuXPvq1FCvla7eS6KmEMUFgHZR9X7GuR2s=");
+		DBR_InitLicense(temphBarcode,"t0068MgAAAIayxMxBWSj+ffkAYg7D//ouZaOB6jb+BsbdSIRUrdt2mROVDtEmnM0RJFGY93sVWuslaISDLdQpC8moks39YrE=");
+
+		//Best coverage settings
+		DBR_InitRuntimeSettingsWithString(temphBarcode,"{\"ImageParameter\":{\"Name\":\"BestCoverage\",\"DeblurLevel\":9,\"ExpectedBarcodesCount\":512,\"ScaleDownThreshold\":100000,\"LocalizationModes\":[{\"Mode\":\"LM_CONNECTED_BLOCKS\"},{\"Mode\":\"LM_SCAN_DIRECTLY\"},{\"Mode\":\"LM_STATISTICS\"},{\"Mode\":\"LM_LINES\"},{\"Mode\":\"LM_STATISTICS_MARKS\"}],\"GrayscaleTransformationModes\":[{\"Mode\":\"GTM_ORIGINAL\"},{\"Mode\":\"GTM_INVERTED\"}]}}",CM_OVERWRITE,szErrorMsg,256);
+		//Best speed settings
+		//DBR_InitRuntimeSettingsWithString(temphBarcode,"{\"ImageParameter\":{\"Name\":\"BestSpeed\",\"DeblurLevel\":3,\"ExpectedBarcodesCount\":512,\"LocalizationModes\":[{\"Mode\":\"LM_SCAN_DIRECTLY\"}],\"TextFilterModes\":[{\"MinImageDimension\":262144,\"Mode\":\"TFM_GENERAL_CONTOUR\"}]}}",CM_OVERWRITE,szErrorMsg,256);
+		//Balance settings
+		//DBR_InitRuntimeSettingsWithString(temphBarcode,"{\"ImageParameter\":{\"Name\":\"Balance\",\"DeblurLevel\":5,\"ExpectedBarcodesCount\":512,\"LocalizationModes\":[{\"Mode\":\"LM_CONNECTED_BLOCKS\"},{\"Mode\":\"LM_STATISTICS\"}]}}",CM_OVERWRITE,szErrorMsg,256);
+
 		iRet = DBR_DecodeFile(temphBarcode,tempFileName,"");
 
 		WaitForSingleObject(pMultiThreadDecodeFileInfo->hMutex,INFINITE);
