@@ -7,7 +7,7 @@
 CDbrBarcodeFileReader::CDbrBarcodeFileReader()
 {
 	m_pBarcodeReader = new CBarcodeReader();
-	m_pBarcodeReader->InitLicense("t0068MgAAAAIEWomweHrd8TH8cqcd+RtLQ/U16rG5fQxcrtjpwNqnwlEoGaDn7m/wO5Wc0WvA5YcKMJKDA4JiVh0yAtTKghs=");
+	m_pBarcodeReader->InitLicense("t0068MgAAAFffu0u4uz+J3IjyMm2we78pFnM/vICd/fkUgbP9ZenKUTRTfwjj8xpZ2vZ93iJtqRd75JXqKbiBLPsyfkvY1jE=");
 }
 
 CDbrBarcodeFileReader::~CDbrBarcodeFileReader()
@@ -141,7 +141,14 @@ bool CDbrBarcodeFileReader::ReadFileBarcodes( const string strFilePath, CBarcode
 		{
 			CBarcodeStatisticsRecorder::BCODE_VALUE bcodeValue;
 			bcodeValue.strTextMessage = (pTextResultArray)->results[i]->barcodeText;
-			bcodeValue.strCodeFormat = (pTextResultArray)->results[i]->barcodeFormatString;
+			if ((pTextResultArray)->results[i]->barcodeFormat != 0)
+			{
+				bcodeValue.strCodeFormat = (pTextResultArray)->results[i]->barcodeFormatString;
+			}
+			else
+			{
+				bcodeValue.strCodeFormat = (pTextResultArray)->results[i]->barcodeFormatString_2;
+			}
 			unsigned char* tempByte = (pTextResultArray)->results[i]->barcodeBytes;
 			int byteLength = (pTextResultArray)->results[i]->barcodeBytesLength;
 			bcodeValue.strHexMessage = ToHexString(tempByte, byteLength);

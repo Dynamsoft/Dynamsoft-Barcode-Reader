@@ -20,6 +20,7 @@ Public Class Form1
     Private reader As BarcodeReader = New Dynamsoft.Barcode.BarcodeReader()
     'Private mBarcodeType As String() = {"All_DEFAULT", "OneD_DEFAULT", "QR_CODE_DEFAULT", "PDF417_DEFAULT", "DATAMATRIX_DEFAULT", "CODE_39_DEFAULT", "CODE_128_DEFAULT", "CODE_93_DEFAULT", "CODABAR_DEFAULT", "ITF_DEFAULT", "INDUSTRIAL_25_DEFAULT", "EAN_13_DEFAULT", "EAN_8_DEFAULT", "UPC_A_DEFAULT", "UPC_E_DEFAULT"}
     Private mBarcodeFormat As Integer = EnumBarcodeFormat.BF_ALL
+    Private mBarcodeFormat_2 As Integer = 0
 
     Public Property FitWindow() As Boolean
         Get
@@ -93,6 +94,7 @@ Public Class Form1
         ComboBox1.Items.Add("GS1 Databar")
         ComboBox1.Items.Add("PatchCode")
         ComboBox1.Items.Add("GS1 Composite")
+        ComboBox1.Items.Add("Postal Code")
 
         ComboBox1.SelectedIndex = 0
     End Sub
@@ -266,7 +268,7 @@ Public Class Form1
         If (Not imageViewer.Image Is Nothing) Then
 
             Try
-                reader.ProductKeys = "t0068MgAAAAIEWomweHrd8TH8cqcd+RtLQ/U16rG5fQxcrtjpwNqnwlEoGaDn7m/wO5Wc0WvA5YcKMJKDA4JiVh0yAtTKghs="
+                reader.ProductKeys = "t0068MgAAAFffu0u4uz+J3IjyMm2we78pFnM/vICd/fkUgbP9ZenKUTRTfwjj8xpZ2vZ93iJtqRd75JXqKbiBLPsyfkvY1jE="
                 Dim beforeRead As DateTime = DateTime.Now
 
                 Dim szErrorMsg As String = ""
@@ -279,6 +281,7 @@ Public Class Form1
 
                 Dim tempPublicParameterSettings As PublicRuntimeSettings = reader.GetRuntimeSettings()
                 tempPublicParameterSettings.BarcodeFormatIds = mBarcodeFormat
+                tempPublicParameterSettings.BarcodeFormatIds_2 = mBarcodeFormat_2
                 reader.UpdateRuntimeSettings(tempPublicParameterSettings)
                 Dim barcodes As TextResult() = reader.DecodeFile(filePath, "")
                 Dim afterRead As DateTime = DateTime.Now
@@ -317,7 +320,12 @@ Public Class Form1
                     Dim tempRectangle As Rectangle = ConvertLocationPointToRect(barcodeResults(i).LocalizationResult.ResultPoints)
                     tbResults.AppendText(String.Format("  Barcode: {0}{1}", (i + 1).ToString(), vbCrLf))
                     tbResults.AppendText(String.Format("    Page: {0}{1}", (barcodeResults(i).LocalizationResult.PageNumber).ToString(), vbCrLf))
-                    tbResults.AppendText(String.Format("    Type: {0}{1}", barcodeResults(i).BarcodeFormatString, vbCrLf))
+                    If barcodeResults(i).BarcodeFormat <> 0 Then
+                        tbResults.AppendText(String.Format("    Type: {0}{1}", barcodeResults(i).BarcodeFormatString, vbCrLf))
+                    Else
+                        tbResults.AppendText(String.Format("    Type: {0}{1}", barcodeResults(i).BarcodeFormatString_2, vbCrLf))
+                    End If
+
                     'tbResults.AppendText(String.Format("    Value: {0}{1}", barcodeResults(i).BarcodeText, vbCrLf))
                     tbResults.AppendText(AddBarcodeText(barcodeResults(i).BarcodeText))
                     tbResults.AppendText(String.Format("    Hex Data: {0}{1}", ToHexString(barcodeResults(i).BarcodeBytes), vbCrLf))
@@ -549,46 +557,70 @@ Public Class Form1
         'Private mBarcodeType As String() = {"All_DEFAULT", "OneD_DEFAULT", "QR_CODE_DEFAULT", "PDF417_DEFAULT", "DATAMATRIX_DEFAULT", "CODE_39_DEFAULT", "CODE_128_DEFAULT", "CODE_93_DEFAULT", "CODABAR_DEFAULT", "ITF_DEFAULT", "INDUSTRIAL_25_DEFAULT", "EAN_13_DEFAULT", "EAN_8_DEFAULT", "UPC_A_DEFAULT", "UPC_E_DEFAULT"}
         If ComboBox1.SelectedIndex = 0 Then
             mBarcodeFormat = EnumBarcodeFormat.BF_ALL
+            mBarcodeFormat_2 = EnumBarcodeFormat_2.BF2_POSTALCODE
         ElseIf ComboBox1.SelectedIndex = 1 Then
             mBarcodeFormat = EnumBarcodeFormat.BF_ONED
+            mBarcodeFormat_2 = 0
         ElseIf ComboBox1.SelectedIndex = 2 Then
             mBarcodeFormat = EnumBarcodeFormat.BF_QR_CODE
+            mBarcodeFormat_2 = 0
         ElseIf ComboBox1.SelectedIndex = 3 Then
             mBarcodeFormat = EnumBarcodeFormat.BF_PDF417
+            mBarcodeFormat_2 = 0
         ElseIf ComboBox1.SelectedIndex = 4 Then
             mBarcodeFormat = EnumBarcodeFormat.BF_DATAMATRIX
+            mBarcodeFormat_2 = 0
         ElseIf ComboBox1.SelectedIndex = 5 Then
             mBarcodeFormat = EnumBarcodeFormat.BF_CODE_39
+            mBarcodeFormat_2 = 0
         ElseIf ComboBox1.SelectedIndex = 6 Then
             mBarcodeFormat = EnumBarcodeFormat.BF_CODE_128
+            mBarcodeFormat_2 = 0
         ElseIf ComboBox1.SelectedIndex = 7 Then
             mBarcodeFormat = EnumBarcodeFormat.BF_CODE_93
+            mBarcodeFormat_2 = 0
         ElseIf ComboBox1.SelectedIndex = 8 Then
             mBarcodeFormat = EnumBarcodeFormat.BF_CODABAR
+            mBarcodeFormat_2 = 0
         ElseIf ComboBox1.SelectedIndex = 9 Then
             mBarcodeFormat = EnumBarcodeFormat.BF_ITF
+            mBarcodeFormat_2 = 0
         ElseIf ComboBox1.SelectedIndex = 10 Then
             mBarcodeFormat = EnumBarcodeFormat.BF_INDUSTRIAL_25
+            mBarcodeFormat_2 = 0
         ElseIf ComboBox1.SelectedIndex = 11 Then
             mBarcodeFormat = EnumBarcodeFormat.BF_EAN_13
+            mBarcodeFormat_2 = 0
         ElseIf ComboBox1.SelectedIndex = 12 Then
             mBarcodeFormat = EnumBarcodeFormat.BF_EAN_8
+            mBarcodeFormat_2 = 0
         ElseIf ComboBox1.SelectedIndex = 13 Then
             mBarcodeFormat = EnumBarcodeFormat.BF_UPC_A
+            mBarcodeFormat_2 = 0
         ElseIf ComboBox1.SelectedIndex = 14 Then
             mBarcodeFormat = EnumBarcodeFormat.BF_UPC_E
+            mBarcodeFormat_2 = 0
         ElseIf ComboBox1.SelectedIndex = 15 Then
             mBarcodeFormat = EnumBarcodeFormat.BF_AZTEC
+            mBarcodeFormat_2 = 0
         ElseIf ComboBox1.SelectedIndex = 16 Then
             mBarcodeFormat = EnumBarcodeFormat.BF_CODE_39_EXTENDED
+            mBarcodeFormat_2 = 0
         ElseIf ComboBox1.SelectedIndex = 17 Then
             mBarcodeFormat = EnumBarcodeFormat.BF_MAXICODE
+            mBarcodeFormat_2 = 0
         ElseIf ComboBox1.SelectedIndex = 18 Then
             mBarcodeFormat = EnumBarcodeFormat.BF_GS1_DATABAR
+            mBarcodeFormat_2 = 0
         ElseIf ComboBox1.SelectedIndex = 19 Then
             mBarcodeFormat = EnumBarcodeFormat.BF_PATCHCODE
+            mBarcodeFormat_2 = 0
         ElseIf ComboBox1.SelectedIndex = 20 Then
             mBarcodeFormat = EnumBarcodeFormat.BF_GS1_COMPOSITE
+            mBarcodeFormat_2 = 0
+        ElseIf ComboBox1.SelectedIndex = 21 Then
+            mBarcodeFormat = 0
+            mBarcodeFormat_2 = EnumBarcodeFormat_2.BF2_POSTALCODE
         End If
 
     End Sub

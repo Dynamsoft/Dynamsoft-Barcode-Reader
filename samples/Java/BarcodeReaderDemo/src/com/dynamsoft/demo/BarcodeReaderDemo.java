@@ -5,89 +5,117 @@ import com.dynamsoft.barcode.*;
 import java.io.BufferedReader;
 import java.util.Date;
 
-
 public final class BarcodeReaderDemo {
+    private static int barcodeFormatIds;
+    private static int barcodeFormatIds_2;
     private BarcodeReaderDemo() {
+        barcodeFormatIds = 0;
+        barcodeFormatIds_2 = 0;
     }
 
     private static int GetFormatID(int iIndex) {
-        int lFormat = 0;
+        int ret = 0;
 
         switch (iIndex) {
             case 1:
-                lFormat = EnumBarcodeFormat.BF_ALL;
+                barcodeFormatIds = EnumBarcodeFormat.BF_ALL;
+                barcodeFormatIds_2 = EnumBarcodeFormat_2.BF2_POSTALCODE;
                 break;
             case 2:
-                lFormat = EnumBarcodeFormat.BF_ONED;
+                barcodeFormatIds = EnumBarcodeFormat.BF_ONED;
+                barcodeFormatIds_2 = 0;
                 break;
             case 3:
-                lFormat = EnumBarcodeFormat.BF_QR_CODE;
+                barcodeFormatIds = EnumBarcodeFormat.BF_QR_CODE;
+                barcodeFormatIds_2 = 0;
                 break;
             case 4:
-                lFormat = EnumBarcodeFormat.BF_CODE_39;
+                barcodeFormatIds = EnumBarcodeFormat.BF_CODE_39;
+                barcodeFormatIds_2 = 0;
                 break;
             case 5:
-                lFormat = EnumBarcodeFormat.BF_CODE_128;
+                barcodeFormatIds = EnumBarcodeFormat.BF_CODE_128;
+                barcodeFormatIds_2 = 0;
                 break;
             case 6:
-                lFormat = EnumBarcodeFormat.BF_CODE_93;
+                barcodeFormatIds = EnumBarcodeFormat.BF_CODE_93;
+                barcodeFormatIds_2 = 0;
                 break;
             case 7:
-                lFormat = EnumBarcodeFormat.BF_CODABAR;
+                barcodeFormatIds = EnumBarcodeFormat.BF_CODABAR;
+                barcodeFormatIds_2 = 0;
                 break;
             case 8:
-                lFormat = EnumBarcodeFormat.BF_ITF;
+                barcodeFormatIds = EnumBarcodeFormat.BF_ITF;
+                barcodeFormatIds_2 = 0;
                 break;
             case 9:
-                lFormat = EnumBarcodeFormat.BF_INDUSTRIAL_25;
+                barcodeFormatIds = EnumBarcodeFormat.BF_INDUSTRIAL_25;
+                barcodeFormatIds_2 = 0;
                 break;
             case 10:
-                lFormat = EnumBarcodeFormat.BF_EAN_13;
+                barcodeFormatIds = EnumBarcodeFormat.BF_EAN_13;
+                barcodeFormatIds_2 = 0;
                 break;
             case 11:
-                lFormat = EnumBarcodeFormat.BF_EAN_8;
+                barcodeFormatIds = EnumBarcodeFormat.BF_EAN_8;
+                barcodeFormatIds_2 = 0;
                 break;
             case 12:
-                lFormat = EnumBarcodeFormat.BF_UPC_A;
+                barcodeFormatIds = EnumBarcodeFormat.BF_UPC_A;
+                barcodeFormatIds_2 = 0;
                 break;
             case 13:
-                lFormat = EnumBarcodeFormat.BF_UPC_E;
+                barcodeFormatIds = EnumBarcodeFormat.BF_UPC_E;
+                barcodeFormatIds_2 = 0;
                 break;
             case 14:
-                lFormat = EnumBarcodeFormat.BF_PDF417;
+                barcodeFormatIds = EnumBarcodeFormat.BF_PDF417;
+                barcodeFormatIds_2 = 0;
                 break;
             case 15:
-                lFormat = EnumBarcodeFormat.BF_DATAMATRIX;
+                barcodeFormatIds = EnumBarcodeFormat.BF_DATAMATRIX;
+                barcodeFormatIds_2 = 0;
                 break;
             case 16:
-                lFormat = EnumBarcodeFormat.BF_AZTEC;
+                barcodeFormatIds = EnumBarcodeFormat.BF_AZTEC;
+                barcodeFormatIds_2 = 0;
                 break;
 			case 17:
-                lFormat = EnumBarcodeFormat.BF_CODE_39_EXTENDED;
+                barcodeFormatIds = EnumBarcodeFormat.BF_CODE_39_EXTENDED;
+                barcodeFormatIds_2 = 0;
                 break;
  			case 18:
-                lFormat = EnumBarcodeFormat.BF_MAXICODE;
+                barcodeFormatIds = EnumBarcodeFormat.BF_MAXICODE;
+                barcodeFormatIds_2 = 0;
                 break;
             case 19:
-                lFormat = EnumBarcodeFormat.BF_GS1_DATABAR;
-				break;
+                barcodeFormatIds = EnumBarcodeFormat.BF_GS1_DATABAR;
+                barcodeFormatIds_2 = 0;
+                break;
 			case 20:
-                lFormat = EnumBarcodeFormat.BF_PATCHCODE;
-				break;
+                barcodeFormatIds = EnumBarcodeFormat.BF_PATCHCODE;
+                barcodeFormatIds_2 = 0;
+                break;
 			case 21:
-				lFormat = EnumBarcodeFormat.BF_GS1_COMPOSITE;
-				break;
+                barcodeFormatIds = EnumBarcodeFormat.BF_GS1_COMPOSITE;
+                barcodeFormatIds_2 = 0;
+                break;
+            case 22:
+                barcodeFormatIds = 0;
+                barcodeFormatIds_2 = EnumBarcodeFormat_2.BF2_POSTALCODE;
+                break;
             default:
+                ret = -1;
                 break;
         }
-
-        return lFormat;
+        return ret;
     }
 
     public static void main(String[] args) throws Exception {
 
         int iMaxCount = 0;
-        int lFormat = 0;
+        int ret = 0;
         int iIndex = 0;
         String pszImageFile = null;
         String strLine;
@@ -155,12 +183,13 @@ public final class BarcodeReaderDemo {
 				System.out.println("   19: GS1 Databar");
 				System.out.println("   20: PatchCode");
 				System.out.println("   21: GS1 Composite");
+				System.out.println("   22: Postal Code");
                 strLine = cin.readLine();
                 if (strLine.length() > 0) {
                     try {
                         iIndex = Integer.parseInt(strLine);
-                        lFormat = GetFormatID(iIndex);
-                        if (lFormat != 0)
+                        ret = GetFormatID(iIndex);
+                        if (ret != -1)
                             break;
                     } catch (Exception exp) {
                     }
@@ -192,7 +221,7 @@ public final class BarcodeReaderDemo {
             System.out.println("----------------------------------------------------------");
 
             // Set license
-            BarcodeReader br = new BarcodeReader("t0068MgAAAAIEWomweHrd8TH8cqcd+RtLQ/U16rG5fQxcrtjpwNqnwlEoGaDn7m/wO5Wc0WvA5YcKMJKDA4JiVh0yAtTKghs=");
+            BarcodeReader br = new BarcodeReader("t0068MgAAAFffu0u4uz+J3IjyMm2we78pFnM/vICd/fkUgbP9ZenKUTRTfwjj8xpZ2vZ93iJtqRd75JXqKbiBLPsyfkvY1jE=");
             // Read barcode           
             try {
                 long ullTimeBegin = new Date().getTime();
@@ -206,7 +235,8 @@ public final class BarcodeReaderDemo {
 
                 PublicRuntimeSettings runtimeSettings = br.getRuntimeSettings();
                 runtimeSettings.expectedBarcodesCount = iMaxCount;
-                runtimeSettings.barcodeFormatIds = lFormat;
+                runtimeSettings.barcodeFormatIds = barcodeFormatIds;
+                runtimeSettings.barcodeFormatIds_2 = barcodeFormatIds_2;
                 br.updateRuntimeSettings(runtimeSettings);
 
                 TextResult[] results = br.decodeFile(pszImageFile, "");
@@ -224,7 +254,11 @@ public final class BarcodeReaderDemo {
                         System.out.println(pszTemp);
                         pszTemp = String.format("    Page: %d", result.localizationResult.pageNumber + 1);
                         System.out.println(pszTemp);
-                        pszTemp = "    Type: " + result.barcodeFormatString;
+                        if(result.barcodeFormat != 0){
+                            pszTemp = "    Type: " + result.barcodeFormatString;
+                        } else {
+                            pszTemp = "    Type: " + result.barcodeFormatString_2;
+                        }
                         System.out.println(pszTemp);
                         pszTemp = "    Value: " + result.barcodeText;
                         System.out.println(pszTemp);

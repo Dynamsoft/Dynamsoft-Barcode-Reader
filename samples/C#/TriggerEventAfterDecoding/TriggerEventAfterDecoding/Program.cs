@@ -30,7 +30,14 @@ namespace TriggerEventAfterDecoding
                 for (int iIndex = 0; iIndex < result.Length; iIndex++)
                 {
                     builder.AppendFormat(String.Format("Barcode {0}:\r\n", iIndex + 1));
-                    builder.AppendFormat(String.Format("    Type: {0}\r\n", result[iIndex].BarcodeFormatString));
+                    if (result[iIndex].BarcodeFormat != 0)
+                    {
+                        builder.AppendFormat(String.Format("    Type: {0}\r\n", result[iIndex].BarcodeFormatString));
+                    }
+                    else
+                    {
+                        builder.AppendFormat(String.Format("    Type: {0}\r\n", result[iIndex].BarcodeFormatString_2));
+                    }
                     builder.AppendFormat(String.Format("    Value: {0}\r\n", result[iIndex].BarcodeText));
                     builder.AppendFormat(String.Format("    Hex Data: {0}\r\n", ToHexString(result[iIndex].BarcodeBytes)));
                 }
@@ -92,7 +99,7 @@ namespace TriggerEventAfterDecoding
             Console.WriteLine("Hints: Please input 'Q'or 'q' to quit the application.\r\n");
             bool bExitFlag = false;
 
-            string strLicenseKeys = "t0068MgAAAAIEWomweHrd8TH8cqcd+RtLQ/U16rG5fQxcrtjpwNqnwlEoGaDn7m/wO5Wc0WvA5YcKMJKDA4JiVh0yAtTKghs=";
+            string strLicenseKeys = "t0068MgAAAFffu0u4uz+J3IjyMm2we78pFnM/vICd/fkUgbP9ZenKUTRTfwjj8xpZ2vZ93iJtqRd75JXqKbiBLPsyfkvY1jE=";
             DMBarcodeReader tempDMBarcode = new DMBarcodeReader(strLicenseKeys);
             tempDMBarcode.OnBarcodeRecognized += tempDMBarcode_OnBarcodeRecognized;
             while (true)

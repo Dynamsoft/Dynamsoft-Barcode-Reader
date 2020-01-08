@@ -11,55 +11,110 @@
 #pragma comment(lib, "../../../../Components/C_C++/Lib/DBRx86.lib")
 #endif
 
-const int GetBarcodeFormatId(int iIndex)
+typedef struct BarcodeFormatSet
 {
+	int barcodeFormatIds;
+	int barcodeFormatIds_2;
+}BarcodeFormatSet;
+
+const int GetBarcodeFormatId(int iIndex, BarcodeFormatSet* barcodeFormatSet)
+{
+	int ret = 0;
 	switch(iIndex)
 	{
 	case 1:
-		return BF_ALL;
+		barcodeFormatSet->barcodeFormatIds = BF_ALL;
+		barcodeFormatSet->barcodeFormatIds_2 = BF2_POSTALCODE;
+		break;
 	case 2:
-		return BF_ONED;
+		barcodeFormatSet->barcodeFormatIds = BF_ONED;
+		barcodeFormatSet->barcodeFormatIds_2 = 0;
+		break;
 	case 3:
-		return BF_QR_CODE;
+		barcodeFormatSet->barcodeFormatIds = BF_QR_CODE;
+		barcodeFormatSet->barcodeFormatIds_2 = 0;
+		break;
 	case 4:
-		return BF_CODE_39;
+		barcodeFormatSet->barcodeFormatIds = BF_CODE_39;
+		barcodeFormatSet->barcodeFormatIds_2 = 0;
+		break;
 	case 5:
-		return BF_CODE_128;
+		barcodeFormatSet->barcodeFormatIds = BF_CODE_128;
+		barcodeFormatSet->barcodeFormatIds_2 = 0;
+		break;
 	case 6:
-		return BF_CODE_93;
+		barcodeFormatSet->barcodeFormatIds = BF_CODE_93;
+		barcodeFormatSet->barcodeFormatIds_2 = 0;
+		break;
 	case 7:
-		return BF_CODABAR;
+		barcodeFormatSet->barcodeFormatIds = BF_CODABAR;
+		barcodeFormatSet->barcodeFormatIds_2 = 0;
+		break;
 	case 8:
-		return BF_ITF;
+		barcodeFormatSet->barcodeFormatIds = BF_ITF;
+		barcodeFormatSet->barcodeFormatIds_2 = 0;
+		break;
 	case 9:
-		return BF_INDUSTRIAL_25;
+		barcodeFormatSet->barcodeFormatIds = BF_INDUSTRIAL_25;
+		barcodeFormatSet->barcodeFormatIds_2 = 0;
+		break;
 	case 10:
-		return BF_EAN_13;
+		barcodeFormatSet->barcodeFormatIds = BF_EAN_13;
+		barcodeFormatSet->barcodeFormatIds_2 = 0;
+		break;
 	case 11:
-		return BF_EAN_8;
+		barcodeFormatSet->barcodeFormatIds = BF_EAN_8;
+		barcodeFormatSet->barcodeFormatIds_2 = 0;
+		break;
 	case 12:
-		return BF_UPC_A;
+		barcodeFormatSet->barcodeFormatIds = BF_UPC_A;
+		barcodeFormatSet->barcodeFormatIds_2 = 0;
+		break;
 	case 13:
-		return BF_UPC_E;
+		barcodeFormatSet->barcodeFormatIds = BF_UPC_E;
+		barcodeFormatSet->barcodeFormatIds_2 = 0;
+		break;
 	case 14:
-		return BF_PDF417;
+		barcodeFormatSet->barcodeFormatIds = BF_PDF417;
+		barcodeFormatSet->barcodeFormatIds_2 = 0;
+		break;
 	case 15:
-		return BF_DATAMATRIX;
+		barcodeFormatSet->barcodeFormatIds = BF_DATAMATRIX;
+		barcodeFormatSet->barcodeFormatIds_2 = 0;
+		break;
 	case 16:
-		return BF_AZTEC;
+		barcodeFormatSet->barcodeFormatIds = BF_AZTEC;
+		barcodeFormatSet->barcodeFormatIds_2 = 0;
+		break;
 	case 17:
-		return BF_CODE_39_EXTENDED;
+		barcodeFormatSet->barcodeFormatIds = BF_CODE_39_EXTENDED;
+		barcodeFormatSet->barcodeFormatIds_2 = 0;
+		break;
 	case 18:
-		return BF_MAXICODE;
+		barcodeFormatSet->barcodeFormatIds = BF_MAXICODE;
+		barcodeFormatSet->barcodeFormatIds_2 = 0;
+		break;
 	case 19:
-		return BF_GS1_DATABAR;
+		barcodeFormatSet->barcodeFormatIds = BF_GS1_DATABAR;
+		barcodeFormatSet->barcodeFormatIds_2 = 0;
+		break;
 	case 20:
-		return BF_PATCHCODE;
+		barcodeFormatSet->barcodeFormatIds = BF_PATCHCODE;
+		barcodeFormatSet->barcodeFormatIds_2 = 0;
+		break;
 	case 21:
-		return BF_GS1_COMPOSITE;
+		barcodeFormatSet->barcodeFormatIds = BF_GS1_COMPOSITE;
+		barcodeFormatSet->barcodeFormatIds_2 = 0;
+		break;
+	case 22:
+		barcodeFormatSet->barcodeFormatIds = 0;
+		barcodeFormatSet->barcodeFormatIds_2 = BF2_POSTALCODE;
+		break;
 	default:
-		return -1;
+		ret = -1;
+		break;
 	}
+	return ret;
 }
 
 void ToHexString(unsigned char* pSrc, int iLen, char* pDest)
@@ -114,7 +169,7 @@ int GetImagePath(char* pImagePath)
 	return iExitFlag;
 }
 
-int SetBarcodeFormat(int* iBarcodeFormatId)
+int SetBarcodeFormat(BarcodeFormatSet* iBarcodeFormatId)
 {
 	char pszBuffer[512] = {0};
 	int iExitFlag = 0;
@@ -144,6 +199,7 @@ int SetBarcodeFormat(int* iBarcodeFormatId)
 		printf("   19: GS1 Databar\r\n");
 		printf("   20: PatchCode\r\n");
 		printf("   21: GS1 Composite\r\n");
+		printf("   22: Postal  Code\r\n");
 		gets_s(pszBuffer, 512);
 		iLen = strlen(pszBuffer);
 		if(iLen > 0)
@@ -156,8 +212,8 @@ int SetBarcodeFormat(int* iBarcodeFormatId)
 			}
 
 			iIndex = atoi(pszBuffer);
-			*iBarcodeFormatId =  GetBarcodeFormatId(iIndex);
-			if(*iBarcodeFormatId != -1)
+			int ret =  GetBarcodeFormatId(iIndex, iBarcodeFormatId);
+			if(ret != -1)
 				break;
 		}
 
@@ -180,7 +236,7 @@ void OutputResult(void* hBarcode,int errorcode,float time)
 	int iIndex = 0;
 	pszTemp = (char*)malloc(4096);
 	if (iRet != DBR_OK && iRet!=DBRERR_MAXICODE_LICENSE_INVALID && iRet!= DBRERR_GS1_COMPOSITE_LICENSE_INVALID && iRet!= DBRERR_AZTEC_LICENSE_INVALID && iRet != DBRERR_LICENSE_EXPIRED && iRet != DBRERR_QR_LICENSE_INVALID &&
-		iRet != DBRERR_1D_LICENSE_INVALID && iRet != DBRERR_PDF417_LICENSE_INVALID && iRet != DBRERR_DATAMATRIX_LICENSE_INVALID && iRet != DBRERR_GS1_DATABAR_LICENSE_INVALID && iRet != DBRERR_PATCHCODE_LICENSE_INVALID)
+		iRet != DBRERR_1D_LICENSE_INVALID && iRet != DBRERR_PDF417_LICENSE_INVALID && iRet != DBRERR_DATAMATRIX_LICENSE_INVALID && iRet != DBRERR_GS1_DATABAR_LICENSE_INVALID && iRet != DBRERR_PATCHCODE_LICENSE_INVALID && iRet != DBRERR_POSTALCODE_LICENSE_INVALID)
 	{
 		sprintf_s(pszTemp, 4096, "Failed to read barcode: %s\r\n",  DBR_GetErrorString(iRet));
 		printf(pszTemp);
@@ -205,7 +261,14 @@ void OutputResult(void* hBarcode,int errorcode,float time)
 	{
 		sprintf_s(pszTemp, 4096, "Barcode %d:\r\n", iIndex + 1);
 		printf(pszTemp);
-		sprintf_s(pszTemp, 4096, "    Type: %s\r\n", paryResult->results[iIndex]->barcodeFormatString);
+		if (paryResult->results[iIndex]->barcodeFormat != 0)
+		{
+			sprintf_s(pszTemp, 4096, "    Type: %s\r\n", paryResult->results[iIndex]->barcodeFormatString);
+		}
+		else
+		{
+			sprintf_s(pszTemp, 4096, "    Type: %s\r\n", paryResult->results[iIndex]->barcodeFormatString_2);
+		}
 		printf(pszTemp);
 		sprintf_s(pszTemp, 4096, "    Value: %s\r\n", paryResult->results[iIndex]->barcodeText);
 		printf(pszTemp);
@@ -225,7 +288,7 @@ void OutputResult(void* hBarcode,int errorcode,float time)
 
 int main(int argc, const char* argv[])
 {
-	int iBarcodeFormatId = -1;
+	BarcodeFormatSet iBarcodeFormatId = {0,0};
 	char pszBuffer[512] = {0};
 	char pszImageFile[512] = {0};
 	int iIndex = 0;
@@ -248,7 +311,7 @@ int main(int argc, const char* argv[])
 	printf("Hints: Please input 'Q'or 'q' to quit the application.\r\n");
 	
 	hBarcode = DBR_CreateInstance();
-	DBR_InitLicense(hBarcode, "t0068MgAAAAIEWomweHrd8TH8cqcd+RtLQ/U16rG5fQxcrtjpwNqnwlEoGaDn7m/wO5Wc0WvA5YcKMJKDA4JiVh0yAtTKghs=");
+	DBR_InitLicense(hBarcode, "t0068MgAAAFffu0u4uz+J3IjyMm2we78pFnM/vICd/fkUgbP9ZenKUTRTfwjj8xpZ2vZ93iJtqRd75JXqKbiBLPsyfkvY1jE=");
 
 
 	while(1)
@@ -267,7 +330,8 @@ int main(int argc, const char* argv[])
 		//Balance settings
 		//DBR_InitRuntimeSettingsWithString(hBarcode,"{\"ImageParameter\":{\"Name\":\"Balance\",\"DeblurLevel\":5,\"ExpectedBarcodesCount\":512,\"LocalizationModes\":[{\"Mode\":\"LM_CONNECTED_BLOCKS\"},{\"Mode\":\"LM_STATISTICS\"}]}}",CM_OVERWRITE,szErrorMsg,256);
 		DBR_GetRuntimeSettings(hBarcode,&runtimeSettings);
-		runtimeSettings.barcodeFormatIds = iBarcodeFormatId;
+		runtimeSettings.barcodeFormatIds = iBarcodeFormatId.barcodeFormatIds;
+		runtimeSettings.barcodeFormatIds_2 = iBarcodeFormatId.barcodeFormatIds_2;
 		iRet = DBR_UpdateRuntimeSettings(hBarcode,&runtimeSettings,szErrorMsg,256);
 		if(iRet != DBR_OK)
 		{

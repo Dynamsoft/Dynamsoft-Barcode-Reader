@@ -46,7 +46,14 @@ namespace DecodeMultiBarcodes
 
                     int iBarcodeIndex = iIndex + 1;
                     builder += "Barcode " + iBarcodeIndex.ToString() + ":\r\n";
-                    builder += "    Type: " + result[iIndex].BarcodeFormatString + "\r\n";
+                    if (result[iIndex].BarcodeFormat != 0)
+                    {
+                        builder += "    Type: " + result[iIndex].BarcodeFormatString + "\r\n";
+                    }
+                    else
+                    {
+                        builder += "    Type: " + result[iIndex].BarcodeFormatString_2 + "\r\n";
+                    }
                     builder += "    Value: " + result[iIndex].BarcodeText + "\r\n";
                     builder += "    Hex Data: " + ToHexString(result[iIndex].BarcodeBytes) + "\r\n";
                 }
@@ -109,7 +116,7 @@ namespace DecodeMultiBarcodes
             Console.WriteLine("Hints: Please input 'Q'or 'q' to quit the application.\r\n");
             bool bExitFlag = false;
             BarcodeReader _br = new BarcodeReader();
-            _br.ProductKeys = "t0068MgAAAAIEWomweHrd8TH8cqcd+RtLQ/U16rG5fQxcrtjpwNqnwlEoGaDn7m/wO5Wc0WvA5YcKMJKDA4JiVh0yAtTKghs=";
+            _br.ProductKeys = "t0068MgAAAFffu0u4uz+J3IjyMm2we78pFnM/vICd/fkUgbP9ZenKUTRTfwjj8xpZ2vZ93iJtqRd75JXqKbiBLPsyfkvY1jE=";
             while (true)
             {
                 string strImagePath = null;

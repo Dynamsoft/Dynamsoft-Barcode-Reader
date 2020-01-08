@@ -47,6 +47,7 @@ namespace Barcode_Reader_Demo
         private TabHead mThResult;
         private RoundedRectanglePanel mPanelResult;
         EnumBarcodeFormat mEmBarcodeFormat = 0;
+        EnumBarcodeFormat_2 mEmBarcodeFormat_2 = 0;
         private readonly BarcodeReader mBarcodeReader;
         PublicRuntimeSettings mCustomRuntimeSettings;
 
@@ -159,7 +160,7 @@ namespace Barcode_Reader_Demo
             mPanelResult.Margin = new Padding(10, 12, 12, 0);
             mPanelResult.Name = "_panelResult";
             mPanelResult.Padding = new Padding(1);
-            mPanelResult.Size = new Size(311, 500);
+            mPanelResult.Size = new Size(311, 628);
             mPanelResult.TabIndex = 2;
 
             // 
@@ -211,7 +212,7 @@ namespace Barcode_Reader_Demo
             mRoundedRectanglePanelBarcode.Location = new Point(12, 376);
             mRoundedRectanglePanelBarcode.Margin = new Padding(10, 12, 12, 0);
             mRoundedRectanglePanelBarcode.Name = "roundedRectanglePanelBarcode";
-            mRoundedRectanglePanelBarcode.Size = new Size(312, 376);
+            mRoundedRectanglePanelBarcode.Size = new Size(312, 440);
             mRoundedRectanglePanelBarcode.TabIndex = 1;
 
  
@@ -1332,7 +1333,6 @@ namespace Barcode_Reader_Demo
         {
             UpdateRuntimeSettingsWithUISetting();
             TextResult[] bars = null;
-            Bitmap tempBitmap = ((Bitmap)(bitmap)).Clone(new Rectangle(0, 0, bitmap.Width, bitmap.Height), bitmap.PixelFormat);
             int timeElapsed = 0;
             
             try
@@ -1346,11 +1346,10 @@ namespace Barcode_Reader_Demo
 
                 if (bars == null || bars.Length <= 0)
                 {
-                    tempBitmap.Dispose();
                     return;
                 }
-
-                this.BeginInvoke(mPostShowFrameResults, tempBitmap,bars, timeElapsed,null);
+                Bitmap tempBitmap = ((Bitmap)(bitmap)).Clone(new Rectangle(0, 0, bitmap.Width, bitmap.Height), bitmap.PixelFormat);
+                this.BeginInvoke(mPostShowFrameResults, tempBitmap, bars, timeElapsed, null);
             }
             catch (Exception ex)
             {
@@ -1385,6 +1384,7 @@ namespace Barcode_Reader_Demo
             {
                 PublicRuntimeSettings runtimeSettings = mBarcodeReader.GetRuntimeSettings();
                 runtimeSettings.BarcodeFormatIds = (int)this.mEmBarcodeFormat;
+                runtimeSettings.BarcodeFormatIds_2 = (int)this.mEmBarcodeFormat_2;
                 if (!this.tbExpectedBarcodesCount.Text.Equals(""))
                     runtimeSettings.ExpectedBarcodesCount = Int32.Parse(this.tbExpectedBarcodesCount.Text);
                 runtimeSettings.DeblurLevel = cmbDeblurLevel_SelectedIndex;// this.cmbDeblurLevel.SelectedIndex;
@@ -1469,6 +1469,7 @@ namespace Barcode_Reader_Demo
                     case 0:
                         PublicRuntimeSettings tempBestSpeed = mBarcodeReader.GetRuntimeSettings();
                         tempBestSpeed.BarcodeFormatIds = (int)this.mEmBarcodeFormat;
+                        tempBestSpeed.BarcodeFormatIds_2 = (int)this.mEmBarcodeFormat_2;
                             tempBestSpeed.LocalizationModes[0] = EnumLocalizationMode.LM_SCAN_DIRECTLY;
                             for (int i = 1; i < tempBestSpeed.LocalizationModes.Length; i++)
                                 tempBestSpeed.LocalizationModes[i] = EnumLocalizationMode.LM_SKIP;
@@ -1482,6 +1483,7 @@ namespace Barcode_Reader_Demo
                     case 1:
                         PublicRuntimeSettings tempBalance = mBarcodeReader.GetRuntimeSettings();
                         tempBalance.BarcodeFormatIds = (int)this.mEmBarcodeFormat;
+                        tempBalance.BarcodeFormatIds_2 = (int)this.mEmBarcodeFormat_2;
                         tempBalance.LocalizationModes[0] = EnumLocalizationMode.LM_CONNECTED_BLOCKS;
                         tempBalance.LocalizationModes[1] = EnumLocalizationMode.LM_STATISTICS;
                         for (int i = 2; i < tempBalance.LocalizationModes.Length; i++)
@@ -1497,6 +1499,7 @@ namespace Barcode_Reader_Demo
                     case 2:
                         PublicRuntimeSettings tempCoverage = mBarcodeReader.GetRuntimeSettings();
                         tempCoverage.BarcodeFormatIds = (int)this.mEmBarcodeFormat;
+                        tempCoverage.BarcodeFormatIds_2 = (int)this.mEmBarcodeFormat_2;
                         // use default value of LocalizationModes
                         tempCoverage.DeblurLevel = 9;
                         tempCoverage.ExpectedBarcodesCount = 512;
@@ -1640,7 +1643,12 @@ namespace Barcode_Reader_Demo
                 {
                     Rectangle tempRectangle = ConvertLocationPointToRect(textResult[i].LocalizationResult.ResultPoints);
                     strResult += string.Format("  Barcode: {0}\r\n", (i + 1));
-                    strResult += string.Format("    Type: {0}\r\n", textResult[i].BarcodeFormatString);
+                    string strFormatString = "";
+                    if (textResult[i].BarcodeFormat == EnumBarcodeFormat.BF_NULL)
+                        strFormatString = textResult[i].BarcodeFormatString_2;
+                    else
+                        strFormatString = textResult[i].BarcodeFormatString;
+                    strResult += string.Format("    Type: {0}\r\n", strFormatString);
                     strResult = AddBarcodeText(strResult, textResult[i].BarcodeText);
                     strResult += string.Format("    Hex Data: {0}\r\n", ToHexString(textResult[i].BarcodeBytes));
                     strResult += string.Format("    Region: {{Left: {0}, Top: {1}, Width: {2}, Height: {3}}}\r\n", tempRectangle.Left.ToString(),
@@ -2056,21 +2064,114 @@ namespace Barcode_Reader_Demo
         {
             if (this.panelOneDetail.Visible)
             {
-                this.panelOneDetail.Visible = false;
-                btnShowAllOneD.Text = "";
-                this.btnShowAllOneD.Image = global::Barcode_Reader_Demo.Properties.Resources.arrow_down;
+                HideAllOneD();
             }
             else
             {
+                HideAllDatabar();
+                HideAllPDF();
+                HideAllQR();
+                HideAllPostalCode();
                 this.panelOneDetail.Visible = true;
                 btnShowAllOneD.Text = "";
                 this.btnShowAllOneD.Image = global::Barcode_Reader_Demo.Properties.Resources.arrow_up;
                 panelOneDetail.BringToFront();
             }
-
-
         }
 
+        private void btnShowAllDatabar_Click(object sender, EventArgs e)
+        {
+            if (this.panelDatabarDetail.Visible)
+            {
+                HideAllDatabar();
+            }
+            else
+            {
+                HideAllOneD();
+                HideAllPDF();
+                HideAllQR();
+                HideAllPostalCode();
+                this.panelDatabarDetail.Visible = true;
+                this.btnShowAllDatabar.Image = global::Barcode_Reader_Demo.Properties.Resources.arrow_up;
+                panelDatabarDetail.BringToFront();
+            }
+        }
+        private void btnShowAllPDF_Click(object sender, EventArgs e)
+        {
+            if (this.panelPDFDetail.Visible)
+            {
+                HideAllPDF();
+            }
+            else
+            {
+                HideAllOneD();
+                HideAllDatabar();
+                HideAllQR();
+                HideAllPostalCode();
+                this.panelPDFDetail.Visible = true;
+                this.btnShowAllPDF.Image = global::Barcode_Reader_Demo.Properties.Resources.arrow_up;
+                panelPDFDetail.BringToFront();
+            }
+        }
+        private void btnShowAllQR_Click(object sender, EventArgs e)
+        {
+            if (this.panelQRDetail.Visible)
+            {
+                HideAllQR();
+            }
+            else
+            {
+                HideAllOneD();
+                HideAllDatabar();
+                HideAllPDF();
+                HideAllPostalCode();
+                this.panelQRDetail.Visible = true;
+                this.btnShowAllQR.Image = global::Barcode_Reader_Demo.Properties.Resources.arrow_up;
+                panelQRDetail.BringToFront();
+            }
+        }
+        private void btnShowAllPostalCode_Click(object sender, EventArgs e)
+        {
+            if (this.panelPostalCodeDetail.Visible)
+            {
+                HideAllPostalCode();
+            }
+            else
+            {
+                HideAllOneD();
+                HideAllDatabar();
+                HideAllPDF();
+                HideAllQR();
+                this.panelPostalCodeDetail.Visible = true;
+                this.btnShowAllPostalCode.Image = global::Barcode_Reader_Demo.Properties.Resources.arrow_up;
+                panelPostalCodeDetail.BringToFront();
+            }
+        }
+        private void HideAllOneD()
+        {
+            this.panelOneDetail.Visible = false;
+            this.btnShowAllOneD.Image = global::Barcode_Reader_Demo.Properties.Resources.arrow_down;
+        }
+        private void HideAllDatabar()
+        {
+            this.panelDatabarDetail.Visible = false;
+            this.btnShowAllDatabar.Image = global::Barcode_Reader_Demo.Properties.Resources.arrow_down;
+        }
+        private void HideAllPDF()
+        {
+            this.panelPDFDetail.Visible = false;
+            this.btnShowAllPDF.Image = global::Barcode_Reader_Demo.Properties.Resources.arrow_down;
+        }
+        private void HideAllQR()
+        {
+            this.panelQRDetail.Visible = false;
+            this.btnShowAllQR.Image = global::Barcode_Reader_Demo.Properties.Resources.arrow_down;
+        }
+        private void HideAllPostalCode()
+        {
+            this.panelPostalCodeDetail.Visible = false;
+            this.btnShowAllPostalCode.Image = global::Barcode_Reader_Demo.Properties.Resources.arrow_down;
+        }
         private void btnEditSettings_Click(object sender, EventArgs e)
         {
             SwitchCustomControls(true);
@@ -2078,9 +2179,11 @@ namespace Barcode_Reader_Demo
 
         private void SwitchCustomControls(bool bCustomizeSettings)
         {
-            this.panelOneDetail.Visible = false;
-            btnShowAllOneD.Text = "";
-            this.btnShowAllOneD.Image = global::Barcode_Reader_Demo.Properties.Resources.arrow_down;
+            HideAllOneD();
+            HideAllDatabar();
+            HideAllPDF();
+            HideAllQR();
+            HideAllPostalCode();
             if (bCustomizeSettings)
             {
                 btnExportSettings.Visible = true;
@@ -2097,10 +2200,20 @@ namespace Barcode_Reader_Demo
                 this.panelFormat.Location = new System.Drawing.Point(0, 0);
                 this.panelFormatParent.Controls.Add(this.panelFormat);
                 this.panelOneDetail.Location = new System.Drawing.Point(0, 65);
-               
-                panelCustomSettings.Controls.Add(this.panelOneDetail);
-                mRoundedRectanglePanelBarcode.AutoSize = false;
-                mRoundedRectanglePanelBarcode.Size = new Size(311, 376);
+                this.panelOneDetail.Size = new System.Drawing.Size(280, 160);
+                this.panelCustomSettings.Controls.Add(this.panelOneDetail);
+                this.panelDatabarDetail.Location = new System.Drawing.Point(0, 65);
+                this.panelDatabarDetail.Size = new System.Drawing.Size(280, 224);
+                this.panelCustomSettings.Controls.Add(this.panelDatabarDetail);
+                this.panelPDFDetail.Location = new System.Drawing.Point(0, 129);
+                this.panelPDFDetail.Size = new System.Drawing.Size(280, 76);
+                this.panelCustomSettings.Controls.Add(this.panelPDFDetail);
+                this.panelQRDetail.Location = new System.Drawing.Point(0, 97);
+                this.panelQRDetail.Size = new System.Drawing.Size(280, 76);
+                this.panelCustomSettings.Controls.Add(this.panelQRDetail);
+                this.panelPostalCodeDetail.Location = new System.Drawing.Point(0, 97);
+                this.panelPostalCodeDetail.Size = new System.Drawing.Size(280, 159);
+                this.panelCustomSettings.Controls.Add(this.panelPostalCodeDetail);
                 mRoundedRectanglePanelBarcode.Controls.Add(this.panelCustom);
             }
             else
@@ -2110,7 +2223,20 @@ namespace Barcode_Reader_Demo
                 mRoundedRectanglePanelBarcode.Controls.Remove(this.panelCustom);             
 
                 this.panelOneDetail.Location = new System.Drawing.Point(0, 109);
+                this.panelOneDetail.Size = new System.Drawing.Size(305, 160);
                 this.panelNormalSettings.Controls.Add(this.panelOneDetail);
+                this.panelDatabarDetail.Location = new System.Drawing.Point(0, 109);
+                this.panelDatabarDetail.Size = new System.Drawing.Size(305, 224);
+                this.panelNormalSettings.Controls.Add(this.panelDatabarDetail);
+                this.panelPDFDetail.Location = new System.Drawing.Point(0, 173);
+                this.panelPDFDetail.Size = new System.Drawing.Size(305, 76);
+                this.panelNormalSettings.Controls.Add(this.panelPDFDetail);
+                this.panelQRDetail.Location = new System.Drawing.Point(0, 141);
+                this.panelQRDetail.Size = new System.Drawing.Size(305, 76);
+                this.panelNormalSettings.Controls.Add(this.panelQRDetail);
+                this.panelPostalCodeDetail.Location = new System.Drawing.Point(0, 141);
+                this.panelPostalCodeDetail.Size = new System.Drawing.Size(305, 159);
+                this.panelNormalSettings.Controls.Add(this.panelPostalCodeDetail);
 
                 this.panelFormat.Location = new System.Drawing.Point(0, 44);
                 this.panelNormalSettings.Controls.Add(this.panelFormat);
@@ -2120,8 +2246,6 @@ namespace Barcode_Reader_Demo
                 this.panelRecognitionMode.Controls.Add(this.panelReadBarcode);
 
                 mRoundedRectanglePanelBarcode.Location = new Point(12, 294);
-                mRoundedRectanglePanelBarcode.Size = new Size(310, 376);
-                mRoundedRectanglePanelBarcode.AutoSize = false;
 
                 mRoundedRectanglePanelBarcode.Controls.Add(this.panelNormalSettings);
                
@@ -2166,6 +2290,53 @@ namespace Barcode_Reader_Demo
                 cbCODE93.Checked = cbCODE128.Checked = cbCOD39.Checked = cbUPCA.Checked = cbINDUSTRIAL25.Checked = true;
             }
         }
+        private void cbDatabar_CheckStateChanged(object sender, EventArgs e)
+        {
+            if (cbDATABAR.CheckState == CheckState.Unchecked)
+            {
+                cbDatabarLimited.Checked = cbDatabarOmnidirectional.Checked = cbDatabarExpanded.Checked = cbDatabarExpanedStacked.Checked = cbDatabarStacked.Checked =
+                cbDatabarStackedOmnidirectional.Checked = cbDatabarTruncated.Checked = false;
+            }
+            else if (cbDATABAR.CheckState == CheckState.Checked)
+            {
+                cbDatabarLimited.Checked = cbDatabarOmnidirectional.Checked = cbDatabarExpanded.Checked = cbDatabarExpanedStacked.Checked = cbDatabarStacked.Checked =
+                cbDatabarStackedOmnidirectional.Checked = cbDatabarTruncated.Checked = true;
+            }
+        }
+        private void cbAllPDF417_CheckStateChanged(object sender, EventArgs e)
+        {
+            if (cbAllPDF417.CheckState == CheckState.Unchecked)
+            {
+                cbPDF417.Checked = cbMicroPDF.Checked = false;
+            }
+            else if (cbAllPDF417.CheckState == CheckState.Checked)
+            {
+                cbPDF417.Checked = cbMicroPDF.Checked = true;
+            }
+        }
+        private void cbAllQRCode_CheckStateChanged(object sender, EventArgs e)
+        {
+            if (cbAllQRCode.CheckState == CheckState.Unchecked)
+            {
+                cbQRcode.Checked = cbMicroQR.Checked = false;
+            }
+            else if (cbAllQRCode.CheckState == CheckState.Checked)
+            {
+                cbQRcode.Checked = cbMicroQR.Checked = true;
+            }
+        }
+        private void cbPostalCode_CheckStateChanged(object sender, EventArgs e)
+        {
+            if (cbPostalCode.CheckState == CheckState.Unchecked)
+            {
+                cbUSPSIntelligentMail.Checked = cbAustralianPost.Checked = cbRM4SCC.Checked = cbPostnet.Checked = cbPlanet.Checked = false;
+            }
+            else if (cbPostalCode.CheckState == CheckState.Checked)
+            {
+                cbUSPSIntelligentMail.Checked = cbAustralianPost.Checked = cbRM4SCC.Checked = cbPostnet.Checked = cbPlanet.Checked = true;
+            }
+        }
+
         private void rbOneMode_CheckedChanged(object sender, EventArgs e)
         {
             if(cbUPCE.Checked   && cbEAN8.Checked    && cbEAN13.Checked && cbCODABAR.Checked      && cbITF.Checked &&
@@ -2181,36 +2352,125 @@ namespace Barcode_Reader_Demo
             {
                 cbOneD.CheckState = CheckState.Indeterminate;
             }
-            UpdateBarcodeFormat();
+            //UpdateBarcodeFormat();
         }
-        
+
+        private void rbDatabarMode_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbDatabarLimited.Checked && cbDatabarOmnidirectional.Checked && cbDatabarExpanded.Checked && cbDatabarExpanedStacked.Checked && cbDatabarStacked.Checked &&
+                cbDatabarStackedOmnidirectional.Checked && cbDatabarTruncated.Checked)
+            {
+                cbDATABAR.CheckState = CheckState.Checked;
+            }
+            else if (!cbDatabarLimited.Checked && !cbDatabarOmnidirectional.Checked && !cbDatabarExpanded.Checked && !cbDatabarExpanedStacked.Checked && !cbDatabarStacked.Checked &&
+                !cbDatabarStackedOmnidirectional.Checked && !cbDatabarTruncated.Checked)
+            {
+                cbDATABAR.CheckState = CheckState.Unchecked;
+            }
+            else
+            {
+                cbDATABAR.CheckState = CheckState.Indeterminate;
+            }
+            //UpdateBarcodeFormat();
+        }
+        private void rbAllQRMode_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbQRcode.Checked && cbMicroQR.Checked)
+            {
+                cbAllQRCode.CheckState = CheckState.Checked;
+            }
+            else if (!cbQRcode.Checked && !cbMicroQR.Checked)
+            {
+                cbAllQRCode.CheckState = CheckState.Unchecked;
+            }
+            else
+            {
+                cbAllQRCode.CheckState = CheckState.Indeterminate;
+            }
+            //UpdateBarcodeFormat();
+        }
+        private void rbAllPDFMode_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbPDF417.Checked && cbMicroPDF.Checked)
+            {
+                cbAllPDF417.CheckState = CheckState.Checked;
+            }
+            else if (!cbPDF417.Checked && !cbMicroPDF.Checked)
+            {
+                cbAllPDF417.CheckState = CheckState.Unchecked;
+            }
+            else
+            {
+                cbAllPDF417.CheckState = CheckState.Indeterminate;
+            }
+            //UpdateBarcodeFormat();
+        }
+        private void rbPostalCodeMode_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbUSPSIntelligentMail.Checked && cbAustralianPost.Checked && cbRM4SCC.Checked && cbPostnet.Checked && cbPlanet.Checked)
+            {
+                cbPostalCode.CheckState = CheckState.Checked;
+            }
+            else if (!cbUSPSIntelligentMail.Checked && !cbAustralianPost.Checked && !cbRM4SCC.Checked && !cbPostnet.Checked && !cbPlanet.Checked)
+            {
+                cbPostalCode.CheckState = CheckState.Unchecked;
+            }
+            else
+            {
+                cbPostalCode.CheckState = CheckState.Indeterminate;
+            }
+            //UpdateBarcodeFormat();
+        }
+
         private void cbBarcodeFormat_CheckedChanged(object sender, EventArgs e)
         {
-            UpdateBarcodeFormat();
+            //UpdateBarcodeFormat();
         }
+
+
         private void UpdateBarcodeFormat()
         {
             mEmBarcodeFormat = 0;
+            mEmBarcodeFormat_2 = 0;
             mEmBarcodeFormat = this.cbAZTEC.Checked ? (mEmBarcodeFormat | EnumBarcodeFormat.BF_AZTEC) : mEmBarcodeFormat;
             mEmBarcodeFormat = this.cbDataMatrix.Checked ? (mEmBarcodeFormat | EnumBarcodeFormat.BF_DATAMATRIX) : mEmBarcodeFormat;
             mEmBarcodeFormat = this.cbQRcode.Checked ? (mEmBarcodeFormat | EnumBarcodeFormat.BF_QR_CODE) : mEmBarcodeFormat;
+            mEmBarcodeFormat = this.cbMicroQR.Checked ? (mEmBarcodeFormat | EnumBarcodeFormat.BF_MICRO_QR) : mEmBarcodeFormat;
             mEmBarcodeFormat = this.cbPDF417.Checked ? (mEmBarcodeFormat | EnumBarcodeFormat.BF_PDF417) : mEmBarcodeFormat;
+            mEmBarcodeFormat = this.cbMicroPDF.Checked ? (mEmBarcodeFormat | EnumBarcodeFormat.BF_MICRO_PDF417) : mEmBarcodeFormat;
             mEmBarcodeFormat = this.cbMaxicode.Checked ? (mEmBarcodeFormat | EnumBarcodeFormat.BF_MAXICODE) : mEmBarcodeFormat;
 
             mEmBarcodeFormat = this.cbINDUSTRIAL25.Checked ? (mEmBarcodeFormat | EnumBarcodeFormat.BF_INDUSTRIAL_25) : mEmBarcodeFormat;
             mEmBarcodeFormat = this.cbUPCE.Checked ? (mEmBarcodeFormat | EnumBarcodeFormat.BF_UPC_E) : mEmBarcodeFormat;
             mEmBarcodeFormat = this.cbUPCA.Checked ? (mEmBarcodeFormat | EnumBarcodeFormat.BF_UPC_A) : mEmBarcodeFormat;
-
             mEmBarcodeFormat = this.cbEAN8.Checked ? (mEmBarcodeFormat | EnumBarcodeFormat.BF_EAN_8) : mEmBarcodeFormat;
             mEmBarcodeFormat = this.cbEAN13.Checked ? (mEmBarcodeFormat | EnumBarcodeFormat.BF_EAN_13) : mEmBarcodeFormat;
             mEmBarcodeFormat = this.cbCODABAR.Checked ? (mEmBarcodeFormat | EnumBarcodeFormat.BF_CODABAR) : mEmBarcodeFormat;
             mEmBarcodeFormat = this.cbITF.Checked ? (mEmBarcodeFormat | EnumBarcodeFormat.BF_ITF) : mEmBarcodeFormat;
-
             mEmBarcodeFormat = this.cbCODE93.Checked ? (mEmBarcodeFormat | EnumBarcodeFormat.BF_CODE_93) : mEmBarcodeFormat;
             mEmBarcodeFormat = this.cbCODE128.Checked ? (mEmBarcodeFormat | EnumBarcodeFormat.BF_CODE_128) : mEmBarcodeFormat;
             mEmBarcodeFormat = this.cbCOD39.Checked ? (mEmBarcodeFormat | EnumBarcodeFormat.BF_CODE_39) : mEmBarcodeFormat;
+
             mEmBarcodeFormat = this.cbPATCHCODE.Checked ? (mEmBarcodeFormat | EnumBarcodeFormat.BF_PATCHCODE) : mEmBarcodeFormat;
-            mEmBarcodeFormat = this.cbDATABAR.Checked ? (mEmBarcodeFormat | EnumBarcodeFormat.BF_GS1_DATABAR) : mEmBarcodeFormat;
+
+            mEmBarcodeFormat = this.cbDatabarLimited.Checked ? (mEmBarcodeFormat | EnumBarcodeFormat.BF_GS1_DATABAR_LIMITED) : mEmBarcodeFormat;
+            mEmBarcodeFormat = this.cbDatabarOmnidirectional.Checked ? (mEmBarcodeFormat | EnumBarcodeFormat.BF_GS1_DATABAR_OMNIDIRECTIONAL) : mEmBarcodeFormat;
+            mEmBarcodeFormat = this.cbDatabarExpanded.Checked ? (mEmBarcodeFormat | EnumBarcodeFormat.BF_GS1_DATABAR_EXPANDED) : mEmBarcodeFormat;
+            mEmBarcodeFormat = this.cbDatabarExpanedStacked.Checked ? (mEmBarcodeFormat | EnumBarcodeFormat.BF_GS1_DATABAR_EXPANDED_STACKED) : mEmBarcodeFormat;
+            mEmBarcodeFormat = this.cbDatabarStacked.Checked ? (mEmBarcodeFormat | EnumBarcodeFormat.BF_GS1_DATABAR_STACKED) : mEmBarcodeFormat;
+            mEmBarcodeFormat = this.cbDatabarStackedOmnidirectional.Checked ? (mEmBarcodeFormat | EnumBarcodeFormat.BF_GS1_DATABAR_STACKED_OMNIDIRECTIONAL) : mEmBarcodeFormat;
+            mEmBarcodeFormat = this.cbDatabarTruncated.Checked ? (mEmBarcodeFormat | EnumBarcodeFormat.BF_GS1_DATABAR_TRUNCATED) : mEmBarcodeFormat;
+
+            mEmBarcodeFormat = this.cbGS1Composite.Checked ? (mEmBarcodeFormat | EnumBarcodeFormat.BF_GS1_COMPOSITE) : mEmBarcodeFormat;
+
+            mEmBarcodeFormat_2 = this.cbUSPSIntelligentMail.Checked ? (mEmBarcodeFormat_2 | EnumBarcodeFormat_2.BF2_USPSINTELLIGENTMAIL) : mEmBarcodeFormat_2;
+            mEmBarcodeFormat_2 = this.cbAustralianPost.Checked ? (mEmBarcodeFormat_2 | EnumBarcodeFormat_2.BF2_AUSTRALIANPOST) : mEmBarcodeFormat_2;
+            mEmBarcodeFormat_2 = this.cbRM4SCC.Checked ? (mEmBarcodeFormat_2 | EnumBarcodeFormat_2.BF2_RM4SCC) : mEmBarcodeFormat_2;
+            mEmBarcodeFormat_2 = this.cbPostnet.Checked ? (mEmBarcodeFormat_2 | EnumBarcodeFormat_2.BF2_POSTNET) : mEmBarcodeFormat_2;
+            mEmBarcodeFormat_2 = this.cbPlanet.Checked ? (mEmBarcodeFormat_2 | EnumBarcodeFormat_2.BF2_PLANET) : mEmBarcodeFormat_2;
+
+
+
         }
 
         private void SetCustomizePanelValuseFromPublicRuntimeSettings()
@@ -2269,10 +2529,6 @@ namespace Barcode_Reader_Demo
 
         }
         
-        private void tbBinarizationBlockSize_OnLeave(object sender, EventArgs e)
-        {
-            int i = 0;
-        }
         private void textBoxNumberOnly_KeyPress(object sender, KeyPressEventArgs e)
         {
             if(!(Char.IsNumber(e.KeyChar)) &&e.KeyChar !=(char)8)
