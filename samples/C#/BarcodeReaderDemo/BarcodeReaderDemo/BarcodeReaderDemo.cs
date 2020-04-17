@@ -1349,7 +1349,11 @@ namespace Barcode_Reader_Demo
                     return;
                 }
                 Bitmap tempBitmap = ((Bitmap)(bitmap)).Clone(new Rectangle(0, 0, bitmap.Width, bitmap.Height), bitmap.PixelFormat);
-                this.BeginInvoke(mPostShowFrameResults, tempBitmap, bars, timeElapsed, null);
+                this.BeginInvoke((MethodInvoker)delegate
+                {
+                    postShowFrameResults(tempBitmap, bars, timeElapsed, null);
+                    tempBitmap.Dispose();
+                });
             }
             catch (Exception ex)
             {
@@ -1731,12 +1735,19 @@ namespace Barcode_Reader_Demo
                 this.SwitchButtonState(false);
             }
         }
-
+		private volatile bool isFinished = true;
         void tempCamera_OnFrameCaptrue(Bitmap bitmap)
         {
-            if (mIsTurnOnReading)
+            if (mIsTurnOnReading && isFinished)
             {
-                ReadFromFrame(bitmap);
+                Bitmap tempBitmap = ((Bitmap)(bitmap)).Clone(new Rectangle(0, 0, bitmap.Width, bitmap.Height), bitmap.PixelFormat);
+                this.BeginInvoke((MethodInvoker)delegate
+                {
+                    isFinished = false;
+                    ReadFromFrame(tempBitmap);
+                    isFinished = true;
+                    tempBitmap.Dispose();
+                });
             }
         }
 
@@ -2241,7 +2252,7 @@ namespace Barcode_Reader_Demo
                 this.panelFormat.Location = new System.Drawing.Point(0, 44);
                 this.panelNormalSettings.Controls.Add(this.panelFormat);
                 //this.panelNormalSettings.Visible = true;
-                this.panelReadBarcode.Location = new System.Drawing.Point(20, 111);
+                this.panelReadBarcode.Location = new System.Drawing.Point(20, 77);
                 panelReadBarcode.Dock = DockStyle.None;
                 this.panelRecognitionMode.Controls.Add(this.panelReadBarcode);
 
@@ -2468,6 +2479,7 @@ namespace Barcode_Reader_Demo
             mEmBarcodeFormat_2 = this.cbRM4SCC.Checked ? (mEmBarcodeFormat_2 | EnumBarcodeFormat_2.BF2_RM4SCC) : mEmBarcodeFormat_2;
             mEmBarcodeFormat_2 = this.cbPostnet.Checked ? (mEmBarcodeFormat_2 | EnumBarcodeFormat_2.BF2_POSTNET) : mEmBarcodeFormat_2;
             mEmBarcodeFormat_2 = this.cbPlanet.Checked ? (mEmBarcodeFormat_2 | EnumBarcodeFormat_2.BF2_PLANET) : mEmBarcodeFormat_2;
+            mEmBarcodeFormat_2 = this.cbDOTCODE.Checked ? (mEmBarcodeFormat_2 | EnumBarcodeFormat_2.BF2_DOTCODE) : mEmBarcodeFormat_2;
 
 
 

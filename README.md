@@ -1,6 +1,6 @@
 Dynamsoft Barcode Reader
 =========
-version 7.3
+version 7.4
 
 Introduction
 -----------
@@ -19,7 +19,7 @@ Documentation
 --------------
 
 * Windows: https://www.dynamsoft.com/help/Barcode-Reader/index.html
-* Mac: https://www.dynamsoft.com/help/Barcode-Reader-Mac/index.html
+* macOS: https://www.dynamsoft.com/help/Barcode-Reader-Mac/index.html
 * Linux: https://www.dynamsoft.com/help/Barcode-Reader-Linux/index.html
 
 Specifications
@@ -41,7 +41,8 @@ Specifications
 
 ### Supported Barcode Types
 * 1D barcodes: Code39, Code93, Code128, Codabar, ITF, EAN13, EAN8, UPCA, UPCE
-* 2D barcodes: QR Code, DataMatrix, PDF417 and Aztec Code
+* 2D barcodes: QR Code, DataMatrix, PDF417， Aztec Code, MaxiCode, DotCode, GS1 Composite Code, Patch Code
+* Postal Codes: USPS Intelligent Mail, Postnet, Planet, Australian Post, UK Royal Mail
 
 ### Barcode Reading Results
 * Barcode type
@@ -60,7 +61,7 @@ Specifications
 ### Runtime Environment
 * Windows Workstation: XP, Vista, 7, 8
 * Windows Server: 2003, 2008, 2008 R2, 2012
-* Mac OS X: Mac OSX 10.6 and above
+* macOS: macOS 10.6 and above
 
 ### Languages and Environment
 * APIs: C, C++, ActiveX/COM, .NET

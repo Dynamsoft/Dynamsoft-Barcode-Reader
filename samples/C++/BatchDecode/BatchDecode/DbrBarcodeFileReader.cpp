@@ -7,7 +7,7 @@
 CDbrBarcodeFileReader::CDbrBarcodeFileReader()
 {
 	m_pBarcodeReader = new CBarcodeReader();
-	m_pBarcodeReader->InitLicense("t0068MgAAAFffu0u4uz+J3IjyMm2we78pFnM/vICd/fkUgbP9ZenKUTRTfwjj8xpZ2vZ93iJtqRd75JXqKbiBLPsyfkvY1jE=");
+	m_pBarcodeReader->InitLicense("t0068MgAAAEUWFzAvIFjWdsOhURov3SljTtFakKFsHemq+2NKnvb5tEihIDmWlZsFpCWpVOnWr1Uw1NzIQ2EcnLj9Hxxvjfs=");
 }
 
 CDbrBarcodeFileReader::~CDbrBarcodeFileReader()
@@ -125,7 +125,14 @@ bool CDbrBarcodeFileReader::ReadFileBarcodes( const string strFilePath, CBarcode
 	nErrorCode = m_pBarcodeReader->DecodeFile(strFilePath.c_str());
 	end = clock();
 	decodeResultInfo.dDecodeTime = ((double)(end - start) / CLOCKS_PER_SEC * 1000);
-	if ((nErrorCode == 0) || (nErrorCode == -10017))
+	if (nErrorCode != DBR_OK && nErrorCode != DBRERR_MAXICODE_LICENSE_INVALID && nErrorCode != DBRERR_AZTEC_LICENSE_INVALID && nErrorCode != DBRERR_LICENSE_EXPIRED && nErrorCode != DBRERR_QR_LICENSE_INVALID && nErrorCode != DBRERR_GS1_COMPOSITE_LICENSE_INVALID &&
+		nErrorCode != DBRERR_1D_LICENSE_INVALID && nErrorCode != DBRERR_PDF417_LICENSE_INVALID && nErrorCode != DBRERR_DATAMATRIX_LICENSE_INVALID && nErrorCode != DBRERR_GS1_DATABAR_LICENSE_INVALID && nErrorCode != DBRERR_PATCHCODE_LICENSE_INVALID && 
+		nErrorCode != DBRERR_POSTALCODE_LICENSE_INVALID && nErrorCode != DBRERR_DOTCODE_LICENSE_INVALID && nErrorCode != DBRERR_DPM_LICENSE_INVALID && nErrorCode != DBRERR_IRT_LICENSE_INVALID)
+	{
+		decodeResultInfo.strErrorMessage = m_pBarcodeReader->GetErrorString(nErrorCode);
+		bret = false;
+	}
+	else
 	{
 		TextResultArray *pTextResultArray = NULL;
 
@@ -136,7 +143,7 @@ bool CDbrBarcodeFileReader::ReadFileBarcodes( const string strFilePath, CBarcode
 			bret = false;
 		}
 
-		
+
 		for (int i = 0; pTextResultArray != NULL && i < (pTextResultArray)->resultsCount; i++)
 		{
 			CBarcodeStatisticsRecorder::BCODE_VALUE bcodeValue;
@@ -158,11 +165,7 @@ bool CDbrBarcodeFileReader::ReadFileBarcodes( const string strFilePath, CBarcode
 		{
 			m_pBarcodeReader->FreeTextResults(&pTextResultArray);
 		}
-	}
-	else
-	{
-		decodeResultInfo.strErrorMessage = m_pBarcodeReader->GetErrorString(nErrorCode);
-		bret = false;
+		
 	}
 	return bret;
 } 

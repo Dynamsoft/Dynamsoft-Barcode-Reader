@@ -95,6 +95,7 @@ Public Class Form1
         ComboBox1.Items.Add("PatchCode")
         ComboBox1.Items.Add("GS1 Composite")
         ComboBox1.Items.Add("Postal Code")
+        ComboBox1.Items.Add("DotCode")
 
         ComboBox1.SelectedIndex = 0
     End Sub
@@ -268,7 +269,7 @@ Public Class Form1
         If (Not imageViewer.Image Is Nothing) Then
 
             Try
-                reader.ProductKeys = "t0068MgAAAFffu0u4uz+J3IjyMm2we78pFnM/vICd/fkUgbP9ZenKUTRTfwjj8xpZ2vZ93iJtqRd75JXqKbiBLPsyfkvY1jE="
+                reader.ProductKeys = "t0068MgAAAEUWFzAvIFjWdsOhURov3SljTtFakKFsHemq+2NKnvb5tEihIDmWlZsFpCWpVOnWr1Uw1NzIQ2EcnLj9Hxxvjfs="
                 Dim beforeRead As DateTime = DateTime.Now
 
                 Dim szErrorMsg As String = ""
@@ -557,7 +558,7 @@ Public Class Form1
         'Private mBarcodeType As String() = {"All_DEFAULT", "OneD_DEFAULT", "QR_CODE_DEFAULT", "PDF417_DEFAULT", "DATAMATRIX_DEFAULT", "CODE_39_DEFAULT", "CODE_128_DEFAULT", "CODE_93_DEFAULT", "CODABAR_DEFAULT", "ITF_DEFAULT", "INDUSTRIAL_25_DEFAULT", "EAN_13_DEFAULT", "EAN_8_DEFAULT", "UPC_A_DEFAULT", "UPC_E_DEFAULT"}
         If ComboBox1.SelectedIndex = 0 Then
             mBarcodeFormat = EnumBarcodeFormat.BF_ALL
-            mBarcodeFormat_2 = EnumBarcodeFormat_2.BF2_POSTALCODE
+            mBarcodeFormat_2 = EnumBarcodeFormat_2.BF2_POSTALCODE Or EnumBarcodeFormat_2.BF2_DOTCODE
         ElseIf ComboBox1.SelectedIndex = 1 Then
             mBarcodeFormat = EnumBarcodeFormat.BF_ONED
             mBarcodeFormat_2 = 0
@@ -621,6 +622,9 @@ Public Class Form1
         ElseIf ComboBox1.SelectedIndex = 21 Then
             mBarcodeFormat = 0
             mBarcodeFormat_2 = EnumBarcodeFormat_2.BF2_POSTALCODE
+        ElseIf ComboBox1.SelectedIndex = 22 Then
+            mBarcodeFormat = 0
+            mBarcodeFormat_2 = EnumBarcodeFormat_2.BF2_DOTCODE
         End If
 
     End Sub

@@ -24,7 +24,7 @@ const int GetBarcodeFormatId(int iIndex, BarcodeFormatSet* barcodeFormatSet)
 	{
 	case 1:
 		barcodeFormatSet->barcodeFormatIds = BF_ALL;
-		barcodeFormatSet->barcodeFormatIds_2 = BF2_POSTALCODE;
+		barcodeFormatSet->barcodeFormatIds_2 = BF2_POSTALCODE | BF2_DOTCODE;
 		break;
 	case 2:
 		barcodeFormatSet->barcodeFormatIds = BF_ONED;
@@ -109,6 +109,10 @@ const int GetBarcodeFormatId(int iIndex, BarcodeFormatSet* barcodeFormatSet)
 	case 22:
 		barcodeFormatSet->barcodeFormatIds = 0;
 		barcodeFormatSet->barcodeFormatIds_2 = BF2_POSTALCODE;
+		break;
+	case 23:
+		barcodeFormatSet->barcodeFormatIds = 0;
+		barcodeFormatSet->barcodeFormatIds_2 = BF2_DOTCODE;
 		break;
 	default:
 		ret = -1;
@@ -200,6 +204,7 @@ int SetBarcodeFormat(BarcodeFormatSet* iBarcodeFormatId)
 		printf("   20: PatchCode\r\n");
 		printf("   21: GS1 Composite\r\n");
 		printf("   22: Postal  Code\r\n");
+		printf("   23: DotCode\r\n");
 		gets_s(pszBuffer, 512);
 		iLen = strlen(pszBuffer);
 		if(iLen > 0)
@@ -236,7 +241,8 @@ void OutputResult(void* hBarcode,int errorcode,float time)
 	int iIndex = 0;
 	pszTemp = (char*)malloc(4096);
 	if (iRet != DBR_OK && iRet!=DBRERR_MAXICODE_LICENSE_INVALID && iRet!= DBRERR_GS1_COMPOSITE_LICENSE_INVALID && iRet!= DBRERR_AZTEC_LICENSE_INVALID && iRet != DBRERR_LICENSE_EXPIRED && iRet != DBRERR_QR_LICENSE_INVALID &&
-		iRet != DBRERR_1D_LICENSE_INVALID && iRet != DBRERR_PDF417_LICENSE_INVALID && iRet != DBRERR_DATAMATRIX_LICENSE_INVALID && iRet != DBRERR_GS1_DATABAR_LICENSE_INVALID && iRet != DBRERR_PATCHCODE_LICENSE_INVALID && iRet != DBRERR_POSTALCODE_LICENSE_INVALID)
+		iRet != DBRERR_1D_LICENSE_INVALID && iRet != DBRERR_PDF417_LICENSE_INVALID && iRet != DBRERR_DATAMATRIX_LICENSE_INVALID && iRet != DBRERR_GS1_DATABAR_LICENSE_INVALID && iRet != DBRERR_PATCHCODE_LICENSE_INVALID && 
+		iRet != DBRERR_POSTALCODE_LICENSE_INVALID && iRet != DBRERR_DOTCODE_LICENSE_INVALID && iRet != DBRERR_DPM_LICENSE_INVALID && iRet != DBRERR_IRT_LICENSE_INVALID)
 	{
 		sprintf_s(pszTemp, 4096, "Failed to read barcode: %s\r\n",  DBR_GetErrorString(iRet));
 		printf(pszTemp);
@@ -311,7 +317,7 @@ int main(int argc, const char* argv[])
 	printf("Hints: Please input 'Q'or 'q' to quit the application.\r\n");
 	
 	hBarcode = DBR_CreateInstance();
-	DBR_InitLicense(hBarcode, "t0068MgAAAFffu0u4uz+J3IjyMm2we78pFnM/vICd/fkUgbP9ZenKUTRTfwjj8xpZ2vZ93iJtqRd75JXqKbiBLPsyfkvY1jE=");
+	DBR_InitLicense(hBarcode, "t0068MgAAAEUWFzAvIFjWdsOhURov3SljTtFakKFsHemq+2NKnvb5tEihIDmWlZsFpCWpVOnWr1Uw1NzIQ2EcnLj9Hxxvjfs=");
 
 
 	while(1)

@@ -25,7 +25,7 @@ const int GetBarcodeFormatId(int iIndex, BarcodeFormatSet* barcodeFormatSet)
 	{
 	case 1:
 		barcodeFormatSet->barcodeFormatIds = BF_ALL;
-		barcodeFormatSet->barcodeFormatIds_2 = BF2_POSTALCODE;
+		barcodeFormatSet->barcodeFormatIds_2 = BF2_POSTALCODE | BF2_DOTCODE;
 		break;
 	case 2:
 		barcodeFormatSet->barcodeFormatIds = BF_ONED;
@@ -111,6 +111,10 @@ const int GetBarcodeFormatId(int iIndex, BarcodeFormatSet* barcodeFormatSet)
 		barcodeFormatSet->barcodeFormatIds = 0;
 		barcodeFormatSet->barcodeFormatIds_2 = BF2_POSTALCODE;
 		break;
+	case 23:
+		barcodeFormatSet->barcodeFormatIds = 0;
+		barcodeFormatSet->barcodeFormatIds_2 = BF2_DOTCODE;
+		break;
 	default:
 		ret = -1;
 		break;
@@ -127,7 +131,7 @@ void ToHexString(unsigned char* pSrc, int iLen, char* pDest)
 
 	for(i = 0; i < iLen; ++i)
 	{
-		snprintf(ptr, 4, "%c%c ", HEXCHARS[ ( pSrc[i] & 0xF0 ) >> 4 ], HEXCHARS[ ( pSrc[i] & 0x0F ) >> 0 ]);
+		sprintf_s(ptr, 4, "%c%c ", HEXCHARS[ ( pSrc[i] & 0xF0 ) >> 4 ], HEXCHARS[ ( pSrc[i] & 0x0F ) >> 0 ]);
 		ptr += 3;
 	}
 }
@@ -200,6 +204,7 @@ bool SetBarcodeFormat(BarcodeFormatSet* iBarcodeFormatId)
 		printf("   20: PatchCode\r\n");
 		printf("   21: GS1 Composite\r\n");
 		printf("   22: Postal  Code\r\n");
+		printf("   23: DotCode\r\n");
 		gets_s(pszBuffer, 512);
 		iLen = strlen(pszBuffer);
 		if(iLen > 0)
@@ -234,9 +239,10 @@ void OutputResult(CBarcodeReader& reader,int errorcode,float time)
 	int iRet = errorcode;
 	pszTemp = (char*)malloc(4096);
 	if (iRet != DBR_OK && iRet != DBRERR_MAXICODE_LICENSE_INVALID && iRet != DBRERR_AZTEC_LICENSE_INVALID && iRet != DBRERR_LICENSE_EXPIRED && iRet != DBRERR_QR_LICENSE_INVALID && iRet != DBRERR_GS1_COMPOSITE_LICENSE_INVALID &&
-		iRet != DBRERR_1D_LICENSE_INVALID && iRet != DBRERR_PDF417_LICENSE_INVALID && iRet != DBRERR_DATAMATRIX_LICENSE_INVALID && iRet != DBRERR_GS1_DATABAR_LICENSE_INVALID && iRet != DBRERR_PATCHCODE_LICENSE_INVALID && iRet != DBRERR_POSTALCODE_LICENSE_INVALID)
+		iRet != DBRERR_1D_LICENSE_INVALID && iRet != DBRERR_PDF417_LICENSE_INVALID && iRet != DBRERR_DATAMATRIX_LICENSE_INVALID && iRet != DBRERR_GS1_DATABAR_LICENSE_INVALID && iRet != DBRERR_PATCHCODE_LICENSE_INVALID && 
+		iRet != DBRERR_POSTALCODE_LICENSE_INVALID && iRet != DBRERR_DOTCODE_LICENSE_INVALID && iRet != DBRERR_DPM_LICENSE_INVALID && iRet != DBRERR_IRT_LICENSE_INVALID)
 	{
-		snprintf(pszTemp, 4096, "Failed to read barcode: %s\r\n", CBarcodeReader::GetErrorString(iRet));
+		sprintf_s(pszTemp, 4096, "Failed to read barcode: %s\r\n", CBarcodeReader::GetErrorString(iRet));
 		printf(pszTemp);
 		free(pszTemp);
 		return;
@@ -247,43 +253,35 @@ void OutputResult(CBarcodeReader& reader,int errorcode,float time)
 		
 	if (paryResult->resultsCount == 0)
 	{
-		snprintf(pszTemp, 4096, "No barcode found. Total time spent: %.3f seconds.\r\n", time);
+		sprintf_s(pszTemp, 4096, "No barcode found. Total time spent: %.3f seconds.\r\n", time);
 		printf(pszTemp);
 		free(pszTemp);
 		CBarcodeReader::FreeTextResults(&paryResult);
 		return;
 	}
 		
-	snprintf(pszTemp, 4096, "Total barcode(s) found: %d. Total time spent: %.3f seconds\r\n\r\n", paryResult->resultsCount, time);
+	sprintf_s(pszTemp, 4096, "Total barcode(s) found: %d. Total time spent: %.3f seconds\r\n\r\n", paryResult->resultsCount, time);
 	printf(pszTemp);
 	for (int iIndex = 0; iIndex < paryResult->resultsCount; iIndex++)
 	{
-		PExtendedResult* extResults = paryResult->results[iIndex]->results;
-		unsigned char* accompanyingTextBytes = (*extResults)->accompanyingTextBytes;
-		pszTemp1 = (char*)malloc((*extResults)->accompanyingTextBytesLength * 3 + 1);
-		ToHexString(accompanyingTextBytes, (*extResults)->accompanyingTextBytesLength, pszTemp1);
-		//printf("Hex Data: %s\r\n", pszTemp1);
-		free(pszTemp1);
-
-		printf("Accompanying text: %s\n", accompanyingTextBytes);
-		snprintf(pszTemp, 4096, "Barcode %d:\r\n", iIndex + 1);
+		sprintf_s(pszTemp, 4096, "Barcode %d:\r\n", iIndex + 1);
 		printf(pszTemp);
 		if (paryResult->results[iIndex]->barcodeFormat != 0)
 		{
-			snprintf(pszTemp, 4096, "    Type: %s\r\n", paryResult->results[iIndex]->barcodeFormatString);
+			sprintf_s(pszTemp, 4096, "    Type: %s\r\n", paryResult->results[iIndex]->barcodeFormatString);
 		}
 		else
 		{
-			snprintf(pszTemp, 4096, "    Type: %s\r\n", paryResult->results[iIndex]->barcodeFormatString_2);
+			sprintf_s(pszTemp, 4096, "    Type: %s\r\n", paryResult->results[iIndex]->barcodeFormatString_2);
 		}
 		printf(pszTemp);
-		snprintf(pszTemp, 4096, "    Value: %s\r\n", paryResult->results[iIndex]->barcodeText);
+		sprintf_s(pszTemp, 4096, "    Value: %s\r\n", paryResult->results[iIndex]->barcodeText);
 		printf(pszTemp);
 
 		pszTemp1 = (char*)malloc(paryResult->results[iIndex]->barcodeBytesLength*3 + 1);
 		pszTemp2 = (char*)malloc(paryResult->results[iIndex]->barcodeBytesLength*3 + 100);
 		ToHexString(paryResult->results[iIndex]->barcodeBytes, paryResult->results[iIndex]->barcodeBytesLength, pszTemp1);
-		snprintf(pszTemp2, paryResult->results[iIndex]->barcodeBytesLength*3 + 100, "    Hex Data: %s\r\n\n", pszTemp1);
+		sprintf_s(pszTemp2, paryResult->results[iIndex]->barcodeBytesLength*3 + 100, "    Hex Data: %s\r\n", pszTemp1);
 		printf(pszTemp2);
 		free(pszTemp1);
 		free(pszTemp2);
@@ -317,7 +315,7 @@ int main(int argc, const char* argv[])
 	printf("Hints: Please input 'Q'or 'q' to quit the application.\r\n");
 	
 	CBarcodeReader reader;
-	reader.InitLicense("t01819QYAAFFFpsnNEuVSUViE2DQ1MMe48tPYKTeLLmKfVPor21GW2LWMrQoKo1gGGPRjtb1xYTAZ330fFYLchlLxtnMGm0ho0jfrqGl8ZX+bUX0j0Bg06ZtR4J63s4CzgLOAs4CzgLOAs4CzgLOAs4CzgbOBs4GzgbOBs4GzgbOBs4GzgXOAc4BzgHOAc4BzgHOAc4BzgHPvs1587wya9M2orvGn6pybRqAxaPK7mbl+3OMFxcVWyA==");
+	reader.InitLicense("t0068MgAAAEUWFzAvIFjWdsOhURov3SljTtFakKFsHemq+2NKnvb5tEihIDmWlZsFpCWpVOnWr1Uw1NzIQ2EcnLj9Hxxvjfs=");
 	
 
 	while(1)
@@ -326,9 +324,9 @@ int main(int argc, const char* argv[])
 		if(bExit)
 			break;
 
-		/*bExit = SetBarcodeFormat(&iBarcodeFormatId);
+		bExit = SetBarcodeFormat(&iBarcodeFormatId);
 		if(bExit)
-			break;*/
+			break;
 
 		//Best coverage settings
 		reader.InitRuntimeSettingsWithString("{\"ImageParameter\":{\"Name\":\"BestCoverage\",\"DeblurLevel\":9,\"ExpectedBarcodesCount\":512,\"ScaleDownThreshold\":100000,\"LocalizationModes\":[{\"Mode\":\"LM_CONNECTED_BLOCKS\"},{\"Mode\":\"LM_SCAN_DIRECTLY\"},{\"Mode\":\"LM_STATISTICS\"},{\"Mode\":\"LM_LINES\"},{\"Mode\":\"LM_STATISTICS_MARKS\"}],\"GrayscaleTransformationModes\":[{\"Mode\":\"GTM_ORIGINAL\"},{\"Mode\":\"GTM_INVERTED\"}]}}", CM_OVERWRITE, szErrorMsg, 256);
@@ -338,8 +336,8 @@ int main(int argc, const char* argv[])
 		//reader.InitRuntimeSettingsWithString("{\"ImageParameter\":{\"Name\":\"Balance\",\"DeblurLevel\":5,\"ExpectedBarcodesCount\":512,\"LocalizationModes\":[{\"Mode\":\"LM_CONNECTED_BLOCKS\"},{\"Mode\":\"LM_STATISTICS\"}]}}",CM_OVERWRITE,szErrorMsg,256);
 
 		reader.GetRuntimeSettings(&runtimeSettings);
-		runtimeSettings.barcodeFormatIds = BF_ALL;
-		runtimeSettings.furtherModes.accompanyingTextRecognitionModes[0] = ATRM_GENERAL;
+		runtimeSettings.barcodeFormatIds = iBarcodeFormatId.barcodeFormatIds;
+		runtimeSettings.barcodeFormatIds_2 = iBarcodeFormatId.barcodeFormatIds_2;
 		iRet = reader.UpdateRuntimeSettings(&runtimeSettings,szErrorMsg,256);
 		if(iRet != DBR_OK)
 		{
