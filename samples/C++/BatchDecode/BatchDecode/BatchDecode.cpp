@@ -42,9 +42,6 @@ int _tmain(int argc, _TCHAR* argv[])
 			if (str == "-l")
 			{
 				string strOutputBarcodeDir = argv[i + 1];
-#ifdef USE_LOAD_LIBARAY 
-				barcodeFileReader->SetDBRLibaryPath(strOutputBarcodeDir.c_str());
-#endif
 			}
 			if (str == "-t")
 			{
@@ -68,9 +65,6 @@ int _tmain(int argc, _TCHAR* argv[])
 		return 0;
 	}
 
-#ifdef USE_LOAD_LIBARAY
-	barcodeFileReader->SetDBRLibaryPath("DynamsoftBarcodeReaderx86.dll");
-#endif
 	ShowConsole();
 	char szBuffer[256] = { 0 };
 	string strGettingMessage = "";

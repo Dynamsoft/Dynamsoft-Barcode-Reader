@@ -317,7 +317,7 @@ int main(int argc, const char* argv[])
 	printf("Hints: Please input 'Q'or 'q' to quit the application.\r\n");
 	
 	hBarcode = DBR_CreateInstance();
-	DBR_InitLicense(hBarcode, "t0068MgAAAEUWFzAvIFjWdsOhURov3SljTtFakKFsHemq+2NKnvb5tEihIDmWlZsFpCWpVOnWr1Uw1NzIQ2EcnLj9Hxxvjfs=");
+	DBR_InitLicense(hBarcode, "t0068MgAAAHVQc6/4Kr0+IE8ERo3gpz/KpBZu6CvEGdvdB6tyu2J9dTSOeKNHEile+DTFl9ur1EPmdffiS1UQoEvVwEhAKQU=");
 
 
 	while(1)

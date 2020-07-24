@@ -17,11 +17,11 @@ public:
 	~CDbrBarcodeFileReader();
 public:	
 	void Run();
+	void LoadRuntimeSettings(std::string strSettingFilePath);
 protected:
 	virtual bool ReadFileBarcodes(const std::string strFilePath, CBarcodeStatisticsRecorder::DecodeResultInfo &decodeResultInfo);
 private:
 	string CreateOutputFileName(string defultName);
-	void LoadRuntimeSettings(std::string strSettingFilePath);
 	void RunWithRuntimeSettings();
 private:
 	

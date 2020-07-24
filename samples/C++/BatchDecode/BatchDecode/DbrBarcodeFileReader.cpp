@@ -7,7 +7,7 @@
 CDbrBarcodeFileReader::CDbrBarcodeFileReader()
 {
 	m_pBarcodeReader = new CBarcodeReader();
-	m_pBarcodeReader->InitLicense("t0068MgAAAEUWFzAvIFjWdsOhURov3SljTtFakKFsHemq+2NKnvb5tEihIDmWlZsFpCWpVOnWr1Uw1NzIQ2EcnLj9Hxxvjfs=");
+	m_pBarcodeReader->InitLicense("t0068MgAAAHVQc6/4Kr0+IE8ERo3gpz/KpBZu6CvEGdvdB6tyu2J9dTSOeKNHEile+DTFl9ur1EPmdffiS1UQoEvVwEhAKQU=");
 }
 
 CDbrBarcodeFileReader::~CDbrBarcodeFileReader()
@@ -18,6 +18,7 @@ CDbrBarcodeFileReader::~CDbrBarcodeFileReader()
 
 void CDbrBarcodeFileReader::Run()
 {
+	LoadRuntimeSettings(".\\templates\\");
 	if (m_listSettingsFile.size() > 0)
 	{
 		RunWithRuntimeSettings();
@@ -27,7 +28,7 @@ void CDbrBarcodeFileReader::Run()
 		m_currentOutputFileName = CreateOutputFileName("DEFAULT"); 
 		CBarcodeFileReader::Run();
 	}
-	
+	m_listSettingsFile.clear();
 }
 
 
