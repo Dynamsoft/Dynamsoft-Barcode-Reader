@@ -43,7 +43,7 @@ namespace BarcodeDocumentsProcessDemo
         {
             InitializeComponent();
             InitialDefaultValue();
-            barcodeReader.ProductKeys = "t0068MgAAAHVQc6/4Kr0+IE8ERo3gpz/KpBZu6CvEGdvdB6tyu2J9dTSOeKNHEile+DTFl9ur1EPmdffiS1UQoEvVwEhAKQU=";
+            barcodeReader.ProductKeys = "t0068MgAAAE7qT3leEpZ3FHHeK0o/M6+e9qFvbD2K1AgVg+BCZnMsEdwhXeBuEvr0bB0vi1YnRCd4GpvPqQQfr8K44O2iSXk=";
 
 
             if (!Directory.Exists(_lastOpenedDirectory))
@@ -355,8 +355,6 @@ namespace BarcodeDocumentsProcessDemo
                 {
                     if (IsImageFile(strFile))
                     {
-                        FileStream infs = null;
-                        FileStream outfs = null;
                         try
                         {
                             iFileCount++;
@@ -408,16 +406,7 @@ namespace BarcodeDocumentsProcessDemo
                                     }
                                     else
                                     {
-                                        infs = new FileStream(strFile, FileMode.Open, FileAccess.Read);
-                                        outfs = new FileStream(strOutputFile, FileMode.CreateNew);
-                                        int size = 1 << 14;
-                                        byte[] buffer = new byte[size];
-                                        while (infs.Read(buffer, 0, size) > 0)
-                                        {
-                                            outfs.Write(buffer, 0, size);
-                                        }
-                                        infs.Close();
-                                        outfs.Close();
+                                        System.IO.File.Copy(strFile, strOutputFile);
                                         iSuccCount++;
                                         tbLog.AppendText(string.Format("Renamed to {0}\r\n", strOutputFileName));
                                     }
@@ -427,10 +416,6 @@ namespace BarcodeDocumentsProcessDemo
                         catch (Exception exp)
                         {
                             tbLog.AppendText(exp.Message + "\r\n");
-                            if (infs != null)
-                                infs.Close();
-                            if (outfs != null)
-                                outfs.Close();
                         }
                         tbLog.Refresh();
                     }

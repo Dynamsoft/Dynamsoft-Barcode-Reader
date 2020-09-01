@@ -118,7 +118,7 @@ DWORD WINAPI DecodeFile(void* pInfo)
 		pMultiThreadDecodeFileInfo->iCurrentImageCount++;
 		ReleaseMutex(pMultiThreadDecodeFileInfo->hMutex);
 		temphBarcode = DBR_CreateInstance();
-		DBR_InitLicense(temphBarcode,"t0068MgAAAHVQc6/4Kr0+IE8ERo3gpz/KpBZu6CvEGdvdB6tyu2J9dTSOeKNHEile+DTFl9ur1EPmdffiS1UQoEvVwEhAKQU=");
+		DBR_InitLicense(temphBarcode,"t0068MgAAAE7qT3leEpZ3FHHeK0o/M6+e9qFvbD2K1AgVg+BCZnMsEdwhXeBuEvr0bB0vi1YnRCd4GpvPqQQfr8K44O2iSXk=");
 
 		//Best coverage settings
 		DBR_InitRuntimeSettingsWithString(temphBarcode,"{\"ImageParameter\":{\"Name\":\"BestCoverage\",\"DeblurLevel\":9,\"ExpectedBarcodesCount\":512,\"ScaleDownThreshold\":100000,\"LocalizationModes\":[{\"Mode\":\"LM_CONNECTED_BLOCKS\"},{\"Mode\":\"LM_SCAN_DIRECTLY\"},{\"Mode\":\"LM_STATISTICS\"},{\"Mode\":\"LM_LINES\"},{\"Mode\":\"LM_STATISTICS_MARKS\"}],\"GrayscaleTransformationModes\":[{\"Mode\":\"GTM_ORIGINAL\"},{\"Mode\":\"GTM_INVERTED\"}]}}",CM_OVERWRITE,szErrorMsg,256);

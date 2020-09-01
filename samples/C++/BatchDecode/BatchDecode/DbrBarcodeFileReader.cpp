@@ -7,7 +7,7 @@
 CDbrBarcodeFileReader::CDbrBarcodeFileReader()
 {
 	m_pBarcodeReader = new CBarcodeReader();
-	m_pBarcodeReader->InitLicense("t0068MgAAAHVQc6/4Kr0+IE8ERo3gpz/KpBZu6CvEGdvdB6tyu2J9dTSOeKNHEile+DTFl9ur1EPmdffiS1UQoEvVwEhAKQU=");
+	m_pBarcodeReader->InitLicense("t0068MgAAAE7qT3leEpZ3FHHeK0o/M6+e9qFvbD2K1AgVg+BCZnMsEdwhXeBuEvr0bB0vi1YnRCd4GpvPqQQfr8K44O2iSXk=");
 }
 
 CDbrBarcodeFileReader::~CDbrBarcodeFileReader()

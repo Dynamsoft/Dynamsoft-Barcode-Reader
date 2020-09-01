@@ -1,6 +1,6 @@
 Dynamsoft Barcode Reader
 =========
-version 7.5
+version 7.6
 
 Introduction
 -----------

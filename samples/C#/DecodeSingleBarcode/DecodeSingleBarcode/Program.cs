@@ -114,7 +114,7 @@ namespace DecodeSingleBarcode
             Console.WriteLine("Hints: Please input 'Q'or 'q' to quit the application.\r\n");
             bool bExitFlag = false;
             BarcodeReader _br = new BarcodeReader();
-            _br.ProductKeys = "t0068MgAAAHVQc6/4Kr0+IE8ERo3gpz/KpBZu6CvEGdvdB6tyu2J9dTSOeKNHEile+DTFl9ur1EPmdffiS1UQoEvVwEhAKQU=";
+            _br.ProductKeys = "t0068MgAAAE7qT3leEpZ3FHHeK0o/M6+e9qFvbD2K1AgVg+BCZnMsEdwhXeBuEvr0bB0vi1YnRCd4GpvPqQQfr8K44O2iSXk=";
             while (true)
             {
 

@@ -1712,7 +1712,7 @@ namespace Barcode_Reader_Demo
             "Statistics",
             "Lines",
             "Scan directly",
-            "1.Connected blocks, 2.Statistics"});
+            "1.Connected blocks, 2.Scan directly"});
             this.cmbLocalizationModes.Location = new System.Drawing.Point(19, 169);
             this.cmbLocalizationModes.Name = "cmbLocalizationModes";
             this.cmbLocalizationModes.Size = new System.Drawing.Size(258, 25);
