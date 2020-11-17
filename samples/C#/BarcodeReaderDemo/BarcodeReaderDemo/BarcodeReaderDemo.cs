@@ -5,7 +5,8 @@ using System.IO;
 using System.Text;
 using System.Windows.Forms;
 using Barcode_Reader_Demo.Properties;
-using Dynamsoft.Barcode;
+using Dynamsoft;
+using Dynamsoft.DBR;
 
 using ContentAlignment = System.Drawing.ContentAlignment;
 using Dynamsoft.Common;
@@ -1413,7 +1414,7 @@ namespace Barcode_Reader_Demo
                         break;
                     case 5:
                         runtimeSettings.LocalizationModes[0] = EnumLocalizationMode.LM_CONNECTED_BLOCKS;
-                        runtimeSettings.LocalizationModes[1] = EnumLocalizationMode.LM_SCAN_DIRECTLY;
+                        runtimeSettings.LocalizationModes[1] = EnumLocalizationMode.LM_STATISTICS;
                         break;
                 }
 
@@ -1478,7 +1479,7 @@ namespace Barcode_Reader_Demo
                             for (int i = 1; i < tempBestSpeed.LocalizationModes.Length; i++)
                                 tempBestSpeed.LocalizationModes[i] = EnumLocalizationMode.LM_SKIP;
                             tempBestSpeed.DeblurLevel = 3;
-                            tempBestSpeed.ExpectedBarcodesCount = 0;
+                            tempBestSpeed.ExpectedBarcodesCount = 512;
                             tempBestSpeed.ScaleDownThreshold = 2300;
                             for (int i = 0; i < tempBestSpeed.FurtherModes.TextFilterModes.Length;i++ )
                                 tempBestSpeed.FurtherModes.TextFilterModes[i] = EnumTextFilterMode.TFM_SKIP;
@@ -1489,7 +1490,7 @@ namespace Barcode_Reader_Demo
                         tempBalance.BarcodeFormatIds = (int)this.mEmBarcodeFormat;
                         tempBalance.BarcodeFormatIds_2 = (int)this.mEmBarcodeFormat_2;
                         tempBalance.LocalizationModes[0] = EnumLocalizationMode.LM_CONNECTED_BLOCKS;
-                        tempBalance.LocalizationModes[1] = EnumLocalizationMode.LM_SCAN_DIRECTLY;
+                        tempBalance.LocalizationModes[1] = EnumLocalizationMode.LM_STATISTICS;
                         for (int i = 2; i < tempBalance.LocalizationModes.Length; i++)
                             tempBalance.LocalizationModes[i] = EnumLocalizationMode.LM_SKIP;
                         tempBalance.DeblurLevel = 5;
@@ -2493,7 +2494,7 @@ namespace Barcode_Reader_Demo
                 case 0:
                     this.cmbLocalizationModes.SelectedIndex = 4;
                     this.cmbDeblurLevel.SelectedIndex = 3;
-                    this.tbExpectedBarcodesCount.Text = "0";
+                    this.tbExpectedBarcodesCount.Text = "512";
                     this.tbScaleDownThreshold.Text = "2300";
                     this.cbTextFilterMode.CheckState = CheckState.Unchecked;
                     break;

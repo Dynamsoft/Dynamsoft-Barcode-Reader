@@ -1,11 +1,9 @@
 ﻿#include "stdafx.h"
 #include <iostream>
-#include <io.h>
-#include <direct.h>
+
 #include <iomanip>
 #include <ctime>
 #include "BarcodeFileReader.h"
-
 
 CBarcodeFileReader::CBarcodeFileReader()
 {
@@ -25,7 +23,7 @@ CBarcodeFileReader::~CBarcodeFileReader()
 
 void CBarcodeFileReader::LoadBarcodeFiles(const char *strBarcodeFilesDir)
 {
-	m_barcodeFilesDir = strlen(strBarcodeFilesDir) == NULL ? ".\\" : strBarcodeFilesDir;
+	m_barcodeFilesDir = (strlen(strBarcodeFilesDir) == NULL) ? "./" : strBarcodeFilesDir;
 }
 
 void CBarcodeFileReader::SetOutputType(OUTPUT_TYPE outputType)
@@ -35,7 +33,7 @@ void CBarcodeFileReader::SetOutputType(OUTPUT_TYPE outputType)
 
 void CBarcodeFileReader::SetOutputFileDir(const char *strOutputDir)
 {
-	m_decodeResultOutputDir = strlen(strOutputDir) == NULL ? ".\\" : strOutputDir;
+	m_decodeResultOutputDir = (strlen(strOutputDir) == NULL) ? "./" : strOutputDir;
 
 }
 
@@ -62,7 +60,7 @@ void CBarcodeFileReader::ProcessBarcodeFileRead()
 	if (m_outputType == OUTPUT_FILE)
 	{
 		string strSubffix = ".csv";
-		strOutputFilePath = m_decodeResultOutputDir + "\\" + m_currentOutputFileName + strSubffix;
+		strOutputFilePath = m_decodeResultOutputDir + "/" + m_currentOutputFileName + strSubffix;
 		if (!lastBarcodeFilesDir.empty())
 		{
 			m_barcodeFilesDir = lastBarcodeFilesDir;
@@ -124,12 +122,10 @@ void CBarcodeFileReader::ProcessBarcodeFileRead()
 
 void CBarcodeFileReader::ScanBarcodeFilesDir(const string strDir)
 {
-	string		   strTmpDir = strDir + "\\*.*";
+	string strTmpDir;
 	vector<string> listDir;
-	_finddata_t    findData;
-	intptr_t	   handle;
-	handle = _findfirst(strTmpDir.c_str(), &findData);
-	if (handle == -1)
+	PathInfo pathInfo(strDir);
+	if(!OpenDirectory(pathInfo))
 	{
 		cout << "The directory " << strDir << " does not exist.\n";
 		return;
@@ -142,43 +138,42 @@ void CBarcodeFileReader::ScanBarcodeFilesDir(const string strDir)
 			return;
 		case READER_PAUSE:
 		{
-			_sleep(2000);
+			sleep(2000);
 			continue;
 		}
 		break;
 		default:
 			break;
 		}
-
-		if (findData.attrib & _A_SUBDIR)
+		if (pathInfo.isDir)
 		{
-			if (strcmp(findData.name, ".") == 0 || strcmp(findData.name, "..") == 0)
+			if (strcmp(pathInfo.name, ".") == 0 || strcmp(pathInfo.name, "..") == 0)
+			{
 				continue;
-			strTmpDir = strDir + "\\" + findData.name;
+			}
+			strTmpDir = strDir + separator + pathInfo.name;
 			listDir.push_back(strTmpDir);
 		}
 		else
 		{
-			string fileName = findData.name;
+			string fileName = pathInfo.name;
 			size_t pos = fileName.find_last_of('.'); // find index of the last '.'
 			if (pos != string::npos) // if pos exits
 			{
 				fileName = fileName.substr(pos);
 			}
-			if (stricmp(fileName.c_str(), ".bmp") != 0
-				&& stricmp(fileName.c_str(), ".jpg") != 0
-				&& stricmp(fileName.c_str(), ".jpeg") != 0
-				&& stricmp(fileName.c_str(), ".pdf") != 0
-				&& stricmp(fileName.c_str(), ".tif") != 0
-				&& stricmp(fileName.c_str(), ".png") != 0
-				&& stricmp(fileName.c_str(), ".tiff") != 0
-				&& stricmp(fileName.c_str(), ".gif") != 0)
+			if (strcasecmp(fileName.c_str(), ".bmp") != 0
+				&& strcasecmp(fileName.c_str(), ".jpg") != 0
+				&& strcasecmp(fileName.c_str(), ".jpeg") != 0
+				&& strcasecmp(fileName.c_str(), ".pdf") != 0
+				&& strcasecmp(fileName.c_str(), ".tif") != 0
+				&& strcasecmp(fileName.c_str(), ".png") != 0
+				&& strcasecmp(fileName.c_str(), ".tiff") != 0
+				&& strcasecmp(fileName.c_str(), ".gif") != 0)
 				continue;
-			string strCurrentFilePath = strDir + "\\" + findData.name;
+			string strCurrentFilePath = strDir + separator + pathInfo.name;
 			if (!m_pBarcodeStatisticsRecorder->FindLastScanPoint(strCurrentFilePath))
 				continue;
-
-
 
 			CBarcodeStatisticsRecorder::DecodeResultInfo decodeResult;
 			decodeResult.strFileName = strCurrentFilePath;
@@ -192,13 +187,13 @@ void CBarcodeFileReader::ScanBarcodeFilesDir(const string strDir)
 			m_pBarcodeStatisticsRecorder->RecordStatisticsData(decodeResult);
 		}
 
-	} while (_findnext(handle, &findData) == 0);
+	} while (ReadNext(pathInfo));
 
 	for (size_t i = 0; i < listDir.size(); i++)
 	{
 		ScanBarcodeFilesDir(listDir.at(i));
 	}
-	_findclose(handle);
+	CloseDirectory(pathInfo);
 }
 
 
@@ -235,14 +230,18 @@ string CBarcodeFileReader::ToHexString(unsigned char* bytes, const int byteLengt
 
 
 void CBarcodeFileReader::CreateOutputFileDir(string strOutputFilePath) {
-	char *fileName = (char*)strOutputFilePath.c_str(), *pDir;
+	char *fileName = (char*)strOutputFilePath.c_str();
 	int pos = 0;
-	while ((pos = strOutputFilePath.find('\\', pos)) != string::npos)
+	while ((pos = strOutputFilePath.find('/', pos)) != string::npos)
 	{
 		string subStr = strOutputFilePath.substr(0, pos);
 		if (access(subStr.c_str(), 6) == -1)
 		{
+#if defined(_WIN64) || defined(_WIN32)
 			mkdir(subStr.c_str());
+#else
+			mkdir(subStr.c_str(),S_IRWXU|S_IRWXG|S_IRWXO);
+#endif
 		}
 		pos++;
 	}

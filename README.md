@@ -55,8 +55,10 @@ Windows, Linux, macOS, Android, iOS, Web, Raspberry Pi
 - C/C++, C#, Java, Python, PHP, JavaScript, Objective-C, Swfit, and Kotlin
 - Xamarin, React, and Cordova
 
-
 [More][2]
+
+## More Samples
+https://www.dynamsoft.com/Downloads/Dynamic-Barcode-Reader-Sample-Download.aspx
 
 ## License Agreement
 https://www.dynamsoft.com/Products/barcode-reader-license-agreement.aspx

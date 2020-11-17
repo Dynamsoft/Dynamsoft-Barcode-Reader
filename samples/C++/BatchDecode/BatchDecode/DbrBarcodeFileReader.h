@@ -1,11 +1,12 @@
 #pragma once
 #include "BarcodeFileReader.h"
-#include "../../../../../Components/C_C++/Include/DynamsoftBarcodeReader.h"
+#include "DynamsoftBarcodeReader.h"
+#include "DynamsoftCommon.h"
 
 #ifdef _WIN64
-#pragma comment(lib, "../../../../../Components/C_C++/Lib/DBRx64.lib")
+#pragma comment(lib, "../../../Lib/Windows/x64/DBRx64.lib")
 #else
-#pragma comment(lib, "../../../../../Components/C_C++/Lib/DBRx86.lib")
+#pragma comment(lib, "../../../Lib/Windows/x86/DBRx86.lib")
 #endif
 
 class CBarcodeReader;
@@ -26,6 +27,6 @@ private:
 private:
 	
 	vector<string>  m_listSettingsFile;
-	CBarcodeReader * m_pBarcodeReader;
+	dynamsoft::dbr::CBarcodeReader * m_pBarcodeReader;
 };
 

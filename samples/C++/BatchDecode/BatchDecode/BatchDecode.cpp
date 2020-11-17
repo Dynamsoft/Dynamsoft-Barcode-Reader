@@ -4,9 +4,12 @@
 #include "stdafx.h"
 #include <iostream>
 #include <string>
+#if defined(_WIN64) || defined(_WIN32)
 #include <conio.h>
+#else
+#include <limits>
+#endif
 
-#include "../../../../../Components/C_C++/Include/DynamsoftBarcodeReader.h"
 #include "DbrBarcodeFileReader.h"
 
 
@@ -19,7 +22,14 @@ void ShowConsoleCmd();
    -o: set the output result files directory.  -o "D:\output"
    -l: set the barcode reader library(dll) path
 */
-int _tmain(int argc, _TCHAR* argv[])
+char *stdin_get_str(char *str, int len)
+{
+     	fgets(str, len, stdin);
+     	if(str[strlen(str)-1] == '\n')
+         	str[strlen(str)-1] = '\0';
+	return str;
+}
+int main(int argc, char* argv[])
 {
 
 	CDbrBarcodeFileReader *barcodeFileReader = new CDbrBarcodeFileReader();
@@ -46,7 +56,7 @@ int _tmain(int argc, _TCHAR* argv[])
 			if (str == "-t")
 			{
 				string strOutputType = argv[i + 1];
-				if (stricmp(strOutputType.c_str(), "console") ==0)
+				if (strcasecmp(strOutputType.c_str(), "console") ==0)
 				{
 					barcodeFileReader->SetOutputType(CBarcodeFileReader::OUTPUT_CONSOLE);
 				}
@@ -72,16 +82,31 @@ int _tmain(int argc, _TCHAR* argv[])
 	size_t iLen;
 	while (ichar!='q')
 	{
-		ichar = _getche();//need press the enter. getchar():need press the enter
+#if defined(_WIN64) || defined(_WIN32)
+		ichar = _getche();
+#else
+		ichar = getchar();
+#endif
 		if(ichar=='\0')
-			ichar= _getche();
-		switch (ichar) 
+#if defined(_WIN64) || defined(_WIN32)
+			ichar = _getche();
+#else
+			ichar = getchar();
+#endif
+		switch (ichar)
 		{
 		case 'i':
 		case 'I':
 			std::cout << "\n Please input the barcode files directory:";
 			memset(szBuffer, 0, sizeof(szBuffer));
+#if defined(_WIN64) || defined(_WIN32)
 			strGettingMessage = gets_s(szBuffer, 256);
+#else
+			std::cin.clear();
+            std::cin.ignore( numeric_limits<streamsize>::max(), '\n' );
+			std::cin.get(szBuffer, 256);
+			strGettingMessage = szBuffer;
+#endif
 			iLen = strGettingMessage.length();
 			if (strGettingMessage[0] == '\"' && strGettingMessage[iLen - 1] == '\"')
 				strGettingMessage = strGettingMessage.substr(1, iLen - 2);
@@ -94,7 +119,14 @@ int _tmain(int argc, _TCHAR* argv[])
 			barcodeFileReader->SetOutputType(CBarcodeFileReader::OUTPUT_FILE);
 			std::cout << "\n Please input the output directory for decoding result:";
 			memset(szBuffer, 0, sizeof(szBuffer));
+#if defined(_WIN64) || defined(_WIN32)
 			strGettingMessage = gets_s(szBuffer, 256);
+#else
+			std::cin.clear();
+            std::cin.ignore( numeric_limits<streamsize>::max(), '\n' );
+			std::cin.get(szBuffer, 256);
+			strGettingMessage = szBuffer;
+#endif
 			iLen = strGettingMessage.length();
 			if (strGettingMessage[0] == '\"' && strGettingMessage[iLen - 1] == '\"')
 				strGettingMessage = strGettingMessage.substr(1, iLen - 2);
@@ -108,7 +140,11 @@ int _tmain(int argc, _TCHAR* argv[])
 			std::cout << "\n";
 			barcodeFileReader->Run();
 			std::cout << "Complete!" << std::endl;
+#if defined(_WIN64) || defined(_WIN32)
 			_getche();
+#else
+			getchar();
+#endif
 			memset(szBuffer, 0, sizeof(szBuffer));
 		}
 			break;
@@ -124,6 +160,11 @@ int _tmain(int argc, _TCHAR* argv[])
 		}
 
 		}
+#if defined(_WIN64) || defined(_WIN32)
+#else
+		std::cin.clear();
+        std::cin.ignore( numeric_limits<streamsize>::max(), '\n' );
+#endif
 		ShowConsoleCmd();
 	}
 	if (barcodeFileReader != NULL)

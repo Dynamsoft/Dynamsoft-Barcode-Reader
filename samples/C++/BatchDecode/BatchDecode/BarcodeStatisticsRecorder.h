@@ -5,6 +5,13 @@
 #include<vector>
 using namespace std;
 
+#if defined(_WIN64) || defined(_WIN32)
+#define strcasecmp stricmp
+#define separator "\\"
+#else
+#define separator "/"
+#endif
+
 class CBarcodeStatisticsRecorder
 {
 public:

@@ -1,13 +1,22 @@
 #include "stdafx.h"
+#if defined(_WIN64) || defined(_WIN32)
 #include <io.h>
+#else
+#include <sys/io.h>
+#include <unistd.h> 
+#include <sys/stat.h>
+#include <sys/types.h>
+#include <dirent.h>
+#endif
+
 #include <time.h>
 #include <iostream>
 #include "DbrBarcodeFileReader.h"
 
 CDbrBarcodeFileReader::CDbrBarcodeFileReader()
 {
-	m_pBarcodeReader = new CBarcodeReader();
-	m_pBarcodeReader->InitLicense("t0068MgAAAE7qT3leEpZ3FHHeK0o/M6+e9qFvbD2K1AgVg+BCZnMsEdwhXeBuEvr0bB0vi1YnRCd4GpvPqQQfr8K44O2iSXk=");
+	m_pBarcodeReader = new dynamsoft::dbr::CBarcodeReader();
+	m_pBarcodeReader->InitLicense("t0068MgAAABdunckNT4qc2lq+wyLE02rJa0o0SDO8RTwht+O6+qUHHNRVdrqqwPS/cT1UNlZdoFmBnbwmanwC+zr8IQ44eYw=");
 }
 
 CDbrBarcodeFileReader::~CDbrBarcodeFileReader()
@@ -18,7 +27,7 @@ CDbrBarcodeFileReader::~CDbrBarcodeFileReader()
 
 void CDbrBarcodeFileReader::Run()
 {
-	LoadRuntimeSettings(".\\templates\\");
+	LoadRuntimeSettings("./templates/");
 	if (m_listSettingsFile.size() > 0)
 	{
 		RunWithRuntimeSettings();
@@ -34,46 +43,43 @@ void CDbrBarcodeFileReader::Run()
 
 void CDbrBarcodeFileReader::LoadRuntimeSettings(string strSettingFilePath)
 {
-	string		   strTmpDir = strSettingFilePath + "\\*.*";
+	PathInfo pathInfo(strSettingFilePath);
+	string strTmpDir;
 	vector<string> listDir;
-	_finddata_t    findData;
-	intptr_t	   handle;
-	handle = _findfirst(strTmpDir.c_str(), &findData);
-	if (handle == -1)
+	if (!OpenDirectory(pathInfo))
 	{		
 		return;
 	}
 	do
 	{
-		if (findData.attrib & _A_SUBDIR)
+		if (pathInfo.isDir)
 		{
-			if (strcmp(findData.name, ".") == 0 || strcmp(findData.name, "..") == 0)
+			if (strcmp(pathInfo.name, ".") == 0 || strcmp(pathInfo.name, "..") == 0)
 				continue;
-			strTmpDir = strSettingFilePath + "\\" + findData.name;
+			strTmpDir = strSettingFilePath + separator + pathInfo.name;
 			listDir.push_back(strTmpDir);
 		}
 		else
 		{
-			string fileName = findData.name;
+			string fileName = pathInfo.name;
 			size_t pos = fileName.find_last_of('.'); // find index of the last '.'
 			if (pos != string::npos) // if pos exits
 			{
 				fileName = fileName.substr(pos);
 			}
-			if (stricmp(fileName.c_str(), ".json") != 0)
+			if (strcasecmp(fileName.c_str(), ".json") != 0)
 				continue;			
-			string strCurrentFilePath = strSettingFilePath + "\\" + findData.name;
+			string strCurrentFilePath = strSettingFilePath + separator + pathInfo.name;
 			m_listSettingsFile.push_back(strCurrentFilePath);
 		}
 
-	} while (_findnext(handle, &findData) == 0);
+	} while (ReadNext(pathInfo));
 
 	for (size_t i = 0; i < listDir.size(); i++)
 	{
 		LoadRuntimeSettings(listDir.at(i));
 	}
-	_findclose(handle);
-	
+	CloseDirectory(pathInfo);
 }
 
 void CDbrBarcodeFileReader::RunWithRuntimeSettings()
@@ -91,8 +97,12 @@ void CDbrBarcodeFileReader::RunWithRuntimeSettings()
 		}
 		else 
 		{
+#if defined(_WIN64) || defined(_WIN32)
 			if (stricmp(traceInfo.DECODE_SETTING_FILE.c_str(), m_listSettingsFile.at(i).c_str()) != 0)
-				continue;
+#else
+			if (strcmp(traceInfo.DECODE_SETTING_FILE.c_str(), m_listSettingsFile.at(i).c_str()) != 0)
+#endif
+			continue;
 			else
 				bFindLastSetting = true;
 		}
@@ -106,7 +116,7 @@ void CDbrBarcodeFileReader::RunWithRuntimeSettings()
 			cout <<"Init runtime settings file("+ filePath+") failed:"<<string(szErrorMsgBuffer) << endl;
 		}
 		else {
-			int pos1 = filePath.rfind('\\');
+			int pos1 = filePath.rfind('/');
 			int pos2 = filePath.rfind('.');
 			string strFileName = filePath.substr(pos1+1, pos2 - pos1-1);
 			m_currentOutputFileName = CreateOutputFileName(strFileName);

@@ -5,11 +5,15 @@
 
 #pragma once
 
-#include "targetver.h"
-
 #include <stdio.h>
-#include <tchar.h>
 
+#if defined(_WIN64) || defined(_WIN32)
+#include "targetver.h"
+#include <tchar.h>
+#else
+#include <string.h>
+#include <strings.h>
+#endif
 
 
 // TODO: reference additional headers your program requires here

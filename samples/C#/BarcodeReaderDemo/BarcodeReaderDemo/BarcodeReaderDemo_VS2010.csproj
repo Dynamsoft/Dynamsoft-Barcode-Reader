@@ -91,8 +91,13 @@
   <ItemGroup>
     <Reference Include="Dynamsoft.BarcodeReader">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\Components\DotNet\4.0\Dynamsoft.BarcodeReader.dll</HintPath>
+      <HintPath>..\..\..\Lib\4.0\Dynamsoft.BarcodeReader.dll</HintPath>
     </Reference>
+    <Reference Include="DynamsoftCommon">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Lib\4.0\DynamsoftCommon.dll</HintPath>
+    </Reference>
+
     <Reference Include="Dynamsoft.Camera">
       <HintPath>Lib\dotNet4_0\Dynamsoft.Camera.dll</HintPath>
     </Reference>
@@ -358,8 +363,8 @@
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>
-    </PostBuildEvent>
+    <PostBuildEvent>xcopy /ys "$(SolutionDir)..\..\Lib\4.0\x86\*" "$(TargetDir)x86\"
+xcopy /ys "$(SolutionDir)..\..\Lib\4.0\x64\*" "$(TargetDir)x64\"</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

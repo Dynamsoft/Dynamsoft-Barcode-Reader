@@ -16,7 +16,11 @@ static std::string  replace_all_distinct(string str, const   string old_value, c
 	}
 	return   str;
 }
-static inline std::string &rtrim(std::string &s) {
+#if defined(_WIN64) || defined(_WIN32)
+static inline std::string& rtrim(std::string& s) {
+#else
+static inline std::string rtrim(std::string s) {
+#endif
 	s.erase(std::find_if(s.rbegin(), s.rend(), std::not1(std::ptr_fun<int, int>(std::isspace))).base(), s.end());
 	return s;
 }
@@ -43,7 +47,7 @@ bool CBarcodeStatisticsRecorder::FindDecodeResultByFilePath(string strFileName, 
 	for (int i = 0; i < m_vctDecodeResults.size(); i++)
 	{
 		DecodeResultInfo info = m_vctDecodeResults.at(i);
-		if (0 == stricmp(info.strFileName.c_str(), strFileName.c_str()))
+		if (0 == strcasecmp(info.strFileName.c_str(), strFileName.c_str()))
 		{			
 			decodeResultInfo = info;
 			return true;
@@ -149,7 +153,7 @@ void CBarcodeStatisticsRecorder::Initialization(string &lastScanFileDir, string 
 	else {
 		lastDecodeBarcodeOutputFilepath = m_runningTraceInfo.OUTPUT_FILE_PATH;
 		lastScanFileDir = m_runningTraceInfo.SCAN_DIRECTORY;
-		if (stricmp(m_runningTraceInfo.CURRENT_FILE_STATUE.c_str(), "STATE_INVALID")==0)
+		if (strcasecmp(m_runningTraceInfo.CURRENT_FILE_STATUE.c_str(), "STATE_INVALID")==0)
 		{
 			m_runningTraceInfo.TOTAL_IMAGE_COUNT += 1;
 		}
@@ -167,7 +171,7 @@ void CBarcodeStatisticsRecorder::StartRecord(ostream *pOstream, ostream *pConten
 	if (!m_bTraceThePoint)
 	{	
 
-		*pOstream << "NO.,Image Source,Time Cost(ms),Barcode Count,Barcode Type,Barcode Hex,Barcode Text,Original" << "\n";	
+		*m_pOStream << "NO.,Image Source,Time Cost(ms),Barcode Count,Barcode Type,Barcode Hex,Barcode Text,Original" << "\n";
 		*m_pContentOStream<<setw(5)<<"NO."<<setw(32)<<"Image Source"<<"   Barcode Text" << "\n";
 
 	}
@@ -185,11 +189,11 @@ bool CBarcodeStatisticsRecorder::FindLastScanPoint(string currentFilePath)
 {
 	if (m_bTraceThePoint && !m_runningTraceInfo.CURRENT_FILE_PATH.empty())
 	{
-		if (stricmp(currentFilePath.c_str(), m_runningTraceInfo.CURRENT_FILE_PATH.c_str()) == 0)
+		if (strcasecmp(currentFilePath.c_str(), m_runningTraceInfo.CURRENT_FILE_PATH.c_str()) == 0)
 		{
 			m_bTraceThePoint = false;
 			//record the to the decorde result file,because the app existed before record it last time.
-			if (stricmp(m_runningTraceInfo.CURRENT_FILE_STATUE.c_str(), "STATE_INVALID")==0)
+			if (strcasecmp(m_runningTraceInfo.CURRENT_FILE_STATUE.c_str(), "STATE_INVALID")==0)
 			{
 				DecodeResultInfo decodeResult;
 				decodeResult.strFileName = m_runningTraceInfo.CURRENT_FILE_PATH;
@@ -310,7 +314,7 @@ void CBarcodeStatisticsRecorder::OutputStatisticsResult()
 
 		string strBarcodeContentFile = m_runningTraceInfo.OUTPUT_FILE_PATH;
 		strBarcodeContentFile = strBarcodeContentFile.substr(0, strBarcodeContentFile.find_last_of(".")) + "_original.txt";
-		string strOriginalFileName = strBarcodeContentFile.rfind('\\') != string::npos ? strBarcodeContentFile.substr(strBarcodeContentFile.rfind("\\") + strlen("\\")) : strBarcodeContentFile;
+		string strOriginalFileName = strBarcodeContentFile.rfind('/') != string::npos ? strBarcodeContentFile.substr(strBarcodeContentFile.rfind("\\") + strlen("\\")) : strBarcodeContentFile;
 		
 		string strNote = "Please refer to the file \"" + strOriginalFileName + "\" if the \"Original\" column value of any row is \"no\".It means the barcode text of this row has been modified to follow regular format in this file, and the corresponding original text was saved in the file whose name was with the suffix of \"original\".";
 		strNote = replace_all_distinct(strNote, "\"", "\"\"");

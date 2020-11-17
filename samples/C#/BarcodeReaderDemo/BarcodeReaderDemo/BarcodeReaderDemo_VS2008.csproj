@@ -76,7 +76,11 @@
   <ItemGroup>
     <Reference Include="Dynamsoft.BarcodeReader">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\Components\DotNet\2.0\Dynamsoft.BarcodeReader.dll</HintPath>
+      <HintPath>..\..\..\Lib\2.0\Dynamsoft.BarcodeReader.dll</HintPath>
+    </Reference>
+    <Reference Include="DynamsoftCommon">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Lib\2.0\DynamsoftCommon.dll</HintPath>
     </Reference>
     <Reference Include="Dynamsoft.Camera">
       <SpecificVersion>False</SpecificVersion>
@@ -357,7 +361,7 @@
   </Target>
   -->
   <PropertyGroup>
-    <PostBuildEvent>
-    </PostBuildEvent>
+    <PostBuildEvent>xcopy /ys "$(SolutionDir)..\..\Lib\2.0\x86\*" "$(TargetDir)x86\"
+xcopy /ys "$(SolutionDir)..\..\Lib\2.0\x64\*" "$(TargetDir)x64\"</PostBuildEvent>
   </PropertyGroup>
 </Project>
