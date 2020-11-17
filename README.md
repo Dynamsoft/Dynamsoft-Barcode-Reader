@@ -1,72 +1,60 @@
-Dynamsoft Barcode Reader
-=========
-version 7.6
+# Dynamsoft Barcode Reader
 
-Introduction
------------
+version 8.0
 
-Dynamsoft’s [Barcode Reader SDK][1] enables you to efficiently embed barcode reading functionality in your application using just a few lines of code. This can save you from months of added development time and extra costs. With the Barcode Reader SDK, you can decode barcodes from various image file formats (bmp, jpg, png and tiff). This includes from device-independent bitmap (DIB) formats which can be obtained from cameras, scanners, etc.
-
-Two editions, for Windows and Mac, are available. The Windows Edition provides C, C++, ActiveX / COM and .NET APIs. The Mac Edition provides C and C++ APIs. You can use the SDK in various development environments, such as Visual Studio .NET (C# / VB.NET), Visual C++, VB6, Delphi, Eclipse, Xcode, etc.
+## Introduction
+ Dynamsoft's [Barcode Reader SDK](1) enables you to efficiently embed barcode reading functionality in your web, desktop or mobile application using just a few lines of code. This can save you months of added development time and extra costs. With our barcode SDK, you can create high-speed and reliable barcode scanner software to meet your business needs.
 
 ![image](https://www.dynamsoft.com/CustomerPortal/images/upload/sc-80-Read-barcode-from-scanner-webcam-and-files.PNG)
 
-Download
------------
-https://www.dynamsoft.com/Downloads/Dynamic-Barcode-Reader-Download.aspx
+## Download
 
-Documentation
---------------
+https://www.dynamsoft.com/barcode-reader/downloads
 
-* Windows: https://www.dynamsoft.com/help/Barcode-Reader/index.html
-* macOS: https://www.dynamsoft.com/help/Barcode-Reader-Mac/index.html
-* Linux: https://www.dynamsoft.com/help/Barcode-Reader-Linux/index.html
+## Free 30-day Trial License
+Get a trial license to unlock all SDK functionalities.
+https://www.dynamsoft.com/customer/license/trialLicense
 
-Specifications
------------
 
-### Features
-* Reads barcodes within a specified area of a selected image
-* Reads multiple barcodes in one image
-* Can read poor quality and damaged barcodes
-* Detects barcode at any orientation and rotation angle
+## Online Documentation
 
-### Edit
-* ActiveX, Plug-in and HTML5 editions provide an Image Editor for image editing and viewing.
-* ActiveX, Plug-in and HTML5 Editions support adding colored rectangles to images.
-* Supports multiple images selection.
-* Supports image swapping.
-* Supports clearing specified areas of an image, and filling cleared areas with color.
-* Supports zooming.
+https://www.dynamsoft.com/barcode-reader/programming/
+
+## Specifications
+
+### Highlights
+- Multi-thread barcode processing
+- Reads multiple barcodes in one image
+- Detects barcodes at any orientation and rotation angle
+- Decodes barcodes from out-of-focus, blurred images
+- Reads barcodes from low-quality images with preprocessing
 
 ### Supported Barcode Types
-* 1D barcodes: Code39, Code93, Code128, Codabar, ITF, EAN13, EAN8, UPCA, UPCE
-* 2D barcodes: QR Code, DataMatrix, PDF417， Aztec Code, MaxiCode, DotCode, GS1 Composite Code, Patch Code
-* Postal Codes: USPS Intelligent Mail, Postnet, Planet, Australian Post, UK Royal Mail
+- 1D barcodes: Code39, Code93, Code128, Codabar, ITF, EAN13, EAN8, UPCA, UPCE
+- 2D barcodes: QR Code, DataMatrix, PDF417， Aztec Code, MaxiCode, DotCode, GS1 Composite Code, Patch Code
+- Postal Codes: USPS Intelligent Mail, Postnet, Planet, Australian Post, UK Royal Mail
 
 ### Barcode Reading Results
-* Barcode type
-* Barcode count
-* Barcode value as string
-* Barcode raw data as bytes
-* Barcode bounding rectangle
-* Coordinate of four corners
-* Page number
+- Barcode type
+- Barcode count
+- Barcode value as string
+- Barcode raw data as bytes
+- Barcode bounding rectangle
+- Coordinate of four corners
+- Page number
 
 ### Supported Image Source Types
-* Bmp, jpg, png, and tiff image files; multi-page tiff also supported
-* Windows DIB and .NET bitmap
-* Black/white, grayscale or color
+- Bmp, jpg, png, and tiff image files; multi-page tiff also supported
+- Windows DIB and .NET bitmap
+- Black/white, grayscale or color
 
-### Runtime Environment
-* Windows Workstation: XP, Vista, 7, 8
-* Windows Server: 2003, 2008, 2008 R2, 2012
-* macOS: macOS 10.6 and above
+### Supported Platforms
+Windows, Linux, macOS, Android, iOS, Web, Raspberry Pi
 
-### Languages and Environment
-* APIs: C, C++, ActiveX/COM, .NET
-* Projects: 32-bit or 64-bit
-* Languages: C#, VB.net, Java, C++, VB6, Delphi, PHP, VBScript, JavaScript, Python, Perl, Ruby etc.
+### Supported Programming Language and Frameworks
+- C/C++, C#, Java, Python, PHP, JavaScript, Objective-C, Swfit, and Kotlin
+- Xamarin, React, and Cordova
+
 
 [More][2]
 
