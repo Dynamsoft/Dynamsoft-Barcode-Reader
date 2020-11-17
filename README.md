@@ -3,7 +3,7 @@
 version 8.0
 
 ## Introduction
- Dynamsoft's [Barcode Reader SDK](1) enables you to efficiently embed barcode reading functionality in your web, desktop or mobile application using just a few lines of code. This can save you months of added development time and extra costs. With our barcode SDK, you can create high-speed and reliable barcode scanner software to meet your business needs.
+ Dynamsoft's [Barcode Reader SDK](https://www.dynamsoft.com/Products/Dynamic-Barcode-Reader.aspx) enables you to efficiently embed barcode reading functionality in your web, desktop or mobile application using just a few lines of code. This can save you months of added development time and extra costs. With our barcode SDK, you can create high-speed and reliable barcode scanner software to meet your business needs.
 
 ![image](https://www.dynamsoft.com/CustomerPortal/images/upload/sc-80-Read-barcode-from-scanner-webcam-and-files.PNG)
 
@@ -13,6 +13,7 @@ https://www.dynamsoft.com/barcode-reader/downloads
 
 ## Free 30-day Trial License
 Get a trial license to unlock all SDK functionalities.
+
 https://www.dynamsoft.com/customer/license/trialLicense
 
 
@@ -55,7 +56,7 @@ Windows, Linux, macOS, Android, iOS, Web, Raspberry Pi
 - C/C++, C#, Java, Python, PHP, JavaScript, Objective-C, Swfit, and Kotlin
 - Xamarin, React, and Cordova
 
-[More][2]
+[More](https://www.dynamsoft.com/Products/Dynamic-Barcode-Reader-Feature.aspx)
 
 ## More Samples
 https://www.dynamsoft.com/Downloads/Dynamic-Barcode-Reader-Sample-Download.aspx
@@ -63,5 +64,3 @@ https://www.dynamsoft.com/Downloads/Dynamic-Barcode-Reader-Sample-Download.aspx
 ## License Agreement
 https://www.dynamsoft.com/Products/barcode-reader-license-agreement.aspx
 
-[1]:https://www.dynamsoft.com/Products/Dynamic-Barcode-Reader.aspx
-[2]:https://www.dynamsoft.com/Products/Dynamic-Barcode-Reader-Feature.aspx
