@@ -127,6 +127,10 @@ const int GetBarcodeFormatId(int iIndex, BarcodeFormatSet* barcodeFormatSet)
 		barcodeFormatSet->barcodeFormatIds = 0;
 		barcodeFormatSet->barcodeFormatIds_2 = BF2_DOTCODE;
 		break;
+	case 24:
+		barcodeFormatSet->barcodeFormatIds = BF_MSI_CODE;
+		barcodeFormatSet->barcodeFormatIds_2 = 0;
+		break;
 	default:
 		ret = -1;
 		break;
@@ -170,12 +174,14 @@ bool GetImagePath(char* pImagePath)
 			}
 
 			memset(pImagePath, 0, 512);
-			if (pszBuffer[0] == '\'')
+			if (pszBuffer[0] == '\'' || pszBuffer[0] == '\"' )
 			{
-				if(pszBuffer[iLen - 3] == '\'')
+				if (pszBuffer[iLen - 3] == '\'')
 					memcpy(pImagePath, pszBuffer + 1, iLen - 4);
-				else if(pszBuffer[iLen - 2] == '\'')
+				else if (pszBuffer[iLen - 2] == '\'')
 					memcpy(pImagePath, pszBuffer + 1, iLen - 3);
+				else if(pszBuffer[iLen - 1] == '\"')
+					memcpy(pImagePath, pszBuffer + 1, iLen - 2);
 			}
 			else
 				memcpy(pImagePath, pszBuffer, iLen);
@@ -223,6 +229,7 @@ bool SetBarcodeFormat(BarcodeFormatSet* iBarcodeFormatId)
 		printf("   21: GS1 Composite\r\n");
 		printf("   22: Postal  Code\r\n");
 		printf("   23: DotCode\r\n");
+		printf("   24: MSI Code\r\n");
 
 		fgets(pszBuffer, 512, stdin);
 		strtok(pszBuffer, "\n");
@@ -261,7 +268,7 @@ void OutputResult(CBarcodeReader& reader, int errorcode, float time)
 	pszTemp = (char*)malloc(4096);
 	if (iRet != DBR_OK && iRet != DBRERR_MAXICODE_LICENSE_INVALID && iRet != DBRERR_AZTEC_LICENSE_INVALID && iRet != DBRERR_LICENSE_EXPIRED && iRet != DBRERR_QR_LICENSE_INVALID && iRet != DBRERR_GS1_COMPOSITE_LICENSE_INVALID &&
 		iRet != DBRERR_1D_LICENSE_INVALID && iRet != DBRERR_PDF417_LICENSE_INVALID && iRet != DBRERR_DATAMATRIX_LICENSE_INVALID && iRet != DBRERR_GS1_DATABAR_LICENSE_INVALID && iRet != DBRERR_PATCHCODE_LICENSE_INVALID &&
-		iRet != DBRERR_POSTALCODE_LICENSE_INVALID && iRet != DBRERR_DOTCODE_LICENSE_INVALID && iRet != DBRERR_DPM_LICENSE_INVALID && iRet != DBRERR_IRT_LICENSE_INVALID)
+		iRet != DBRERR_POSTALCODE_LICENSE_INVALID && iRet != DBRERR_DOTCODE_LICENSE_INVALID && iRet != DBRERR_DPM_LICENSE_INVALID && iRet != DBRERR_IRT_LICENSE_INVALID && iRet != DMERR_NO_LICENSE && iRet != DMERR_TRIAL_LICENSE)
 	{
 		snprintf(pszTemp, 4096, "Failed to read barcode: %s\r\n", CBarcodeReader::GetErrorString(iRet));
 		printf("%s", pszTemp);
@@ -338,7 +345,7 @@ int main(int argc, const char* argv[])
 	printf("Hints: Please input 'Q' or 'q' to quit the application.\r\n");
 
 	CBarcodeReader reader;
-	reader.InitLicense("t0068MgAAABdunckNT4qc2lq+wyLE02rJa0o0SDO8RTwht+O6+qUHHNRVdrqqwPS/cT1UNlZdoFmBnbwmanwC+zr8IQ44eYw=");
+	reader.InitLicense("t0068NQAAAFPoJ1B6qMK/i5BJfB80N05hLQbJfFDAdE8HvsPLiAbN2hDdRyNXpbCjRJjEUvwF+gHwnyKfvG8ILpydp9aNFfo=");
 
 
 	while (1)

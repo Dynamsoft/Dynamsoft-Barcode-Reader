@@ -16,7 +16,7 @@
 CDbrBarcodeFileReader::CDbrBarcodeFileReader()
 {
 	m_pBarcodeReader = new dynamsoft::dbr::CBarcodeReader();
-	m_pBarcodeReader->InitLicense("t0068MgAAABdunckNT4qc2lq+wyLE02rJa0o0SDO8RTwht+O6+qUHHNRVdrqqwPS/cT1UNlZdoFmBnbwmanwC+zr8IQ44eYw=");
+	m_pBarcodeReader->InitLicense("t0068NQAAABcoj150gfk4n21VfrW3aV9MdplYhA72TSHzOgwwc0e5P0Vm+xOSSvnB02vv/6K/eARr4Dixm/MCSukwSY8+444=");
 }
 
 CDbrBarcodeFileReader::~CDbrBarcodeFileReader()
@@ -27,7 +27,7 @@ CDbrBarcodeFileReader::~CDbrBarcodeFileReader()
 
 void CDbrBarcodeFileReader::Run()
 {
-	LoadRuntimeSettings("./templates/");
+	LoadRuntimeSettings("templates");
 	if (m_listSettingsFile.size() > 0)
 	{
 		RunWithRuntimeSettings();
@@ -116,7 +116,7 @@ void CDbrBarcodeFileReader::RunWithRuntimeSettings()
 			cout <<"Init runtime settings file("+ filePath+") failed:"<<string(szErrorMsgBuffer) << endl;
 		}
 		else {
-			int pos1 = filePath.rfind('/');
+			int pos1 = filePath.rfind(separator);
 			int pos2 = filePath.rfind('.');
 			string strFileName = filePath.substr(pos1+1, pos2 - pos1-1);
 			m_currentOutputFileName = CreateOutputFileName(strFileName);
@@ -138,7 +138,7 @@ bool CDbrBarcodeFileReader::ReadFileBarcodes( const string strFilePath, CBarcode
 	decodeResultInfo.dDecodeTime = ((double)(end - start) / CLOCKS_PER_SEC * 1000);
 	if (nErrorCode != DBR_OK && nErrorCode != DBRERR_MAXICODE_LICENSE_INVALID && nErrorCode != DBRERR_AZTEC_LICENSE_INVALID && nErrorCode != DBRERR_LICENSE_EXPIRED && nErrorCode != DBRERR_QR_LICENSE_INVALID && nErrorCode != DBRERR_GS1_COMPOSITE_LICENSE_INVALID &&
 		nErrorCode != DBRERR_1D_LICENSE_INVALID && nErrorCode != DBRERR_PDF417_LICENSE_INVALID && nErrorCode != DBRERR_DATAMATRIX_LICENSE_INVALID && nErrorCode != DBRERR_GS1_DATABAR_LICENSE_INVALID && nErrorCode != DBRERR_PATCHCODE_LICENSE_INVALID && 
-		nErrorCode != DBRERR_POSTALCODE_LICENSE_INVALID && nErrorCode != DBRERR_DOTCODE_LICENSE_INVALID && nErrorCode != DBRERR_DPM_LICENSE_INVALID && nErrorCode != DBRERR_IRT_LICENSE_INVALID)
+		nErrorCode != DBRERR_POSTALCODE_LICENSE_INVALID && nErrorCode != DBRERR_DOTCODE_LICENSE_INVALID && nErrorCode != DBRERR_DPM_LICENSE_INVALID && nErrorCode != DBRERR_IRT_LICENSE_INVALID && nErrorCode != DMERR_NO_LICENSE && nErrorCode != DMERR_TRIAL_LICENSE)
 	{
 		decodeResultInfo.strErrorMessage = m_pBarcodeReader->GetErrorString(nErrorCode);
 		bret = false;

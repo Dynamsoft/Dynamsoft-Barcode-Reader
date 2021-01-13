@@ -1414,7 +1414,7 @@ namespace Barcode_Reader_Demo
                         break;
                     case 5:
                         runtimeSettings.LocalizationModes[0] = EnumLocalizationMode.LM_CONNECTED_BLOCKS;
-                        runtimeSettings.LocalizationModes[1] = EnumLocalizationMode.LM_STATISTICS;
+                        runtimeSettings.LocalizationModes[1] = EnumLocalizationMode.LM_SCAN_DIRECTLY;
                         break;
                 }
 
@@ -1479,7 +1479,7 @@ namespace Barcode_Reader_Demo
                             for (int i = 1; i < tempBestSpeed.LocalizationModes.Length; i++)
                                 tempBestSpeed.LocalizationModes[i] = EnumLocalizationMode.LM_SKIP;
                             tempBestSpeed.DeblurLevel = 3;
-                            tempBestSpeed.ExpectedBarcodesCount = 512;
+                            tempBestSpeed.ExpectedBarcodesCount = 0;
                             tempBestSpeed.ScaleDownThreshold = 2300;
                             for (int i = 0; i < tempBestSpeed.FurtherModes.TextFilterModes.Length;i++ )
                                 tempBestSpeed.FurtherModes.TextFilterModes[i] = EnumTextFilterMode.TFM_SKIP;
@@ -1490,7 +1490,7 @@ namespace Barcode_Reader_Demo
                         tempBalance.BarcodeFormatIds = (int)this.mEmBarcodeFormat;
                         tempBalance.BarcodeFormatIds_2 = (int)this.mEmBarcodeFormat_2;
                         tempBalance.LocalizationModes[0] = EnumLocalizationMode.LM_CONNECTED_BLOCKS;
-                        tempBalance.LocalizationModes[1] = EnumLocalizationMode.LM_STATISTICS;
+                        tempBalance.LocalizationModes[1] = EnumLocalizationMode.LM_SCAN_DIRECTLY;
                         for (int i = 2; i < tempBalance.LocalizationModes.Length; i++)
                             tempBalance.LocalizationModes[i] = EnumLocalizationMode.LM_SKIP;
                         tempBalance.DeblurLevel = 5;
@@ -2212,7 +2212,7 @@ namespace Barcode_Reader_Demo
                 this.panelFormat.Location = new System.Drawing.Point(0, 0);
                 this.panelFormatParent.Controls.Add(this.panelFormat);
                 this.panelOneDetail.Location = new System.Drawing.Point(0, 65);
-                this.panelOneDetail.Size = new System.Drawing.Size(280, 160);
+                this.panelOneDetail.Size = new System.Drawing.Size(280, 188);
                 this.panelCustomSettings.Controls.Add(this.panelOneDetail);
                 this.panelDatabarDetail.Location = new System.Drawing.Point(0, 65);
                 this.panelDatabarDetail.Size = new System.Drawing.Size(280, 224);
@@ -2235,7 +2235,7 @@ namespace Barcode_Reader_Demo
                 mRoundedRectanglePanelBarcode.Controls.Remove(this.panelCustom);             
 
                 this.panelOneDetail.Location = new System.Drawing.Point(0, 109);
-                this.panelOneDetail.Size = new System.Drawing.Size(305, 160);
+                this.panelOneDetail.Size = new System.Drawing.Size(305, 188);
                 this.panelNormalSettings.Controls.Add(this.panelOneDetail);
                 this.panelDatabarDetail.Location = new System.Drawing.Point(0, 109);
                 this.panelDatabarDetail.Size = new System.Drawing.Size(305, 224);
@@ -2294,12 +2294,12 @@ namespace Barcode_Reader_Demo
             if(cbOneD.CheckState == CheckState.Unchecked)
             {
                 cbUPCE.Checked = cbEAN8.Checked = cbEAN13.Checked = cbCODABAR.Checked = cbITF.Checked =
-                cbCODE93.Checked = cbCODE128.Checked = cbCOD39.Checked = cbUPCA.Checked = cbINDUSTRIAL25.Checked =false;
+                cbCODE93.Checked = cbCODE128.Checked = cbCOD39.Checked = cbUPCA.Checked = cbINDUSTRIAL25.Checked = cbMSICODE.Checked = false;
             }
             else if (cbOneD.CheckState == CheckState.Checked)
             {
                 cbUPCE.Checked = cbEAN8.Checked = cbEAN13.Checked = cbCODABAR.Checked = cbITF.Checked =
-                cbCODE93.Checked = cbCODE128.Checked = cbCOD39.Checked = cbUPCA.Checked = cbINDUSTRIAL25.Checked = true;
+                cbCODE93.Checked = cbCODE128.Checked = cbCOD39.Checked = cbUPCA.Checked = cbINDUSTRIAL25.Checked = cbMSICODE.Checked = true;
             }
         }
         private void cbDatabar_CheckStateChanged(object sender, EventArgs e)
@@ -2352,11 +2352,11 @@ namespace Barcode_Reader_Demo
         private void rbOneMode_CheckedChanged(object sender, EventArgs e)
         {
             if(cbUPCE.Checked   && cbEAN8.Checked    && cbEAN13.Checked && cbCODABAR.Checked      && cbITF.Checked &&
-               cbCODE93.Checked && cbCODE128.Checked && cbCOD39.Checked && cbINDUSTRIAL25.Checked && cbUPCA.Checked )
+               cbCODE93.Checked && cbCODE128.Checked && cbCOD39.Checked && cbINDUSTRIAL25.Checked && cbUPCA.Checked && cbMSICODE.Checked)
             {
                 cbOneD.CheckState = CheckState.Checked;
             }else if(!cbUPCE.Checked &&   !cbEAN8.Checked &&    !cbEAN13.Checked && !cbCODABAR.Checked &&      !cbITF.Checked &&
-                     !cbCODE93.Checked && !cbCODE128.Checked && !cbCOD39.Checked && !cbINDUSTRIAL25.Checked && !cbUPCA.Checked )
+                     !cbCODE93.Checked && !cbCODE128.Checked && !cbCOD39.Checked && !cbINDUSTRIAL25.Checked && !cbUPCA.Checked && !cbMSICODE.Checked)
             {
                 cbOneD.CheckState = CheckState.Unchecked;
             }
@@ -2462,6 +2462,7 @@ namespace Barcode_Reader_Demo
             mEmBarcodeFormat = this.cbCODE93.Checked ? (mEmBarcodeFormat | EnumBarcodeFormat.BF_CODE_93) : mEmBarcodeFormat;
             mEmBarcodeFormat = this.cbCODE128.Checked ? (mEmBarcodeFormat | EnumBarcodeFormat.BF_CODE_128) : mEmBarcodeFormat;
             mEmBarcodeFormat = this.cbCOD39.Checked ? (mEmBarcodeFormat | EnumBarcodeFormat.BF_CODE_39) : mEmBarcodeFormat;
+            mEmBarcodeFormat = this.cbMSICODE.Checked ? (mEmBarcodeFormat | EnumBarcodeFormat.BF_MSI_CODE) : mEmBarcodeFormat;
 
             mEmBarcodeFormat = this.cbPATCHCODE.Checked ? (mEmBarcodeFormat | EnumBarcodeFormat.BF_PATCHCODE) : mEmBarcodeFormat;
 
@@ -2494,7 +2495,7 @@ namespace Barcode_Reader_Demo
                 case 0:
                     this.cmbLocalizationModes.SelectedIndex = 4;
                     this.cmbDeblurLevel.SelectedIndex = 3;
-                    this.tbExpectedBarcodesCount.Text = "512";
+                    this.tbExpectedBarcodesCount.Text = "0";
                     this.tbScaleDownThreshold.Text = "2300";
                     this.cbTextFilterMode.CheckState = CheckState.Unchecked;
                     break;

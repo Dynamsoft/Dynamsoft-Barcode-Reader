@@ -116,6 +116,7 @@ namespace Barcode_Reader_Demo
             this.cbCODE93 = new System.Windows.Forms.CheckBox();
             this.cbCODE128 = new System.Windows.Forms.CheckBox();
             this.cbCOD39 = new System.Windows.Forms.CheckBox();
+            this.cbMSICODE = new System.Windows.Forms.CheckBox();
             this.panelDatabarDetail = new System.Windows.Forms.Panel();
             this.cbDatabarOmnidirectional = new System.Windows.Forms.CheckBox();
             this.cbDatabarExpanded = new System.Windows.Forms.CheckBox();
@@ -1131,9 +1132,10 @@ namespace Barcode_Reader_Demo
             this.panelOneDetail.Controls.Add(this.cbCODE93);
             this.panelOneDetail.Controls.Add(this.cbCODE128);
             this.panelOneDetail.Controls.Add(this.cbCOD39);
+            this.panelOneDetail.Controls.Add(this.cbMSICODE);
             this.panelOneDetail.Location = new System.Drawing.Point(0, 109);
             this.panelOneDetail.Name = "panelOneDetail";
-            this.panelOneDetail.Size = new System.Drawing.Size(305, 160);
+            this.panelOneDetail.Size = new System.Drawing.Size(305, 188);
             this.panelOneDetail.TabIndex = 8;
             this.panelOneDetail.Visible = false;
             // 
@@ -1286,6 +1288,21 @@ namespace Barcode_Reader_Demo
             this.cbCOD39.Text = "CODE_39";
             this.cbCOD39.UseVisualStyleBackColor = true;
             this.cbCOD39.CheckedChanged += new System.EventHandler(this.rbOneMode_CheckedChanged);
+            // 
+            // cbMSICODE
+            // 
+            this.cbMSICODE.AutoSize = true;
+            this.cbMSICODE.Checked = true;
+            this.cbMSICODE.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbMSICODE.Font = new System.Drawing.Font("Open Sans", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.cbMSICODE.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
+            this.cbMSICODE.Location = new System.Drawing.Point(10, 150);
+            this.cbMSICODE.Name = "cbMSICODE";
+            this.cbMSICODE.Size = new System.Drawing.Size(90, 21);
+            this.cbMSICODE.TabIndex = 0;
+            this.cbMSICODE.Text = "MSI CODE";
+            this.cbMSICODE.UseVisualStyleBackColor = true;
+            this.cbMSICODE.CheckedChanged += new System.EventHandler(this.rbOneMode_CheckedChanged);
             // 
             // panelDatabarDetail
             // 
@@ -1610,7 +1627,7 @@ namespace Barcode_Reader_Demo
             this.cmbGrayscaleTransformationModes.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(96)))), ((int)(((byte)(96)))), ((int)(((byte)(96)))));
             this.cmbGrayscaleTransformationModes.FormattingEnabled = true;
             this.cmbGrayscaleTransformationModes.Items.AddRange(new object[] {
-            "1.Original, 2.Inverted",
+            "Original + Inverted",
             "Inverted",
             "Original"});
             this.cmbGrayscaleTransformationModes.Location = new System.Drawing.Point(19, 366);
@@ -1633,7 +1650,7 @@ namespace Barcode_Reader_Demo
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Open Sans", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Font = new System.Drawing.Font("Open Sans", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.label8.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
             this.label8.Location = new System.Drawing.Point(19, 341);
             this.label8.Name = "label8";
@@ -1712,7 +1729,7 @@ namespace Barcode_Reader_Demo
             "Statistics",
             "Lines",
             "Scan directly",
-            "1.Connected blocks, 2.Statistics"});
+            "Connected blocks + Scan directly"});
             this.cmbLocalizationModes.Location = new System.Drawing.Point(19, 169);
             this.cmbLocalizationModes.Name = "cmbLocalizationModes";
             this.cmbLocalizationModes.Size = new System.Drawing.Size(258, 25);
@@ -1722,7 +1739,7 @@ namespace Barcode_Reader_Demo
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Open Sans", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Font = new System.Drawing.Font("Open Sans", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
             this.label5.Location = new System.Drawing.Point(18, 141);
             this.label5.Name = "label5";
@@ -2360,6 +2377,7 @@ namespace Barcode_Reader_Demo
         private CheckBox cbCODE93;
         private CheckBox cbCODE128;
         private CheckBox cbCOD39;
+        private CheckBox cbMSICODE;
         private CheckBox cbPATCHCODE;
         private CheckBox cbDOTCODE;
         private CheckBox cbDATABAR;
