@@ -7,6 +7,9 @@ version 8.1
 
 ![image](https://www.dynamsoft.com/CustomerPortal/images/upload/sc-80-Read-barcode-from-scanner-webcam-and-files.PNG)
 
+## Release Notes
+- [8.1 (01/12/2021)](https://www.dynamsoft.com/barcode-reader/programming/cplusplus/release-notes/cpp-8.html?ver=latest#81-01122021)
+
 ## Download
 
 https://www.dynamsoft.com/barcode-reader/downloads
