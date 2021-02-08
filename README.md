@@ -35,7 +35,7 @@ https://www.dynamsoft.com/barcode-reader/programming/
 
 ### Supported Barcode Types
 - 1D barcodes: Code39, Code93, Code128, Codabar, ITF, EAN13, EAN8, UPCA, UPCE
-- 2D barcodes: QR Code, DataMatrix, PDF417， Aztec Code, MaxiCode, DotCode, GS1 Composite Code, Patch Code
+- 2D barcodes: QR Code, DataMatrix, PDF417， Aztec Code, MaxiCode, DotCode, GS1 Composite Code, Patch Code, MSI code 
 - Postal Codes: USPS Intelligent Mail, Postnet, Planet, Australian Post, UK Royal Mail
 
 ### Barcode Reading Results
