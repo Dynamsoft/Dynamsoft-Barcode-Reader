@@ -1,26 +1,27 @@
 # Dynamsoft Barcode Reader
 
-version 8.1
+version 8.2
 
 ## Introduction
- Dynamsoft's [Barcode Reader SDK](https://www.dynamsoft.com/Products/Dynamic-Barcode-Reader.aspx) enables you to efficiently embed barcode reading functionality in your web, desktop or mobile application using just a few lines of code. This can save you months of added development time and extra costs. With our barcode SDK, you can create high-speed and reliable barcode scanner software to meet your business needs.
+ Dynamsoft's [Barcode Reader SDK](https://www.dynamsoft.com/barcode-reader/overview/) enables you to efficiently integrate barcode reading functionality into Web, desktop, or mobile applications using just a few lines of code. The enterprise-class barcode SDK can save you months of development time and extra costs. With Dynamsoft Barcode Reader, developers can create high-speed and reliable barcode scanner software to meet business needs.
 
 ![image](https://www.dynamsoft.com/CustomerPortal/images/upload/sc-80-Read-barcode-from-scanner-webcam-and-files.PNG)
 
 ## Release Notes
+- [8.2 (03/17/2021)](https://www.dynamsoft.com/barcode-reader/programming/cplusplus/release-notes/cpp-8.html?ver=latest#82-03172021)
 - [8.1 (01/12/2021)](https://www.dynamsoft.com/barcode-reader/programming/cplusplus/release-notes/cpp-8.html?ver=latest#81-01122021)
 
 ## Download
 
 https://www.dynamsoft.com/barcode-reader/downloads
 
-## Free 30-day Trial License
-Get a trial license to unlock all SDK functionalities.
+## License
+Get a [30-day FREE Trial License](https://www.dynamsoft.com/customer/license/trialLicense/?product=dbr&utm_source=github) to unlock all SDK functionalities.
 
-https://www.dynamsoft.com/customer/license/trialLicense
+## Free Online Barcode Reader Demo
+https://demo.dynamsoft.com/barcode-reader/
 
-
-## Online Documentation
+## Documentation
 
 https://www.dynamsoft.com/barcode-reader/programming/
 
@@ -59,10 +60,10 @@ Windows, Linux, macOS, Android, iOS, Web, Raspberry Pi
 - C/C++, C#, Java, Python, PHP, JavaScript, Objective-C, Swfit, and Kotlin
 - Xamarin, React, and Cordova
 
-[More](https://www.dynamsoft.com/Products/Dynamic-Barcode-Reader-Feature.aspx)
+[More](https://www.dynamsoft.com/barcode-reader/features/)
 
 ## More Samples
-https://www.dynamsoft.com/Downloads/Dynamic-Barcode-Reader-Sample-Download.aspx
+https://www.dynamsoft.com/barcode-reader/resources/code-gallery/
 
 ## License Agreement
 https://www.dynamsoft.com/Products/barcode-reader-license-agreement.aspx

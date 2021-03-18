@@ -16,7 +16,7 @@
 CDbrBarcodeFileReader::CDbrBarcodeFileReader()
 {
 	m_pBarcodeReader = new dynamsoft::dbr::CBarcodeReader();
-	m_pBarcodeReader->InitLicense("t0068NQAAABcoj150gfk4n21VfrW3aV9MdplYhA72TSHzOgwwc0e5P0Vm+xOSSvnB02vv/6K/eARr4Dixm/MCSukwSY8+444=");
+	m_pBarcodeReader->InitLicense("t0068MgAAAC4m3vBqmGZTtroTtWT8STe3QFyOlwiLqwtB7ghY+8pU01rgU3JedgtcsxyRHnys1N3qjCMZ2AprRCavlIpLbAk=");
 }
 
 CDbrBarcodeFileReader::~CDbrBarcodeFileReader()
