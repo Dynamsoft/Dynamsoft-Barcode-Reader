@@ -1,6 +1,6 @@
 # Dynamsoft Barcode Reader
 
-version 8.2
+[![release](https://img.shields.io/github/release/Dynamsoft/Dynamsoft-Barcode-Reader.svg)](https://github.com/Dynamsoft/Dynamsoft-Barcode-Reader/releases/latest)
 
 ## Introduction
  Dynamsoft's [Barcode Reader SDK](https://www.dynamsoft.com/barcode-reader/overview/) enables you to efficiently integrate barcode reading functionality into Web, desktop, or mobile applications using just a few lines of code. The enterprise-class barcode SDK can save you months of development time and extra costs. With Dynamsoft Barcode Reader, developers can create high-speed and reliable barcode scanner software to meet business needs.
