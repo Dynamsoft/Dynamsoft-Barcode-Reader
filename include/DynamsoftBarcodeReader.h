@@ -214,7 +214,7 @@ typedef void* HANDLE;
 *
 * Describes the image pixel format.
 */
-typedef enum
+typedef enum ImagePixelFormat
 {
 	/**0:Black, 1:White */
 	IPF_BINARY,
@@ -284,6 +284,34 @@ typedef enum BinarizationMode
 	BM_SKIP = 0x00
 
 }BinarizationMode;
+
+/**
+* @enum ScaleUpMode
+*
+* Describes the scale up mode .
+*/
+typedef enum ScaleUpMode
+{
+	/**The library chooses an interpolation method automatically to scale up.*/
+	SUM_AUTO = 0x01,
+
+	/**Scales up using the linear interpolation method. Check @ref SUM for available argument settings.*/
+	SUM_LINEAR_INTERPOLATION = 0x02,
+
+	/**Scales up using the nearest-neighbour interpolation method. Check @ref SUM for available argument settings.*/
+	SUM_NEAREST_NEIGHBOUR_INTERPOLATION = 0x04,
+
+	/**Reserved setting for scale up mode.*/
+#if defined(_WIN32) || defined(_WIN64)
+	SUM_REV = 0x80000000,
+#else
+	SUM_REV = -2147483648,
+#endif
+
+	/**Skip the scale-up process.*/
+	SUM_SKIP = 0x00
+
+}ScaleUpMode;
 
 /**
 * @enum ImagePreprocessingMode
@@ -481,34 +509,28 @@ typedef enum BarcodeFormat_2
 	/**No barcode format in BarcodeFormat group 2*/
 	BF2_NULL = 0x00,
 
-	/**Combined value of BF2_USPSINTELLIGENTMAIL, BF2_POSTNET, BF2_PLANET, BF2_AUSTRALIANPOST, BF2_RM4SCC.
-	When you set this barcode format, the library will automatically add LM_STATISTICS_POSTAL_CODE to LocalizationModes if you doesn't set it.*/
+	/**Combined value of BF2_USPSINTELLIGENTMAIL, BF2_POSTNET, BF2_PLANET, BF2_AUSTRALIANPOST, BF2_RM4SCC.*/
 	BF2_POSTALCODE = 0x01F00000,
 
 	/**Nonstandard barcode */
 	BF2_NONSTANDARD_BARCODE = 0x01,
 
-	/**USPS Intelligent Mail.
-	When you set this barcode format, the library will automatically add LM_STATISTICS_POSTAL_CODE to LocalizationModes if you doesn't set it.*/
+	/**USPS Intelligent Mail.*/
 	BF2_USPSINTELLIGENTMAIL = 0x00100000,
 
-	/**Postnet.
-	When you set this barcode format, the library will automatically add LM_STATISTICS_POSTAL_CODE to LocalizationModes if you doesn't set it.*/
+	/**Postnet.*/
 	BF2_POSTNET = 0x00200000,
 
-	/**Planet.
-	When you set this barcode format, the library will automatically add LM_STATISTICS_POSTAL_CODE to LocalizationModes if you doesn't set it.*/
+	/**Planet.*/
 	BF2_PLANET = 0x00400000,
 
-	/**Australian Post.
-	When you set this barcode format, the library will automatically add LM_STATISTICS_POSTAL_CODE to LocalizationModes if you doesn't set it.*/
+	/**Australian Post.*/
 	BF2_AUSTRALIANPOST = 0x00800000,
 
-	/**Royal Mail 4-State Customer Barcode.
-	When you set this barcode format, the library will automatically add LM_STATISTICS_POSTAL_CODE to LocalizationModes if you doesn't set it.*/
+	/**Royal Mail 4-State Customer Barcode.*/
 	BF2_RM4SCC = 0x01000000,
 
-	/**DotCode. When you set this barcode format, the library will automatically add LM_STATISTICS_MARKS to LocalizationModes if you doesn't set it.*/
+	/**DotCode.*/
 	BF2_DOTCODE = 0x02
 }BarcodeFormat_2;
 
@@ -760,6 +782,18 @@ typedef enum LocalizationMode
 	LM_SKIP = 0x00
 
 }LocalizationMode;
+
+/**
+* @enum MirrorMode
+*
+* Describes the mirror mode.
+*/
+typedef enum MirrorMode
+{
+	MM_NORMAL = 0x01,
+	MM_MIRROR = 0x02,
+	MM_BOTH = 0x04
+}MirrorMode;
 
 /**
 * @enum QRCodeErrorCorrectionLevel
@@ -1052,34 +1086,6 @@ typedef enum IMResultDataType
 	IMRDT_REFERENCE = 0x40
 
 }IMResultDataType;
-
-/**
-* @enum ScaleUpMode
-*
-* Describes the scale up mode .
-*/
-typedef enum ScaleUpMode
-{
-	/**The library chooses an interpolation method automatically to scale up.*/
-	SUM_AUTO = 0x01,
-
-	/**Scales up using the linear interpolation method. Check @ref SUM for available argument settings.*/
-	SUM_LINEAR_INTERPOLATION = 0x02,
-
-	/**Scales up using the nearest-neighbour interpolation method. Check @ref SUM for available argument settings.*/
-	SUM_NEAREST_NEIGHBOUR_INTERPOLATION = 0x04,
-
-	/**Reserved setting for scale up mode.*/
-#if defined(_WIN32) || defined(_WIN64)
-	SUM_REV = 0x80000000,
-#else
-	SUM_REV = -2147483648,
-#endif
-
-	/**Skip the scale-up process.*/
-	SUM_SKIP = 0x00
-
-}ScaleUpMode;
 
 /**
 * @enum AccompanyingTextRecognitionMode
@@ -2096,9 +2102,12 @@ typedef struct tagTextResult
 	
 	/**DPM mark */
 	int isDPM;
+
+	/**Mirror flag*/
+	int isMirrored;
 	
 	/**Reserved memory for the struct. The length of this array indicates the size of the memory reserved for this struct. */
-	char reserved[48];
+	char reserved[44];
 }TextResult, *PTextResult;
 
 /**
@@ -2784,6 +2793,14 @@ extern "C" {
 	*
 	*/
 	DBR_API int DBR_InitLTSConnectionParameters(DM_LTSConnectionParameters *pLTSConnectionParameters);
+
+	/**
+	* Get available instances count when charging by concurrent instances count.
+	*
+	* @return Returns available instances count. 
+	*
+	*/
+	DBR_API int DBR_GetIdleInstancesCount();
 
 	/**
 	* Initializes the barcode reader license and connects to the specified server for online verification.
@@ -3938,6 +3955,14 @@ namespace dynamsoft
 			 *
 			 */
 			static int InitLTSConnectionParameters(DM_LTSConnectionParameters *pLTSConnectionParameters);
+
+			/**
+			* Get available instances count when charging by concurrent instances count.
+			*
+			* @return Returns available instances count.
+			*
+			*/
+			static int GetIdleInstancesCount();
 
 			/**
 			* Initializes the barcode reader license and connects to the specified server for online verification.

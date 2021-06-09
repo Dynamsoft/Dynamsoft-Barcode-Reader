@@ -345,7 +345,7 @@ int main(int argc, const char* argv[])
 	printf("Hints: Please input 'Q' or 'q' to quit the application.\r\n");
 
 	CBarcodeReader reader;
-	reader.InitLicense("t0068MgAAAC4m3vBqmGZTtroTtWT8STe3QFyOlwiLqwtB7ghY+8pU01rgU3JedgtcsxyRHnys1N3qjCMZ2AprRCavlIpLbAk=");
+	reader.InitLicense("t0068MgAAAIxgiVhGKjkgTDmyjqtUrPI+2AY3l1Zn8P92HcheInomuUg0jMetaQ6phuDM0A9nHB6KxfC/VM9zssQm2VVy8ww=");
 
 
 	while (1)

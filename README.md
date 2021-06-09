@@ -4,7 +4,7 @@
 
 ## What You Should Know
 - [![](https://img.shields.io/badge/Download-Offline%20SDK-orange)](https://www.dynamsoft.com/barcode-reader/downloads)
-- [![](https://img.shields.io/badge/Get-30--day%20FREE%20Trial%20License-blue)](https://www.dynamsoft.com/customer/license/trialLicense/?product=dbr)
+- [![](https://img.shields.io/badge/Get-30--day%20FREE%20Trial-blue)](https://www.dynamsoft.com/customer/license/trialLicense/?product=dbr)
 
 ## Introduction
  Dynamsoft's [Barcode Reader SDK](https://www.dynamsoft.com/barcode-reader/overview/) enables you to efficiently integrate barcode reading functionality into Web, desktop, or mobile applications using just a few lines of code. The enterprise-class barcode SDK can save you months of development time and extra costs. With Dynamsoft Barcode Reader, developers can create high-speed and reliable barcode scanner software to meet business needs.
@@ -12,6 +12,7 @@
 ![image](https://www.dynamsoft.com/CustomerPortal/images/upload/sc-80-Read-barcode-from-scanner-webcam-and-files.PNG)
 
 ## Release Notes
+- [8.4 (06/08/2021)](https://www.dynamsoft.com/barcode-reader/programming/cplusplus/release-notes/cpp-8.html?ver=latest#84-06082021)
 - [8.2 (03/17/2021)](https://www.dynamsoft.com/barcode-reader/programming/cplusplus/release-notes/cpp-8.html?ver=latest#82-03172021)
 - [8.1 (01/12/2021)](https://www.dynamsoft.com/barcode-reader/programming/cplusplus/release-notes/cpp-8.html?ver=latest#81-01122021)
 

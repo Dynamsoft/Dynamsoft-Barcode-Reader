@@ -1,18 +1,6 @@
 #ifndef __DYNAMSOFT_COMMON_H__
 #define __DYNAMSOFT_COMMON_H__
 
-#ifndef DBR_API
-#if !defined(_WIN32) && !defined(_WIN64)
-#define DBR_API __attribute__((visibility("default")))
-#else
-#ifdef DBR_EXPORTS
-#define DBR_API __declspec(dllexport)
-#else
-#define DBR_API 
-#endif
-#endif
-#endif
-
 /**No license.*/
 #define DMERR_NO_LICENSE -20000
 
@@ -166,6 +154,31 @@ typedef enum DM_ChargeWay
 	DM_CW_CONCURRENT_INSTANCE_COUNT = 10
 }DM_ChargeWay;
 
+/**
+* @enum Product
+*
+* Describes the Product.
+*/
+typedef enum Product
+{
+	/** Dynamsoft Barcode Reader */
+	PROD_DBR = 0x01,
+
+	/** Dynamsoft Label Recognition */
+	PROD_DLR = 0x02,
+
+	/** Dynamic Web Twain */
+	PROD_DWT = 0x04,
+
+	/** Dynamsoft Camera Enhancer */
+	PROD_DCE = 0x08,
+
+	/** Dynamsoft Panorama */
+	PROD_DPS = 0x10,
+
+	/** All Products */
+	PROD_ALL = 0xffff
+}Product;
 
 #pragma pack(push)
 #pragma pack(1)
@@ -180,16 +193,16 @@ typedef enum DM_ChargeWay
 typedef struct tagDM_LTSConnectionParameters
 {
 	/**The URL of the license tracking server.*/
-	const char* mainServerURL;
+	char* mainServerURL;
 
 	/**The URL of the standby license tracking server.*/
-	const char* standbyServerURL;
+	char* standbyServerURL;
 
 	/**The handshake code.*/
-	const char* handshakeCode;
+	char* handshakeCode;
 
 	/**The session password of the handshake code set in license tracking server.*/
-	const char* sessionPassword;
+	char* sessionPassword;
 
 	/**Sets the deployment type.*/
 	DM_DeploymentType deploymentType;
@@ -212,8 +225,14 @@ typedef struct tagDM_LTSConnectionParameters
 	/**Sets the max concurrent instance count.*/
 	int maxConcurrentInstanceCount;
 
+	/**Sets the organization ID.*/
+	char* organizationID;
+
+	/* Sets the products. A combined value of Product Enumeration items. */
+	int products;
+
 	/**Reserved memory for struct. The length of this array indicates the size of the memory reserved for this struct.*/
-	char reserved[60];
+	char reserved[52];
 }DM_LTSConnectionParameters;
 
 /**
@@ -221,8 +240,32 @@ typedef struct tagDM_LTSConnectionParameters
 */
 #pragma pack(pop)
 
-DBR_API void* DM_CreateImgReference();
+typedef struct tagDMCVPoint
+{
+	/**The X coordinate of the point.*/
+	int x;
 
-DBR_API void DM_DestroyImgReference(void** ref);
+	/**The Y coordinate of the point.*/
+	int y;
+}DMCVPoint;
+
+typedef struct tagDMQuadrilateral
+{
+	/**The four points of the quadrilateral.*/
+	DMCVPoint points[4];
+
+}DMQuadrilateral;
+
+typedef enum DM_ImgDataType
+{
+	DM_IDT_BUFFER,
+	DM_IDT_REFERENCE
+}DM_ImgDataType;
+
+typedef struct tagDMCVImg
+{
+	DM_ImgDataType dataType;
+	void* data;
+} DMCVImg;
 
 #endif
